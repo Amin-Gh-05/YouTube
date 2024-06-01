@@ -5,4 +5,6 @@ module org.project.youtube {
 
     opens org.project.youtube to javafx.fxml;
     exports org.project.youtube;
+    exports org.project.youtube.Controller;
+    opens org.project.youtube.Controller to javafx.fxml;
 }
