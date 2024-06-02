@@ -14,9 +14,9 @@ public class Server {
         this.serverSocket = serverSocket;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         try {
-            ServerSocket serverSocket = new ServerSocket(8080);
+            ServerSocket serverSocket = new ServerSocket(5432);
             Server server = new Server(serverSocket);
             server.runServer();
         } catch (IOException e) {
