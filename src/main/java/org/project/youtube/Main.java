@@ -17,10 +17,10 @@ public class Main extends Application {
         stage.setTitle("YouTube");
         stage.setScene(scene);
         stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/org/project/youtube/images/logo.png"))));
-        stage.setMaxHeight(1080);
         stage.setMaxWidth(1920);
-        stage.setMinHeight(540);
+        stage.setMaxHeight(1080);
         stage.setMinWidth(960);
+        stage.setMinHeight(540);
         stage.show();
     }
 
