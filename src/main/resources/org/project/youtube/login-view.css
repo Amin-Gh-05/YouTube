@@ -1,0 +1,19 @@
+#backGround {
+    -fx-background-color: linear-gradient(rgba(2,0,36,1) 0%, rgba(9,9,121,1) 0%, rgba(0,212,255,1) 100%);
+}
+
+#mainForm {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 0);
+}
+
+.textLabel {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 18px;
+}
+
+#signInTitle {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}

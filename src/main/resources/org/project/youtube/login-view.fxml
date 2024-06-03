@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@login-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Controller.LoginController" />
+
+<Pane id="backGround" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@login-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane id="mainForm" layoutX="271.0" layoutY="60.0" prefHeight="480.0" prefWidth="359.0">
+         <children>
+            <Label id="signInTitle" layoutX="140.0" layoutY="37.0" styleClass="textLabel" text="Sign In" />
+            <Label layoutX="79.0" layoutY="88.0" styleClass="textLabel" text="Be more than just a viewer." />
+         </children>
+      </AnchorPane>
+   </children>
+</Pane>
