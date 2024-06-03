@@ -2,7 +2,7 @@
     font-family: Roboto;
 }
 
-.searchBox {
+#searchBox {
     -fx-padding: 10px;
     -fx-background-radius: 25px;
     -fx-background-color: #f0f0f0;
@@ -13,23 +13,43 @@
     -fx-prompt-text-fill: #aaa;
 }
 
-.searchBox:focused {
+#searchBox:focused {
     -fx-border-color: #e53935;
 }
 
-.searchButton {
+#searchButton {
     -fx-background-color: #e53935;
     -fx-background-radius: 25px;
+    -fx-font-size: 14px;
     -fx-padding: 10px;
     -fx-border: none;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 0);
 }
 
-.searchButton:hover {
+#searchButton:hover {
     -fx-background-color: #d32f2f;
 }
 
-.searchButton:pressed {
+#searchButton:pressed {
+    -fx-background-color: #c63828;
+}
+
+#signInButton {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 25px;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-border-width: 2px;
+    -fx-border-color: #e57373;
+    -fx-border-radius: 25px;
+    -fx-cursor: hand;
+}
+
+#signInButton:hover {
+    -fx-background-color: #d32f2f;
+}
+
+#signInButton:pressed {
     -fx-background-color: #c63828;
 }
