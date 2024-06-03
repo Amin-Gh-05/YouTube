@@ -12,7 +12,7 @@
     -fx-prompt-text-fill: #aaa;
 }
 
-.textField:focused {
+.searchBox:focused {
     -fx-border-color: #e53935;
 }
 
