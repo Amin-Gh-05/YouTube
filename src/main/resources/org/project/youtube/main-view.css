@@ -5,9 +5,10 @@
 .searchBox {
     -fx-padding: 10px;
     -fx-background-radius: 25px;
-    -fx-border-radius: 25px;
     -fx-background-color: #f0f0f0;
+    -fx-border-radius: 25px;
     -fx-border-color: #e57373;
+    -fx-border-width: 2px;
     -fx-font-size: 14px;
     -fx-prompt-text-fill: #aaa;
 }
