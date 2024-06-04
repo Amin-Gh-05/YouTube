@@ -1,15 +1,29 @@
 package org.project.youtube.Controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.image.Image;
-import javafx.scene.layout.*;
-
-import java.net.URL;
-import java.util.ResourceBundle;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
 public class LoginController {
 
     @FXML
-    private StackPane backGround;
+    private Button SignUpButton;
+    @FXML
+    private PasswordField passWord;
+    @FXML
+    private Button signInButton;
+    @FXML
+    private TextField userName;
+
+    @FXML
+    void signIn(ActionEvent event) {
+
+    }
+
+    @FXML
+    void signUp(ActionEvent event) {
+
+    }
 }

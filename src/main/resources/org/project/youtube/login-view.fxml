@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-
-<Pane id="backGround" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@login-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<Pane id="backGround" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@login-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Controller.LoginController">
    <children>
-      <AnchorPane id="mainForm" layoutX="271.0" layoutY="60.0" prefHeight="480.0" prefWidth="359.0">
+      <AnchorPane id="mainForm" layoutX="150.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="360.0">
          <children>
-            <Label id="signInTitle" layoutX="140.0" layoutY="37.0" styleClass="textLabel" text="Sign In" />
-            <Label layoutX="79.0" layoutY="88.0" styleClass="textLabel" text="Be more than just a viewer." />
+            <Label id="signInTitle" layoutX="30.0" layoutY="34.0" styleClass="textLabel" text="Sign In" />
+            <Label layoutX="30.0" layoutY="88.0" styleClass="textLabel" text="Be more than just a viewer." />
+            <TextField fx:id="userName" layoutX="30.0" layoutY="187.0" promptText="Username or Email" styleClass="inputBox" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
+            <PasswordField fx:id="passWord" layoutX="30.0" layoutY="254.0" promptText="Password" styleClass="inputBox" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
+            <Button fx:id="signInButton" layoutX="72.0" layoutY="344.0" mnemonicParsing="false" onAction="#signIn" styleClass="actionButton" text="Sign In" AnchorPane.leftAnchor="72.0" />
+            <Button fx:id="SignUpButton" layoutX="225.0" layoutY="344.0" mnemonicParsing="false" onAction="#signUp" styleClass="actionButton" text="Sign Up" AnchorPane.rightAnchor="72.0" />
          </children>
       </AnchorPane>
+      <ImageView id="sideLogo" fitHeight="157.0" fitWidth="156.0" layoutX="646.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/logo-black.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>

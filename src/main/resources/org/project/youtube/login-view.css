@@ -1,5 +1,6 @@
 #backGround {
-    -fx-background-color: linear-gradient(rgba(2,0,36,1) 0%, rgba(9,9,121,1) 0%, rgba(0,212,255,1) 100%);
+    -fx-background-color: linear-gradient(to right top, #000000, #420f1d, #820327, #c20023, #ff0000);
+    -fx-font-family: Avantgarde;
 }
 
 #mainForm {
@@ -9,11 +10,44 @@
 }
 
 .textLabel {
-    -fx-font-family: Helvetica;
     -fx-font-size: 18px;
 }
 
 #signInTitle {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
+}
+
+.inputBox {
+    -fx-padding: 10px;
+    -fx-background-radius: 25px;
+    -fx-background-color: #f0f0f0;
+    -fx-border-radius: 25px;
+    -fx-border-color: #e32636;
+    -fx-font-size: 14px;
+}
+
+.actionButton {
+    -fx-padding: 10px;
+    -fx-background-radius: 25px;
+    -fx-background-color: #f5f5f5;
+    -fx-border-radius: 25px;
+    -fx-border-color: #e32636;
+    -fx-font-size: 14px;
+}
+
+.actionButton:hover {
+    -fx-background-color: #e32636;
+}
+
+.actionButton:pressed {
+    -fx-background-color: #ba0021;
+    -fx-border-color: #ba0021;
+}
+
+#sideLogo {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 0);
+    -fx-rotate: -10deg;
+    -fx-translate-z: 20px;
+    -fx-perspective: 1000px;
 }

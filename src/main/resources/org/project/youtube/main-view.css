@@ -1,5 +1,5 @@
-@font-face {
-    font-family: Roboto;
+#mainPanel {
+    -fx-font-family: Roboto, Arial;
 }
 
 #searchBox {
@@ -7,18 +7,17 @@
     -fx-background-radius: 25px;
     -fx-background-color: #f0f0f0;
     -fx-border-radius: 25px;
-    -fx-border-color: #e57373;
-    -fx-border-width: 2px;
+    -fx-border-color: #ff2400;
     -fx-font-size: 14px;
     -fx-prompt-text-fill: #aaa;
 }
 
 #searchBox:focused {
-    -fx-border-color: #e53935;
+    -fx-border-color: #f40009;
 }
 
 #searchButton {
-    -fx-background-color: #e53935;
+    -fx-background-color: #ff2400;
     -fx-background-radius: 25px;
     -fx-font-size: 14px;
     -fx-padding: 10px;
@@ -28,11 +27,11 @@
 }
 
 #searchButton:hover {
-    -fx-background-color: #d32f2f;
+    -fx-background-color: #f40009;
 }
 
 #searchButton:pressed {
-    -fx-background-color: #c63828;
+    -fx-background-color: #d2122e;
 }
 
 #signInButton {
@@ -40,16 +39,16 @@
     -fx-background-radius: 25px;
     -fx-font-size: 14px;
     -fx-padding: 10px;
-    -fx-border-width: 2px;
-    -fx-border-color: #e57373;
+    -fx-border-color: #ff2400;
     -fx-border-radius: 25px;
     -fx-cursor: hand;
 }
 
 #signInButton:hover {
-    -fx-background-color: #d32f2f;
+    -fx-background-color: #ff2400;
 }
 
 #signInButton:pressed {
-    -fx-background-color: #c63828;
+    -fx-background-color: #d2122e;
+    -fx-border-color: #d2122e;
 }
