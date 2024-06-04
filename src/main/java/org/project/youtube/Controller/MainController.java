@@ -23,12 +23,16 @@ public class MainController implements Initializable {
 
     @FXML
     private ImageView mainLogo;
+
     @FXML
     private TextField searchBox;
+
     @FXML
     private Button searchButton;
+
     @FXML
     private VBox sideBarBox;
+
     @FXML
     private Button signInButton;
 

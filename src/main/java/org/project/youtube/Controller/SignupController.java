@@ -45,5 +45,4 @@ public class SignupController {
     void signUp(ActionEvent event) {
 
     }
-
 }

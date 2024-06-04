@@ -18,10 +18,13 @@ public class LoginController {
 
     @FXML
     private Button SignUpButton;
+
     @FXML
     private PasswordField passWord;
+
     @FXML
     private Button signInButton;
+
     @FXML
     private TextField userName;
 
