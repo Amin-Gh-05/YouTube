@@ -36,10 +36,16 @@ public class LoginController {
     @FXML
     void signUp(ActionEvent event) throws IOException {
         // change scene to signup panel
+        Stage loginStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        Stage signupStage = new Stage();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/project/youtube/signup-view.fxml")));
         Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
+        signupStage.setScene(scene);
+
         System.out.println("| redirect to signup panel");
+
+        signupStage.show();
+        loginStage.close();
     }
 }

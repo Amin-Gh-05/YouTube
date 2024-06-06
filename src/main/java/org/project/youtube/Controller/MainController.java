@@ -36,6 +36,9 @@ public class MainController implements Initializable {
     @FXML
     private Button signInButton;
 
+    @FXML
+    static Stage mainStage;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -54,11 +57,17 @@ public class MainController implements Initializable {
     @FXML
     void signIn(ActionEvent event) throws IOException {
         // change scene to login panel
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/project/youtube/signup-view.fxml")));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // to have access in login and signup stage
+
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/project/youtube/login-view.fxml")));
+        Stage stage = new Stage();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(false);
+        stage.centerOnScreen();
+        mainStage.hide();
+        stage.show();
+
         System.out.println("| redirect to login panel");
     }
 }
