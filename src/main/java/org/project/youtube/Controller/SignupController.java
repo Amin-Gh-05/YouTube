@@ -32,10 +32,13 @@ public class SignupController {
     private TextField userName;
 
     @FXML
-    void signIn(ActionEvent event) throws IOException {
-        // change scene to login panel
-        Stage signupStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    private Button returnButton;
 
+    @FXML
+    void signIn(ActionEvent event) throws IOException {
+        // get current stage
+        Stage signupStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        // run a new stage and replace the page
         Stage loginStage = new Stage();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/project/youtube/login-view.fxml")));
         Scene scene = new Scene(root);
@@ -50,5 +53,16 @@ public class SignupController {
     @FXML
     void signUp(ActionEvent event) {
 
+    }
+
+    @FXML
+    void turnBack(ActionEvent event) {
+        // get current stage
+        Stage signupStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        // restore the main page
+        signupStage.close();
+        MainController.mainStage.show();
+
+        System.out.println("| redirect to main panel");
     }
 }

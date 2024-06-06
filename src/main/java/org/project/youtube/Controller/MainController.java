@@ -56,15 +56,18 @@ public class MainController implements Initializable {
 
     @FXML
     void signIn(ActionEvent event) throws IOException {
-        // change scene to login panel
-        mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // to have access in login and signup stage
-
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/project/youtube/login-view.fxml")));
+        // get current stage
+        mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        // load fxml of login page
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/login-view.fxml"));
+        Parent root = loader.load();
+        // create a new stage and show it
         Stage stage = new Stage();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.centerOnScreen();
+        // hide this page and open the sign in panel
         mainStage.hide();
         stage.show();
 
