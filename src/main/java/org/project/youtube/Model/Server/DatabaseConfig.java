@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class DataBaseConfig {
+public class DatabaseConfig {
     private static final Properties prop = new Properties();
 
     static {
-        try (InputStream in = DataBaseConfig.class.getClassLoader().getResourceAsStream("config.properties")) {
+        try (InputStream in = DatabaseConfig.class.getClassLoader().getResourceAsStream("config.properties")) {
             if (in == null) {
                 System.out.println("No config file found");
             }

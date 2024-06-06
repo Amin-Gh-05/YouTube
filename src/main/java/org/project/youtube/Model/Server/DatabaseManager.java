@@ -4,10 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DataBaseManager {
-    private static final String JDBC_URL = DataBaseConfig.getUrl();
-    private static final String USERNAME = DataBaseConfig.getUser();
-    private static final String PASSWORD = DataBaseConfig.getPassword();
+public class DatabaseManager {
+    private static final String JDBC_URL = DatabaseConfig.getUrl();
+    private static final String USERNAME = DatabaseConfig.getUser();
+    private static final String PASSWORD = DatabaseConfig.getPassword();
 
     private static Connection connect() {
         try {
