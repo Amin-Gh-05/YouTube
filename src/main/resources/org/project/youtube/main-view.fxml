@@ -64,6 +64,6 @@
       </FlowPane>
    </center>
    <left>
-      <VBox prefHeight="640.0" prefWidth="243.0" BorderPane.alignment="CENTER" />
+      <VBox prefHeight="640.0" prefWidth="249.0" BorderPane.alignment="CENTER" />
    </left>
 </BorderPane>

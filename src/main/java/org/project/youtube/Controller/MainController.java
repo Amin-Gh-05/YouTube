@@ -31,10 +31,10 @@ public class MainController implements Initializable {
     private Button searchButton;
 
     @FXML
-    private VBox sideBarBox;
+    private Button signInButton;
 
     @FXML
-    private Button signInButton;
+    private Button moreButton;
 
     @FXML
     static Stage mainStage;
