@@ -4,18 +4,22 @@ import java.util.List;
 import java.util.UUID;
 
 public class Playlist {
-    UUID id;
-    String name;
-    String channelHandle;
-    List<Video> videos;
-    List<Short> shorts;
+    private UUID id;
+    private String name;
+    private String channelHandle;
+    private String description;
+    private List<Video> videos;
+    private List<Short> shorts;
+    private byte[] image;
 
-    public Playlist(UUID id, String name, String channelHandle, List<Video> videos, List<Short> shorts) {
+    public Playlist(List<Video> videos, UUID id, String name, String channelHandle, String description, List<Short> shorts, byte[] image) {
+        this.videos = videos;
         this.id = id;
         this.name = name;
         this.channelHandle = channelHandle;
-        this.videos = videos;
+        this.description = description;
         this.shorts = shorts;
+        this.image = image;
     }
 
     public UUID getId() {
@@ -42,6 +46,14 @@ public class Playlist {
         this.channelHandle = channelHandle;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public List<Video> getVideos() {
         return videos;
     }
@@ -56,5 +68,13 @@ public class Playlist {
 
     public void setShorts(List<Short> shorts) {
         this.shorts = shorts;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }

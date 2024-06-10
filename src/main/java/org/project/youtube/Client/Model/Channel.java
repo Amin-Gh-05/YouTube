@@ -1,31 +1,33 @@
 package org.project.youtube.Client.Model;
 
-import javafx.scene.image.Image;
+import org.project.youtube.Server.Model.YID;
+
+import java.time.LocalDateTime;
 
 public class Channel {
-    String handle;
-    String name;
-    YID ownerYID;
-    String description;
-    String createdDateTime;
-    int views;
-    int subscribers;
-    Image logo;
-    Image banner;
+    private String handle;
+    private String name;
+    private org.project.youtube.Server.Model.YID ownerYID;
+    private String description;
+    private LocalDateTime createdDateTime;
+    private int views;
+    private int subscribers;
+    private byte[] logo;
+    private byte[] banner;
 
-    // Links
-    String website;
-    String email;
-    String facebook;
-    String instagram;
-    String X;
-    String telegram;
-    String tiktok;
-    String discord;
-    String linkedin;
-    String reddit;
+    // links
+    private String website;
+    private String email;
+    private String facebook;
+    private String instagram;
+    private String X;
+    private String telegram;
+    private String tiktok;
+    private String discord;
+    private String linkedin;
+    private String reddit;
 
-    public Channel(String handle, String name, YID ownerYID, String description, String createdDateTime, int views, int subscribers, Image logo, Image banner, String website, String email, String facebook, String instagram, String x, String telegram, String tiktok, String discord, String linkedin, String reddit) {
+    public Channel(String handle, String name, org.project.youtube.Server.Model.YID ownerYID, String description, LocalDateTime createdDateTime, int views, int subscribers, byte[] logo, byte[] banner, String website, String email, String facebook, String instagram, String x, String telegram, String tiktok, String discord, String linkedin, String reddit) {
         this.handle = handle;
         this.name = name;
         this.ownerYID = ownerYID;
@@ -35,6 +37,8 @@ public class Channel {
         this.subscribers = subscribers;
         this.logo = logo;
         this.banner = banner;
+
+        // links
         this.website = website;
         this.email = email;
         this.facebook = facebook;
@@ -63,7 +67,7 @@ public class Channel {
         this.name = name;
     }
 
-    public YID getOwnerYID() {
+    public org.project.youtube.Server.Model.YID getOwnerYID() {
         return ownerYID;
     }
 
@@ -79,11 +83,11 @@ public class Channel {
         this.description = description;
     }
 
-    public String getCreatedDateTime() {
+    public LocalDateTime getCreatedDateTime() {
         return createdDateTime;
     }
 
-    public void setCreatedDateTime(String createdDateTime) {
+    public void setCreatedDateTime(LocalDateTime createdDateTime) {
         this.createdDateTime = createdDateTime;
     }
 
@@ -103,19 +107,19 @@ public class Channel {
         this.subscribers = subscribers;
     }
 
-    public Image getLogo() {
+    public byte[] getLogo() {
         return logo;
     }
 
-    public void setLogo(Image logo) {
+    public void setLogo(byte[] logo) {
         this.logo = logo;
     }
 
-    public Image getBanner() {
+    public byte[] getBanner() {
         return banner;
     }
 
-    public void setBanner(Image banner) {
+    public void setBanner(byte[] banner) {
         this.banner = banner;
     }
 
@@ -194,8 +198,8 @@ public class Channel {
     public String getReddit() {
         return reddit;
     }
+
     public void setReddit(String reddit) {
         this.reddit = reddit;
     }
-
 }

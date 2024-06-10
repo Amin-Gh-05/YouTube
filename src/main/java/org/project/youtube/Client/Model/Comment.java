@@ -1,22 +1,31 @@
 package org.project.youtube.Client.Model;
 
+import org.project.youtube.Server.Model.YID;
+
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Comment {
-    UUID id;
-    UUID videoID; // video or short ID
-    YID writerYID;
-    String comment;
-    int like;
-    UUID replyOnID;
+    private UUID id;
+    private UUID videoID; // video or short ID
+    private org.project.youtube.Server.Model.YID writerYID;
+    private String comment;
+    private int like;
+    private UUID replyOnID;
+    private LocalDateTime createdDateTime;
+    private boolean isLiked;
+    private boolean isDisliked;
 
-    public Comment(UUID id, UUID videoID, YID writerYID, String comment, int like, UUID replyOnID) {
+    public Comment(UUID id, UUID videoID, org.project.youtube.Server.Model.YID writerYID, String comment, int like, UUID replyOnID, LocalDateTime createdDateTime, boolean isLiked, boolean isDisliked) {
         this.id = id;
         this.videoID = videoID;
         this.writerYID = writerYID;
         this.comment = comment;
         this.like = like;
         this.replyOnID = replyOnID;
+        this.createdDateTime = createdDateTime;
+        this.isLiked = isLiked;
+        this.isDisliked = isDisliked;
     }
 
     public UUID getId() {
@@ -35,7 +44,7 @@ public class Comment {
         this.videoID = videoID;
     }
 
-    public YID getWriterYID() {
+    public org.project.youtube.Server.Model.YID getWriterYID() {
         return writerYID;
     }
 
@@ -65,5 +74,29 @@ public class Comment {
 
     public void setReplyOnID(UUID replyOnID) {
         this.replyOnID = replyOnID;
+    }
+
+    public LocalDateTime getCreatedDateTime() {
+        return createdDateTime;
+    }
+
+    public void setCreatedDateTime(LocalDateTime createdDateTime) {
+        this.createdDateTime = createdDateTime;
+    }
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
+    }
+
+    public boolean isDisliked() {
+        return isDisliked;
+    }
+
+    public void setDisliked(boolean disliked) {
+        isDisliked = disliked;
     }
 }

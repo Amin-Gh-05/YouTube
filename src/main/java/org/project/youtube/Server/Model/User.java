@@ -2,31 +2,36 @@ package org.project.youtube.Server.Model;
 
 import javafx.scene.image.Image;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class User {
-    YID yid;
-    String username;
-    String email;
-    String password;
+    private YID yid;
+    private String username;
+    private String email;
+    private String password;
 
-    // Personal Info
-    String firstName;
-    String lastName;
-    String region;
-    String dateOfBirth;
-    String joinedDateTime;
-    String gender;
-    Image profilePic;
+    // personal info
+    private String firstName;
+    private String lastName;
+    private String region;
+    private LocalDate dateOfBirth;
+    private LocalDate joinedDate;
+    private String gender;
+    private byte[] profilePic;
 
-    public User(YID yid, String username, String email, String password, String firstName, String lastName, String region, String dateOfBirth, String joinedDateTime, String gender, Image profilePic) {
+    public User(YID yid, String username, String email, String password, String firstName, String lastName, String region, LocalDate dateOfBirth, LocalDate joinedDate, String gender, byte[] profilePic) {
         this.yid = yid;
         this.username = username;
         this.email = email;
         this.password = password;
+
+        // personal info
         this.firstName = firstName;
         this.lastName = lastName;
         this.region = region;
         this.dateOfBirth = dateOfBirth;
-        this.joinedDateTime = joinedDateTime;
+        this.joinedDate = joinedDate;
         this.gender = gender;
         this.profilePic = profilePic;
     }
@@ -87,20 +92,20 @@ public class User {
         this.region = region;
     }
 
-    public String getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getJoinedDateTime() {
-        return joinedDateTime;
+    public LocalDate getJoinedDate() {
+        return joinedDate;
     }
 
-    public void setJoinedDateTime(String joinedDateTime) {
-        this.joinedDateTime = joinedDateTime;
+    public void setJoinedDate(LocalDate joinedDate) {
+        this.joinedDate = joinedDate;
     }
 
     public String getGender() {
@@ -111,11 +116,11 @@ public class User {
         this.gender = gender;
     }
 
-    public Image getProfilePic() {
+    public byte[] getProfilePic() {
         return profilePic;
     }
 
-    public void setProfilePic(Image profilePic) {
+    public void setProfilePic(byte[] profilePic) {
         this.profilePic = profilePic;
     }
 }
