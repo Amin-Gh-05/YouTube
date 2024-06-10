@@ -16,8 +16,9 @@ public class Video {
     private boolean isDisliked;
     private boolean isAgeRestricted;
     private List<String> tags;
+    private byte[] thumbnail;
 
-    public Video(UUID id, String title, String description, String duration, LocalDateTime createdDateTime, int likes, List<Comment> comments, boolean isLiked, boolean isDisliked, boolean isAgeRestricted) {
+    public Video(UUID id, String title, String description, String duration, LocalDateTime createdDateTime, int likes, List<Comment> comments, boolean isLiked, boolean isDisliked, boolean isAgeRestricted, byte[] thumbnail) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -28,6 +29,7 @@ public class Video {
         this.isLiked = isLiked;
         this.isDisliked = isDisliked;
         this.isAgeRestricted = isAgeRestricted;
+        this.thumbnail = thumbnail;
     }
 
     public Video(UUID id, String title, String description, String duration, LocalDateTime createdDateTime, int likes, List<Comment> comments, boolean isLiked, boolean isDisliked, boolean isAgeRestricted, List<String> tags) {
@@ -130,5 +132,13 @@ public class Video {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public byte[] getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(byte[] thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }

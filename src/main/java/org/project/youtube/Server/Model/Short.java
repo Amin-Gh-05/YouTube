@@ -15,8 +15,9 @@ public class Short {
     private boolean isDisliked;
     private boolean isAgeRestricted;
     private List<String> tags;
+    private byte[] thumbnail;
 
-    public Short(UUID id, String title, int duration, LocalDateTime createdDateTime, int likes, List<Comment> comments, boolean isLiked, boolean isDisliked, boolean isAgeRestricted) {
+    public Short(UUID id, String title, int duration, LocalDateTime createdDateTime, int likes, List<Comment> comments, boolean isLiked, boolean isDisliked, boolean isAgeRestricted, byte[] thumbnail) {
         this.id = id;
         this.title = title;
         this.duration = duration;
@@ -26,6 +27,7 @@ public class Short {
         this.isLiked = isLiked;
         this.isDisliked = isDisliked;
         this.isAgeRestricted = isAgeRestricted;
+        this.thumbnail = thumbnail;
     }
 
     public Short(UUID id, String title, int duration, LocalDateTime createdDateTime, int likes, List<Comment> comments, boolean isLiked, boolean isDisliked, boolean isAgeRestricted, List<String> tags) {
@@ -119,5 +121,13 @@ public class Short {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public byte[] getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(byte[] thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }

@@ -25,8 +25,8 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 application {
-    mainModule = 'org.project.youtube'
-    mainClass = 'org.project.youtube.HelloApplication'
+    mainModule = 'org.project.youtube.Client'
+    mainClass = 'org.project.youtube.Client.Main'
 }
 
 javafx {

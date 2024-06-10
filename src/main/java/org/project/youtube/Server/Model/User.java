@@ -10,6 +10,7 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private boolean isPremium;
 
     // personal info
     private String firstName;
@@ -20,11 +21,12 @@ public class User {
     private String gender;
     private byte[] profilePic;
 
-    public User(YID yid, String username, String email, String password, String firstName, String lastName, String region, LocalDate dateOfBirth, LocalDate joinedDate, String gender, byte[] profilePic) {
+    public User(YID yid, String username, String email, String password, String firstName, String lastName, String region, LocalDate dateOfBirth, LocalDate joinedDate, String gender, byte[] profilePic, boolean isPremium) {
         this.yid = yid;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.isPremium = isPremium;
 
         // personal info
         this.firstName = firstName;
@@ -122,5 +124,13 @@ public class User {
 
     public void setProfilePic(byte[] profilePic) {
         this.profilePic = profilePic;
+    }
+
+    public boolean isPremium() {
+        return isPremium;
+    }
+
+    public void setPremium(boolean premium) {
+        isPremium = premium;
     }
 }

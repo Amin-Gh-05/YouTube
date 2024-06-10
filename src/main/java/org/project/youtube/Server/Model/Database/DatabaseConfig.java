@@ -1,4 +1,4 @@
-package org.project.youtube.Server.Model.Network;
+package org.project.youtube.Server.Model.Database;
 
 import java.io.IOException;
 import java.io.InputStream;
