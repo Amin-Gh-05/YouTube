@@ -1,4 +1,4 @@
-package org.project.youtube.Client.Model;
+package org.project.youtube.Server.Model.Network;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

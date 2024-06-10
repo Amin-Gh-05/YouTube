@@ -1,6 +1,6 @@
 package org.project.youtube.Server;
 
-import org.project.youtube.Server.Model.ClientHandler;
+import org.project.youtube.Server.Model.Network.ClientHandler;
 
 import java.io.IOException;
 import java.net.ServerSocket;
