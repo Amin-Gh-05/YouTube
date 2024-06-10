@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="backGround" prefHeight="600.0" prefWidth="900.0" stylesheets="@signup-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Controller.SignupController">
+<AnchorPane id="backGround" prefHeight="600.0" prefWidth="900.0" stylesheets="@signup-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.SignupController">
    <children>
       <AnchorPane id="mainForm" layoutX="114.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="360.0" AnchorPane.rightAnchor="120.0">
          <children>

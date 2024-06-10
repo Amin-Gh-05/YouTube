@@ -4,8 +4,8 @@ module org.project.youtube {
     requires java.sql;
 
 
-    opens org.project.youtube to javafx.fxml;
-    exports org.project.youtube;
-    exports org.project.youtube.Controller;
-    opens org.project.youtube.Controller to javafx.fxml;
+    exports org.project.youtube.Client.Controller;
+    opens org.project.youtube.Client.Controller to javafx.fxml;
+    exports org.project.youtube.Client;
+    opens org.project.youtube.Client to javafx.fxml;
 }

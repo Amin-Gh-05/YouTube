@@ -1,11 +1,11 @@
-package org.project.youtube.Model.Server;
+package org.project.youtube.Client.Model;
 
 import java.net.Socket;
 
 public class ClientHandler implements Runnable {
     Socket socket;
 
-    ClientHandler(Socket socket) {
+    public ClientHandler(Socket socket) {
         this.socket = socket;
     }
 

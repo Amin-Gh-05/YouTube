@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="mainPanel" maxHeight="1080.0" maxWidth="1920.0" minHeight="540.0" minWidth="960.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@main-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Controller.MainController">
+<BorderPane id="mainPanel" maxHeight="1080.0" maxWidth="1920.0" minHeight="540.0" minWidth="960.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@main-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.MainController">
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>

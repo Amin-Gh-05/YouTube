@@ -1,11 +1,11 @@
-package org.project.youtube;
+package org.project.youtube.Client;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-//import org.project.youtube.Model.YID;
+//import org.project.youtube.Server.Model.YID;
 
 import java.io.IOException;
 import java.util.Objects;

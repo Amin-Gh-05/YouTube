@@ -1,4 +1,4 @@
-package org.project.youtube.Model;
+package org.project.youtube.Server.Model;
 
 public class YID {
     private char[] YID;

@@ -1,4 +1,4 @@
-package org.project.youtube.Controller;
+package org.project.youtube.Client.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

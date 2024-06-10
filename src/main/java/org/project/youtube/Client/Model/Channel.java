@@ -1,4 +1,4 @@
-package org.project.youtube.Model;
+package org.project.youtube.Client.Model;
 
 import javafx.scene.image.Image;
 

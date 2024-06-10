@@ -1,4 +1,4 @@
-package org.project.youtube.Model;
+package org.project.youtube.Server.Model;
 
 import java.util.List;
 import java.util.UUID;
