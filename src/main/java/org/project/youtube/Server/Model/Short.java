@@ -16,8 +16,9 @@ public class Short {
     private boolean isAgeRestricted;
     private List<String> tags;
     private byte[] thumbnail;
+    private String shortHandle;
 
-    public Short(UUID id, String title, int duration, LocalDateTime createdDateTime, int likes, List<Comment> comments, boolean isLiked, boolean isDisliked, boolean isAgeRestricted, byte[] thumbnail) {
+    public Short(UUID id, String title, int duration, LocalDateTime createdDateTime, int likes, List<Comment> comments, boolean isLiked, boolean isDisliked, boolean isAgeRestricted, byte[] thumbnail, String shortHandle) {
         this.id = id;
         this.title = title;
         this.duration = duration;
@@ -28,9 +29,10 @@ public class Short {
         this.isDisliked = isDisliked;
         this.isAgeRestricted = isAgeRestricted;
         this.thumbnail = thumbnail;
+        this.shortHandle = shortHandle;
     }
 
-    public Short(UUID id, String title, int duration, LocalDateTime createdDateTime, int likes, List<Comment> comments, boolean isLiked, boolean isDisliked, boolean isAgeRestricted, List<String> tags) {
+    public Short(UUID id, String title, int duration, LocalDateTime createdDateTime, int likes, List<Comment> comments, boolean isLiked, boolean isDisliked, boolean isAgeRestricted, List<String> tags, byte[] thumbnail, String shortHandle) {
         this.id = id;
         this.title = title;
         this.duration = duration;
@@ -41,6 +43,8 @@ public class Short {
         this.isDisliked = isDisliked;
         this.isAgeRestricted = isAgeRestricted;
         this.tags = tags;
+        this.thumbnail = thumbnail;
+        this.shortHandle = shortHandle;
     }
 
     public UUID getId() {
@@ -129,5 +133,13 @@ public class Short {
 
     public void setThumbnail(byte[] thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    public String getShortHandle() {
+        return shortHandle;
+    }
+
+    public void setShortHandle(String shortHandle) {
+        this.shortHandle = shortHandle;
     }
 }
