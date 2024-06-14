@@ -3,6 +3,7 @@ module org.project.youtube {
     requires javafx.fxml;
     requires java.sql;
     requires org.postgresql.jdbc;
+    requires org.json;
 
 
     exports org.project.youtube.Client.Controller;
