@@ -29,7 +29,10 @@ public class Channel {
     private String linkedin;
     private String reddit;
 
-    public Channel(String handle, String name, YID ownerYID, String description, LocalDateTime createdDateTime, int views, int subscribers, byte[] logo, byte[] banner, String website, String email, String facebook, String instagram, String x, String telegram, String tiktok, String discord, String linkedin, String reddit, List<Video> videos, List<Short> shorts, List<Playlist> playlists) {
+    public Channel(String handle, String name, YID ownerYID, String description, LocalDateTime createdDateTime, int views,
+                   int subscribers, byte[] logo, byte[] banner, String website, String email, String facebook, String instagram,
+                   String x, String telegram, String tiktok, String discord, String linkedin, String reddit, List<Video> videos,
+                   List<Short> shorts, List<Playlist> playlists) {
         this.handle = handle;
         this.name = name;
         this.ownerYID = ownerYID;

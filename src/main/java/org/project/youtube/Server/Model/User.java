@@ -21,7 +21,8 @@ public class User {
     private String gender;
     private byte[] profilePic;
 
-    public User(YID yid, String username, String email, String password, String firstName, String lastName, String region, LocalDate dateOfBirth, LocalDate joinedDate, String gender, byte[] profilePic, boolean isPremium) {
+    public User(YID yid, String username, String email, String password, String firstName, String lastName, String region,
+                LocalDate dateOfBirth, LocalDate joinedDate, String gender, byte[] profilePic, boolean isPremium) {
         this.yid = yid;
         this.username = username;
         this.email = email;

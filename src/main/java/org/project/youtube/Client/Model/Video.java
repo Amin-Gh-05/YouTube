@@ -12,12 +12,13 @@ public class Video {
     private LocalDateTime createdDateTime;
     private int likes;
     private List<Comment> comments;
-    private boolean isLiked;
-    private boolean isDisliked;
     private boolean isAgeRestricted;
     private List<String> tags;
+    private byte[] thumbnail;
+    private String videoHandle;
 
-    public Video(UUID id, String title, String description, String duration, LocalDateTime createdDateTime, int likes, List<Comment> comments, boolean isLiked, boolean isDisliked, boolean isAgeRestricted) {
+    public Video(UUID id, String title, String description, String duration, LocalDateTime createdDateTime, int likes,
+                 List<Comment> comments, boolean isAgeRestricted, byte[] thumbnail, String videoHandle) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -25,12 +26,13 @@ public class Video {
         this.createdDateTime = createdDateTime;
         this.likes = likes;
         this.comments = comments;
-        this.isLiked = isLiked;
-        this.isDisliked = isDisliked;
         this.isAgeRestricted = isAgeRestricted;
+        this.thumbnail = thumbnail;
+        this.videoHandle = videoHandle;
     }
 
-    public Video(UUID id, String title, String description, String duration, LocalDateTime createdDateTime, int likes, List<Comment> comments, boolean isLiked, boolean isDisliked, boolean isAgeRestricted, List<String> tags) {
+    public Video(UUID id, String title, String description, String duration, LocalDateTime createdDateTime, int likes,
+                 List<Comment> comments, boolean isAgeRestricted, List<String> tags, byte[] thumbnail, String videoHandle) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -38,10 +40,10 @@ public class Video {
         this.createdDateTime = createdDateTime;
         this.likes = likes;
         this.comments = comments;
-        this.isLiked = isLiked;
-        this.isDisliked = isDisliked;
         this.isAgeRestricted = isAgeRestricted;
         this.tags = tags;
+        this.thumbnail = thumbnail;
+        this.videoHandle = videoHandle;
     }
 
     public UUID getId() {
@@ -100,22 +102,6 @@ public class Video {
         this.comments = comments;
     }
 
-    public boolean isLiked() {
-        return isLiked;
-    }
-
-    public void setLiked(boolean liked) {
-        isLiked = liked;
-    }
-
-    public boolean isDisliked() {
-        return isDisliked;
-    }
-
-    public void setDisliked(boolean disliked) {
-        isDisliked = disliked;
-    }
-
     public boolean isAgeRestricted() {
         return isAgeRestricted;
     }
@@ -130,5 +116,21 @@ public class Video {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public byte[] getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(byte[] thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public String getVideoHandle() {
+        return videoHandle;
+    }
+
+    public void setVideoHandle(String videoHandle) {
+        this.videoHandle = videoHandle;
     }
 }
