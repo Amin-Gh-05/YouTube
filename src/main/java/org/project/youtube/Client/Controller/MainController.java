@@ -57,7 +57,7 @@ public class MainController implements Initializable {
         // get current stage
         mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         // load fxml of login page
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/login-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/login-view.fxml"));
         Parent root = loader.load();
         // create a new stage and show it
         Stage stage = new Stage();

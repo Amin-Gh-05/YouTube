@@ -9,27 +9,25 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ServerMain {
-    ExecutorService pool = Executors.newFixedThreadPool(10);
-    ServerSocket serverSocket;
-
-    ServerMain(ServerSocket serverSocket) {
-        this.serverSocket = serverSocket;
-    }
+    private static final ExecutorService pool = Executors.newFixedThreadPool(10);
+    private static ServerSocket serverSocket;
+    private static ServerSocket serverFileTransferSocket;
 
     public static void main(String[] args) {
         try {
-            ServerSocket serverSocket = new ServerSocket(5432);
-            ServerMain server = new ServerMain(serverSocket);
-            server.runServer();
+            serverSocket = new ServerSocket(5431);
+            serverFileTransferSocket = new ServerSocket(5430);
+            runServer();
         } catch (IOException e) {
             System.out.println("| " + e.getMessage());
         }
     }
 
-    private void runServer() throws IOException {
+    private static void runServer() throws IOException {
         while (!serverSocket.isClosed()) {
             Socket socket = serverSocket.accept();
             System.out.println("| new client connected");
+            // TODO Downloader
 
             // create a thread for each client
             Thread thread = new Thread(new ClientHandler(socket));
@@ -39,9 +37,10 @@ public class ServerMain {
         stopServer();
     }
 
-    private void stopServer() throws IOException {
+    private static void stopServer() throws IOException {
         if (serverSocket != null) {
             serverSocket.close();
+            serverFileTransferSocket.close();
         }
         pool.shutdown();
     }

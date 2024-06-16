@@ -1,9 +1,12 @@
-package org.project.youtube.Client.Controller;
+package org.project.youtube.Client.Model.Network;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 public class Request {
-    public static void login(String username, String password){
+
+    public static void login(String username, String password) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "login");
 
@@ -13,5 +16,7 @@ public class Request {
 
         jsonObject.put("reqData", data);
 
+        Client.sendRequest(jsonObject.toString());
     }
+
 }

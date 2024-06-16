@@ -40,7 +40,7 @@ public class SignupController {
         Stage signupStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         // run a new stage and replace the page
         Stage loginStage = new Stage();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/project/youtube/login-view.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/project/youtube/Client/login-view.fxml")));
         Scene scene = new Scene(root);
         loginStage.setScene(scene);
 
