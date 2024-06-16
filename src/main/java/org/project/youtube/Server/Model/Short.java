@@ -11,36 +11,32 @@ public class Short {
     private LocalDateTime createdDateTime;
     private int likes;
     private List<Comment> comments;
-    private boolean isLiked;
-    private boolean isDisliked;
     private boolean isAgeRestricted;
     private List<String> tags;
     private byte[] thumbnail;
     private String shortHandle;
 
-    public Short(UUID id, String title, int duration, LocalDateTime createdDateTime, int likes, List<Comment> comments, boolean isLiked, boolean isDisliked, boolean isAgeRestricted, byte[] thumbnail, String shortHandle) {
+    public Short(UUID id, String title, int duration, LocalDateTime createdDateTime, int likes, List<Comment> comments,
+                 boolean isAgeRestricted, byte[] thumbnail, String shortHandle) {
         this.id = id;
         this.title = title;
         this.duration = duration;
         this.createdDateTime = createdDateTime;
         this.likes = likes;
         this.comments = comments;
-        this.isLiked = isLiked;
-        this.isDisliked = isDisliked;
         this.isAgeRestricted = isAgeRestricted;
         this.thumbnail = thumbnail;
         this.shortHandle = shortHandle;
     }
 
-    public Short(UUID id, String title, int duration, LocalDateTime createdDateTime, int likes, List<Comment> comments, boolean isLiked, boolean isDisliked, boolean isAgeRestricted, List<String> tags, byte[] thumbnail, String shortHandle) {
+    public Short(UUID id, String title, int duration, LocalDateTime createdDateTime, int likes, List<Comment> comments,
+                 boolean isAgeRestricted, List<String> tags, byte[] thumbnail, String shortHandle) {
         this.id = id;
         this.title = title;
         this.duration = duration;
         this.createdDateTime = createdDateTime;
         this.likes = likes;
         this.comments = comments;
-        this.isLiked = isLiked;
-        this.isDisliked = isDisliked;
         this.isAgeRestricted = isAgeRestricted;
         this.tags = tags;
         this.thumbnail = thumbnail;
@@ -93,22 +89,6 @@ public class Short {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
-    }
-
-    public boolean isLiked() {
-        return isLiked;
-    }
-
-    public void setLiked(boolean liked) {
-        isLiked = liked;
-    }
-
-    public boolean isDisliked() {
-        return isDisliked;
-    }
-
-    public void setDisliked(boolean disliked) {
-        isDisliked = disliked;
     }
 
     public boolean isAgeRestricted() {

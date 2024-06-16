@@ -1,13 +1,12 @@
 package org.project.youtube.Server.Model.Database;
 
-import org.project.youtube.Client.Model.YID;
+import org.project.youtube.Server.Model.YID;
 import org.project.youtube.Server.Model.*;
 import org.project.youtube.Server.Model.Short;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class DatabaseManager {
@@ -28,27 +27,28 @@ public class DatabaseManager {
     public static void createUser(User user) {
         try (Connection conn = connect()) {
             // add row to users table
-            String userQuery = "INSERT INTO users (yid, username, email, password) VALUES (?, ?, ?, ?)";
+            String userQuery = "INSERT INTO users (yid, username, email, password, is_premium) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement userPrepStat = conn.prepareStatement(userQuery);
             userPrepStat.setString(1, YID.randomYID().toString());
             userPrepStat.setString(2, user.getUsername());
             userPrepStat.setString(3, user.getEmail());
             userPrepStat.setString(4, user.getPassword());
+            userPrepStat.setBoolean(5, user.isPremium());
             // execute and close
             userPrepStat.executeUpdate();
             userPrepStat.close();
 
             // add row to personal_info table
             String infoQuery = "INSERT INTO personal_info (user_id, first_name, last_name, region, date_of_birth, gender, " +
-                    "joined_date_time, profile_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                    "joined_date, profile_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement infoPrepStat = conn.prepareStatement(infoQuery);
             infoPrepStat.setString(1, user.getYid().toString());
             infoPrepStat.setString(2, user.getFirstName());
             infoPrepStat.setString(3, user.getLastName());
             infoPrepStat.setString(4, user.getRegion());
-            infoPrepStat.setString(5, user.getDateOfBirth().toString());
+            infoPrepStat.setDate(5, Date.valueOf(user.getDateOfBirth()));
             infoPrepStat.setString(6, user.getGender());
-            infoPrepStat.setString(7, user.getJoinedDate().toString());
+            infoPrepStat.setDate(7, Date.valueOf(user.getJoinedDate()));
             infoPrepStat.setBytes(8, user.getProfilePic());
             // execute and close
             infoPrepStat.executeUpdate();
@@ -70,7 +70,7 @@ public class DatabaseManager {
             channelPrepStat.setString(2, channel.getName());
             channelPrepStat.setString(3, channel.getOwnerYID().toString());
             channelPrepStat.setString(4, channel.getDescription());
-            channelPrepStat.setString(5, channel.getCreatedDateTime().toString());
+            channelPrepStat.setTimestamp(5, Timestamp.valueOf(channel.getCreatedDateTime()));
             channelPrepStat.setInt(6, channel.getViews());
             channelPrepStat.setObject(7, linksId);
             channelPrepStat.setBytes(8, channel.getLogo());
@@ -111,20 +111,18 @@ public class DatabaseManager {
             }
 
             // add row to videos table
-            String query = "INSERT INTO videos (video_id, title, description, duration, created_date_time, tags, is_liked, " +
-                    "is_disliked, is_age_restricted, thumbnail, handle) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO videos (video_id, title, description, duration, created_date_time, tags, " +
+                    "is_age_restricted, thumbnail, handle) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement videoPrepStat = conn.prepareStatement(query);
             videoPrepStat.setObject(1, video.getId());
             videoPrepStat.setString(2, video.getTitle());
             videoPrepStat.setString(3, video.getDescription());
             videoPrepStat.setString(4, video.getDuration());
-            videoPrepStat.setString(5, video.getCreatedDateTime().toString());
+            videoPrepStat.setTimestamp(5, Timestamp.valueOf(video.getCreatedDateTime()));
             videoPrepStat.setString(6, tags.toString());
-            videoPrepStat.setBoolean(7, video.isLiked());
-            videoPrepStat.setBoolean(8, video.isDisliked());
-            videoPrepStat.setBoolean(9, video.isAgeRestricted());
-            videoPrepStat.setBytes(10, video.getThumbnail());
-            videoPrepStat.setString(11, video.getVideoHandle());
+            videoPrepStat.setBoolean(7, video.isAgeRestricted());
+            videoPrepStat.setBytes(8, video.getThumbnail());
+            videoPrepStat.setString(9, video.getVideoHandle());
             // execute and close
             videoPrepStat.executeUpdate();
             videoPrepStat.close();
@@ -142,19 +140,17 @@ public class DatabaseManager {
             }
 
             // add row to shorts table
-            String query = "INSERT INTO shorts (short_id, title, duration, created_date_time, tags, is_liked, is_disliked, " +
-                    "is_age_restricted, thumbnail, handle) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO shorts (short_id, title, duration, created_date_time, tags, " +
+                    "is_age_restricted, thumbnail, handle) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement shortPrepStat = conn.prepareStatement(query);
             shortPrepStat.setObject(1, shortVideo.getId());
             shortPrepStat.setString(2, shortVideo.getTitle());
             shortPrepStat.setInt(3, shortVideo.getDuration());
-            shortPrepStat.setString(4, shortVideo.getCreatedDateTime().toString());
+            shortPrepStat.setTimestamp(4, Timestamp.valueOf(shortVideo.getCreatedDateTime()));
             shortPrepStat.setString(5, tags.toString());
-            shortPrepStat.setBoolean(6, shortVideo.isLiked());
-            shortPrepStat.setBoolean(7, shortVideo.isDisliked());
-            shortPrepStat.setBoolean(8, shortVideo.isAgeRestricted());
-            shortPrepStat.setBytes(9, shortVideo.getThumbnail());
-            shortPrepStat.setString(10, shortVideo.getShortHandle());
+            shortPrepStat.setBoolean(6, shortVideo.isAgeRestricted());
+            shortPrepStat.setBytes(7, shortVideo.getThumbnail());
+            shortPrepStat.setString(8, shortVideo.getShortHandle());
             // execute and close
             shortPrepStat.executeUpdate();
             shortPrepStat.close();
@@ -184,17 +180,15 @@ public class DatabaseManager {
     public static void createVideoComment(Comment comment) {
         try (Connection conn = connect()) {
             // add row to video_comments table
-            String query = "INSERT INTO video_comments (comment_id, video_id, yid, comment_text, reply_id, created_date_time, " +
-                    "is_liked, is_disliked) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO video_comments (comment_id, video_id, yid, comment_text, reply_id, created_date_time) " +
+                    "VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement commentPrepStat = conn.prepareStatement(query);
             commentPrepStat.setObject(1, comment.getId());
             commentPrepStat.setObject(2, comment.getVideoID());
             commentPrepStat.setString(3, comment.getWriterYID().toString());
             commentPrepStat.setString(4, comment.getComment());
             commentPrepStat.setObject(5, comment.getReplyOnID());
-            commentPrepStat.setString(6, comment.getCreatedDateTime().toString());
-            commentPrepStat.setBoolean(7, comment.isLiked());
-            commentPrepStat.setBoolean(8, comment.isDisliked());
+            commentPrepStat.setTimestamp(6, Timestamp.valueOf(comment.getCreatedDateTime()));
             // execute and update
             commentPrepStat.executeUpdate();
             commentPrepStat.close();
@@ -206,17 +200,15 @@ public class DatabaseManager {
     public static void createShortComment(Comment comment) {
         try (Connection conn = connect()) {
             // add row to short_comments table
-            String query = "INSERT INTO short_comments (comment_id, short_id, yid, comment_text, reply_id, created_date_time, " +
-                    "is_liked, is_disliked) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO short_comments (comment_id, short_id, yid, comment_text, reply_id, created_date_time) " +
+                    "VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement commentPrepStat = conn.prepareStatement(query);
             commentPrepStat.setObject(1, comment.getId());
             commentPrepStat.setObject(2, comment.getVideoID());
             commentPrepStat.setString(3, comment.getWriterYID().toString());
             commentPrepStat.setString(4, comment.getComment());
             commentPrepStat.setObject(5, comment.getReplyOnID());
-            commentPrepStat.setString(6, comment.getCreatedDateTime().toString());
-            commentPrepStat.setBoolean(7, comment.isLiked());
-            commentPrepStat.setBoolean(8, comment.isDisliked());
+            commentPrepStat.setTimestamp(6, Timestamp.valueOf(comment.getCreatedDateTime()));
             // execute and update
             commentPrepStat.executeUpdate();
             commentPrepStat.close();
@@ -343,5 +335,395 @@ public class DatabaseManager {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public static User readUser(String username) throws SQLException {
+        Connection conn = connect();
+        // read user from users and personal_info tables
+        String query = "SELECT * FROM users JOIN personal_info ON users.yid = personal_info.user_id WHERE username = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, username);
+        ResultSet rs = stmt.executeQuery();
+
+        // close
+        stmt.close();
+        conn.close();
+
+        if (rs.next()) {
+            return new User(
+                    YID.fromString(rs.getString("yid")),
+                    rs.getString("username"),
+                    rs.getString("email"),
+                    rs.getString("password"),
+                    rs.getString("first_name"),
+                    rs.getString("last_name"),
+                    rs.getString("region"),
+                    rs.getDate("date_of_birth").toLocalDate(),
+                    rs.getDate("joined_date").toLocalDate(),
+                    rs.getString("gender"),
+                    rs.getBytes("profile_picture"),
+                    rs.getBoolean("is_premium")
+            );
+        }
+
+        return null;
+    }
+
+    public static Channel readChannel(String handle) throws SQLException {
+        Connection conn = connect();
+
+        // read channel from channels and links tables
+        String query = "SELECT * FROM channels JOIN links ON channels.links_id = links.links_id WHERE handle = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, handle);
+        ResultSet rs = stmt.executeQuery();
+
+        // close
+        stmt.close();
+        conn.close();
+
+        if (rs.next()) {
+            return new Channel(
+                    rs.getString("handle"),
+                    rs.getString("name"),
+                    YID.fromString(rs.getString("yid")),
+                    rs.getString("description"),
+                    rs.getTimestamp("created_date_time").toLocalDateTime(),
+                    rs.getInt("views"),
+                    rs.getInt("subscribers"),
+                    rs.getBytes("logo"),
+                    rs.getBytes("banner"),
+                    rs.getString("website"),
+                    rs.getString("email"),
+                    rs.getString("facebook"),
+                    rs.getString("instagram"),
+                    rs.getString("x"),
+                    rs.getString("telegram"),
+                    rs.getString("tiktok"),
+                    rs.getString("discord"),
+                    rs.getString("linkedin"),
+                    rs.getString("reddit"),
+                    readVideos(handle),
+                    readShorts(handle),
+                    readPlaylists(handle)
+            );
+        }
+
+        return null;
+    }
+
+    public static Video readVideo(UUID videoId) throws SQLException {
+        Connection conn = connect();
+
+        // read videos from video, video_likes, video_dislikes tables
+        String query = "SELECT videos.video_id, title, description, duration, created_date_time, tags, is_age_restricted," +
+                " thumbnail, handle, COUNT(video_likes.video_id - video_dislikes.video_id) AS likes FROM videos JOIN video_likes ON" +
+                " videos.video_id = video_likes.video_id JOIN video_dislikes ON videos.video_id = video_dislikes.video_id " +
+                "WHERE videos.video_id = ? GROUP BY videos.video_id";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setObject(1, videoId);
+        ResultSet rs = stmt.executeQuery();
+
+        // close
+        stmt.close();
+        conn.close();
+
+        if (rs.next()) {
+            return new Video(
+                    videoId,
+                    rs.getString("title"),
+                    rs.getString("description"),
+                    rs.getString("duration"),
+                    rs.getTimestamp("created_date_time").toLocalDateTime(),
+                    rs.getInt("likes"),
+                    readVideoComments(videoId),
+                    rs.getBoolean("is_age_restricted"),
+                    new ArrayList<>(List.of(rs.getString("tags").split(" "))),
+                    rs.getBytes("thumbnail"),
+                    rs.getString("handle")
+            );
+        }
+
+        return null;
+    }
+
+    public static List<Video> readVideos(String handle) throws SQLException {
+        Connection conn = connect();
+        List<Video> videos = new ArrayList<>();
+
+        // read IDs from videos table
+        String query = "SELECT video_id FROM videos WHERE handle = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, handle);
+        ResultSet rs = stmt.executeQuery();
+
+        // close
+        stmt.close();
+        conn.close();
+
+        while (rs.next()) {
+            UUID videoId = (UUID) rs.getObject("video_id");
+            videos.add(readVideo(videoId));
+        }
+
+        return videos;
+    }
+
+    public static List<Video> readVideos(UUID playlistId) throws SQLException {
+        Connection conn = connect();
+        List<Video> videos = new ArrayList<>();
+
+        // read IDs from playlist_videos channel
+        String query = "SELECT playlist_videos.video_id FROM playlist_videos WHERE playlist_videos.playlist_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setObject(1, playlistId);
+        ResultSet rs = stmt.executeQuery();
+
+        // close
+        stmt.close();
+        conn.close();
+
+        while (rs.next()) {
+            UUID videoId = (UUID) rs.getObject("video_id");
+            videos.add(readVideo(videoId));
+        }
+
+        return videos;
+    }
+
+    public static Short readShort(UUID shortId) throws SQLException {
+        Connection conn = connect();
+
+        // read shorts from shorts, short_likes, short_dislikes tables
+        String query = "SELECT shorts.short_id, title, duration, created_date_time, tags, is_age_restricted, thumbnail, " +
+                "handle, COUNT(short_likes.short_id - short_dislikes.short_id) AS likes FROM shorts JOIN short_likes ON " +
+                "shorts.short_id = short_likes.short_id JOIN short_dislikes ON shorts.short_id = short_dislikes.short_id " +
+                "WHERE shorts.short_id = ? GROUP BY shorts.short_id";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setObject(1, shortId);
+        ResultSet rs = stmt.executeQuery();
+
+        // close
+        stmt.close();
+        conn.close();
+
+        if (rs.next()) {
+            return new Short(
+                    shortId,
+                    rs.getString("title"),
+                    rs.getInt("duration"),
+                    rs.getTimestamp("created_date_time").toLocalDateTime(),
+                    rs.getInt("likes"),
+                    readVideoComments(shortId),
+                    rs.getBoolean("is_age_restricted"),
+                    new ArrayList<>(List.of(rs.getString("tags").split(" "))),
+                    rs.getBytes("thumbnail"),
+                    rs.getString("handle")
+            );
+        }
+
+        return null;
+    }
+
+    public static List<Short> readShorts(String handle) throws SQLException {
+        Connection conn = connect();
+        List<Short> shorts = new ArrayList<>();
+
+        // read IDs from shorts table
+        String query = "SELECT short_id FROM shorts WHERE handle = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, handle);
+        ResultSet rs = stmt.executeQuery();
+
+        // close
+        stmt.close();
+        conn.close();
+
+        while (rs.next()) {
+            UUID shortId = (UUID) rs.getObject("short_id");
+            shorts.add(readShort(shortId));
+        }
+
+        return shorts;
+    }
+
+    public static List<Short> readShorts(UUID playlistId) throws SQLException {
+        Connection conn = connect();
+        List<Short> shorts = new ArrayList<>();
+
+        // read IDs from playlist_shorts table
+        String query = "SELECT playlist_shorts.short_id FROM playlist_shorts WHERE playlist_shorts.playlist_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setObject(1, playlistId);
+        ResultSet rs = stmt.executeQuery();
+
+        // close
+        stmt.close();
+        conn.close();
+
+        while (rs.next()) {
+            UUID shortId = (UUID) rs.getObject("short_id");
+            shorts.add(readShort(shortId));
+        }
+
+        return shorts;
+    }
+
+    public static Playlist readPlaylist(UUID playlistId) throws SQLException {
+        Connection conn = connect();
+
+        // read playlist from playlists table
+        String query = "SELECT * FROM playlists WHERE playlist_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setObject(1, playlistId);
+        ResultSet rs = stmt.executeQuery();
+
+        // close
+        stmt.close();
+        conn.close();
+
+        if (rs.next()) {
+            return new Playlist(
+                    readVideos(playlistId),
+                    playlistId,
+                    rs.getString("name"),
+                    rs.getString("handle"),
+                    rs.getString("description"),
+                    readShorts(playlistId),
+                    rs.getBytes("image")
+            );
+        }
+
+        return null;
+    }
+
+    public static List<Playlist> readPlaylists(String handle) throws SQLException {
+        Connection conn = connect();
+        List<Playlist> playlists = new ArrayList<>();
+
+        // read IDs from playlists table
+        String query = "SELECT playlist_id FROM playlists WHERE handle = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, handle);
+        ResultSet rs = stmt.executeQuery();
+
+        // close
+        stmt.close();
+        conn.close();
+
+        while (rs.next()) {
+            UUID playlistId = (UUID) rs.getObject("playlist_id");
+            playlists.add(readPlaylist(playlistId));
+        }
+
+        return playlists;
+    }
+
+    public static Comment readVideoComment(UUID commentId) throws SQLException {
+        Connection conn = connect();
+
+        // read comment from video_comments table
+        String query = "SELECT video_comments.comment_id, video_id, video_comments.yid, comment_text, reply_id, created_date_time, " +
+                "COUNT(video_comment_likes.comment_id) - COUNT(video_comment_dislikes.comment_id) AS likes FROM video_comments " +
+                "JOIN video_comment_likes ON video_comments.comment_id = video_comment_likes.comment_id JOIN video_comment_dislikes " +
+                "ON video_comments.comment_id = video_comment_dislikes.comment_id WHERE video_comments.comment_id = ? " +
+                "GROUP BY video_comments.comment_id";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setObject(1, commentId);
+        ResultSet rs = stmt.executeQuery();
+
+        // close
+        stmt.close();
+        conn.close();
+
+        if (rs.next()) {
+            return new Comment(
+                    (UUID) rs.getObject("comment_id"),
+                    (UUID) rs.getObject("video_id"),
+                    YID.fromString(rs.getString("yid")),
+                    rs.getString("comment_text"),
+                    rs.getInt("likes"),
+                    (UUID) rs.getObject("reply_id"),
+                    rs.getTimestamp("created_date_time").toLocalDateTime()
+            );
+        }
+
+        return null;
+    }
+
+    public static Comment readShortComment(UUID commentId) throws SQLException {
+        Connection conn = connect();
+
+        // read comment from short_comments table
+        String query = "SELECT short_comments.comment_id, short_id, short_comments.yid, comment_text, reply_id, created_date_time," +
+                " COUNT(short_comment_likes.comment_id) - COUNT(short_comment_dislikes.comment_id) AS likes FROM short_comments" +
+                " JOIN short_comment_likes ON short_comments.comment_id = short_comment_likes.comment_id JOIN short_comment_dislikes" +
+                " ON short_comments.comment_id = short_comment_dislikes.comment_id WHERE short_comments.comment_id = ? " +
+                "GROUP BY short_comments.comment_id";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setObject(1, commentId);
+        ResultSet rs = stmt.executeQuery();
+
+        // close
+        stmt.close();
+        conn.close();
+
+        if (rs.next()) {
+            return new Comment(
+                    (UUID) rs.getObject("comment_id"),
+                    (UUID) rs.getObject("video_id"),
+                    YID.fromString(rs.getString("yid")),
+                    rs.getString("comment_text"),
+                    rs.getInt("likes"),
+                    (UUID) rs.getObject("reply_id"),
+                    rs.getTimestamp("created_date_time").toLocalDateTime()
+            );
+        }
+
+        return null;
+    }
+
+    public static List<Comment> readVideoComments(UUID videoId) throws SQLException {
+        Connection conn = connect();
+        List<Comment> comments = new ArrayList<>();
+
+        // read IDs from video_comments table
+        String query = "SELECT comment_id FROM video_comments WHERE video_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setObject(1, videoId);
+        ResultSet rs = stmt.executeQuery();
+
+        // close
+        stmt.close();
+        conn.close();
+
+        while (rs.next()) {
+            UUID commentId = (UUID) rs.getObject("comment_id");
+            comments.add(readVideoComment(commentId));
+        }
+
+        return comments;
+    }
+
+    public static List<Comment> readShortComments(UUID shortId) throws SQLException {
+        Connection conn = connect();
+        List<Comment> comments = new ArrayList<>();
+
+        // read IDs from short_comments table
+        String query = "SELECT comment_id FROM short_comments WHERE short_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setObject(1, shortId);
+        ResultSet rs = stmt.executeQuery();
+
+        // close
+        stmt.close();
+        conn.close();
+
+        while (rs.next()) {
+            UUID commentId = (UUID) rs.getObject("comment_id");
+            comments.add(readShortComment(commentId));
+        }
+
+        return comments;
     }
 }

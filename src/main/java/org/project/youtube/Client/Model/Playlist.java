@@ -12,7 +12,8 @@ public class Playlist {
     private List<Short> shorts;
     private byte[] image;
 
-    public Playlist(List<Video> videos, UUID id, String name, String channelHandle, String description, List<Short> shorts, byte[] image) {
+    public Playlist(List<Video> videos, UUID id, String name, String channelHandle, String description, List<Short> shorts,
+                    byte[] image) {
         this.videos = videos;
         this.id = id;
         this.name = name;
