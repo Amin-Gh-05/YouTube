@@ -337,6 +337,7 @@ public class DatabaseManager {
         }
     }
 
+    // TODO PASSWORD!!!
     public static User readUser(String username) throws SQLException {
         Connection conn = connect();
         // read user from users and personal_info tables
