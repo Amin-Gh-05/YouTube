@@ -13,7 +13,7 @@ import java.net.Socket;
 import java.util.Objects;
 
 public class Main extends Application {
-    private static final String SERVER_IP = "127.0.0.1";
+    private static final String SERVER_IP = "localhost";
     private static final int SERVER_PORT = 5431;
     private static final int SERVER_FILE_TRANSFER_PORT = 5430;
 
@@ -39,8 +39,9 @@ public class Main extends Application {
     public void init() throws IOException {
         //client = new Client(new Socket(SERVER_IP, SERVER_PORT));
         // TODO Downloader
-        Client.socket = new Socket(SERVER_IP, SERVER_PORT);
-        Client.run();
+        //Client.socket
+         //Socket socket = new Socket(SERVER_IP, SERVER_PORT);
+        //Client.run();
     }
 
     public static void main(String[] args) {
