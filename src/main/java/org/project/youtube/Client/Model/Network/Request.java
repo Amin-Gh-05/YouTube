@@ -1,8 +1,12 @@
 package org.project.youtube.Client.Model.Network;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.UUID;
 
 public class Request {
@@ -78,16 +82,42 @@ public class Request {
         data.put("contentType", contentType); // video/short/comment
         data.put("likeType", likeType); // L: like / D: dislike
         data.put("userYID", userYID);
-        data.put("contentID", contentID); // TODO UUID or String ??
+        data.put("contentID", contentID);
 
         jsonObject.put("reqData", data);
 
         Client.sendRequest(jsonObject.toString());
     }
 
+    public static void getByUUID(UUID id, String type) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "get" + type); // Video/Short/PL/Channel
 
+        JSONObject data = new JSONObject();
+        data.put("ID", id);
 
+        jsonObject.put("reqData", data);
 
+        Client.sendRequest(jsonObject.toString());
+    }
+
+    public static void getByUUIDList(List<UUID> IDs, String type) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "get" + type + "s"); // Video/Short/PL/Channel/Comment
+
+        JSONObject data = new JSONObject();
+
+        Gson gson = new Gson();
+        Type listType = new TypeToken<List<UUID>>() {}.getType();
+
+        String JsonIDListString = gson.toJson(IDs, listType);
+
+        data.put("ID List", JsonIDListString);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+    }
 
 
 }

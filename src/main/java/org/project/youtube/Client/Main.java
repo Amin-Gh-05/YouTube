@@ -39,8 +39,8 @@ public class Main extends Application {
     public void init() throws IOException {
         //client = new Client(new Socket(SERVER_IP, SERVER_PORT));
         // TODO Downloader
-        Client.socket = new Socket(SERVER_IP, SERVER_PORT);
-        Client.run();
+        //Client.socket = new Socket(SERVER_IP, SERVER_PORT);
+        //Client.run();
     }
 
     public static void main(String[] args) {

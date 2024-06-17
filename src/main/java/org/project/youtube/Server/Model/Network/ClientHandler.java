@@ -26,11 +26,10 @@ public class ClientHandler implements Runnable {
             while (true){
                 req = in.readUTF();
                 JSONObject reqJson = new JSONObject(req);
+                JSONObject data = reqJson.getJSONObject("reqData");
 
                 switch (reqJson.getString("reqType")) {
-                    case "login":
-                        ClientService.login(reqJson.getString("reqData"));
-                        break;
+                    case "login" -> ClientService.login(data);
 
                 }
             }
