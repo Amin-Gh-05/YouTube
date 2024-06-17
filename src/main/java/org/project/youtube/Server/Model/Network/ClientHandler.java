@@ -1,7 +1,7 @@
 package org.project.youtube.Server.Model.Network;
 
-import javafx.beans.binding.When;
 import org.json.JSONObject;
+import org.project.youtube.Server.Model.Database.ClientService;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -27,7 +27,10 @@ public class ClientHandler implements Runnable {
                 req = in.readUTF();
                 JSONObject reqJson = new JSONObject(req);
 
-                if (reqJson.getString("reqType").equals("login")) {
+                switch (reqJson.getString("reqType")) {
+                    case "login":
+                        ClientService.login(reqJson.getString("reqData"));
+                        break;
 
                 }
             }
