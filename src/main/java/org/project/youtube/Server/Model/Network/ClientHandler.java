@@ -30,6 +30,19 @@ public class ClientHandler implements Runnable {
 
                 switch (reqJson.getString("reqType")) {
                     case "login" -> ClientService.login(data);
+//                    case "signup" -> ;
+//                    case "logout" -> ;
+//                    case "getRandomTags" -> ;
+//                    case "getRandomVideos" -> ;
+//                    case "like" -> ;
+//                    case "getVideo" -> ;
+//                    case "getVideos" -> ;
+//                    case "getShort" -> ;
+//                    case "getShorts" -> ;
+//                    case "getPL" -> ;
+//                    case "getPLs" -> ;
+//                    case "getChannel" -> ;
+//                    case "getChannels" -> ;
 
                 }
             }
