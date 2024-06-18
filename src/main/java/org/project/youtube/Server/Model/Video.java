@@ -16,9 +16,10 @@ public class Video {
     private List<String> tags;
     private byte[] thumbnail;
     private String videoHandle;
+    private int views;
 
     public Video(UUID id, String title, String description, String duration, LocalDateTime createdDateTime, int likes,
-                 List<Comment> comments, boolean isAgeRestricted, byte[] thumbnail, String videoHandle) {
+                 List<Comment> comments, boolean isAgeRestricted, byte[] thumbnail, String videoHandle, int views) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -29,10 +30,12 @@ public class Video {
         this.isAgeRestricted = isAgeRestricted;
         this.thumbnail = thumbnail;
         this.videoHandle = videoHandle;
+        this.views = views;
     }
 
     public Video(UUID id, String title, String description, String duration, LocalDateTime createdDateTime, int likes,
-                 List<Comment> comments, boolean isAgeRestricted, List<String> tags, byte[] thumbnail, String videoHandle) {
+                 List<Comment> comments, boolean isAgeRestricted, List<String> tags, byte[] thumbnail, String videoHandle,
+                 int views) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -44,6 +47,7 @@ public class Video {
         this.tags = tags;
         this.thumbnail = thumbnail;
         this.videoHandle = videoHandle;
+        this.views = views;
     }
 
     public UUID getId() {
@@ -132,5 +136,13 @@ public class Video {
 
     public void setVideoHandle(String videoHandle) {
         this.videoHandle = videoHandle;
+    }
+
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
     }
 }

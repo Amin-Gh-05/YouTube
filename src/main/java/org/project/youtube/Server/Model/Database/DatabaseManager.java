@@ -15,25 +15,22 @@ public class DatabaseManager {
     private static final String PASSWORD = DatabaseConfig.getPassword();
 
     private static Connection connect() throws SQLException {
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-
         return DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
     }
+
+    // ----------------------------- CREATE -----------------------------
 
     public static void createUser(User user) {
         try (Connection conn = connect()) {
             // add row to users table
-            String userQuery = "INSERT INTO users (yid, username, email, password, is_premium) VALUES (?, ?, ?, ?, ?)";
+            String userQuery = "INSERT INTO users (yid, username, email, password, is_premium, handle) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement userPrepStat = conn.prepareStatement(userQuery);
             userPrepStat.setString(1, YID.randomYID().toString());
             userPrepStat.setString(2, user.getUsername());
             userPrepStat.setString(3, user.getEmail());
             userPrepStat.setString(4, user.getPassword());
             userPrepStat.setBoolean(5, user.isPremium());
+            userPrepStat.setString(6, user.getHandle());
             // execute and close
             userPrepStat.executeUpdate();
             userPrepStat.close();
@@ -112,7 +109,7 @@ public class DatabaseManager {
 
             // add row to videos table
             String query = "INSERT INTO videos (video_id, title, description, duration, created_date_time, tags, " +
-                    "is_age_restricted, thumbnail, handle) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    "is_age_restricted, thumbnail, handle, views) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement videoPrepStat = conn.prepareStatement(query);
             videoPrepStat.setObject(1, video.getId());
             videoPrepStat.setString(2, video.getTitle());
@@ -123,6 +120,7 @@ public class DatabaseManager {
             videoPrepStat.setBoolean(7, video.isAgeRestricted());
             videoPrepStat.setBytes(8, video.getThumbnail());
             videoPrepStat.setString(9, video.getVideoHandle());
+            videoPrepStat.setInt(10, video.getViews());
             // execute and close
             videoPrepStat.executeUpdate();
             videoPrepStat.close();
@@ -133,7 +131,6 @@ public class DatabaseManager {
 
     public static void createShort(Short shortVideo) {
         try (Connection conn = connect()) {
-
             StringBuilder tags = new StringBuilder();
             for (String tag : shortVideo.getTags()) {
                 tags.append(tag).append(" ");
@@ -141,7 +138,7 @@ public class DatabaseManager {
 
             // add row to shorts table
             String query = "INSERT INTO shorts (short_id, title, duration, created_date_time, tags, " +
-                    "is_age_restricted, thumbnail, handle) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                    "is_age_restricted, thumbnail, handle, views) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement shortPrepStat = conn.prepareStatement(query);
             shortPrepStat.setObject(1, shortVideo.getId());
             shortPrepStat.setString(2, shortVideo.getTitle());
@@ -151,6 +148,7 @@ public class DatabaseManager {
             shortPrepStat.setBoolean(6, shortVideo.isAgeRestricted());
             shortPrepStat.setBytes(7, shortVideo.getThumbnail());
             shortPrepStat.setString(8, shortVideo.getShortHandle());
+            shortPrepStat.setInt(9, shortVideo.getViews());
             // execute and close
             shortPrepStat.executeUpdate();
             shortPrepStat.close();
@@ -337,13 +335,15 @@ public class DatabaseManager {
         }
     }
 
-    // TODO PASSWORD!!!
-    public static User readUser(String username) throws SQLException {
+    // ----------------------------- READ -----------------------------
+
+    public static User readUser(String username, String password) throws SQLException {
         Connection conn = connect();
         // read user from users and personal_info tables
-        String query = "SELECT * FROM users JOIN personal_info ON users.yid = personal_info.user_id WHERE username = ?";
+        String query = "SELECT * FROM users JOIN personal_info ON users.yid = personal_info.user_id WHERE username = ? AND password = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, username);
+        stmt.setString(2, password);
         ResultSet rs = stmt.executeQuery();
 
         // close
@@ -363,7 +363,8 @@ public class DatabaseManager {
                     rs.getDate("joined_date").toLocalDate(),
                     rs.getString("gender"),
                     rs.getBytes("profile_picture"),
-                    rs.getBoolean("is_premium")
+                    rs.getBoolean("is_premium"),
+                    rs.getString("handle")
             );
         }
 
@@ -418,7 +419,7 @@ public class DatabaseManager {
 
         // read videos from video, video_likes, video_dislikes tables
         String query = "SELECT videos.video_id, title, description, duration, created_date_time, tags, is_age_restricted," +
-                " thumbnail, handle, COUNT(video_likes.video_id - video_dislikes.video_id) AS likes FROM videos JOIN video_likes ON" +
+                " thumbnail, handle, views, COUNT(video_likes.video_id - video_dislikes.video_id) AS likes FROM videos JOIN video_likes ON" +
                 " videos.video_id = video_likes.video_id JOIN video_dislikes ON videos.video_id = video_dislikes.video_id " +
                 "WHERE videos.video_id = ? GROUP BY videos.video_id";
         PreparedStatement stmt = conn.prepareStatement(query);
@@ -441,7 +442,8 @@ public class DatabaseManager {
                     rs.getBoolean("is_age_restricted"),
                     new ArrayList<>(List.of(rs.getString("tags").split(" "))),
                     rs.getBytes("thumbnail"),
-                    rs.getString("handle")
+                    rs.getString("handle"),
+                    rs.getInt("views")
             );
         }
 
@@ -497,7 +499,7 @@ public class DatabaseManager {
 
         // read shorts from shorts, short_likes, short_dislikes tables
         String query = "SELECT shorts.short_id, title, duration, created_date_time, tags, is_age_restricted, thumbnail, " +
-                "handle, COUNT(short_likes.short_id - short_dislikes.short_id) AS likes FROM shorts JOIN short_likes ON " +
+                "handle, views, COUNT(short_likes.short_id - short_dislikes.short_id) AS likes FROM shorts JOIN short_likes ON " +
                 "shorts.short_id = short_likes.short_id JOIN short_dislikes ON shorts.short_id = short_dislikes.short_id " +
                 "WHERE shorts.short_id = ? GROUP BY shorts.short_id";
         PreparedStatement stmt = conn.prepareStatement(query);
@@ -519,7 +521,8 @@ public class DatabaseManager {
                     rs.getBoolean("is_age_restricted"),
                     new ArrayList<>(List.of(rs.getString("tags").split(" "))),
                     rs.getBytes("thumbnail"),
-                    rs.getString("handle")
+                    rs.getString("handle"),
+                    rs.getInt("views")
             );
         }
 
@@ -726,5 +729,206 @@ public class DatabaseManager {
         }
 
         return comments;
+    }
+
+    // ----------------------------- UPDATE -----------------------------
+
+    public static void updateUser(User user) {
+        try (Connection conn = connect()) {
+            // update users table
+            String userQuery = "UPDATE users SET username = ?, email = ?, password = ?, is_premium = ?, handle = ? " +
+                    "WHERE yid = ?";
+            PreparedStatement userStmt = conn.prepareStatement(userQuery);
+            userStmt.setString(1, user.getUsername());
+            userStmt.setString(2, user.getEmail());
+            userStmt.setString(3, user.getPassword());
+            userStmt.setBoolean(4, user.isPremium());
+            userStmt.setString(5, user.getHandle());
+            userStmt.setString(6, user.getYid().toString());
+
+            userStmt.executeUpdate();
+            userStmt.close();
+
+            // update personal_info table
+            String infoQuery = "UPDATE personal_info SET first_name = ?, last_name = ?, region = ?, date_of_birth = ?, " +
+                    "gender = ?, profile_picture = ? WHERE user_id = ?";
+            PreparedStatement infoStmt = conn.prepareStatement(infoQuery);
+            infoStmt.setString(1, user.getFirstName());
+            infoStmt.setString(2, user.getLastName());
+            infoStmt.setString(3, user.getRegion());
+            infoStmt.setDate(4, Date.valueOf(user.getDateOfBirth()));
+            infoStmt.setString(5, user.getGender());
+            infoStmt.setBytes(6, user.getProfilePic());
+            infoStmt.setString(7, user.getYid().toString());
+
+            infoStmt.executeUpdate();
+            infoStmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void updateChannel(Channel channel) {
+        try (Connection conn = connect()) {
+            // update channels table
+            String channelQuery = "UPDATE channels SET name = ?, description = ?, logo = ?, banner = ? WHERE handle = ?";
+            PreparedStatement channelStmt = conn.prepareStatement(channelQuery);
+            channelStmt.setString(1, channel.getName());
+            channelStmt.setString(2, channel.getDescription());
+            channelStmt.setBytes(3, channel.getLogo());
+            channelStmt.setBytes(4, channel.getBanner());
+            channelStmt.setString(5, channel.getHandle());
+
+            channelStmt.executeUpdate();
+            channelStmt.close();
+
+            // update links table
+            String linksQuery = "UPDATE links SET website = ?, email = ?, facebook = ?, instagram = ?, x = ?, telegram = ?, " +
+                    "tiktok = ?, discord = ?, linkedin = ?, reddit = ? WHERE links_id = ?";
+            PreparedStatement linksStmt = conn.prepareStatement(linksQuery);
+            linksStmt.setString(1, channel.getWebsite());
+            linksStmt.setString(2, channel.getEmail());
+            linksStmt.setString(3, channel.getFacebook());
+            linksStmt.setString(4, channel.getInstagram());
+            linksStmt.setString(5, channel.getX());
+            linksStmt.setString(6, channel.getTelegram());
+            linksStmt.setString(7, channel.getTiktok());
+            linksStmt.setString(8, channel.getDiscord());
+            linksStmt.setString(9, channel.getLinkedin());
+            linksStmt.setString(10, channel.getReddit());
+
+            linksStmt.executeUpdate();
+            linksStmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void updateVideo(Video video) {
+        try (Connection conn = connect()) {
+            StringBuilder tags = new StringBuilder();
+            for (String tag : video.getTags()) {
+                tags.append(tag).append(" ");
+            }
+
+            String query = "UPDATE videos SET title = ?, description = ?, tags = ?, thumbnail = ? WHERE video_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, video.getTitle());
+            stmt.setString(2, video.getDescription());
+            stmt.setString(3, tags.toString());
+            stmt.setBytes(4, video.getThumbnail());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void updateShort(Short shortVideo) {
+        try (Connection conn = connect()) {
+            StringBuilder tags = new StringBuilder();
+            for (String tag : shortVideo.getTags()) {
+                tags.append(tag).append(" ");
+            }
+
+            String query = "UPDATE shorts SET title = ?, tags = ?, thumbnail = ? WHERE short_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, shortVideo.getTitle());
+            stmt.setString(2, tags.toString());
+            stmt.setBytes(3, shortVideo.getThumbnail());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void updatePlaylist(Playlist playlist) {
+        try (Connection conn = connect()) {
+            String query = "UPDATE playlists SET name = ?, description = ?, image = ? WHERE playlist_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, playlist.getName());
+            stmt.setString(2, playlist.getDescription());
+            stmt.setBytes(3, playlist.getImage());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void updateVideoComment(Comment comment) {
+        try (Connection conn = connect()) {
+            String query = "UPDATE video_comments SET comment_text = ? WHERE comment_id = ? AND yid = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, comment.getComment());
+            stmt.setObject(2, comment.getId());
+            stmt.setString(3, comment.getWriterYID().toString());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void updateShortComment(Comment comment) {
+        try (Connection conn = connect()) {
+            String query = "UPDATE short_comments SET comment_text = ? WHERE comment_id = ? AND yid = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, comment.getComment());
+            stmt.setObject(2, comment.getId());
+            stmt.setString(3, comment.getWriterYID().toString());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void updateViews(Video video) {
+        try (Connection conn = connect()) {
+            String query = "UPDATE videos SET views = ? WHERE video_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, video.getViews());
+            stmt.setObject(2, video.getId());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void updateViews(Short shortVideo) {
+        try (Connection conn = connect()) {
+            String query = "UPDATE shorts SET views = ? WHERE short_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, shortVideo.getViews());
+            stmt.setObject(2, shortVideo.getId());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void updateSubscribers(Channel channel) {
+        try (Connection conn = connect()) {
+            String query = "UPDATE channels SET views = ? WHERE handle = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, channel.getViews());
+            stmt.setObject(2, channel.getHandle());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

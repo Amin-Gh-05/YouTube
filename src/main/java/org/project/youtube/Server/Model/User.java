@@ -1,9 +1,6 @@
 package org.project.youtube.Server.Model;
 
-import javafx.scene.image.Image;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class User {
     private YID yid;
@@ -11,6 +8,7 @@ public class User {
     private String email;
     private String password;
     private boolean isPremium;
+    private String handle;
 
     // personal info
     private String firstName;
@@ -22,12 +20,13 @@ public class User {
     private byte[] profilePic;
 
     public User(YID yid, String username, String email, String password, String firstName, String lastName, String region,
-                LocalDate dateOfBirth, LocalDate joinedDate, String gender, byte[] profilePic, boolean isPremium) {
+                LocalDate dateOfBirth, LocalDate joinedDate, String gender, byte[] profilePic, boolean isPremium, String handle) {
         this.yid = yid;
         this.username = username;
         this.email = email;
         this.password = password;
         this.isPremium = isPremium;
+        this.handle = handle;
 
         // personal info
         this.firstName = firstName;
@@ -133,5 +132,13 @@ public class User {
 
     public void setPremium(boolean premium) {
         isPremium = premium;
+    }
+
+    public String getHandle() {
+        return handle;
+    }
+
+    public void setHandle(String handle) {
+        this.handle = handle;
     }
 }

@@ -15,9 +15,10 @@ public class Short {
     private List<String> tags;
     private byte[] thumbnail;
     private String shortHandle;
+    private int views;
 
     public Short(UUID id, String title, int duration, LocalDateTime createdDateTime, int likes, List<Comment> comments,
-                 boolean isAgeRestricted, byte[] thumbnail, String shortHandle) {
+                 boolean isAgeRestricted, byte[] thumbnail, String shortHandle, int views) {
         this.id = id;
         this.title = title;
         this.duration = duration;
@@ -27,10 +28,11 @@ public class Short {
         this.isAgeRestricted = isAgeRestricted;
         this.thumbnail = thumbnail;
         this.shortHandle = shortHandle;
+        this.views = views;
     }
 
     public Short(UUID id, String title, int duration, LocalDateTime createdDateTime, int likes, List<Comment> comments,
-                 boolean isAgeRestricted, List<String> tags, byte[] thumbnail, String shortHandle) {
+                 boolean isAgeRestricted, List<String> tags, byte[] thumbnail, String shortHandle, int views) {
         this.id = id;
         this.title = title;
         this.duration = duration;
@@ -41,6 +43,7 @@ public class Short {
         this.tags = tags;
         this.thumbnail = thumbnail;
         this.shortHandle = shortHandle;
+        this.views = views;
     }
 
     public UUID getId() {
@@ -121,5 +124,13 @@ public class Short {
 
     public void setShortHandle(String shortHandle) {
         this.shortHandle = shortHandle;
+    }
+
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
     }
 }
