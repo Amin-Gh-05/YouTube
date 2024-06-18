@@ -1,7 +1,7 @@
 package org.project.youtube.Server.Model.Network;
 
-import javafx.beans.binding.When;
 import org.json.JSONObject;
+import org.project.youtube.Server.Model.Database.ClientService;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -10,13 +10,19 @@ import java.net.Socket;
 
 public class ClientHandler implements Runnable {
     private Socket socket; // the client socket
+    private static Socket userFileTransferSocket; // file transfer socket for user
     private DataInputStream in; // input stream to receive data from the client
     private DataOutputStream out; // output stream to send data to the client
 
-    public ClientHandler(Socket socket) throws IOException {
+    public ClientHandler(Socket socket, Socket userFileTransferSocket) throws IOException {
         this.socket = socket;
+        ClientHandler.userFileTransferSocket = userFileTransferSocket;
         this.in = new DataInputStream(socket.getInputStream());
         this.out = new DataOutputStream(socket.getOutputStream());
+    }
+
+    public static Socket getUserFileTransferSocket() {
+        return userFileTransferSocket;
     }
 
     @Override
@@ -26,8 +32,23 @@ public class ClientHandler implements Runnable {
             while (true){
                 req = in.readUTF();
                 JSONObject reqJson = new JSONObject(req);
+                JSONObject data = reqJson.getJSONObject("reqData");
 
-                if (reqJson.getString("reqType").equals("login")) {
+                switch (reqJson.getString("reqType")) {
+                    case "login" -> ClientService.login(data);
+//                    case "signup" -> ;
+//                    case "logout" -> ;
+//                    case "getRandomTags" -> ;
+//                    case "getRandomVideos" -> ;
+//                    case "like" -> ;
+//                    case "getVideo" -> ;
+//                    case "getVideos" -> ;
+//                    case "getShort" -> ;
+//                    case "getShorts" -> ;
+//                    case "getPL" -> ;
+//                    case "getPLs" -> ;
+//                    case "getChannel" -> ;
+//                    case "getChannels" -> ;
 
                 }
             }

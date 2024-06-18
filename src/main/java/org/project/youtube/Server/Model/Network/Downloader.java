@@ -1,4 +1,4 @@
-package org.project.youtube.Client.Model.Network;
+package org.project.youtube.Server.Model.Network;
 
 import java.io.DataInputStream;
 import java.io.FileOutputStream;
@@ -8,9 +8,8 @@ public class Downloader implements Runnable {
     private DataInputStream in;
 
     public Downloader () throws IOException {
-        in = new DataInputStream(Client.getFileTransferSocket().getInputStream());
+        in = new DataInputStream(ClientHandler.getUserFileTransferSocket().getInputStream());
     }
-
     @Override
     public void run() {
         try {
