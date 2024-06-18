@@ -5,14 +5,18 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class Client {
-    public static Socket fileTransferSocket;
-    public static Socket socket;
-    public static DataOutputStream out;
-    public static Thread responseHandlerThread;
+    private static Socket fileTransferSocket;
+    private static Socket socket;
+    private static DataOutputStream out;
+    private static Thread responseHandlerThread;
 
     public static void run() throws IOException {
         responseHandlerThread = new Thread(new ResponseHandler(socket));
         out = new DataOutputStream(socket.getOutputStream());
+    }
+
+    public static Socket getFileTransferSocket() {
+        return fileTransferSocket;
     }
 
     public static void sendRequest(String req) throws IOException {
