@@ -6,11 +6,11 @@ import java.net.Socket;
 
 public class ResponseHandler implements Runnable {
     Socket socket;
-    DataInputStream in;
+    public static DataInputStream in;
 
     ResponseHandler(Socket socket) throws IOException {
         this.socket = socket;
-        this.in = new DataInputStream(socket.getInputStream());
+        in = new DataInputStream(socket.getInputStream());
     }
 
     @Override

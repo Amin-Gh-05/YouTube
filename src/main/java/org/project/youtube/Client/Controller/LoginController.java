@@ -10,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.project.youtube.Client.Model.Network.Request;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -32,8 +34,9 @@ public class LoginController {
     private Button returnButton;
 
     @FXML
-    void signIn(ActionEvent event) {
-
+    void signIn(ActionEvent event) throws IOException {
+        // TODO Check empty inputs
+        Request.login(userName.getText(), DigestUtils.sha256Hex(passWord.getText()));
     }
 
     @FXML
@@ -42,7 +45,7 @@ public class LoginController {
         Stage loginStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         // run a new stage
         Stage signupStage = new Stage();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/project/youtube/signup-view.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/project/youtube/Client/signup-view.fxml")));
         Scene scene = new Scene(root);
         signupStage.setScene(scene);
 

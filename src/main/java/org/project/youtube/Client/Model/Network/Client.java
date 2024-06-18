@@ -1,23 +1,28 @@
 package org.project.youtube.Client.Model.Network;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
 public class Client {
-    Socket socket;
+    public static Socket socket;
+    public static DataOutputStream out;
+    public static Thread responseHandlerThread;
 
-    Client(Socket socket) {
-        this.socket = socket;
-        run();
+    public static void run() throws IOException {
+        responseHandlerThread = new Thread(new ResponseHandler(socket));
+        out = new DataOutputStream(socket.getOutputStream());
     }
 
-    public void run() {
-
+    public static void sendRequest(String req) throws IOException {
+        out.writeUTF(req);
+        out.flush();
     }
 
-    private void close() throws IOException {
+    private static void close() throws IOException {
         if (socket != null) {
             socket.close();
+            responseHandlerThread.interrupt();
         }
 
     }
