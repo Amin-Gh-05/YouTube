@@ -1,4 +1,8 @@
 package org.project.youtube.Server.Model.Network;
 
-public class Downloader {
+public class Downloader implements Runnable{
+    @Override
+    public void run() {
+
+    }
 }

@@ -10,13 +10,19 @@ import java.net.Socket;
 
 public class ClientHandler implements Runnable {
     private Socket socket; // the client socket
+    private static Socket userFileTransferSocket; // file transfer socket for user
     private DataInputStream in; // input stream to receive data from the client
     private DataOutputStream out; // output stream to send data to the client
 
-    public ClientHandler(Socket socket) throws IOException {
+    public ClientHandler(Socket socket, Socket userFileTransferSocket) throws IOException {
         this.socket = socket;
+        ClientHandler.userFileTransferSocket = userFileTransferSocket;
         this.in = new DataInputStream(socket.getInputStream());
         this.out = new DataOutputStream(socket.getOutputStream());
+    }
+
+    public static Socket getUserFileTransferSocket() {
+        return userFileTransferSocket;
     }
 
     @Override

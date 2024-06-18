@@ -1,6 +1,7 @@
 package org.project.youtube.Server;
 
 import org.project.youtube.Server.Model.Network.ClientHandler;
+import org.project.youtube.Server.Model.Network.FileTransfer;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -11,7 +12,9 @@ import java.util.concurrent.Executors;
 public class ServerMain {
     private static final ExecutorService pool = Executors.newFixedThreadPool(10);
     private static ServerSocket serverSocket;
-    private static ServerSocket serverFileTransferSocket;
+    public static ServerSocket serverFileTransferSocket;
+    private static Thread fileTransferThread;
+
 
     public static void main(String[] args) {
         try {
@@ -26,11 +29,11 @@ public class ServerMain {
     private static void runServer() throws IOException {
         while (!serverSocket.isClosed()) {
             Socket socket = serverSocket.accept();
+            Socket userFileTransferSocket = serverFileTransferSocket.accept();
             System.out.println("| new client connected");
-            // TODO Downloader
 
             // create a thread for each client
-            Thread thread = new Thread(new ClientHandler(socket));
+            Thread thread = new Thread(new ClientHandler(socket, userFileTransferSocket));
             pool.execute(thread);
         }
 
@@ -39,6 +42,7 @@ public class ServerMain {
 
     private static void stopServer() throws IOException {
         if (serverSocket != null) {
+            fileTransferThread.interrupt();
             serverSocket.close();
             serverFileTransferSocket.close();
         }

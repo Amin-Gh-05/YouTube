@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class Client {
+    public static Socket fileTransferSocket;
     public static Socket socket;
     public static DataOutputStream out;
     public static Thread responseHandlerThread;
