@@ -1,15 +1,20 @@
 .primary-color{
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #F3F3F3;
 }
 
-.secondary-color{
-    -fx-background-color: #e0e0e0;
-}
 
 .button{
+    -fx-text-fill: #FFFFFF;
     -fx-background-color: #FF0000;
-    -fx-background-radius: 20;
+    -fx-background-radius: 23;
+    -fx-effect: dropshadow( gaussian, rgba(0,0,0,0.7), 4,0,0,3);
+    -fx-alternative-column-fill-visible: true;
 }
+
+.button:armed {
+    -fx-color: -fx-pressed-base;
+}
+
 
 .text-input{
     -fx-background-color: #ffffff;
