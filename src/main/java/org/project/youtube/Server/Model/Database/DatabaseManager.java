@@ -57,11 +57,9 @@ public class DatabaseManager {
 
     public static void createChannel(Channel channel) {
         try (Connection conn = connect()) {
-            UUID linksId = UUID.randomUUID();
-
             // add row to channels table
-            String channelQuery = "INSERT INTO channels (handle, name, yid, description, created_date_time, views, links_id, " +
-                    "logo, banner, subscribers) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String channelQuery = "INSERT INTO channels (handle, name, yid, description, created_date_time, views, " +
+                    "logo, banner, subscribers) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement channelPrepStat = conn.prepareStatement(channelQuery);
             channelPrepStat.setString(1, channel.getHandle());
             channelPrepStat.setString(2, channel.getName());
@@ -69,19 +67,18 @@ public class DatabaseManager {
             channelPrepStat.setString(4, channel.getDescription());
             channelPrepStat.setTimestamp(5, Timestamp.valueOf(channel.getCreatedDateTime()));
             channelPrepStat.setInt(6, channel.getViews());
-            channelPrepStat.setObject(7, linksId);
-            channelPrepStat.setBytes(8, channel.getLogo());
-            channelPrepStat.setBytes(9, channel.getBanner());
-            channelPrepStat.setInt(10, channel.getSubscribers());
+            channelPrepStat.setBytes(7, channel.getLogo());
+            channelPrepStat.setBytes(8, channel.getBanner());
+            channelPrepStat.setInt(9, channel.getSubscribers());
             // execute and close
             channelPrepStat.executeUpdate();
             channelPrepStat.close();
 
             // add row to links table
-            String linksQuery = "INSERT INTO links (links_id, website, email, facebook, instagram, x, telegram, tiktok, " +
+            String linksQuery = "INSERT INTO links (handle, website, email, facebook, instagram, x, telegram, tiktok, " +
                     "discord, linkedin, reddit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement linksPrepStat = conn.prepareStatement(linksQuery);
-            linksPrepStat.setObject(1, linksId);
+            linksPrepStat.setString(1, channel.getHandle());
             linksPrepStat.setString(2, channel.getWebsite());
             linksPrepStat.setString(3, channel.getEmail());
             linksPrepStat.setString(4, channel.getFacebook());
@@ -375,7 +372,7 @@ public class DatabaseManager {
         Connection conn = connect();
 
         // read channel from channels and links tables
-        String query = "SELECT * FROM channels JOIN links ON channels.links_id = links.links_id WHERE handle = ?";
+        String query = "SELECT * FROM channels JOIN links ON channels.handle = links.handle WHERE channels.handle = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, handle);
         ResultSet rs = stmt.executeQuery();
@@ -784,7 +781,7 @@ public class DatabaseManager {
 
             // update links table
             String linksQuery = "UPDATE links SET website = ?, email = ?, facebook = ?, instagram = ?, x = ?, telegram = ?, " +
-                    "tiktok = ?, discord = ?, linkedin = ?, reddit = ? WHERE links_id = ?";
+                    "tiktok = ?, discord = ?, linkedin = ?, reddit = ? WHERE handle = ?";
             PreparedStatement linksStmt = conn.prepareStatement(linksQuery);
             linksStmt.setString(1, channel.getWebsite());
             linksStmt.setString(2, channel.getEmail());
@@ -796,6 +793,7 @@ public class DatabaseManager {
             linksStmt.setString(8, channel.getDiscord());
             linksStmt.setString(9, channel.getLinkedin());
             linksStmt.setString(10, channel.getReddit());
+            linksStmt.setString(11, channel.getHandle());
 
             linksStmt.executeUpdate();
             linksStmt.close();
@@ -924,6 +922,166 @@ public class DatabaseManager {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1, channel.getViews());
             stmt.setObject(2, channel.getHandle());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // ----------------------------- DELETE -----------------------------
+
+    public static void deleteUser(User user) {
+        try (Connection conn = connect()) {
+            // delete from users table and children
+            String query = "DELETE FROM users WHERE yid = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, user.getYid().toString());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void deleteChannel(Channel channel) {
+        try (Connection conn = connect()) {
+            // delete from channels table and children
+            String query = "DELETE FROM channels WHERE handle = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, channel.getHandle());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void deleteVideo(Video video) {
+        try (Connection conn = connect()) {
+            // delete from videos table and children
+            String query = "DELETE FROM videos WHERE video_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setObject(1, video.getId());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void deleteShort(Short shortVideo) {
+        try (Connection conn = connect()) {
+            // delete from shorts table and children
+            String query = "DELETE FROM shorts WHERE short_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setObject(1, shortVideo.getId());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void deletePlaylist(Playlist playlist) {
+        try (Connection conn = connect()) {
+            // delete from playlists table
+            String query = "DELETE FROM playlists WHERE playlist_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setObject(1, playlist.getId());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void deleteVideoComment(Comment comment) {
+        try (Connection conn = connect()) {
+            // delete from video_comments table and children
+            String query = "DELETE FROM video_comments WHERE comment_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setObject(1, comment.getId());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void deleteShortComment(Comment comment) {
+        try (Connection conn = connect()) {
+            // delete from short_comments table and children
+            String query = "DELETE FROM short_comments WHERE comment_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setObject(1, comment.getId());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void unlikeVideo(Comment comment, User user) {
+        try (Connection conn = connect()) {
+            // delete like from video_comment_likes
+            String query = "DELETE FROM video_comment_likes WHERE comment_id = ? AND yid = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setObject(1, comment.getId());
+            stmt.setString(2, user.getYid().toString());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void undislikeVideo(Comment comment, User user) {
+        try (Connection conn = connect()) {
+            // delete from video_comment_dislikes
+            String query = "DELETE FROM video_comment_dislikes WHERE comment_id = ? AND yid = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setObject(1, comment.getId());
+            stmt.setString(2, user.getYid().toString());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void unlikeShort(Comment comment, User user) {
+        try (Connection conn = connect()) {
+            // delete from short_comment_likes
+            String query = "DELETE FROM short_comment_likes WHERE comment_id = ? AND yid = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setObject(1, comment.getId());
+            stmt.setString(2, user.getYid().toString());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void undislikeShort(Comment comment, User user) {
+        try (Connection conn = connect()) {
+            // delete from short_comment_dislikes
+            String query = "DELETE FROM short_comment_dislikes WHERE comment_id = ? AND yid = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setObject(1, comment.getId());
+            stmt.setString(2, user.getYid().toString());
 
             stmt.executeUpdate();
             stmt.close();
