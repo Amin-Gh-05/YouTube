@@ -1,26 +1,50 @@
 package org.project.youtube.Client.Controller;
 
+import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
+public class MainController {
+    public static Stage mainStage;
+
+    @FXML
+    private Label channelLabel;
+
+    @FXML
+    private Label historyLabel;
+
+    @FXML
+    private Label homeLabel;
+
+    @FXML
+    private Label laterLabel;
+
+    @FXML
+    private Label likedLabel;
 
     @FXML
     private ImageView mainLogo;
+
+    @FXML
+    private Button moreButton;
+
+    @FXML
+    private Label playlistsLabel;
 
     @FXML
     private TextField searchBox;
@@ -29,16 +53,89 @@ public class MainController implements Initializable {
     private Button searchButton;
 
     @FXML
+    private Label shortsLabel;
+
+    @FXML
     private Button signInButton;
 
     @FXML
-    private Button moreButton;
+    private Label subLabel;
 
     @FXML
-    static Stage mainStage;
+    private Separator topSeparator;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    @FXML
+    private Label videosLabel;
+
+    @FXML
+    private HBox homeBox;
+
+    @FXML
+    private HBox shortsBox;
+
+    @FXML
+    private HBox subsBox;
+
+    @FXML
+    private HBox channelBox;
+
+    @FXML
+    private HBox historyBox;
+
+    @FXML
+    private HBox playlistsBox;
+
+    @FXML
+    private HBox videosBox;
+
+    @FXML
+    private HBox latersBox;
+
+    @FXML
+    private HBox likedBox;
+
+    @FXML
+    void loadChannel(MouseEvent event) {
+
+    }
+
+    @FXML
+    void loadHistory(MouseEvent event) {
+
+    }
+
+    @FXML
+    void loadHome(ActionEvent event) {
+
+    }
+
+    @FXML
+    void loadLaters(MouseEvent event) {
+
+    }
+
+    @FXML
+    void loadLikes(MouseEvent event) {
+
+    }
+
+    @FXML
+    void loadPlaylists(MouseEvent event) {
+
+    }
+
+    @FXML
+    void loadShorts(MouseEvent event) {
+
+    }
+
+    @FXML
+    void loadSubs(ActionEvent event) {
+
+    }
+
+    @FXML
+    void loadVideos(MouseEvent event) {
 
     }
 
@@ -70,5 +167,26 @@ public class MainController implements Initializable {
         stage.show();
 
         System.out.println("| redirect to login panel");
+    }
+
+    @FXML
+    void slideSidebar(ActionEvent event) {
+        playClickEffect(moreButton);
+
+        //todo
+    }
+
+    private void playClickEffect(Button button) {
+        // animation class
+        ScaleTransition scaleTransition = new ScaleTransition();
+        scaleTransition.setDuration(Duration.millis(100));
+        scaleTransition.setNode(button);
+        // set scales
+        scaleTransition.setByX(0.1);
+        scaleTransition.setByY(0.1);
+        scaleTransition.setAutoReverse(true);
+
+        scaleTransition.setCycleCount(2);
+        scaleTransition.play();
     }
 }
