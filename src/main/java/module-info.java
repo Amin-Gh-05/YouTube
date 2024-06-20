@@ -5,6 +5,7 @@ module org.project.youtube {
     requires org.postgresql.jdbc;
     requires org.json;
     requires org.apache.commons.codec;
+    requires java.desktop;
 
 
     exports org.project.youtube.Client.Controller;
