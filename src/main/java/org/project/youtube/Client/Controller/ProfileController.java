@@ -14,10 +14,15 @@ import java.util.Objects;
 
 public class ProfileController {
 
+
+
+
+
     public ProfileController(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("profile-view.fxml"));
         stage.setTitle("Profile setting");
         stage.setScene(new Scene(root, 1220, 740));
+        stage.setResizable(false);
         stage.show();
     }
 }

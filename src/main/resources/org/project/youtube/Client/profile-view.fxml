@@ -1,18 +1,221 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Main">
    <children>
-      <ImageView fitHeight="178.0" fitWidth="200.0" layoutX="39.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/icon.png" />
-         </image>
-      </ImageView>
-      <VBox layoutX="14.0" layoutY="226.0" prefHeight="363.0" prefWidth="225.0" />
+      <AnchorPane prefHeight="226.0" prefWidth="800.0" styleClass="primary-color" stylesheets="@profile-view.css">
+         <children>
+            <Circle fill="DODGERBLUE" layoutX="124.0" layoutY="107.0" radius="92.0" stroke="BLACK" strokeType="INSIDE" />
+            <Button layoutX="246.0" layoutY="156.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="106.0" stylesheets="@profile-view.css" text="Edit Profile" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="236.0" fitWidth="300.0" layoutX="500.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/1718869543259.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="246.0" layoutY="56.0" prefHeight="13.0" prefWidth="191.0" text="A username">
+               <font>
+                  <Font name="System Bold" size="27.0" />
+               </font>
+            </Label>
+            <Label fx:id="ManageChannels" layoutX="246.0" layoutY="88.0" prefHeight="39.0" prefWidth="146.0" text="Manage Channels...">
+               <font>
+                  <Font name="Roboto Italic" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <ScrollPane layoutY="225.0" prefHeight="379.0" prefWidth="800.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="610.0" prefWidth="785.0">
+               <children>
+                  <VBox layoutX="14.0" prefHeight="400.0" prefWidth="269.0">
+                     <children>
+                        <Label prefHeight="38.0" prefWidth="269.0" text="  Links">
+                           <font>
+                              <Font name="System Bold" size="26.0" />
+                           </font>
+                        </Label>
+                        <HBox prefHeight="47.0" prefWidth="269.0">
+                           <children>
+                              <ImageView fitHeight="37.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/icon.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="3.0" right="3.0" top="5.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Hyperlink prefHeight="50.0" prefWidth="225.0" text="Hyperlink">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Hyperlink>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="47.0" prefWidth="269.0">
+                           <children>
+                              <ImageView fitHeight="47.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true" />
+                              <Hyperlink prefHeight="50.0" prefWidth="225.0" text="Hyperlink">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Hyperlink>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="47.0" prefWidth="269.0">
+                           <children>
+                              <ImageView fitHeight="47.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true" />
+                              <Hyperlink prefHeight="50.0" prefWidth="225.0" text="Hyperlink">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Hyperlink>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="47.0" prefWidth="269.0">
+                           <children>
+                              <ImageView fitHeight="47.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true" />
+                              <Hyperlink prefHeight="50.0" prefWidth="225.0" text="Hyperlink">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Hyperlink>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="47.0" prefWidth="269.0">
+                           <children>
+                              <ImageView fitHeight="47.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true" />
+                              <Hyperlink prefHeight="50.0" prefWidth="225.0" text="Hyperlink">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Hyperlink>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="47.0" prefWidth="269.0">
+                           <children>
+                              <ImageView fitHeight="47.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true" />
+                              <Hyperlink prefHeight="50.0" prefWidth="225.0" text="Hyperlink">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Hyperlink>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="354.0" layoutY="2.0" prefHeight="412.0" prefWidth="549.0">
+                     <children>
+                        <Label prefHeight="34.0" prefWidth="269.0" text="Personal Info">
+                           <font>
+                              <Font name="System Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <HBox prefHeight="47.0" prefWidth="594.0">
+                           <children>
+                              <Label prefHeight="47.0" text="Name: ">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="nameField" prefHeight="47.0" prefWidth="415.0" text="a name">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="47.0" prefWidth="594.0">
+                           <children>
+                              <Label prefHeight="47.0" text="Last Name: ">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lastnameField" prefHeight="47.0" prefWidth="415.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="47.0" prefWidth="594.0">
+                           <children>
+                              <Label prefHeight="47.0" text="E-mail: ">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="emailField" prefHeight="47.0" prefWidth="415.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="47.0" prefWidth="594.0">
+                           <children>
+                              <Label prefHeight="47.0" text="Date Of Birth: ">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="DOBField" prefHeight="47.0" prefWidth="415.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="47.0" prefWidth="594.0">
+                           <children>
+                              <Label prefHeight="47.0" text="Gender: ">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="genderField" prefHeight="47.0" prefWidth="415.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="47.0" prefWidth="594.0">
+                           <children>
+                              <Label fx:id="regionField" prefHeight="47.0" text="Region:  ">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="47.0" prefWidth="415.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children></VBox>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
    </children>
-</AnchorPane>
+</Pane>
