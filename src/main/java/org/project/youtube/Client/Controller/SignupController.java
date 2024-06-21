@@ -113,12 +113,12 @@ public class SignupController {
     }
 
     private boolean findUsername(String username) {
-        //TODO
+        // TODO
         return false;
     }
 
     private boolean findEmail(String email) {
-        //TODO
+        // TODO
         return false;
     }
 

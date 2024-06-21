@@ -14,12 +14,12 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Main">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.ProfileController">
    <children>
       <AnchorPane prefHeight="226.0" prefWidth="800.0" styleClass="primary-color" stylesheets="@profile-view.css">
          <children>
-            <Circle fill="DODGERBLUE" layoutX="124.0" layoutY="107.0" radius="92.0" stroke="BLACK" strokeType="INSIDE" />
-            <Button layoutX="246.0" layoutY="156.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="106.0" stylesheets="@profile-view.css" text="Edit Profile" textFill="WHITE">
+            <Circle fx:id="profile" fill="DODGERBLUE" layoutX="124.0" layoutY="107.0" radius="92.0" stroke="BLACK" strokeType="INSIDE" />
+            <Button fx:id="editProfile" layoutX="246.0" layoutY="156.0" mnemonicParsing="false" onAction="#switchToEditProfile" prefHeight="43.0" prefWidth="106.0" styleClass="button1" stylesheets="@profile-view.css" text="Edit Profile" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -29,30 +29,35 @@
                   <Image url="@images/1718869543259.png" />
                </image>
             </ImageView>
-            <Label layoutX="246.0" layoutY="56.0" prefHeight="13.0" prefWidth="191.0" text="A username">
+            <Label fx:id="usernameField" layoutX="246.0" layoutY="56.0" prefHeight="13.0" prefWidth="191.0" text="A username">
                <font>
                   <Font name="System Bold" size="27.0" />
                </font>
             </Label>
-            <Label fx:id="ManageChannels" layoutX="246.0" layoutY="88.0" prefHeight="39.0" prefWidth="146.0" text="Manage Channels...">
+            <Button fx:id="ManageChannels" layoutX="225.0" layoutY="93.0" mnemonicParsing="false" onAction="#switchToManageChannels" prefHeight="28.0" prefWidth="148.0" styleClass="button2" stylesheets="@profile-view.css" text="Manage Channels...">
                <font>
-                  <Font name="Roboto Italic" size="13.0" />
+                  <Font size="13.0" />
                </font>
-            </Label>
+            </Button>
+            <Button layoutX="153.0" layoutY="38.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="61.0" rotate="14.0" styleClass="button3" stylesheets="@profile-view.css" text="Premium" AnchorPane.bottomAnchor="168.0">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <ScrollPane layoutY="225.0" prefHeight="379.0" prefWidth="800.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="610.0" prefWidth="785.0">
                <children>
-                  <VBox layoutX="14.0" prefHeight="400.0" prefWidth="269.0">
+                  <VBox fx:id="links" layoutX="14.0" prefHeight="400.0" prefWidth="269.0">
                      <children>
                         <Label prefHeight="38.0" prefWidth="269.0" text="  Links">
                            <font>
                               <Font name="System Bold" size="26.0" />
                            </font>
                         </Label>
-                        <HBox prefHeight="47.0" prefWidth="269.0">
+                        <HBox fx:id="hyperlinks" prefHeight="47.0" prefWidth="269.0">
                            <children>
                               <ImageView fitHeight="37.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -149,7 +154,7 @@
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lastnameField" prefHeight="47.0" prefWidth="415.0">
+                              <Label fx:id="lastnameField" prefHeight="47.0" prefWidth="415.0" stylesheets="@profile-view.css">
                                  <font>
                                     <Font size="15.0" />
                                  </font>

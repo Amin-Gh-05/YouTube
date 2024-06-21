@@ -1,20 +1,32 @@
 .primary-color{
-    -fx-background-color: #F3F3F3;
+    -fx-background-color: #FFFFFF;
 }
 
 
-.button{
+.button1{
     -fx-text-fill: #FFFFFF;
     -fx-background-color: #FF0000;
     -fx-background-radius: 23;
-    -fx-effect: dropshadow( gaussian, rgba(0,0,0,0.7), 4,0,0,3);
-    -fx-alternative-column-fill-visible: true;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 4,0,0,3);
 }
 
-.button:armed {
-    -fx-color: -fx-pressed-base;
+.button1:hover{
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 0,0,0,3);
 }
 
+.button2{
+    -fx-background-color: #FFFFFF;
+    -fx-border-width: 0;
+    -fx-font-style: italic;
+}
+
+
+
+.button3{
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #FF0000;
+    -fx-background-radius: 23;
+}
 
 .text-input{
     -fx-background-color: #ffffff;

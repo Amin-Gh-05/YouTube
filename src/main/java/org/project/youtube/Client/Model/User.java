@@ -2,6 +2,7 @@ package org.project.youtube.Client.Model;
 
 import org.project.youtube.Server.Model.YID;
 
+import java.io.File;
 import java.time.LocalDate;
 
 public class User {
@@ -118,7 +119,7 @@ public class User {
         this.gender = gender;
     }
 
-    public byte[] getProfilePic() {
+    public File getProfilePic() {
         return profilePic;
     }
 
