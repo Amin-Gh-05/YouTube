@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -95,6 +96,14 @@ public class MainController {
     private HBox likedBox;
 
     @FXML
+    private VBox sideBar;
+
+    @FXML
+    private Label youLabel;
+
+    private boolean slideBar = true;
+
+    @FXML
     void loadChannel(MouseEvent event) {
 
     }
@@ -173,7 +182,23 @@ public class MainController {
     void slideSidebar(ActionEvent event) {
         playClickEffect(moreButton);
 
-        //todo
+        if (slideBar) {
+            slideBar = false;
+
+            // remove children
+            sideBar.getChildren().remove(3, 11);
+            subsBox.getChildren().remove(1);
+            shortsBox.getChildren().remove(1);
+            homeBox.getChildren().remove(1);
+        } else {
+            slideBar = true;
+
+            // add children
+            homeBox.getChildren().add(homeLabel);
+            shortsBox.getChildren().add(shortsLabel);
+            subsBox.getChildren().add(subLabel);
+            sideBar.getChildren().addAll(topSeparator, youLabel, channelBox, historyBox, playlistsBox, videosBox, latersBox, likedBox);
+        }
     }
 
     private void playClickEffect(Button button) {
