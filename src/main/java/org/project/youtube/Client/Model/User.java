@@ -119,7 +119,7 @@ public class User {
         this.gender = gender;
     }
 
-    public File getProfilePic() {
+    public byte[] getProfilePic() {
         return profilePic;
     }
 

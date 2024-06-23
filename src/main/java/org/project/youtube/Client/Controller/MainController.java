@@ -186,10 +186,12 @@ public class MainController {
             slideBar = false;
 
             // remove children
-            sideBar.getChildren().remove(3, 11);
+            sideBar.getChildren().remove(3, 6);
+            sideBar.getChildren().remove(4, 8);
             subsBox.getChildren().remove(1);
             shortsBox.getChildren().remove(1);
             homeBox.getChildren().remove(1);
+            historyBox.getChildren().remove(1);
         } else {
             slideBar = true;
 
@@ -197,7 +199,11 @@ public class MainController {
             homeBox.getChildren().add(homeLabel);
             shortsBox.getChildren().add(shortsLabel);
             subsBox.getChildren().add(subLabel);
-            sideBar.getChildren().addAll(topSeparator, youLabel, channelBox, historyBox, playlistsBox, videosBox, latersBox, likedBox);
+            sideBar.getChildren().add(3, topSeparator);
+            sideBar.getChildren().add(4, youLabel);
+            sideBar.getChildren().add(5, channelBox);
+            historyBox.getChildren().add(historyLabel);
+            sideBar.getChildren().addAll(playlistsBox, videosBox, latersBox, likedBox);
         }
     }
 
