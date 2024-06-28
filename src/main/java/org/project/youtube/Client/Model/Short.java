@@ -8,7 +8,7 @@ public class Short {
     private UUID id;
     private String title;
     private int duration;
-    private LocalDateTime createdDateTime;
+    private String createdDateTime;
     private int likes;
     private List<Comment> comments;
     private boolean isAgeRestricted;
@@ -17,24 +17,11 @@ public class Short {
     private String shortHandle;
 
     public Short(UUID id, String title, int duration, LocalDateTime createdDateTime, int likes, List<Comment> comments,
-                 boolean isAgeRestricted, byte[] thumbnail, String shortHandle) {
-        this.id = id;
-        this.title = title;
-        this.duration = duration;
-        this.createdDateTime = createdDateTime;
-        this.likes = likes;
-        this.comments = comments;
-        this.isAgeRestricted = isAgeRestricted;
-        this.thumbnail = thumbnail;
-        this.shortHandle = shortHandle;
-    }
-
-    public Short(UUID id, String title, int duration, LocalDateTime createdDateTime, int likes, List<Comment> comments,
                  boolean isAgeRestricted, List<String> tags, byte[] thumbnail, String shortHandle) {
         this.id = id;
         this.title = title;
         this.duration = duration;
-        this.createdDateTime = createdDateTime;
+        this.createdDateTime = createdDateTime.toString();
         this.likes = likes;
         this.comments = comments;
         this.isAgeRestricted = isAgeRestricted;
@@ -68,10 +55,10 @@ public class Short {
     }
 
     public LocalDateTime getCreatedDateTime() {
-        return createdDateTime;
+        return createdDateTime == null?null:LocalDateTime.parse(createdDateTime);
     }
 
-    public void setCreatedDateTime(LocalDateTime createdDateTime) {
+    public void setCreatedDateTime(String createdDateTime) {
         this.createdDateTime = createdDateTime;
     }
 

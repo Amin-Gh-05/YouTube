@@ -1,16 +1,14 @@
 package org.project.youtube.Client.Model;
 
-import org.project.youtube.Server.Model.YID;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class Channel {
     private String handle;
     private String name;
-    private org.project.youtube.Server.Model.YID ownerYID;
+    private YID ownerYID;
     private String description;
-    private LocalDateTime createdDateTime;
+    private String createdDateTime;
     private int views;
     private int subscribers;
     private byte[] logo;
@@ -31,7 +29,7 @@ public class Channel {
     private String linkedin;
     private String reddit;
 
-    public Channel(String handle, String name, org.project.youtube.Server.Model.YID ownerYID, String description, LocalDateTime createdDateTime, int views,
+    public Channel(String handle, String name, YID ownerYID, String description, LocalDateTime createdDateTime, int views,
                    int subscribers, byte[] logo, byte[] banner, String website, String email, String facebook, String instagram,
                    String x, String telegram, String tiktok, String discord, String linkedin, String reddit, List<Video> videos,
                    List<Short> shorts, List<Playlist> playlists) {
@@ -39,7 +37,7 @@ public class Channel {
         this.name = name;
         this.ownerYID = ownerYID;
         this.description = description;
-        this.createdDateTime = createdDateTime;
+        this.createdDateTime = createdDateTime.toString();
         this.views = views;
         this.subscribers = subscribers;
         this.logo = logo;
@@ -77,7 +75,7 @@ public class Channel {
         this.name = name;
     }
 
-    public org.project.youtube.Server.Model.YID getOwnerYID() {
+    public YID getOwnerYID() {
         return ownerYID;
     }
 
@@ -94,10 +92,10 @@ public class Channel {
     }
 
     public LocalDateTime getCreatedDateTime() {
-        return createdDateTime;
+        return createdDateTime == null?null:LocalDateTime.parse(createdDateTime);
     }
 
-    public void setCreatedDateTime(LocalDateTime createdDateTime) {
+    public void setCreatedDateTime(String createdDateTime) {
         this.createdDateTime = createdDateTime;
     }
 

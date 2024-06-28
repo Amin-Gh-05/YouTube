@@ -9,7 +9,7 @@ public class Video {
     private String title;
     private String description;
     private String duration;
-    private LocalDateTime createdDateTime;
+    private String createdDateTime;
     private int likes;
     private List<Comment> comments;
     private boolean isAgeRestricted;
@@ -18,26 +18,12 @@ public class Video {
     private String videoHandle;
 
     public Video(UUID id, String title, String description, String duration, LocalDateTime createdDateTime, int likes,
-                 List<Comment> comments, boolean isAgeRestricted, byte[] thumbnail, String videoHandle) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.duration = duration;
-        this.createdDateTime = createdDateTime;
-        this.likes = likes;
-        this.comments = comments;
-        this.isAgeRestricted = isAgeRestricted;
-        this.thumbnail = thumbnail;
-        this.videoHandle = videoHandle;
-    }
-
-    public Video(UUID id, String title, String description, String duration, LocalDateTime createdDateTime, int likes,
                  List<Comment> comments, boolean isAgeRestricted, List<String> tags, byte[] thumbnail, String videoHandle) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.duration = duration;
-        this.createdDateTime = createdDateTime;
+        this.createdDateTime = createdDateTime.toString();
         this.likes = likes;
         this.comments = comments;
         this.isAgeRestricted = isAgeRestricted;
@@ -79,10 +65,10 @@ public class Video {
     }
 
     public LocalDateTime getCreatedDateTime() {
-        return createdDateTime;
+        return createdDateTime == null?null: LocalDateTime.parse(createdDateTime);
     }
 
-    public void setCreatedDateTime(LocalDateTime createdDateTime) {
+    public void setCreatedDateTime(String createdDateTime) {
         this.createdDateTime = createdDateTime;
     }
 

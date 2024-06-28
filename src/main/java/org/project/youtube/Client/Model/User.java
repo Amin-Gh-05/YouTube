@@ -1,12 +1,9 @@
 package org.project.youtube.Client.Model;
 
-import org.project.youtube.Server.Model.YID;
-
-import java.io.File;
 import java.time.LocalDate;
 
 public class User {
-    private org.project.youtube.Server.Model.YID yid;
+    private YID yid;
     private String username;
     private String email;
     private String password;
@@ -17,12 +14,12 @@ public class User {
     private String firstName;
     private String lastName;
     private String region;
-    private LocalDate dateOfBirth;
-    private LocalDate joinedDate;
+    private String dateOfBirth;
+    private String joinedDate;
     private String gender;
     private byte[] profilePic;
 
-    public User(org.project.youtube.Server.Model.YID yid, String username, String email, String password, String firstName, String lastName, String region,
+    public User(YID yid, String username, String email, String password, String firstName, String lastName, String region,
                 LocalDate dateOfBirth, LocalDate joinedDate, String gender, byte[] profilePic, boolean isPremium, String handle) {
         this.yid = yid;
         this.username = username;
@@ -35,13 +32,13 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.region = region;
-        this.dateOfBirth = dateOfBirth;
-        this.joinedDate = joinedDate;
+        this.dateOfBirth = dateOfBirth.toString();
+        this.joinedDate = joinedDate.toString();
         this.gender = gender;
         this.profilePic = profilePic;
     }
 
-    public org.project.youtube.Server.Model.YID getYid() {
+    public YID getYid() {
         return yid;
     }
 
@@ -98,18 +95,18 @@ public class User {
     }
 
     public LocalDate getDateOfBirth() {
-        return dateOfBirth;
+        return dateOfBirth == null?null: LocalDate.parse(dateOfBirth);
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
     public LocalDate getJoinedDate() {
-        return joinedDate;
+        return joinedDate == null?null: LocalDate.parse(joinedDate);
     }
 
-    public void setJoinedDate(LocalDate joinedDate) {
+    public void setJoinedDate(String joinedDate) {
         this.joinedDate = joinedDate;
     }
 
