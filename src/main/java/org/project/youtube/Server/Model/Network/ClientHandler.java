@@ -46,8 +46,8 @@ public class ClientHandler implements Runnable {
 
                 switch (reqJson.getString("reqType")) {
                     case "signup" -> sendStringResponse(ClientService.signup(data));
-                    //case "findUsername" -> sendBooleanResponse(ClientService.findUsername(data));
-                    case "findUsername" -> System.out.println((ClientService.findUsername(data)));
+                    case "findUsername" -> sendBooleanResponse(ClientService.findUsername(data));
+                    //case "findUsername" -> System.out.println((ClientService.findUsername(data)));
                     case "findEmail" -> sendBooleanResponse(ClientService.findEmail(data));
                     case "login" -> sendStringResponse(ClientService.login(data));
 //                    case "logout" -> ;
