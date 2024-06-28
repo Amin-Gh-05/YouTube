@@ -728,6 +728,54 @@ public class DatabaseManager {
         return comments;
     }
 
+    public static boolean findYid(String yid) throws SQLException {
+        Connection conn = connect();
+
+        // checks if yid exists in users
+        String query = "SELECT yid FROM users WHERE yid = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, yid);
+        ResultSet rs = stmt.executeQuery();
+
+        // close
+        stmt.close();
+        conn.close();
+
+        return rs.next();
+    }
+
+    public static boolean findUsername(String username) throws SQLException {
+        Connection conn = connect();
+
+        // checks if username exists in users
+        String query = "SELECT username FROM users WHERE username = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, username);
+        ResultSet rs = stmt.executeQuery();
+
+        // close
+        stmt.close();
+        conn.close();
+
+        return rs.next();
+    }
+
+    public static boolean findEmail(String email) throws SQLException {
+        Connection conn = connect();
+
+        // checks if email exists in users
+        String query = "SELECT email FROM users WHERE email = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, email);
+        ResultSet rs = stmt.executeQuery();
+
+        // close
+        stmt.close();
+        conn.close();
+
+        return rs.next();
+    }
+
     // ----------------------------- UPDATE -----------------------------
 
     public static void updateUser(User user) {
