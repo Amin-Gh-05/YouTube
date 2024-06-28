@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class ProfileController {
+    private static User user;
 
     @FXML
     private Button PreSign;
@@ -62,23 +63,27 @@ public class ProfileController {
     private Label usernameField;
 
     public void initialize() throws IOException {
-//        usernameField.setText(Main.getUsername());
-//        if(!user.isPremium())
-//            PreSign.setVisible(false);
-//        if(user.getProfilePic() == null){
-//
-//        }
-//        else{
-//            BufferedImage img = ImageIO.read(user.getProfilePic());
-//            //Image img = new Image("/image/rifat.jpg");
-//            profile.setFill(new ImagePattern(img));
-//        }
-//        nameField.setText(user.getFirstName());
-//        lastnameField.setText(user.getLastName());
-//        emailField.setText(user.getEmail());
-//        DOBField.setText(user.getDateOfBirth().toString());
-//        genderField.setText(user.getGender());
-//        regionField.setText(user.getRegion());
+        user = Main.getUser();
+
+        usernameField.setText(user.getUsername());
+
+        if(!user.isPremium())
+            PreSign.setVisible(false);
+
+        if(user.getProfilePic() == null){
+
+        }
+        else{
+            Image img = new Image(new ByteArrayInputStream(user.getProfilePic()));
+            profile.setFill(new ImagePattern(img));
+        }
+
+        nameField.setText(user.getFirstName());
+        lastnameField.setText(user.getLastName());
+        emailField.setText(user.getEmail());
+        DOBField.setText(user.getDateOfBirth().toString());
+        genderField.setText(user.getGender());
+        regionField.setText(user.getRegion());
     }
 
     //Changing scenes
