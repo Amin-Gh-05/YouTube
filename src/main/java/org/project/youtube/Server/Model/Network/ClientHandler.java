@@ -25,6 +25,11 @@ public class ClientHandler implements Runnable {
         return userFileTransferSocket;
     }
 
+    public void sendResponse(String resp) throws IOException {
+        out.writeUTF(resp);
+        out.flush();
+    }
+
     @Override
     public void run() {
         try {
@@ -35,8 +40,8 @@ public class ClientHandler implements Runnable {
                 JSONObject data = reqJson.getJSONObject("reqData");
 
                 switch (reqJson.getString("reqType")) {
-                    case "login" -> ClientService.login(data);
-//                    case "signup" -> ;
+                    case "login" -> sendResponse(ClientService.login(data));
+                    case "signup" -> sendResponse(ClientService.signup(data));
 //                    case "logout" -> ;
 //                    case "getRandomTags" -> ;
 //                    case "getRandomVideos" -> ;

@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.project.youtube.Client.Model.Network.Request;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -51,7 +53,7 @@ public class SignupController {
     }
 
     @FXML
-    void signUp(ActionEvent event) {
+    void signUp(ActionEvent event) throws IOException {
         if (!checkUsername(userName.getText())) {
             System.out.println("| username not valid");
             usernameAlert();
@@ -67,7 +69,7 @@ public class SignupController {
             passwordAlert();
             return;
         }
-        //TODO
+        Request.signup(userName.getText(), emailAddress.getText(), DigestUtils.sha256Hex(passWord.getText()));
     }
 
     @FXML
