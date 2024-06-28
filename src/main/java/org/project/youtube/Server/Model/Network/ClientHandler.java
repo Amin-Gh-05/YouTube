@@ -7,6 +7,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.sql.SQLException;
 
 public class ClientHandler implements Runnable {
     private Socket socket; // the client socket
@@ -25,8 +26,12 @@ public class ClientHandler implements Runnable {
         return userFileTransferSocket;
     }
 
-    public void sendResponse(String resp) throws IOException {
+    public void sendStringResponse(String resp) throws IOException {
         out.writeUTF(resp);
+        out.flush();
+    }
+    public void sendBooleanResponse(boolean resp) throws IOException {
+        out.writeBoolean(resp);
         out.flush();
     }
 
@@ -40,10 +45,11 @@ public class ClientHandler implements Runnable {
                 JSONObject data = reqJson.getJSONObject("reqData");
 
                 switch (reqJson.getString("reqType")) {
-                    case "signup" -> sendResponse(ClientService.signup(data));
-                    case "findUsername" -> sendResponse(ClientService.findUsername(data));
-                    case "findEmail" -> sendResponse(ClientService.findEmail(data));
-                    case "login" -> sendResponse(ClientService.login(data));
+                    case "signup" -> sendStringResponse(ClientService.signup(data));
+                    //case "findUsername" -> sendBooleanResponse(ClientService.findUsername(data));
+                    case "findUsername" -> System.out.println((ClientService.findUsername(data)));
+                    case "findEmail" -> sendBooleanResponse(ClientService.findEmail(data));
+                    case "login" -> sendStringResponse(ClientService.login(data));
 //                    case "logout" -> ;
 //                    case "getRandomTags" -> ;
 //                    case "getRandomVideos" -> ;
@@ -64,7 +70,9 @@ public class ClientHandler implements Runnable {
         catch (IOException e){
             System.err.println("| <IO Exception>");
         }
-        finally {
+        catch (SQLException e) {
+            System.err.println("| <SQLException>");
+        } finally {
 
         }
     }

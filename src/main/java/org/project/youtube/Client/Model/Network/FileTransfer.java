@@ -1,7 +1,5 @@
 package org.project.youtube.Client.Model.Network;
 
-import org.project.youtube.Server.Model.Network.Uploader;
-
 import java.io.IOException;
 
 public class FileTransfer {

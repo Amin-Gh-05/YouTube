@@ -1,8 +1,11 @@
 package org.project.youtube.Client.Model.Network;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.json.JSONObject;
+import org.project.youtube.Client.Main;
+import org.project.youtube.Client.Model.User;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -25,7 +28,7 @@ public class Request {
         return jsonObject.toString();
     }
 
-    public static String signup(String username, String email, String password) throws IOException {
+    public static void signup(String username, String email, String password) throws IOException {
         List<String> keys = new ArrayList<>();
         List<String> values = new ArrayList<>();
 
@@ -39,9 +42,16 @@ public class Request {
         values.add(password);
 
         Client.sendRequest(jsonBuilder("signup", keys, values));
+        String respStr = Client.getStringResponse();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Main.setUser(gson.fromJson(respStr, User.class));
     }
 
-    public static String findUsername(String username) throws IOException {
+    public static boolean findUsername(String username) throws IOException {
         List<String> keys = new ArrayList<>();
         List<String> values = new ArrayList<>();
 
@@ -49,10 +59,10 @@ public class Request {
         values.add(username);
 
         Client.sendRequest(jsonBuilder("findUsername", keys, values));
-
+        return Client.getBooleanResponse();
     }
 
-    public static String findEmail(String email) throws IOException {
+    public static boolean findEmail(String email) throws IOException {
         List<String> keys = new ArrayList<>();
         List<String> values = new ArrayList<>();
 
@@ -60,6 +70,7 @@ public class Request {
         values.add(email);
 
         Client.sendRequest(jsonBuilder("findEmail", keys, values));
+        return Client.getBooleanResponse();
     }
 
     public static void login(String username, String password) throws IOException {

@@ -20,13 +20,24 @@ public class Client {
         return fileTransferSocket;
     }
 
+    public static void setFileTransferSocket(Socket fileTransferSocket) {
+        Client.fileTransferSocket = fileTransferSocket;
+    }
+
+    public static void setSocket(Socket socket) {
+        Client.socket = socket;
+    }
+
     public static void sendRequest(String req) throws IOException {
         out.writeUTF(req);
         out.flush();
     }
 
-    public static String getResponse() throws IOException {
+    public static String getStringResponse() throws IOException {
         return in.readUTF();
+    }
+    public static boolean getBooleanResponse() throws IOException {
+        return in.readBoolean();
     }
 
     private static void close() throws IOException {
@@ -38,4 +49,6 @@ public class Client {
         }
 
     }
+
+
 }

@@ -83,7 +83,7 @@ public class SignupController {
         System.out.println("| redirect to main panel");
     }
 
-    private boolean checkUsername(String username) {
+    private boolean checkUsername(String username) throws IOException {
         // check if username is already used
         if (findUsername(username)) {
             System.out.println("| username already exists");
@@ -95,7 +95,7 @@ public class SignupController {
         return matcher.find();
     }
 
-    private boolean checkEmail(String email) {
+    private boolean checkEmail(String email) throws IOException {
         // check if email is already taken
         if (findEmail(email)) {
             System.out.println("| email already exists");
@@ -115,13 +115,11 @@ public class SignupController {
     }
 
     private boolean findUsername(String username) throws IOException {
-        Request.findUsername(username);
-        return false;
+        return Request.findUsername(username);
     }
 
     private boolean findEmail(String email) throws IOException {
-        Request.findEmail(email);
-        return false;
+        return Request.findEmail(email);
     }
 
     private void usernameAlert() {

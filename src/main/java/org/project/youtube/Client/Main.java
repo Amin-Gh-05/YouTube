@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.project.youtube.Client.Model.Network.Client;
+import org.project.youtube.Client.Model.User;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -14,6 +16,7 @@ public class Main extends Application {
     private static final String SERVER_IP = "127.0.0.1";
     private static final int SERVER_PORT = 5431;
     private static final int SERVER_FILE_TRANSFER_PORT = 5430;
+    private static User user;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -32,12 +35,20 @@ public class Main extends Application {
 
     @Override
     public void init() throws IOException {
-        //Client.socket = new Socket(SERVER_IP, SERVER_PORT);
-//        Client.fileTransferSocket = new Socket(SERVER_IP, SERVER_FILE_TRANSFER_PORT);
-        //Client.run();
+        Client.setSocket(new Socket(SERVER_IP, SERVER_PORT));
+        Client.setFileTransferSocket(new Socket(SERVER_IP, SERVER_FILE_TRANSFER_PORT));
+        Client.run();
     }
 
     public static void main(String[] args) {
         launch();
+    }
+
+    public static User getUser() {
+        return user;
+    }
+
+    public static void setUser(User user) {
+        Main.user = user;
     }
 }

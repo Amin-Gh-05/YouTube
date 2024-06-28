@@ -14,8 +14,8 @@ public class User {
     private String firstName;
     private String lastName;
     private String region;
-    private LocalDate dateOfBirth;
-    private LocalDate joinedDate;
+    private String dateOfBirth;
+    private String joinedDate;
     private String gender;
     private byte[] profilePic;
 
@@ -32,10 +32,27 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.region = region;
-        this.dateOfBirth = dateOfBirth;
-        this.joinedDate = joinedDate;
+        this.dateOfBirth = dateOfBirth.toString();
+        this.joinedDate = joinedDate.toString();
         this.gender = gender;
         this.profilePic = profilePic;
+    }
+    public User(YID yid, String username, String email, String password) {
+        this.yid = yid;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.isPremium = false;
+        this.handle = "user-" + yid.toString();
+
+        // personal info
+        this.firstName = null;
+        this.lastName = null;
+        this.region = null;
+        this.dateOfBirth = null;
+        this.joinedDate = LocalDate.now().toString();
+        this.gender = null;
+        this.profilePic = null;
     }
 
     public YID getYid() {
@@ -95,19 +112,19 @@ public class User {
     }
 
     public LocalDate getDateOfBirth() {
-        return dateOfBirth;
+        return LocalDate.parse(dateOfBirth);
     }
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+        this.dateOfBirth = dateOfBirth.toString();
     }
 
     public LocalDate getJoinedDate() {
-        return joinedDate;
+        return LocalDate.parse(joinedDate);
     }
 
     public void setJoinedDate(LocalDate joinedDate) {
-        this.joinedDate = joinedDate;
+        this.joinedDate = joinedDate.toString();
     }
 
     public String getGender() {
