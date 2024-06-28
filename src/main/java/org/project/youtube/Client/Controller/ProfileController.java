@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import java.awt.image.BufferedImage;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -18,7 +17,6 @@ import javafx.stage.Stage;
 import org.project.youtube.Client.Main;
 import org.project.youtube.Client.Model.User;
 
-import javax.imageio.ImageIO;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Objects;
