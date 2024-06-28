@@ -35,6 +35,6 @@
             <Image url="@images/logo-black.png" />
          </image>
       </ImageView>
-      <Button id="returnButton" fx:id="returnButton" layoutX="39.0" layoutY="40.0" mnemonicParsing="false" onAction="#turnBack" prefHeight="40.0" prefWidth="40.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="35.0" />
+      <Button id="returnButton" fx:id="returnButton" layoutX="39.0" layoutY="40.0" mnemonicParsing="false" onAction="#turnBack" prefHeight="40.0" prefWidth="59.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="35.0" />
    </children>
 </AnchorPane>
