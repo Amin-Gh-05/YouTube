@@ -112,19 +112,19 @@ public class User {
     }
 
     public LocalDate getDateOfBirth() {
-        return LocalDate.parse(dateOfBirth);
+        return dateOfBirth == null?null: LocalDate.parse(dateOfBirth);
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth.toString();
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public LocalDate getJoinedDate() {
-        return LocalDate.parse(joinedDate);
+        return joinedDate == null?null: LocalDate.parse(joinedDate);
     }
 
-    public void setJoinedDate(LocalDate joinedDate) {
-        this.joinedDate = joinedDate.toString();
+    public void setJoinedDate(String joinedDate) {
+        this.joinedDate = joinedDate;
     }
 
     public String getGender() {

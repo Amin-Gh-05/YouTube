@@ -1,5 +1,6 @@
 package org.project.youtube.Server.Model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -8,7 +9,7 @@ public class Channel {
     private String name;
     private YID ownerYID;
     private String description;
-    private LocalDateTime createdDateTime;
+    private String createdDateTime;
     private int views;
     private int subscribers;
     private byte[] logo;
@@ -37,7 +38,7 @@ public class Channel {
         this.name = name;
         this.ownerYID = ownerYID;
         this.description = description;
-        this.createdDateTime = createdDateTime;
+        this.createdDateTime = createdDateTime.toString();
         this.views = views;
         this.subscribers = subscribers;
         this.logo = logo;
@@ -92,10 +93,10 @@ public class Channel {
     }
 
     public LocalDateTime getCreatedDateTime() {
-        return createdDateTime;
+        return createdDateTime == null?null: LocalDateTime.parse(createdDateTime);
     }
 
-    public void setCreatedDateTime(LocalDateTime createdDateTime) {
+    public void setCreatedDateTime(String createdDateTime) {
         this.createdDateTime = createdDateTime;
     }
 
