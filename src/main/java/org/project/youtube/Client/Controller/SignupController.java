@@ -119,8 +119,8 @@ public class SignupController {
         return false;
     }
 
-    private boolean findEmail(String email) {
-        //TODO
+    private boolean findEmail(String email) throws IOException {
+        Request.findEmail(email);
         return false;
     }
 

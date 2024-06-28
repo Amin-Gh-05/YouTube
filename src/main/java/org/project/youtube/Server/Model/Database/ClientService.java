@@ -21,5 +21,6 @@ public class ClientService {
     }
 
     public static String findEmail(JSONObject data) {
+        String email = data.getString("email");
     }
 }
