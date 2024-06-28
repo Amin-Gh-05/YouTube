@@ -6,47 +6,60 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public class Request {
 
-    public static void signup(String username, String email, String password) throws IOException {
+    private static String jsonBuilder(String reqType, List<String> keys, List<String> values) {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("reqType", "sign up");
+        jsonObject.put("reqType", reqType);
 
         JSONObject data = new JSONObject();
-        data.put("username", username);
-        data.put("email", email);
-        data.put("password", password); // hashed password
-
+        for (int i = 0; i < keys.size(); i++) {
+            data.put(keys.get(i), values.get(i));
+        }
         jsonObject.put("reqData", data);
 
-        Client.sendRequest(jsonObject.toString());
+        return jsonObject.toString();
     }
 
-    public static void findUsername(String username) throws IOException {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("reqType", "findUsername");
+    public static String signup(String username, String email, String password) throws IOException {
+        List<String> keys = new ArrayList<>();
+        List<String> values = new ArrayList<>();
 
-        JSONObject data = new JSONObject();
-        data.put("username", username);
+        keys.add("username");
+        values.add(username);
 
-        jsonObject.put("reqData", data);
+        keys.add("email");
+        values.add(email);
 
-        Client.sendRequest(jsonObject.toString());
+        keys.add("password");
+        values.add(password);
+
+        Client.sendRequest(jsonBuilder("signup", keys, values));
     }
 
-    public static void findEmail(String email) throws IOException {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("reqType", "findEmail");
+    public static String findUsername(String username) throws IOException {
+        List<String> keys = new ArrayList<>();
+        List<String> values = new ArrayList<>();
 
-        JSONObject data = new JSONObject();
-        data.put("email", email);
+        keys.add("username");
+        values.add(username);
 
-        jsonObject.put("reqData", data);
+        Client.sendRequest(jsonBuilder("findUsername", keys, values));
 
-        Client.sendRequest(jsonObject.toString());
+    }
+
+    public static String findEmail(String email) throws IOException {
+        List<String> keys = new ArrayList<>();
+        List<String> values = new ArrayList<>();
+
+        keys.add("email");
+        values.add(email);
+
+        Client.sendRequest(jsonBuilder("findEmail", keys, values));
     }
 
     public static void login(String username, String password) throws IOException {

@@ -15,4 +15,11 @@ public class ClientService {
         return "";
     }
 
+    public static String findUsername(JSONObject data) {
+        String username = data.getString("username");
+
+    }
+
+    public static String findEmail(JSONObject data) {
+    }
 }

@@ -40,8 +40,10 @@ public class ClientHandler implements Runnable {
                 JSONObject data = reqJson.getJSONObject("reqData");
 
                 switch (reqJson.getString("reqType")) {
-                    case "login" -> sendResponse(ClientService.login(data));
                     case "signup" -> sendResponse(ClientService.signup(data));
+                    case "findUsername" -> sendResponse(ClientService.findUsername(data));
+                    case "findEmail" -> sendResponse(ClientService.findEmail(data));
+                    case "login" -> sendResponse(ClientService.login(data));
 //                    case "logout" -> ;
 //                    case "getRandomTags" -> ;
 //                    case "getRandomVideos" -> ;

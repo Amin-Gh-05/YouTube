@@ -114,8 +114,8 @@ public class SignupController {
         return matcher.find();
     }
 
-    private boolean findUsername(String username) {
-        //TODO
+    private boolean findUsername(String username) throws IOException {
+        Request.findUsername(username);
         return false;
     }
 
