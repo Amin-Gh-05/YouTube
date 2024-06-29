@@ -5,6 +5,7 @@ import org.project.youtube.Server.Model.*;
 import org.project.youtube.Server.Model.Short;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -12,14 +13,9 @@ import java.util.UUID;
 public class DatabaseManager {
     private static final String JDBC_URL = "jdbc:postgresql://localhost:5432/youtube";
     private static final String USERNAME = "postgres";
-    private static final String PASSWORD = "root";
+    private static final String PASSWORD = "2005tmsv";
 
     private static Connection connect() throws SQLException {
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
         return DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
     }
 
@@ -30,7 +26,7 @@ public class DatabaseManager {
             // add row to users table
             String userQuery = "INSERT INTO users (yid, username, email, password, is_premium, handle) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement userPrepStat = conn.prepareStatement(userQuery);
-            userPrepStat.setString(1, YID.randomYID().toString());
+            userPrepStat.setString(1, user.getYid().toString());
             userPrepStat.setString(2, user.getUsername());
             userPrepStat.setString(3, user.getEmail());
             userPrepStat.setString(4, user.getPassword());
@@ -41,17 +37,10 @@ public class DatabaseManager {
             userPrepStat.close();
 
             // add row to personal_info table
-            String infoQuery = "INSERT INTO personal_info (user_id, first_name, last_name, region, date_of_birth, gender, " +
-                    "joined_date, profile_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String infoQuery = "INSERT INTO personal_info (user_id, joined_date) VALUES (?, ?)";
             PreparedStatement infoPrepStat = conn.prepareStatement(infoQuery);
             infoPrepStat.setString(1, user.getYid().toString());
-            infoPrepStat.setString(2, user.getFirstName());
-            infoPrepStat.setString(3, user.getLastName());
-            infoPrepStat.setString(4, user.getRegion());
-            infoPrepStat.setDate(5, Date.valueOf(user.getDateOfBirth()));
-            infoPrepStat.setString(6, user.getGender());
-            infoPrepStat.setDate(7, Date.valueOf(user.getJoinedDate()));
-            infoPrepStat.setBytes(8, user.getProfilePic());
+            infoPrepStat.setDate(2, Date.valueOf(user.getJoinedDate()));
             // execute and close
             infoPrepStat.executeUpdate();
             infoPrepStat.close();
@@ -116,7 +105,7 @@ public class DatabaseManager {
             videoPrepStat.setObject(1, video.getId());
             videoPrepStat.setString(2, video.getTitle());
             videoPrepStat.setString(3, video.getDescription());
-            videoPrepStat.setString(4, video.getDuration());
+            videoPrepStat.setInt(4, video.getDuration());
             videoPrepStat.setTimestamp(5, Timestamp.valueOf(video.getCreatedDateTime()));
             videoPrepStat.setString(6, tags.toString());
             videoPrepStat.setBoolean(7, video.isAgeRestricted());
@@ -348,8 +337,6 @@ public class DatabaseManager {
         stmt.setString(2, password);
         ResultSet rs = stmt.executeQuery();
 
-        // close
-        stmt.close();
         conn.close();
 
         if (rs.next()) {
@@ -357,16 +344,7 @@ public class DatabaseManager {
                     YID.fromString(rs.getString("yid")),
                     rs.getString("username"),
                     rs.getString("email"),
-                    rs.getString("password"),
-                    rs.getString("first_name"),
-                    rs.getString("last_name"),
-                    rs.getString("region"),
-                    rs.getDate("date_of_birth").toLocalDate(),
-                    rs.getDate("joined_date").toLocalDate(),
-                    rs.getString("gender"),
-                    rs.getBytes("profile_picture"),
-                    rs.getBoolean("is_premium"),
-                    rs.getString("handle")
+                    rs.getString("password")
             );
         }
 
@@ -382,8 +360,6 @@ public class DatabaseManager {
         stmt.setString(1, handle);
         ResultSet rs = stmt.executeQuery();
 
-        // close
-        stmt.close();
         conn.close();
 
         if (rs.next()) {
@@ -421,15 +397,13 @@ public class DatabaseManager {
 
         // read videos from video, video_likes, video_dislikes tables
         String query = "SELECT videos.video_id, title, description, duration, created_date_time, tags, is_age_restricted," +
-                " thumbnail, handle, views, COUNT(video_likes.video_id - video_dislikes.video_id) AS likes FROM videos JOIN video_likes ON" +
-                " videos.video_id = video_likes.video_id JOIN video_dislikes ON videos.video_id = video_dislikes.video_id " +
-                "WHERE videos.video_id = ? GROUP BY videos.video_id";
+                " thumbnail, handle, views, COUNT(video_likes.video_id) - COUNT(video_dislikes.video_id) AS likes FROM videos " +
+                "LEFT JOIN video_likes ON videos.video_id = video_likes.video_id LEFT JOIN video_dislikes ON videos.video_id" +
+                " = video_dislikes.video_id WHERE videos.video_id = ? GROUP BY videos.video_id";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setObject(1, videoId);
         ResultSet rs = stmt.executeQuery();
 
-        // close
-        stmt.close();
         conn.close();
 
         if (rs.next()) {
@@ -437,7 +411,7 @@ public class DatabaseManager {
                     videoId,
                     rs.getString("title"),
                     rs.getString("description"),
-                    rs.getString("duration"),
+                    rs.getInt("duration"),
                     rs.getTimestamp("created_date_time").toLocalDateTime(),
                     rs.getInt("likes"),
                     readVideoComments(videoId),
@@ -462,8 +436,6 @@ public class DatabaseManager {
         stmt.setString(1, handle);
         ResultSet rs = stmt.executeQuery();
 
-        // close
-        stmt.close();
         conn.close();
 
         while (rs.next()) {
@@ -484,8 +456,6 @@ public class DatabaseManager {
         stmt.setObject(1, playlistId);
         ResultSet rs = stmt.executeQuery();
 
-        // close
-        stmt.close();
         conn.close();
 
         while (rs.next()) {
@@ -501,15 +471,13 @@ public class DatabaseManager {
 
         // read shorts from shorts, short_likes, short_dislikes tables
         String query = "SELECT shorts.short_id, title, duration, created_date_time, tags, is_age_restricted, thumbnail, " +
-                "handle, views, COUNT(short_likes.short_id - short_dislikes.short_id) AS likes FROM shorts JOIN short_likes ON " +
-                "shorts.short_id = short_likes.short_id JOIN short_dislikes ON shorts.short_id = short_dislikes.short_id " +
-                "WHERE shorts.short_id = ? GROUP BY shorts.short_id";
+                "handle, views, COUNT(short_likes.short_id) - COUNT(short_dislikes.short_id) AS likes FROM shorts LEFT JOIN " +
+                "short_likes ON shorts.short_id = short_likes.short_id LEFT JOIN short_dislikes ON shorts.short_id = " +
+                "short_dislikes.short_id WHERE shorts.short_id = ? GROUP BY shorts.short_id";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setObject(1, shortId);
         ResultSet rs = stmt.executeQuery();
 
-        // close
-        stmt.close();
         conn.close();
 
         if (rs.next()) {
@@ -541,8 +509,6 @@ public class DatabaseManager {
         stmt.setString(1, handle);
         ResultSet rs = stmt.executeQuery();
 
-        // close
-        stmt.close();
         conn.close();
 
         while (rs.next()) {
@@ -563,8 +529,6 @@ public class DatabaseManager {
         stmt.setObject(1, playlistId);
         ResultSet rs = stmt.executeQuery();
 
-        // close
-        stmt.close();
         conn.close();
 
         while (rs.next()) {
@@ -584,8 +548,6 @@ public class DatabaseManager {
         stmt.setObject(1, playlistId);
         ResultSet rs = stmt.executeQuery();
 
-        // close
-        stmt.close();
         conn.close();
 
         if (rs.next()) {
@@ -613,8 +575,6 @@ public class DatabaseManager {
         stmt.setString(1, handle);
         ResultSet rs = stmt.executeQuery();
 
-        // close
-        stmt.close();
         conn.close();
 
         while (rs.next()) {
@@ -631,15 +591,13 @@ public class DatabaseManager {
         // read comment from video_comments table
         String query = "SELECT video_comments.comment_id, video_id, video_comments.yid, comment_text, reply_id, created_date_time, " +
                 "COUNT(video_comment_likes.comment_id) - COUNT(video_comment_dislikes.comment_id) AS likes FROM video_comments " +
-                "JOIN video_comment_likes ON video_comments.comment_id = video_comment_likes.comment_id JOIN video_comment_dislikes " +
+                "LEFT JOIN video_comment_likes ON video_comments.comment_id = video_comment_likes.comment_id LEFT JOIN video_comment_dislikes " +
                 "ON video_comments.comment_id = video_comment_dislikes.comment_id WHERE video_comments.comment_id = ? " +
                 "GROUP BY video_comments.comment_id";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setObject(1, commentId);
         ResultSet rs = stmt.executeQuery();
 
-        // close
-        stmt.close();
         conn.close();
 
         if (rs.next()) {
@@ -663,21 +621,19 @@ public class DatabaseManager {
         // read comment from short_comments table
         String query = "SELECT short_comments.comment_id, short_id, short_comments.yid, comment_text, reply_id, created_date_time," +
                 " COUNT(short_comment_likes.comment_id) - COUNT(short_comment_dislikes.comment_id) AS likes FROM short_comments" +
-                " JOIN short_comment_likes ON short_comments.comment_id = short_comment_likes.comment_id JOIN short_comment_dislikes" +
+                " LEFT JOIN short_comment_likes ON short_comments.comment_id = short_comment_likes.comment_id LEFT JOIN short_comment_dislikes" +
                 " ON short_comments.comment_id = short_comment_dislikes.comment_id WHERE short_comments.comment_id = ? " +
                 "GROUP BY short_comments.comment_id";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setObject(1, commentId);
         ResultSet rs = stmt.executeQuery();
 
-        // close
-        stmt.close();
         conn.close();
 
         if (rs.next()) {
             return new Comment(
                     (UUID) rs.getObject("comment_id"),
-                    (UUID) rs.getObject("video_id"),
+                    (UUID) rs.getObject("short_id"),
                     YID.fromString(rs.getString("yid")),
                     rs.getString("comment_text"),
                     rs.getInt("likes"),
@@ -699,8 +655,6 @@ public class DatabaseManager {
         stmt.setObject(1, videoId);
         ResultSet rs = stmt.executeQuery();
 
-        // close
-        stmt.close();
         conn.close();
 
         while (rs.next()) {
@@ -721,8 +675,6 @@ public class DatabaseManager {
         stmt.setObject(1, shortId);
         ResultSet rs = stmt.executeQuery();
 
-        // close
-        stmt.close();
         conn.close();
 
         while (rs.next()) {
@@ -742,8 +694,6 @@ public class DatabaseManager {
         stmt.setString(1, yid);
         ResultSet rs = stmt.executeQuery();
 
-        // close
-        stmt.close();
         conn.close();
 
         return rs.next();
@@ -758,8 +708,6 @@ public class DatabaseManager {
         stmt.setString(1, username);
         ResultSet rs = stmt.executeQuery();
 
-        // close
-        stmt.close();
         conn.close();
 
         return rs.next();
@@ -774,8 +722,6 @@ public class DatabaseManager {
         stmt.setString(1, email);
         ResultSet rs = stmt.executeQuery();
 
-        // close
-        stmt.close();
         conn.close();
 
         return rs.next();

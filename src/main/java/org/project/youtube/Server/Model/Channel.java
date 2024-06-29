@@ -60,6 +60,22 @@ public class Channel {
         this.reddit = reddit;
     }
 
+    public Channel(String handle, String name, YID ownerYID, String description, LocalDateTime createdDateTime, byte[] logo, byte[] banner, List<Video>
+            videos, List<Short> shorts, List<Playlist> playlists) {
+        this.handle = handle;
+        this.name = name;
+        this.ownerYID = ownerYID;
+        this.description = description;
+        this.createdDateTime = createdDateTime.toString();
+        this.views = 0;
+        this.subscribers = 0;
+        this.logo = logo;
+        this.banner = banner;
+        this.videos = videos;
+        this.shorts = shorts;
+        this.playlists = playlists;
+    }
+
     public String getHandle() {
         return handle;
     }
