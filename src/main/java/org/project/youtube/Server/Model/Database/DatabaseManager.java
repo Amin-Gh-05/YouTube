@@ -326,6 +326,36 @@ public class DatabaseManager {
         }
     }
 
+    public static void addVideoToPlaylist(Playlist playlist, Video video) {
+        try (Connection conn = connect()) {
+            // add row to playlist_videos table
+            String query = "INSERT INTO playlist_videos VALUES (?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setObject(1, playlist.getId());
+            stmt.setObject(2, video.getId());
+            // execute and update
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void addShortToPlaylist(Playlist playlist, Short shortVideo) {
+        try (Connection conn = connect()) {
+            // add row to playlist_shorts table
+            String query = "INSERT INTO playlist_shorts VALUES (?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setObject(1, playlist.getId());
+            stmt.setObject(2, shortVideo.getId());
+            // execute and update
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     // ----------------------------- READ -----------------------------
 
     public static User readUser(String username, String password) throws SQLException {
@@ -1081,6 +1111,36 @@ public class DatabaseManager {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setObject(1, comment.getId());
             stmt.setString(2, user.getYid().toString());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void removeVideoFromPlaylist(Playlist playlist, Video video) {
+        try (Connection conn = connect()) {
+            // delete from playlist_videos
+            String query = "DELETE FROM playlist_videos WHERE playlist_id = ? AND video_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setObject(1, playlist.getId());
+            stmt.setObject(2, video.getId());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void removeShortFromPlaylist(Playlist playlist, Short shortVideo) {
+        try (Connection conn = connect()) {
+            // delete from playlist_shorts
+            String query = "DELETE FROM playlist_shorts WHERE playlist_id = ? AND short_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setObject(1, playlist.getId());
+            stmt.setObject(2, shortVideo.getId());
 
             stmt.executeUpdate();
             stmt.close();
