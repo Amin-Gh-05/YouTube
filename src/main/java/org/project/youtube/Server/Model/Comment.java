@@ -13,14 +13,14 @@ public class Comment {
     private UUID replyOnID;
     private String createdDateTime;
 
-    public Comment(UUID id, UUID videoID, YID writerYID, String comment, int like, UUID replyOnID, LocalDateTime createdDateTime) {
+    public Comment(UUID id, UUID videoID, YID writerYID, String comment, int like, UUID replyOnID, String createdDateTime) {
         this.id = id;
         this.videoID = videoID;
         this.writerYID = writerYID;
         this.comment = comment;
         this.likes = like;
         this.replyOnID = replyOnID;
-        this.createdDateTime = createdDateTime.toString();
+        this.createdDateTime = createdDateTime;
     }
 
     public Comment(UUID id, UUID videoID, YID writerYID, String comment, UUID replyOnID, String createdDateTime) {

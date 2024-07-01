@@ -18,12 +18,12 @@ public class Short {
     private String shortHandle;
     private int views;
 
-    public Short(UUID id, String title, int duration, LocalDateTime createdDateTime, int likes, List<Comment> comments,
+    public Short(UUID id, String title, int duration, String createdDateTime, int likes, List<Comment> comments,
                  boolean isAgeRestricted, List<String> tags, byte[] thumbnail, String shortHandle, int views) {
         this.id = id;
         this.title = title;
         this.duration = duration;
-        this.createdDateTime = createdDateTime.toString();
+        this.createdDateTime = createdDateTime;
         this.likes = likes;
         this.comments = comments;
         this.isAgeRestricted = isAgeRestricted;

@@ -19,14 +19,14 @@ public class Video {
     private String videoHandle;
     private int views;
 
-    public Video(UUID id, String title, String description, int duration, LocalDateTime createdDateTime, int likes,
+    public Video(UUID id, String title, String description, int duration, String createdDateTime, int likes,
                  List<Comment> comments, boolean isAgeRestricted, List<String> tags, byte[] thumbnail, String videoHandle,
                  int views) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.duration = duration;
-        this.createdDateTime = createdDateTime.toString();
+        this.createdDateTime = createdDateTime;
         this.likes = likes;
         this.comments = comments;
         this.isAgeRestricted = isAgeRestricted;

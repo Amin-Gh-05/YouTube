@@ -5,6 +5,7 @@ import org.project.youtube.Server.Model.*;
 import org.project.youtube.Server.Model.Short;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -370,11 +371,25 @@ public class DatabaseManager {
         conn.close();
 
         if (rs.next()) {
+            String dateOfBirth = null;
+            if (rs.getDate("date_of_birth") != null) {
+                dateOfBirth = rs.getDate("date_of_birth").toString();
+            }
+
             return new User(
                     YID.fromString(rs.getString("yid")),
                     rs.getString("username"),
                     rs.getString("email"),
-                    rs.getString("password")
+                    rs.getString("password"),
+                    rs.getString("first_name"),
+                    rs.getString("last_name"),
+                    rs.getString("region"),
+                    dateOfBirth,
+                    rs.getDate("joined_date").toString(),
+                    rs.getString("gender"),
+                    rs.getBytes("profile_picture"),
+                    rs.getBoolean("is_premium"),
+                    rs.getString("handle")
             );
         }
 
@@ -393,12 +408,13 @@ public class DatabaseManager {
         conn.close();
 
         if (rs.next()) {
+
             return new Channel(
                     rs.getString("handle"),
                     rs.getString("name"),
                     YID.fromString(rs.getString("yid")),
                     rs.getString("description"),
-                    rs.getTimestamp("created_date_time").toLocalDateTime(),
+                    rs.getTimestamp("created_date_time").toString(),
                     rs.getInt("views"),
                     rs.getInt("subscribers"),
                     rs.getBytes("logo"),
@@ -442,7 +458,7 @@ public class DatabaseManager {
                     rs.getString("title"),
                     rs.getString("description"),
                     rs.getInt("duration"),
-                    rs.getTimestamp("created_date_time").toLocalDateTime(),
+                    rs.getTimestamp("created_date_time").toString(),
                     rs.getInt("likes"),
                     readVideoComments(videoId),
                     rs.getBoolean("is_age_restricted"),
@@ -515,7 +531,7 @@ public class DatabaseManager {
                     shortId,
                     rs.getString("title"),
                     rs.getInt("duration"),
-                    rs.getTimestamp("created_date_time").toLocalDateTime(),
+                    rs.getTimestamp("created_date_time").toString(),
                     rs.getInt("likes"),
                     readVideoComments(shortId),
                     rs.getBoolean("is_age_restricted"),
@@ -638,7 +654,7 @@ public class DatabaseManager {
                     rs.getString("comment_text"),
                     rs.getInt("likes"),
                     (UUID) rs.getObject("reply_id"),
-                    rs.getTimestamp("created_date_time").toLocalDateTime()
+                    rs.getTimestamp("created_date_time").toString()
             );
         }
 
@@ -668,7 +684,7 @@ public class DatabaseManager {
                     rs.getString("comment_text"),
                     rs.getInt("likes"),
                     (UUID) rs.getObject("reply_id"),
-                    rs.getTimestamp("created_date_time").toLocalDateTime()
+                    rs.getTimestamp("created_date_time").toString()
             );
         }
 
@@ -1146,6 +1162,13 @@ public class DatabaseManager {
             stmt.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) throws SQLException {
+        User user = readUser("AminGh05", "2005tmsv");
+        if (user != null) {
+            System.out.println(user.getDateOfBirth());
         }
     }
 }
