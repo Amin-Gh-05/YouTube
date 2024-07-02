@@ -1,6 +1,7 @@
 package org.project.youtube.Client.Model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
@@ -8,7 +9,7 @@ public class Video {
     private UUID id;
     private String title;
     private String description;
-    private String duration;
+    private int duration;
     private String createdDateTime;
     private int likes;
     private List<Comment> comments;
@@ -16,16 +17,32 @@ public class Video {
     private List<String> tags;
     private byte[] thumbnail;
     private String videoHandle;
+    private int views;
 
-    public Video(UUID id, String title, String description, String duration, LocalDateTime createdDateTime, int likes,
-                 List<Comment> comments, boolean isAgeRestricted, List<String> tags, byte[] thumbnail, String videoHandle) {
+    public Video(UUID id, String title, String description, int duration, String createdDateTime, int likes,
+                 List<Comment> comments, boolean isAgeRestricted, List<String> tags, byte[] thumbnail, String videoHandle,
+                 int views) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.duration = duration;
-        this.createdDateTime = createdDateTime.toString();
+        this.createdDateTime = createdDateTime;
         this.likes = likes;
         this.comments = comments;
+        this.isAgeRestricted = isAgeRestricted;
+        this.tags = tags;
+        this.thumbnail = thumbnail;
+        this.videoHandle = videoHandle;
+        this.views = views;
+    }
+
+    public Video(UUID id, String title, String description, int duration, String createdDateTime, boolean isAgeRestricted,
+                 List<String> tags, byte[] thumbnail, String videoHandle) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.duration = duration;
+        this.createdDateTime = createdDateTime;
         this.isAgeRestricted = isAgeRestricted;
         this.tags = tags;
         this.thumbnail = thumbnail;
@@ -56,16 +73,16 @@ public class Video {
         this.description = description;
     }
 
-    public String getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
     public LocalDateTime getCreatedDateTime() {
-        return createdDateTime == null?null: LocalDateTime.parse(createdDateTime);
+        return createdDateTime == null ? null : LocalDateTime.parse(createdDateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS"));
     }
 
     public void setCreatedDateTime(String createdDateTime) {
@@ -118,5 +135,13 @@ public class Video {
 
     public void setVideoHandle(String videoHandle) {
         this.videoHandle = videoHandle;
+    }
+
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
     }
 }

@@ -1,6 +1,9 @@
 package org.project.youtube.Client.Model;
 
+import org.project.youtube.Server.Model.Playlist;
+
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Channel {
@@ -15,7 +18,7 @@ public class Channel {
     private byte[] banner;
     private List<Video> videos;
     private List<Short> shorts;
-    private List<Playlist> playlists;
+    private List<org.project.youtube.Server.Model.Playlist> playlists;
 
     // links
     private String website;
@@ -29,15 +32,15 @@ public class Channel {
     private String linkedin;
     private String reddit;
 
-    public Channel(String handle, String name, YID ownerYID, String description, LocalDateTime createdDateTime, int views,
+    public Channel(String handle, String name, YID ownerYID, String description, String createdDateTime, int views,
                    int subscribers, byte[] logo, byte[] banner, String website, String email, String facebook, String instagram,
                    String x, String telegram, String tiktok, String discord, String linkedin, String reddit, List<Video> videos,
-                   List<Short> shorts, List<Playlist> playlists) {
+                   List<Short> shorts, List<org.project.youtube.Server.Model.Playlist> playlists) {
         this.handle = handle;
         this.name = name;
         this.ownerYID = ownerYID;
         this.description = description;
-        this.createdDateTime = createdDateTime.toString();
+        this.createdDateTime = createdDateTime;
         this.views = views;
         this.subscribers = subscribers;
         this.logo = logo;
@@ -57,6 +60,22 @@ public class Channel {
         this.discord = discord;
         this.linkedin = linkedin;
         this.reddit = reddit;
+    }
+
+    public Channel(String handle, String name, YID ownerYID, String description, String createdDateTime, byte[] logo,
+                   byte[] banner, List<Video> videos, List<Short> shorts, List<org.project.youtube.Server.Model.Playlist> playlists) {
+        this.handle = handle;
+        this.name = name;
+        this.ownerYID = ownerYID;
+        this.description = description;
+        this.createdDateTime = createdDateTime;
+        this.views = 0;
+        this.subscribers = 0;
+        this.logo = logo;
+        this.banner = banner;
+        this.videos = videos;
+        this.shorts = shorts;
+        this.playlists = playlists;
     }
 
     public String getHandle() {
@@ -92,7 +111,7 @@ public class Channel {
     }
 
     public LocalDateTime getCreatedDateTime() {
-        return createdDateTime == null?null:LocalDateTime.parse(createdDateTime);
+        return createdDateTime == null ? null : LocalDateTime.parse(createdDateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS"));
     }
 
     public void setCreatedDateTime(String createdDateTime) {
@@ -227,7 +246,7 @@ public class Channel {
         this.shorts = shorts;
     }
 
-    public List<Playlist> getPlaylists() {
+    public List<org.project.youtube.Server.Model.Playlist> getPlaylists() {
         return playlists;
     }
 

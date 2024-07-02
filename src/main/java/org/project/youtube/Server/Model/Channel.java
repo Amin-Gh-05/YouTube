@@ -2,6 +2,7 @@ package org.project.youtube.Server.Model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Channel {
@@ -60,13 +61,13 @@ public class Channel {
         this.reddit = reddit;
     }
 
-    public Channel(String handle, String name, YID ownerYID, String description, LocalDateTime createdDateTime, byte[] logo, byte[] banner, List<Video>
-            videos, List<Short> shorts, List<Playlist> playlists) {
+    public Channel(String handle, String name, YID ownerYID, String description, String createdDateTime, byte[] logo,
+                   byte[] banner, List<Video> videos, List<Short> shorts, List<Playlist> playlists) {
         this.handle = handle;
         this.name = name;
         this.ownerYID = ownerYID;
         this.description = description;
-        this.createdDateTime = createdDateTime.toString();
+        this.createdDateTime = createdDateTime;
         this.views = 0;
         this.subscribers = 0;
         this.logo = logo;
@@ -109,7 +110,7 @@ public class Channel {
     }
 
     public LocalDateTime getCreatedDateTime() {
-        return createdDateTime == null?null: LocalDateTime.parse(createdDateTime);
+        return createdDateTime == null ? null : LocalDateTime.parse(createdDateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS"));
     }
 
     public void setCreatedDateTime(String createdDateTime) {

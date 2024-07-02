@@ -15,12 +15,12 @@ public class User {
     private String lastName;
     private String region;
     private String dateOfBirth;
-    private String joinedDate;
     private String gender;
+    private String joinedDate;
     private byte[] profilePic;
 
     public User(YID yid, String username, String email, String password, String firstName, String lastName, String region,
-                LocalDate dateOfBirth, LocalDate joinedDate, String gender, byte[] profilePic, boolean isPremium, String handle) {
+                String dateOfBirth, String joinedDate, String gender, byte[] profilePic, boolean isPremium, String handle) {
         this.yid = yid;
         this.username = username;
         this.email = email;
@@ -32,10 +32,28 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.region = region;
-        this.dateOfBirth = dateOfBirth.toString();
-        this.joinedDate = joinedDate.toString();
+        this.dateOfBirth = dateOfBirth;
+        this.joinedDate = joinedDate;
         this.gender = gender;
         this.profilePic = profilePic;
+    }
+
+    public User(YID yid, String username, String email, String password) {
+        this.yid = yid;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.isPremium = false;
+        this.handle = "user-" + yid.toString();
+
+        // personal info
+        this.firstName = null;
+        this.lastName = null;
+        this.region = null;
+        this.dateOfBirth = null;
+        this.joinedDate = LocalDate.now().toString();
+        this.gender = null;
+        this.profilePic = null;
     }
 
     public YID getYid() {
@@ -95,7 +113,7 @@ public class User {
     }
 
     public LocalDate getDateOfBirth() {
-        return dateOfBirth == null?null: LocalDate.parse(dateOfBirth);
+        return dateOfBirth == null ? null : LocalDate.parse(dateOfBirth);
     }
 
     public void setDateOfBirth(String dateOfBirth) {
@@ -103,7 +121,7 @@ public class User {
     }
 
     public LocalDate getJoinedDate() {
-        return joinedDate == null?null: LocalDate.parse(joinedDate);
+        return joinedDate == null ? null : LocalDate.parse(joinedDate);
     }
 
     public void setJoinedDate(String joinedDate) {

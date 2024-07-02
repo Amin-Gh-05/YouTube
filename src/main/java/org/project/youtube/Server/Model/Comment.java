@@ -2,6 +2,7 @@ package org.project.youtube.Server.Model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 public class Comment {
@@ -81,7 +82,7 @@ public class Comment {
     }
 
     public LocalDateTime getCreatedDateTime() {
-        return createdDateTime == null?null: LocalDateTime.parse(createdDateTime);
+        return createdDateTime == null ? null : LocalDateTime.parse(createdDateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS"));
     }
 
     public void setCreatedDateTime(String createdDateTime) {

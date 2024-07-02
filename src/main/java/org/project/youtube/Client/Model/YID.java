@@ -1,7 +1,7 @@
 package org.project.youtube.Client.Model;
 
 public class YID {
-    private char[] YID;
+    private final char[] YID;
 
     private YID(char[] YID) {
         this.YID = YID;
@@ -145,12 +145,12 @@ public class YID {
 
     @Override
     public String toString() {
-        String str = "";
+        StringBuilder str = new StringBuilder();
         for (int i = 0; i < 10; i++) {
-            str += YID[i];
+            str.append(YID[i]);
         }
 
-        return str;
+        return str.toString();
     }
 
     public char[] toCharArr() {

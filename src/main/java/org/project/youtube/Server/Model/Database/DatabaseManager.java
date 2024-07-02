@@ -5,8 +5,6 @@ import org.project.youtube.Server.Model.*;
 import org.project.youtube.Server.Model.Short;
 
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -349,6 +347,22 @@ public class DatabaseManager {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setObject(1, playlist.getId());
             stmt.setObject(2, shortVideo.getId());
+            // execute and update
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public static void subscribeChannel(User user, Channel channel) {
+        try (Connection conn = connect()) {
+            // add row to subscribed_channels table
+            String query = "INSERT INTO subscribed_channels (yid, handle) VALUES (?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, user.getYid().toString());
+            stmt.setString(2, channel.getHandle());
             // execute and update
             stmt.executeUpdate();
             stmt.close();
@@ -773,6 +787,150 @@ public class DatabaseManager {
         return rs.next();
     }
 
+    public static boolean isLiked(User user, Video video) throws SQLException {
+        Connection conn = connect();
+
+        // checks if video is liked by user
+        String query = "SELECT * FROM video_likes WHERE yid = ? AND video_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, user.getYid().toString());
+        stmt.setObject(2, video.getId());
+
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+
+        return rs.next();
+    }
+
+    public static boolean isLiked(User user, Short shortVideo) throws SQLException {
+        Connection conn = connect();
+
+        // checks if short is liked by user
+        String query = "SELECT * FROM video_dislikes WHERE yid = ? AND video_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, user.getYid().toString());
+        stmt.setObject(2, shortVideo.getId());
+
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+
+        return rs.next();
+    }
+
+    public static boolean isVideoCommentLiked(User user, Comment comment) throws SQLException {
+        Connection conn = connect();
+
+        // checks if comment is liked by user
+        String query = "SELECT * FROM video_comments WHERE yid = ? AND comment_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, user.getYid().toString());
+        stmt.setObject(2, comment.getId());
+
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+
+        return rs.next();
+    }
+
+    public static boolean isShortCommentLiked(User user, Comment comment) throws SQLException {
+        Connection conn = connect();
+
+        // checks if comment is liked by user
+        String query = "SELECT * FROM short_comments WHERE yid = ? and comment_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, user.getYid().toString());
+        stmt.setObject(2, comment.getId());
+
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+
+        return rs.next();
+    }
+
+    public static boolean isDisliked(User user, Video video) throws SQLException {
+        Connection conn = connect();
+
+        // checks if video is disliked by user
+        String query = "SELECT * FROM video_dislikes WHERE yid = ? AND video_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, user.getYid().toString());
+        stmt.setObject(2, video.getId());
+
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+
+        return rs.next();
+    }
+
+    public static boolean isDisliked(User user, Short shortVideo) throws SQLException {
+        Connection conn = connect();
+
+        // checks if short is disliked by user
+        String query = "SELECT * FROM short_dislikes WHERE yid = ? AND short_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, user.getYid().toString());
+        stmt.setObject(2, shortVideo.getId());
+
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+
+        return rs.next();
+    }
+
+    public static boolean isVideoCommentDisliked(User user, Comment comment) throws SQLException {
+        Connection conn = connect();
+
+        // checks if comment is disliked by user
+        String query = "SELECT * FROM video_comment_dislikes WHERE yid = ? AND comment_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, user.getYid().toString());
+        stmt.setObject(2, comment.getId());
+
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+
+        return rs.next();
+    }
+
+    public static boolean isShortCommentDisliked(User user, Comment comment) throws SQLException {
+        Connection conn = connect();
+
+        // checks if comment is disliked by user
+        String query = "SELECT * FROM short_comment_dislikes WHERE yid = ? AND comment_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, user.getYid().toString());
+        stmt.setObject(2, comment.getId());
+
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+
+        return rs.next();
+    }
+
+    public static boolean isSubscribed(User user, Channel channel) throws SQLException {
+        Connection conn = connect();
+
+        // checks if user has subscribed channel
+        String query = "SELECT * FROM subscribed_channels WHERE yid = ? AND handle = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, user.getYid().toString());
+        stmt.setString(2, channel.getHandle());
+
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+
+        return rs.next();
+    }
+
     // ----------------------------- UPDATE -----------------------------
 
     public static void updateUser(User user) {
@@ -860,6 +1018,7 @@ public class DatabaseManager {
             stmt.setString(2, video.getDescription());
             stmt.setString(3, tags.toString());
             stmt.setBytes(4, video.getThumbnail());
+            stmt.setObject(5, video.getId());
 
             stmt.executeUpdate();
             stmt.close();
@@ -880,6 +1039,7 @@ public class DatabaseManager {
             stmt.setString(1, shortVideo.getTitle());
             stmt.setString(2, tags.toString());
             stmt.setBytes(3, shortVideo.getThumbnail());
+            stmt.setObject(4, shortVideo.getId());
 
             stmt.executeUpdate();
             stmt.close();
@@ -895,6 +1055,7 @@ public class DatabaseManager {
             stmt.setString(1, playlist.getName());
             stmt.setString(2, playlist.getDescription());
             stmt.setBytes(3, playlist.getImage());
+            stmt.setObject(4, playlist.getId());
 
             stmt.executeUpdate();
             stmt.close();
@@ -933,11 +1094,11 @@ public class DatabaseManager {
         }
     }
 
-    public static void updateViews(Video video) {
+    public static void updateViews(Video video, int views) {
         try (Connection conn = connect()) {
             String query = "UPDATE videos SET views = ? WHERE video_id = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1, video.getViews());
+            stmt.setInt(1, views);
             stmt.setObject(2, video.getId());
 
             stmt.executeUpdate();
@@ -947,11 +1108,11 @@ public class DatabaseManager {
         }
     }
 
-    public static void updateViews(Short shortVideo) {
+    public static void updateViews(Short shortVideo, int views) {
         try (Connection conn = connect()) {
             String query = "UPDATE shorts SET views = ? WHERE short_id = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1, shortVideo.getViews());
+            stmt.setInt(1, views);
             stmt.setObject(2, shortVideo.getId());
 
             stmt.executeUpdate();
@@ -961,11 +1122,11 @@ public class DatabaseManager {
         }
     }
 
-    public static void updateSubscribers(Channel channel) {
+    public static void updateSubscribers(Channel channel, int subscribers) {
         try (Connection conn = connect()) {
             String query = "UPDATE channels SET views = ? WHERE handle = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1, channel.getViews());
+            stmt.setInt(1, subscribers);
             stmt.setObject(2, channel.getHandle());
 
             stmt.executeUpdate();
@@ -1135,6 +1296,21 @@ public class DatabaseManager {
         }
     }
 
+    public static void unsubscribeChannel(User user, Channel channel) {
+        try (Connection conn = connect()) {
+            // delete from subscribed_channels
+            String query = "DELETE FROM subscribed_channels WHERE yid = ? AND handle = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, user.getYid().toString());
+            stmt.setString(2, channel.getHandle());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void removeVideoFromPlaylist(Playlist playlist, Video video) {
         try (Connection conn = connect()) {
             // delete from playlist_videos
@@ -1167,8 +1343,7 @@ public class DatabaseManager {
 
     public static void main(String[] args) throws SQLException {
         User user = readUser("AminGh05", "2005tmsv");
-        if (user != null) {
-            System.out.println(user.getDateOfBirth());
-        }
+        assert user != null;
+        deleteUser(user);
     }
 }

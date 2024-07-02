@@ -1,6 +1,7 @@
 package org.project.youtube.Server.Model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class User {
     private YID yid;
@@ -113,7 +114,7 @@ public class User {
     }
 
     public LocalDate getDateOfBirth() {
-        return dateOfBirth == null ? null: LocalDate.parse(dateOfBirth);
+        return dateOfBirth == null ? null : LocalDate.parse(dateOfBirth);
     }
 
     public void setDateOfBirth(String dateOfBirth) {
@@ -121,7 +122,7 @@ public class User {
     }
 
     public LocalDate getJoinedDate() {
-        return joinedDate == null?null: LocalDate.parse(joinedDate);
+        return joinedDate == null ? null : LocalDate.parse(joinedDate);
     }
 
     public void setJoinedDate(String joinedDate) {

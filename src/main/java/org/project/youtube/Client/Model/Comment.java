@@ -1,6 +1,7 @@
 package org.project.youtube.Client.Model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 public class Comment {
@@ -12,14 +13,23 @@ public class Comment {
     private UUID replyOnID;
     private String createdDateTime;
 
-    public Comment(UUID id, UUID videoID, YID writerYID, String comment, int like, UUID replyOnID, LocalDateTime createdDateTime) {
+    public Comment(UUID id, UUID videoID, YID writerYID, String comment, int like, UUID replyOnID, String createdDateTime) {
         this.id = id;
         this.videoID = videoID;
         this.writerYID = writerYID;
         this.comment = comment;
         this.likes = like;
         this.replyOnID = replyOnID;
-        this.createdDateTime = createdDateTime.toString();
+        this.createdDateTime = createdDateTime;
+    }
+
+    public Comment(UUID id, UUID videoID, YID writerYID, String comment, UUID replyOnID, String createdDateTime) {
+        this.id = id;
+        this.videoID = videoID;
+        this.writerYID = writerYID;
+        this.comment = comment;
+        this.replyOnID = replyOnID;
+        this.createdDateTime = createdDateTime;
     }
 
     public UUID getId() {
@@ -71,7 +81,7 @@ public class Comment {
     }
 
     public LocalDateTime getCreatedDateTime() {
-        return createdDateTime == null?null:LocalDateTime.parse(createdDateTime);
+        return createdDateTime == null ? null : LocalDateTime.parse(createdDateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS"));
     }
 
     public void setCreatedDateTime(String createdDateTime) {
