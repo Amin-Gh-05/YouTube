@@ -69,7 +69,8 @@ public class ProfileController {
             PreSign.setVisible(false);
 
         if(user.getProfilePic() == null){
-
+            Image img = new Image("images\\profile-circle.svg");
+            profile.setFill(new ImagePattern(img));
         }
         else{
             Image img = new Image(new ByteArrayInputStream(user.getProfilePic()));
@@ -82,6 +83,10 @@ public class ProfileController {
         DOBField.setText(user.getDateOfBirth().toString());
         genderField.setText(user.getGender());
         regionField.setText(user.getRegion());
+
+        //building links
+
+
     }
 
     //Changing scenes

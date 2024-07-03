@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import com.gluonhq.charm.glisten.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.ProfileController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.ProfileController">
    <children>
       <AnchorPane prefHeight="226.0" prefWidth="800.0" styleClass="primary-color" stylesheets="@profile-view.css">
          <children>
@@ -17,7 +25,10 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <ImageView fitHeight="236.0" fitWidth="300.0" layoutX="500.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="236.0" fitWidth="300.0" layoutX="500.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/1718869543259.png" />
+               </image></ImageView>
             <Label fx:id="usernameField" layoutX="246.0" layoutY="56.0" prefHeight="13.0" prefWidth="191.0" text="A username">
                <font>
                   <Font name="System Bold" size="27.0" />
@@ -35,7 +46,7 @@
             </Button>
          </children>
       </AnchorPane>
-      <ScrollPane layoutY="225.0" prefHeight="379.0" prefWidth="800.0">
+      <ScrollPane hbarPolicy="NEVER" layoutY="225.0" prefHeight="379.0" prefWidth="800.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="610.0" prefWidth="785.0">
                <children>
@@ -122,90 +133,96 @@
                               <Font name="System Bold" size="25.0" />
                            </font>
                         </Label>
-                        <HBox prefHeight="47.0" prefWidth="594.0">
+                        <AnchorPane prefHeight="365.0" prefWidth="549.0">
                            <children>
-                              <Label prefHeight="47.0" text="Name: ">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="nameField" prefHeight="47.0" prefWidth="415.0" text="a name">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
+                              <HBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="47.0" prefWidth="434.0">
+                                 <children>
+                                    <Label prefHeight="47.0" text="Name: ">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="nameField" maxWidth="1.7976931348623157E308" prefHeight="47.0" prefWidth="384.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox layoutY="47.0" maxWidth="-Infinity" prefHeight="47.0" prefWidth="434.0">
+                                 <children>
+                                    <Label prefHeight="47.0" text="Last Name: ">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lastnameField" maxWidth="-Infinity" prefHeight="47.0" prefWidth="351.0" stylesheets="@profile-view.css">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox layoutY="94.0" maxWidth="-Infinity" prefHeight="47.0" prefWidth="434.0">
+                                 <children>
+                                    <Label prefHeight="47.0" text="E-mail: ">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="emailField" prefHeight="47.0" prefWidth="381.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox layoutY="141.0" maxWidth="-Infinity" prefHeight="47.0" prefWidth="434.0">
+                                 <children>
+                                    <Label prefHeight="47.0" text="Date Of Birth: ">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="DOBField" prefHeight="47.0" prefWidth="331.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox layoutY="183.0" maxWidth="-Infinity" prefHeight="47.0" prefWidth="434.0">
+                                 <children>
+                                    <Label prefHeight="47.0" text="Gender: ">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="genderField" prefHeight="47.0" prefWidth="370.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox layoutY="230.0" maxWidth="-Infinity" prefHeight="47.0" prefWidth="434.0">
+                                 <children>
+                                    <Label fx:id="regionField" prefHeight="47.0" text="Region: ">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label prefHeight="47.0" prefWidth="375.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <TextField layoutX="48.0" layoutY="11.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="377.0" />
+                              <TextField layoutX="81.0" layoutY="59.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="344.0" />
                            </children>
-                        </HBox>
-                        <HBox prefHeight="47.0" prefWidth="594.0">
-                           <children>
-                              <Label prefHeight="47.0" text="Last Name: ">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="lastnameField" prefHeight="47.0" prefWidth="415.0" stylesheets="@profile-view.css">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="47.0" prefWidth="594.0">
-                           <children>
-                              <Label prefHeight="47.0" text="E-mail: ">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="emailField" prefHeight="47.0" prefWidth="415.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="47.0" prefWidth="594.0">
-                           <children>
-                              <Label prefHeight="47.0" text="Date Of Birth: ">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="DOBField" prefHeight="47.0" prefWidth="415.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="47.0" prefWidth="594.0">
-                           <children>
-                              <Label prefHeight="47.0" text="Gender: ">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="genderField" prefHeight="47.0" prefWidth="415.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="47.0" prefWidth="594.0">
-                           <children>
-                              <Label fx:id="regionField" prefHeight="47.0" text="Region:  ">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label prefHeight="47.0" prefWidth="415.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
+                        </AnchorPane>
                      </children></VBox>
                </children>
             </AnchorPane>
