@@ -3,7 +3,6 @@ package org.project.youtube.Client.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -11,8 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.project.youtube.Client.Main;
 import org.project.youtube.Client.Model.User;
@@ -22,7 +19,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class ProfileController {
-    private static User user;
+    static User user;
 
     @FXML
     private Button PreSign;
@@ -99,7 +96,7 @@ public class ProfileController {
     }
 
     public ProfileController(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("profile-view.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("profile-view.fxml")));
         stage.setTitle("Profile setting");
         stage.setScene(new Scene(root, 1220, 740));
         stage.setResizable(false);

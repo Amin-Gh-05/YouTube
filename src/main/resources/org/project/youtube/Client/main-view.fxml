@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="540.0" minWidth="960.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@main-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.MainController">
@@ -20,10 +21,10 @@
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>
    <top>
-      <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" spacing="15.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Button id="moreButton" fx:id="moreButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#slideSidebar" prefHeight="30.0" prefWidth="40.0" styleClass="actionButton" />
-            <ImageView fx:id="mainLogo" fitHeight="35.0" fitWidth="181.0" onMouseClicked="#refreshAll" pickOnBounds="true" preserveRatio="true">
+            <Button id="moreButton" fx:id="moreButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#slideSidebar" prefHeight="23.0" prefWidth="40.0" styleClass="actionButton" />
+            <ImageView fitHeight="35.0" fitWidth="181.0" onMouseClicked="#refreshAll" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/logo.png" />
                </image>
@@ -33,7 +34,7 @@
             </ImageView>
             <TextField id="searchBox" fx:id="searchBox" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="200.0" onAction="#searchAll" prefHeight="35.0" prefWidth="881.0" promptText="Search Your Title Here" HBox.hgrow="ALWAYS">
                <HBox.margin>
-                  <Insets />
+                  <Insets left="30.0" />
                </HBox.margin>
                <font>
                   <Font name="Roboto" size="12.0" />
@@ -46,6 +47,17 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <HBox.margin>
+                  <Insets right="30.0" />
+               </HBox.margin>
+            </Button>
+            <Button id="createButton" fx:id="createButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#loadStudio" prefHeight="35.0" prefWidth="45.0" styleClass="actionButton">
+               <font>
+                  <Font name="Roboto" size="12.0" />
+               </font>
+               <graphic>
+                  <SVGPath content="M14 13h-3v3H9v-3H6v-2h3V8h2v3h3v2zm3-7H3v12h14v-6.39l4 1.83V8.56l-4 1.83V6m1-1v3.83L22 7v8l-4-1.83V19H2V5h16z" />
+               </graphic>
             </Button>
             <Button id="signInButton" fx:id="signInButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#signIn" prefHeight="35.0" prefWidth="60.0" styleClass="actionButton" text="Sign In">
                <font>
@@ -160,6 +172,29 @@
                <children>
                   <Button id="likedButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#loadLikes" onMouseClicked="#loadLikes" prefHeight="30.0" prefWidth="30.0" styleClass="sideButton" />
                   <Label fx:id="likedLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="164.0" text="Liked Videos" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <Separator fx:id="downSeparator" prefWidth="215.0">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </Separator>
+            <HBox fx:id="settingsBox" alignment="CENTER_LEFT" layoutX="15.0" layoutY="110.0" maxHeight="-Infinity" minHeight="-Infinity" onMouseClicked="#loadSettings" prefHeight="45.0" spacing="12.0" styleClass="sideBox">
+               <children>
+                  <Button id="settingsButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#loadSettings" prefHeight="30.0" prefWidth="30.0" styleClass="sideButton" />
+                  <Label fx:id="settingsLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="164.0" text="Settings" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="helpBox" alignment="CENTER_LEFT" layoutX="15.0" layoutY="501.0" maxHeight="-Infinity" minHeight="-Infinity" onMouseClicked="#loadHelp" prefHeight="45.0" spacing="12.0" styleClass="sideBox">
+               <children>
+                  <Button id="helpButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#loadHelp" prefHeight="30.0" prefWidth="30.0" styleClass="sideButton" />
+                  <Label fx:id="helpLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="164.0" text="Help" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
