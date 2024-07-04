@@ -61,7 +61,7 @@ public class ProfileController {
     private Label usernameField;
 
     public void initialize() throws IOException {
-        user = Main.getUser();
+        user = MainController.getUser();
 
         usernameField.setText(user.getUsername());
 

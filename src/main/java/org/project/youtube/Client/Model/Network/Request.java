@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONObject;
 import org.project.youtube.Client.Main;
 import org.project.youtube.Client.Model.User;
+import org.project.youtube.Client.Model.Video;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -149,9 +150,9 @@ public class Request {
 
     // getting Video/Videos | Short/Shorts | Channel/Channels | PL/PLs
 
-    public static void getByUUID(UUID id, String type) throws IOException {
+    public static Video getVideo(UUID id) throws IOException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("reqType", "get" + type); // Video/Short/PL/Channel
+        jsonObject.put("reqType", "getVideo");
 
         JSONObject data = new JSONObject();
         data.put("ID", id);
@@ -160,6 +161,13 @@ public class Request {
 
         Client.sendRequest(jsonObject.toString());
         String respStr = Client.getStringResponse();
+
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        return gson.fromJson(respStr, Video.class);
     }
 
     public static void getByUUIDList(List<UUID> IDs, String type) throws IOException {

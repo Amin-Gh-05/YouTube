@@ -17,11 +17,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.project.youtube.Client.Main;
+import org.project.youtube.Client.Model.User;
 
 import java.io.IOException;
 
 public class MainController {
     public static Stage mainStage;
+    private static User user;
 
     @FXML
     private Label channelLabel;
@@ -219,5 +222,14 @@ public class MainController {
 
         scaleTransition.setCycleCount(2);
         scaleTransition.play();
+    }
+
+
+    public static User getUser() {
+        return user;
+    }
+
+    public static void setUser(User user) {
+        MainController.user= user;
     }
 }

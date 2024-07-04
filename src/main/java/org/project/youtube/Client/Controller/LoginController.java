@@ -45,7 +45,7 @@ public class LoginController {
             return;
         }
         User user = Request.login(usernameInt, userName.getText(), DigestUtils.sha256Hex(passWord.getText()));
-        Main.setUser(user);
+        MainController.setUser(user);
 
         // get current stage
         Stage signupStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
