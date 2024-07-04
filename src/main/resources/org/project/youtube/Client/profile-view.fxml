@@ -66,6 +66,11 @@
                   <Font name="System Bold" size="10.0" />
                </font>
             </Button>
+            <ImageView fx:id="makeChanges" fitHeight="35.0" fitWidth="32.0" layoutX="360.0" layoutY="164.0" onMouseClicked="#makeChanges" opacity="0.34" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/icons8-check-48.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
       <ScrollPane hbarPolicy="NEVER" layoutY="225.0" prefHeight="379.0" prefWidth="800.0">
@@ -270,18 +275,18 @@
                               <TextField layoutX="48.0" layoutY="11.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="351.0" />
                               <TextField layoutX="81.0" layoutY="59.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="318.0" />
                               <TextField layoutX="50.0" layoutY="105.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="349.0" />
-                              <DatePicker layoutX="100.0" layoutY="153.0" prefHeight="25.0" prefWidth="300.0" />
-                              <CheckBox layoutX="75.0" layoutY="197.0" mnemonicParsing="false" text="Male">
+                              <DatePicker fx:id="datePicker" layoutX="100.0" layoutY="153.0" prefHeight="25.0" prefWidth="300.0" />
+                              <CheckBox fx:id="maleBox" layoutX="75.0" layoutY="197.0" mnemonicParsing="false" text="Male">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </CheckBox>
-                              <CheckBox layoutX="173.0" layoutY="197.0" mnemonicParsing="false" text="Female">
+                              <CheckBox fx:id="femaleBox" layoutX="173.0" layoutY="197.0" mnemonicParsing="false" text="Female">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </CheckBox>
-                              <ChoiceBox layoutX="56.0" layoutY="243.0" prefWidth="150.0" />
+                              <ChoiceBox fx:id="regionBox" layoutX="56.0" layoutY="242.0" prefHeight="25.0" prefWidth="184.0" />
                            </children>
                         </AnchorPane>
                      </children></VBox>

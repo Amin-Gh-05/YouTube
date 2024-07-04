@@ -123,10 +123,9 @@ public class ProfileController {
 
     public void switchToEditProfile(ActionEvent e) throws IOException{
 
+    }
 
-
-
-
+    public void makeChanges(ActionEvent e) throws IOException{
 
     }
 

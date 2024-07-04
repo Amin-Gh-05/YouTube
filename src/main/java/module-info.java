@@ -6,6 +6,7 @@ module org.project.youtube {
     requires org.json;
     requires org.apache.commons.codec;
     requires com.google.gson;
+    requires org.controlsfx.controls;
 
 
     exports org.project.youtube.Client.Controller;
