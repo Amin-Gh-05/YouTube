@@ -54,21 +54,10 @@ public class SignupController {
 
     @FXML
     void signUp(ActionEvent event) throws IOException {
-        if (!checkUsername(userName.getText())) {
-            System.out.println("| username not valid");
-            usernameAlert();
-            return;
-        }
-        if (!checkEmail(emailAddress.getText())) {
-            System.out.println("| email not valid");
-            emailAlert();
-            return;
-        }
-        if (!checkPassword(passWord.getText())) {
-            System.out.println("| password not valid");
-            passwordAlert();
-            return;
-        }
+        checkUsername(userName.getText());
+        checkEmail(emailAddress.getText());
+        checkPassword(passWord.getText());
+
         Request.signup(userName.getText(), emailAddress.getText(), DigestUtils.sha256Hex(passWord.getText()));
     }
 
@@ -83,35 +72,45 @@ public class SignupController {
         System.out.println("| redirect to main panel");
     }
 
-    private boolean checkUsername(String username) throws IOException {
+    private void checkUsername(String username) throws IOException {
         // check if username is already used
         if (findUsername(username)) {
-            System.out.println("| username already exists");
-            return false;
+            usernameAlert(false);
+            return;
         }
+
         // regex pattern of username
         Pattern pattern = Pattern.compile("(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])");
         Matcher matcher = pattern.matcher(username);
-        return matcher.find();
+
+        if (!matcher.find()) {
+            usernameAlert(true);
+        }
     }
 
-    private boolean checkEmail(String email) throws IOException {
+    private void checkEmail(String email) throws IOException {
         // check if email is already taken
         if (findEmail(email)) {
-            System.out.println("| email already exists");
-            return false;
+            emailAlert(false);
+            return;
         }
+
         // regex pattern of email
         Pattern pattern = Pattern.compile("[\\w-.]+@[\\w-.]+\\.[\\w-]{2,4}");
         Matcher matcher = pattern.matcher(email);
-        return matcher.find();
+
+        if (!matcher.find()) {
+            emailAlert(true);
+        }
     }
 
-    private boolean checkPassword(String password) {
+    private void checkPassword(String password) {
         // regex pattern of password
         Pattern pattern = Pattern.compile("(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,20}");
         Matcher matcher = pattern.matcher(password);
-        return matcher.find();
+        if (!matcher.find()){
+            passwordAlert();
+        }
     }
 
     private boolean findUsername(String username) throws IOException {
@@ -122,10 +121,15 @@ public class SignupController {
         return Request.findEmail(email);
     }
 
-    private void usernameAlert() {
+    private void usernameAlert(boolean a) {
         // show alert for invalid username
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Invalid Username");
+        if (a){
+            alert.setTitle("Invalid Username");
+        }
+        else {
+            alert.setTitle("Username Already Exists");
+        }
         alert.setHeaderText("Please enter a valid username");
         alert.setContentText("A valid username should be unique with 6-20 characters including numbers and letters, _ and .");
         if (alert.showAndWait().get() == ButtonType.OK) {
@@ -134,10 +138,15 @@ public class SignupController {
         }
     }
 
-    private void emailAlert() {
+    private void emailAlert(boolean a) {
         // show alert for invalid email
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Invalid Email");
+        if (a) {
+            alert.setTitle("Invalid Email");
+        }
+        else {
+            alert.setTitle("Email Already Exists");
+        }
         alert.setHeaderText("Please enter a valid email");
         alert.setContentText("A valid email should be unique and consistent with the email address");
         if (alert.showAndWait().get() == ButtonType.OK) {
