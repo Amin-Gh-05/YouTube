@@ -4,6 +4,7 @@ import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -19,8 +19,10 @@ import javafx.util.Duration;
 import org.project.youtube.Client.Model.User;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MainController {
+public class MainController implements Initializable {
     static Stage mainStage;
     static User user;
 
@@ -123,13 +125,18 @@ public class MainController {
 
     private boolean slideBar = true;
 
-    @FXML
-    void refreshAll(MouseEvent event) {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
     @FXML
-    void slideSidebar(ActionEvent event) {
+    void refreshAll() {
+
+    }
+
+    @FXML
+    void slideSidebar() {
         playClickEffect(moreButton);
 
         if (slideBar) {
@@ -193,7 +200,7 @@ public class MainController {
     }
 
     @FXML
-    void searchAll(ActionEvent event) {
+    void searchAll() {
 
     }
 
@@ -211,57 +218,57 @@ public class MainController {
     }
 
     @FXML
-    void loadHome(ActionEvent event) {
+    void loadHome() {
 
     }
 
     @FXML
-    void loadShorts(MouseEvent event) {
+    void loadShorts() {
 
     }
 
     @FXML
-    void loadSubs(ActionEvent event) {
+    void loadSubs() {
 
     }
 
     @FXML
-    void loadChannel(MouseEvent event) {
+    void loadChannel() {
 
     }
 
     @FXML
-    void loadHistory(MouseEvent event) {
+    void loadHistory() {
 
     }
 
     @FXML
-    void loadPlaylists(MouseEvent event) {
+    void loadPlaylists() {
 
     }
 
     @FXML
-    void loadVideos(MouseEvent event) {
+    void loadVideos() {
 
     }
 
     @FXML
-    void loadLaters(MouseEvent event) {
+    void loadLaters() {
 
     }
 
     @FXML
-    void loadLikes(MouseEvent event) {
+    void loadLikes() {
 
     }
 
     @FXML
-    void loadSettings(MouseEvent event) {
+    void loadSettings() {
 
     }
 
     @FXML
-    void loadHelp(MouseEvent event) {
+    void loadHelp() {
 
     }
 
