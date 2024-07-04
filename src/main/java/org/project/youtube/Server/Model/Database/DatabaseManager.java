@@ -648,13 +648,14 @@ public class DatabaseManager {
 
         if (rs.next()) {
             return new Playlist(
-                    readVideos(playlistId),
                     playlistId,
                     rs.getString("name"),
                     rs.getString("handle"),
                     rs.getString("description"),
+                    readVideos(playlistId),
                     readShorts(playlistId),
-                    rs.getBytes("image")
+                    rs.getBytes("image"),
+                    rs.getBoolean("is_public")
             );
         }
 
@@ -1086,12 +1087,13 @@ public class DatabaseManager {
 
     public static void updatePlaylist(Playlist playlist) {
         try (Connection conn = connect()) {
-            String query = "UPDATE playlists SET name = ?, description = ?, image = ? WHERE playlist_id = ?";
+            String query = "UPDATE playlists SET name = ?, description = ?, image = ?, is_public = ? WHERE playlist_id = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, playlist.getName());
             stmt.setString(2, playlist.getDescription());
             stmt.setBytes(3, playlist.getImage());
-            stmt.setObject(4, playlist.getId());
+            stmt.setBoolean(4, playlist.isPublic());
+            stmt.setObject(5, playlist.getId());
 
             stmt.executeUpdate();
             stmt.close();

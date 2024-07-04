@@ -11,6 +11,7 @@ public class Playlist {
     private List<Video> videos;
     private List<Short> shorts;
     private byte[] image;
+    private boolean isPublic;
 
     public Playlist(List<Video> videos, UUID id, String name, String channelHandle, String description, List<Short> shorts,
                     byte[] image) {
@@ -21,6 +22,18 @@ public class Playlist {
         this.description = description;
         this.shorts = shorts;
         this.image = image;
+    }
+
+    public Playlist(UUID id, String name, String channelHandle, String description, List<Video> videos, List<Short> shorts,
+                    byte[] image, boolean isPublic) {
+        this.id = id;
+        this.name = name;
+        this.channelHandle = channelHandle;
+        this.description = description;
+        this.videos = videos;
+        this.shorts = shorts;
+        this.image = image;
+        this.isPublic = isPublic;
     }
 
     public UUID getId() {
@@ -77,5 +90,13 @@ public class Playlist {
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
     }
 }
