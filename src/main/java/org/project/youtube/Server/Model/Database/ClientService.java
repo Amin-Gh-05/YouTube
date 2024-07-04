@@ -21,7 +21,7 @@ public class ClientService {
         String password = data.getString("password");
 
         YID yid = YID.randomYID();
-        while (!DatabaseManager.findYid(yid.toString())) {
+        while (DatabaseManager.findYid(yid.toString())) {
             yid = YID.randomYID();
         }
 

@@ -9,7 +9,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.project.youtube.Client.Main;
 import org.project.youtube.Client.Model.Network.Request;
+import org.project.youtube.Client.Model.User;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -54,11 +56,27 @@ public class SignupController {
 
     @FXML
     void signUp(ActionEvent event) throws IOException {
-        checkUsername(userName.getText());
-        checkEmail(emailAddress.getText());
-        checkPassword(passWord.getText());
+        if (!checkUsername(userName.getText())) {
+            return;
+        }
+        if (!checkEmail(emailAddress.getText())) {
+            return;
+        }
+        if (!checkPassword(passWord.getText())) {
+            return;
+        }
 
-        Request.signup(userName.getText(), emailAddress.getText(), DigestUtils.sha256Hex(passWord.getText()));
+        User user = Request.signup(userName.getText(), emailAddress.getText(), DigestUtils.sha256Hex(passWord.getText()));
+        Main.setUser(user);
+        int a = 2;
+
+        // get current stage
+        Stage signupStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        // restore the main page
+        signupStage.close();
+        MainController.mainStage.show();
+
+        System.out.println("| redirect to main panel");
     }
 
     @FXML
@@ -72,45 +90,53 @@ public class SignupController {
         System.out.println("| redirect to main panel");
     }
 
-    private void checkUsername(String username) throws IOException {
-        // check if username is already used
-        if (findUsername(username)) {
-            usernameAlert(false);
-            return;
-        }
-
+    private boolean checkUsername(String username) throws IOException {
         // regex pattern of username
         Pattern pattern = Pattern.compile("(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])");
         Matcher matcher = pattern.matcher(username);
 
         if (!matcher.find()) {
             usernameAlert(true);
+            return false;
         }
+
+        // check if username is already used
+        if (findUsername(username)) {
+            usernameAlert(false);
+            return false;
+        }
+
+        return true;
     }
 
-    private void checkEmail(String email) throws IOException {
-        // check if email is already taken
-        if (findEmail(email)) {
-            emailAlert(false);
-            return;
-        }
-
+    private boolean checkEmail(String email) throws IOException {
         // regex pattern of email
         Pattern pattern = Pattern.compile("[\\w-.]+@[\\w-.]+\\.[\\w-]{2,4}");
         Matcher matcher = pattern.matcher(email);
 
         if (!matcher.find()) {
             emailAlert(true);
+            return false;
         }
+
+        // check if email is already taken
+        if (findEmail(email)) {
+            emailAlert(false);
+            return false;
+        }
+
+        return true;
     }
 
-    private void checkPassword(String password) {
+    private boolean checkPassword(String password) {
         // regex pattern of password
         Pattern pattern = Pattern.compile("(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,20}");
         Matcher matcher = pattern.matcher(password);
         if (!matcher.find()){
             passwordAlert();
+            return false;
         }
+        return true;
     }
 
     private boolean findUsername(String username) throws IOException {

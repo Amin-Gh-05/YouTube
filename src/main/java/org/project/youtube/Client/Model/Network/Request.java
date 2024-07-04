@@ -28,7 +28,7 @@ public class Request {
         return jsonObject.toString();
     }
 
-    public static void signup(String username, String email, String password) throws IOException {
+    public static User signup(String username, String email, String password) throws IOException {
         List<String> keys = new ArrayList<>();
         List<String> values = new ArrayList<>();
 
@@ -48,7 +48,7 @@ public class Request {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        Main.setUser(gson.fromJson(respStr, User.class));
+        return gson.fromJson(respStr, User.class);
     }
 
     public static boolean findUsername(String username) throws IOException {
