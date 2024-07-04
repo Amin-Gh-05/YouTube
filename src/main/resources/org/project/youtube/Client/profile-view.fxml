@@ -3,6 +3,9 @@
 <?import com.gluonhq.charm.glisten.control.TextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -12,6 +15,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
@@ -19,7 +25,23 @@
    <children>
       <AnchorPane prefHeight="226.0" prefWidth="800.0" styleClass="primary-color" stylesheets="@profile-view.css">
          <children>
-            <Circle fx:id="profile" fill="DODGERBLUE" layoutX="124.0" layoutY="107.0" radius="92.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="profile" layoutX="124.0" layoutY="107.0" radius="92.0" stroke="BLACK" strokeType="INSIDE">
+               <fill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="1.0" green="1.0" blue="1.0" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill></Circle>
             <Button fx:id="editProfile" layoutX="246.0" layoutY="156.0" mnemonicParsing="false" onAction="#switchToEditProfile" prefHeight="43.0" prefWidth="106.0" styleClass="button1" stylesheets="@profile-view.css" text="Edit Profile" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -184,7 +206,33 @@
                                           <Font name="System Bold" size="15.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="DOBField" prefHeight="47.0" prefWidth="331.0">
+                                    <Label fx:id="MOBField" prefHeight="47.0" prefWidth="17.0" text="00">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label prefHeight="45.0" prefWidth="9.0" text="/">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                       <opaqueInsets>
+                                          <Insets left="5.0" />
+                                       </opaqueInsets>
+                                    </Label>
+                                    <Label fx:id="DOBField" layoutX="112.0" layoutY="10.0" prefHeight="47.0" prefWidth="17.0" text="00">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="129.0" layoutY="10.0" prefHeight="45.0" prefWidth="9.0" text="/">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                       <opaqueInsets>
+                                          <Insets left="5.0" />
+                                       </opaqueInsets>
+                                    </Label>
+                                    <Label fx:id="YOBField" layoutX="112.0" layoutY="10.0" prefHeight="47.0" prefWidth="35.0" text="0000">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -219,8 +267,21 @@
                                     </Label>
                                  </children>
                               </HBox>
-                              <TextField layoutX="48.0" layoutY="11.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="377.0" />
-                              <TextField layoutX="81.0" layoutY="59.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="344.0" />
+                              <TextField layoutX="48.0" layoutY="11.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="351.0" />
+                              <TextField layoutX="81.0" layoutY="59.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="318.0" />
+                              <TextField layoutX="50.0" layoutY="105.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="349.0" />
+                              <DatePicker layoutX="100.0" layoutY="153.0" prefHeight="25.0" prefWidth="300.0" />
+                              <CheckBox layoutX="75.0" layoutY="197.0" mnemonicParsing="false" text="Male">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox layoutX="173.0" layoutY="197.0" mnemonicParsing="false" text="Female">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </CheckBox>
+                              <ChoiceBox layoutX="56.0" layoutY="243.0" prefWidth="150.0" />
                            </children>
                         </AnchorPane>
                      </children></VBox>
