@@ -14,6 +14,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import org.project.youtube.Client.Main;
 import org.project.youtube.Client.Model.User;
+import org.controlsfx.control.Notifications;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
