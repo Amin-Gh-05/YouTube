@@ -159,6 +159,7 @@ public class Request {
         jsonObject.put("reqData", data);
 
         Client.sendRequest(jsonObject.toString());
+        String respStr = Client.getStringResponse();
     }
 
     public static void getByUUIDList(List<UUID> IDs, String type) throws IOException {
@@ -177,6 +178,7 @@ public class Request {
         jsonObject.put("reqData", data);
 
         Client.sendRequest(jsonObject.toString());
+        String respStr = Client.getStringResponse();
     }
 
 
