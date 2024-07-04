@@ -147,7 +147,7 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
     }
 
-    // getting Video/Videos | Short/Shorts | Channel/Channels | PL/PLs | Comments
+    // getting Video/Videos | Short/Shorts | Channel/Channels | PL/PLs
 
     public static void getByUUID(UUID id, String type) throws IOException {
         JSONObject jsonObject = new JSONObject();

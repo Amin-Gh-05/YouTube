@@ -3,10 +3,11 @@ package org.project.youtube.Server.Model.Database;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.json.JSONObject;
-import org.project.youtube.Server.Model.User;
-import org.project.youtube.Server.Model.YID;
+import org.project.youtube.Server.Model.*;
+import org.project.youtube.Server.Model.Short;
 
 import java.sql.SQLException;
+import java.util.UUID;
 
 public class ClientService {
 
@@ -58,4 +59,45 @@ public class ClientService {
     public static boolean findEmail(JSONObject data) throws SQLException {
         return DatabaseManager.findEmail(data.getString("email"));
     }
+
+    public static String getVideo(JSONObject data) throws SQLException {
+        UUID id = UUID.fromString(data.getString("ID"));
+        Video video = DatabaseManager.readVideo(id);
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        return gson.toJson(video);
+    }
+    public static String getShort(JSONObject data) throws SQLException {
+        UUID id = UUID.fromString(data.getString("ID"));
+        Short shortt = DatabaseManager.readShort(id);
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        return gson.toJson(shortt);
+    }
+    public static String getChannel(JSONObject data) throws SQLException {
+        Channel channel = DatabaseManager.readChannel(data.getString("ID"));
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        return gson.toJson(channel);
+    }
+    public static String getPL(JSONObject data) throws SQLException {
+        UUID id = UUID.fromString(data.getString("ID"));
+        Playlist playlist = DatabaseManager.readPlaylist(id);
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        return gson.toJson(playlist);
+    }
+
 }

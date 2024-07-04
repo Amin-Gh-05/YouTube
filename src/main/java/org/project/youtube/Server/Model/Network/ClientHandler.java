@@ -53,13 +53,13 @@ public class ClientHandler implements Runnable {
 //                    case "getRandomTags" -> ;
 //                    case "getRandomVideos" -> ;
 //                    case "like" -> ;
-//                    case "getVideo" -> ;
+                    case "getVideo" -> sendStringResponse(ClientService.getVideo(data));
 //                    case "getVideos" -> ;
-//                    case "getShort" -> ;
+                    case "getShort" -> sendStringResponse(ClientService.getShort(data));
 //                    case "getShorts" -> ;
-//                    case "getPL" -> ;
+                    case "getPL" -> sendStringResponse(ClientService.getPL(data));
 //                    case "getPLs" -> ;
-//                    case "getChannel" -> ;
+                    case "getChannel" -> sendStringResponse(ClientService.getChannel(data));
 //                    case "getChannels" -> ;
 
                 }

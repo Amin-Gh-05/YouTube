@@ -34,18 +34,6 @@ public class Short {
         this.views = views;
     }
 
-    public Short(UUID id, String title, int duration, String createdDateTime, boolean isAgeRestricted, List<String> tags,
-                 byte[] thumbnail, String shortHandle) {
-        this.id = id;
-        this.title = title;
-        this.duration = duration;
-        this.createdDateTime = createdDateTime;
-        this.isAgeRestricted = isAgeRestricted;
-        this.tags = tags;
-        this.thumbnail = thumbnail;
-        this.shortHandle = shortHandle;
-    }
-
     public UUID getId() {
         return id;
     }

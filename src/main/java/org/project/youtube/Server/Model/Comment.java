@@ -24,14 +24,6 @@ public class Comment {
         this.createdDateTime = createdDateTime;
     }
 
-    public Comment(UUID id, UUID videoID, YID writerYID, String comment, UUID replyOnID, String createdDateTime) {
-        this.id = id;
-        this.videoID = videoID;
-        this.writerYID = writerYID;
-        this.comment = comment;
-        this.replyOnID = replyOnID;
-        this.createdDateTime = createdDateTime;
-    }
 
     public UUID getId() {
         return id;
