@@ -373,10 +373,46 @@ public class DatabaseManager {
 
     // ----------------------------- READ -----------------------------
 
-    public static User readUser(String username, String password) throws SQLException {
+    public static User readUserByUsername(String username, String password) throws SQLException {
         Connection conn = connect();
         // read user from users and personal_info tables
         String query = "SELECT * FROM users JOIN personal_info ON users.yid = personal_info.user_id WHERE username = ? AND password = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, username);
+        stmt.setString(2, password);
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+
+        if (rs.next()) {
+            String dateOfBirth = null;
+            if (rs.getDate("date_of_birth") != null) {
+                dateOfBirth = rs.getDate("date_of_birth").toString();
+            }
+
+            return new User(
+                    YID.fromString(rs.getString("yid")),
+                    rs.getString("username"),
+                    rs.getString("email"),
+                    rs.getString("password"),
+                    rs.getString("first_name"),
+                    rs.getString("last_name"),
+                    rs.getString("region"),
+                    dateOfBirth,
+                    rs.getDate("joined_date").toString(),
+                    rs.getString("gender"),
+                    rs.getBytes("profile_picture"),
+                    rs.getBoolean("is_premium"),
+                    rs.getString("handle")
+            );
+        }
+
+        return null;
+    }
+    public static User readUserByEmail(String username, String password) throws SQLException {
+        Connection conn = connect();
+        // read user from users and personal_info tables
+        String query = "SELECT * FROM users JOIN personal_info ON users.yid = personal_info.user_id WHERE email = ? AND password = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, username);
         stmt.setString(2, password);
@@ -1339,11 +1375,5 @@ public class DatabaseManager {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    public static void main(String[] args) throws SQLException {
-        User user = readUser("AminGh05", "2005tmsv");
-        assert user != null;
-        deleteUser(user);
     }
 }

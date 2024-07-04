@@ -73,17 +73,27 @@ public class Request {
         return Client.getBooleanResponse();
     }
 
-    public static void login(String username, String password) throws IOException {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("reqType", "login");
+    public static User login(int usernameInt, String username, String password) throws IOException {
+        List<String> keys = new ArrayList<>();
+        List<String> values = new ArrayList<>();
 
-        JSONObject data = new JSONObject();
-        data.put("usernameEmail", username); // username or email
-        data.put("password", password); // hashed password
+        keys.add("usernameInt");
+        values.add(Integer.toString(usernameInt));
 
-        jsonObject.put("reqData", data);
+        keys.add("username");
+        values.add(username);
 
-        Client.sendRequest(jsonObject.toString());
+        keys.add("password");
+        values.add(password);
+
+        Client.sendRequest(jsonBuilder("login", keys, values));
+        String respStr = Client.getStringResponse();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        return gson.fromJson(respStr, User.class);
     }
 
     public static void logout() throws IOException {
