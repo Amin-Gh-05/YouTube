@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CommentController implements Initializable {
-    static Comment comment;
+    Comment comment;
 
     @FXML
     private Label dateLabel;
