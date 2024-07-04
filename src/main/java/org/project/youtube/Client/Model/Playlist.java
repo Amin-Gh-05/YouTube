@@ -1,5 +1,8 @@
 package org.project.youtube.Client.Model;
 
+import org.project.youtube.Server.Model.Short;
+import org.project.youtube.Server.Model.Video;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -8,11 +11,12 @@ public class Playlist {
     private String name;
     private String channelHandle;
     private String description;
-    private List<Video> videos;
-    private List<Short> shorts;
+    private List<org.project.youtube.Server.Model.Video> videos;
+    private List<org.project.youtube.Server.Model.Short> shorts;
     private byte[] image;
+    private boolean isPublic;
 
-    public Playlist(List<Video> videos, UUID id, String name, String channelHandle, String description, List<Short> shorts,
+    public Playlist(List<org.project.youtube.Server.Model.Video> videos, UUID id, String name, String channelHandle, String description, List<org.project.youtube.Server.Model.Short> shorts,
                     byte[] image) {
         this.videos = videos;
         this.id = id;
@@ -21,6 +25,18 @@ public class Playlist {
         this.description = description;
         this.shorts = shorts;
         this.image = image;
+    }
+
+    public Playlist(UUID id, String name, String channelHandle, String description, List<org.project.youtube.Server.Model.Video> videos, List<org.project.youtube.Server.Model.Short> shorts,
+                    byte[] image, boolean isPublic) {
+        this.id = id;
+        this.name = name;
+        this.channelHandle = channelHandle;
+        this.description = description;
+        this.videos = videos;
+        this.shorts = shorts;
+        this.image = image;
+        this.isPublic = isPublic;
     }
 
     public UUID getId() {
@@ -55,7 +71,7 @@ public class Playlist {
         this.description = description;
     }
 
-    public List<Video> getVideos() {
+    public List<org.project.youtube.Server.Model.Video> getVideos() {
         return videos;
     }
 
@@ -63,7 +79,7 @@ public class Playlist {
         this.videos = videos;
     }
 
-    public List<Short> getShorts() {
+    public List<org.project.youtube.Server.Model.Short> getShorts() {
         return shorts;
     }
 
@@ -77,5 +93,13 @@ public class Playlist {
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
     }
 }
