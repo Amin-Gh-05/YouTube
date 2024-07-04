@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<StackPane prefHeight="600.0" prefWidth="800.0" stylesheets="@upload-view.css" xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.UploadController">
+    <children>
+        <AnchorPane id="uploadPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="400.0"
+                    prefHeight="450.0" prefWidth="500.0" StackPane.alignment="CENTER">
+            <children>
+                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="175.0" layoutY="75.0" pickOnBounds="true"
+                           preserveRatio="true" AnchorPane.topAnchor="60.0">
+                    <image>
+                        <Image url="@images/upload.png"/>
+                    </image>
+                </ImageView>
+                <Label layoutX="188.0" layoutY="235.0" text="Select file to upload">
+                    <font>
+                        <Font name="Roboto" size="14.0"/>
+                    </font>
+                </Label>
+                <Button layoutX="136.0" layoutY="340.0" mnemonicParsing="false" onAction="#pickVideo"
+                        styleClass="actionButton" text="Video" AnchorPane.bottomAnchor="80.0"
+                        AnchorPane.leftAnchor="135.0"/>
+                <Button layoutX="312.0" layoutY="340.0" mnemonicParsing="false" onAction="#pickShort"
+                        styleClass="actionButton" text="Short" AnchorPane.bottomAnchor="80.0"
+                        AnchorPane.rightAnchor="135.0"/>
+            </children>
+        </AnchorPane>
+    </children>
+</StackPane>

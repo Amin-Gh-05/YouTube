@@ -3,23 +3,28 @@ package org.project.youtube.Client.Controller;
 import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.project.youtube.Client.Model.Channel;
 
-
+import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -38,13 +43,16 @@ public class StudioController implements Initializable {
     @FXML
     private Button profileView;
 
+    @FXML
+    private Button createButton;
+
     // ------------------------------ SIDE ------------------------------
 
     @FXML
     private VBox sideBar;
 
     @FXML
-    private AnchorPane mainPanel;
+    private StackPane mainPanel;
 
     @FXML
     private Circle profilePic;
@@ -91,7 +99,7 @@ public class StudioController implements Initializable {
     }
 
     @FXML
-    void slideSidebar(ActionEvent event) {
+    void slideSidebar() {
         playClickEffect(moreButton);
 
         if (slideBar) {
@@ -118,48 +126,75 @@ public class StudioController implements Initializable {
     }
 
     @FXML
-    void refreshAll(MouseEvent event) {
+    void refreshAll() {
 
     }
 
     @FXML
-    void searchChannel(ActionEvent event) {
+    void searchChannel() {
 
     }
 
     @FXML
-    void createContent(ActionEvent event) {
+    void createContent() throws IOException {
+        playClickEffect(createButton);
+
+        // remove the previously loaded child
+        if (!mainPanel.getChildren().isEmpty()) {
+            mainPanel.getChildren().removeFirst();
+        }
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/upload-view.fxml"));
+        StackPane pane = loader.load();
+        mainPanel.getChildren().add(pane);
+    }
+
+    @FXML
+    void loadHelp() {
 
     }
 
     @FXML
-    void loadHelp(ActionEvent event) {
+    void loadProfile() {
 
     }
 
     @FXML
-    void loadProfile(ActionEvent event) {
+    void loadDashboard() throws IOException {
+        // remove the previously loaded child
+        if (!mainPanel.getChildren().isEmpty()) {
+            mainPanel.getChildren().removeFirst();
+        }
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/dashboard-view.fxml"));
+        AnchorPane pane = loader.load();
+        mainPanel.getChildren().add(pane);
+    }
+
+    @FXML
+    void loadContent() throws IOException {
+        // remove the previously loaded child
+        if (!mainPanel.getChildren().isEmpty()) {
+            mainPanel.getChildren().removeFirst();
+        }
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/content-view.fxml"));
+        AnchorPane pane = loader.load();
+        mainPanel.getChildren().add(pane);
+    }
+
+    @FXML
+    void loadSettings() {
 
     }
 
     @FXML
-    void loadDashboard(ActionEvent event) {
-
-    }
-
-    @FXML
-    void loadContent(ActionEvent event) {
-
-    }
-
-    @FXML
-    void loadSettings(ActionEvent event) {
-
-    }
-
-    @FXML
-    void loadMain(ActionEvent event) {
-
+    void loadMain(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/main-view.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
     }
 
     private void playClickEffect(Button button) {

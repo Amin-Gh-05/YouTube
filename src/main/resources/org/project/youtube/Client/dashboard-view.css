@@ -1,0 +1,25 @@
+.root {
+    -fx-font-family: Roboto, Arial;
+    -fx-font-size: 12px;
+}
+
+#createButton {
+    -fx-padding: 5px;
+    -fx-background-radius: 25px;
+    -fx-background-color: #F5F3F4;
+    -fx-border-radius: 25px;
+    -fx-border-color: #0B090A;
+    -fx-cursor: hand;
+}
+
+#createButton:hover {
+    -fx-border-width: 2px;
+}
+
+#analyticsPanel {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 10px;
+    -fx-border-color: #e32636;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 0);
+}

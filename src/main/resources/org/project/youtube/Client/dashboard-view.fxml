@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@dashboard-view.css" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.project.youtube.Client.Controller.DashboardController">
+    <children>
+        <Label layoutX="14.0" layoutY="14.0" style="-fx-font-family: Roboto Black; -fx-font-size: 18px;"
+               text="Channel Dashboard" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
+            <font>
+                <Font name="Roboto Black" size="16.0"/>
+            </font>
+        </Label>
+        <AnchorPane layoutX="43.0" layoutY="114.0" prefHeight="400.0" prefWidth="300.0" AnchorPane.bottomAnchor="100.0"
+                    AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="100.0">
+            <children>
+                <ImageView fitHeight="210.0" fitWidth="210.0" layoutX="45.0" layoutY="38.0" pickOnBounds="true"
+                           preserveRatio="true" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0"
+                           AnchorPane.topAnchor="40.0">
+                    <image>
+                        <Image url="@images/dashboard-up.png"/>
+                    </image>
+                </ImageView>
+                <Button id="createButton" layoutX="110.0" layoutY="267.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                        minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#createContent"
+                        prefHeight="35.0" prefWidth="80.0" text="Create" AnchorPane.bottomAnchor="80.0">
+                    <graphic>
+                        <SVGPath
+                                content="M14 13h-3v3H9v-3H6v-2h3V8h2v3h3v2zm3-7H3v12h14v-6.39l4 1.83V8.56l-4 1.83V6m1-1v3.83L22 7v8l-4-1.83V19H2V5h16z"/>
+                    </graphic>
+                </Button>
+            </children>
+        </AnchorPane>
+        <AnchorPane id="analyticsPanel" layoutX="430.0" layoutY="100.0" prefHeight="400.0" prefWidth="360.0"
+                    AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="470.0" AnchorPane.rightAnchor="70.0"
+                    AnchorPane.topAnchor="100.0">
+            <children>
+                <Label layoutX="14.0" layoutY="14.0" style="-fx-font-size: 16px;" text="Channel Analytics">
+                    <font>
+                        <Font name="Roboto" size="12.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="47.0" layoutY="58.0" text="Current Subscribers"/>
+                <Separator layoutX="36.0" layoutY="107.0" prefHeight="0.0" prefWidth="230.0"
+                           AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0"/>
+                <Label layoutX="36.0" layoutY="136.0" style="-fx-font-size: 14px;" text="Summary">
+                    <font>
+                        <Font name="Roboto" size="12.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="47.0" layoutY="170.0" text="Views"/>
+                <Label layoutX="47.0" layoutY="200.0" text="Watch Time"/>
+                <Separator layoutX="36.0" layoutY="243.0" prefHeight="0.0" prefWidth="230.0"
+                           AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0"/>
+                <Label layoutX="36.0" layoutY="267.0" style="-fx-font-size: 14px;" text="Top Videos"/>
+                <Label fx:id="subCount" layoutX="238.0" layoutY="57.0" AnchorPane.rightAnchor="30.0"/>
+                <Label fx:id="viewCount" layoutX="239.0" layoutY="170.0" AnchorPane.rightAnchor="30.0"/>
+                <Label fx:id="watchTime" layoutX="241.0" layoutY="199.0" AnchorPane.rightAnchor="30.0"/>
+                <ListView fx:id="topVideos" layoutX="32.0" layoutY="294.0" prefHeight="80.0" prefWidth="237.0"
+                          AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0"
+                          AnchorPane.topAnchor="292.6666666666667"/>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
