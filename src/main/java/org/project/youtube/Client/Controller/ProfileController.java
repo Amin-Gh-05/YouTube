@@ -5,7 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.ImagePattern;
@@ -57,19 +58,26 @@ public class ProfileController {
     @FXML
     private Label usernameField;
 
+    public ProfileController(Stage stage) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("profile-view.fxml")));
+        stage.setTitle("Profile setting");
+        stage.setScene(new Scene(root, 1220, 740));
+        stage.setResizable(false);
+        stage.show();
+    }
+
     public void initialize() throws IOException {
         user = Main.getUser();
 
         usernameField.setText(user.getUsername());
 
-        if(!user.isPremium())
+        if (!user.isPremium())
             PreSign.setVisible(false);
 
-        if(user.getProfilePic() == null){
+        if (user.getProfilePic() == null) {
             Image img = new Image("images\\profile-circle.svg");
             profile.setFill(new ImagePattern(img));
-        }
-        else{
+        } else {
             Image img = new Image(new ByteArrayInputStream(user.getProfilePic()));
             profile.setFill(new ImagePattern(img));
         }
@@ -87,19 +95,11 @@ public class ProfileController {
     }
 
     //Changing scenes
-    public void switchToManageChannels(ActionEvent e) throws IOException{
+    public void switchToManageChannels(ActionEvent e) throws IOException {
         // TODO
     }
 
-    public void switchToEditProfile(ActionEvent e) throws IOException{
+    public void switchToEditProfile(ActionEvent e) throws IOException {
         // TODO
-    }
-
-    public ProfileController(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("profile-view.fxml")));
-        stage.setTitle("Profile setting");
-        stage.setScene(new Scene(root, 1220, 740));
-        stage.setResizable(false);
-        stage.show();
     }
 }
