@@ -14,4 +14,6 @@ module org.project.youtube {
     opens org.project.youtube.Client to javafx.fxml;
     exports org.project.youtube.Client.Model.Network;
     opens org.project.youtube.Client.Model.Network to javafx.fxml;
+    opens org.project.youtube.Server.Model;
+    opens org.project.youtube.Client.Model;
 }

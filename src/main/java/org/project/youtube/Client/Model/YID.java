@@ -1,9 +1,9 @@
 package org.project.youtube.Client.Model;
 
 public class YID {
-    private final char[] YID;
+    private char[] YID;
 
-    private YID(char[] YID) {
+    public YID(char[] YID) {
         this.YID = YID;
     }
 
