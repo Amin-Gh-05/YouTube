@@ -486,7 +486,7 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
     }
 
-    public static void subscribe(Channel channel) throws IOException {
+    public static void subscribe(Channel channel, User user) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "subscribe");
 
@@ -496,8 +496,10 @@ public class Request {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        String Json = gson.toJson(channel);
-        data.put("channel", Json);
+        String channelJson = gson.toJson(channel);
+        data.put("channel", channelJson);
+        String userJson = gson.toJson(user);
+        data.put("user", userJson);
 
         jsonObject.put("reqData", data);
 

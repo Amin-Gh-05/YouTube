@@ -280,13 +280,19 @@ public class ClientService {
         DatabaseManager.updateViews(shortt, views);
     }
 
-    public static void subscribe(JSONObject data) {
+    public static void subscribe(JSONObject data) throws SQLException {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
         Channel channel =  gson.fromJson(data.getString("channel"), Channel.class);
+        User user =  gson.fromJson(data.getString("user"), User.class);
         int subs = channel.getSubscribers();
+
+        if (DatabaseManager.isSubscribed(user, channel)){
+            return;
+        }
+
         subs++;
         DatabaseManager.updateSubscribers(channel, subs);
     }
