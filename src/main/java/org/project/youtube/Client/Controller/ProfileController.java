@@ -2,39 +2,32 @@ package org.project.youtube.Client.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
-import org.project.youtube.Client.Main;
 import org.project.youtube.Client.Model.User;
-import org.controlsfx.control.Notifications;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 public class ProfileController {
-    static User user;
     public static List<String> countries = new ArrayList<>();
+    static User user;
 
     @FXML
-    private Button PreSign;
+    private Button preSign;
 
     @FXML
     private Label DOBField, MOBField, YOBField;
 
     @FXML
-    private Button ManageChannels;
+    private Button manageChannels;
 
     @FXML
     private Button editProfile;
@@ -79,18 +72,17 @@ public class ProfileController {
     private DatePicker datePicker;
 
     public void initialize() throws IOException {
-        user = Main.getUser();
+        user = MainController.user;
 
         usernameField.setText(user.getUsername());
 
-        if(!user.isPremium())
-            PreSign.setVisible(false);
+        if (!user.isPremium())
+            preSign.setVisible(false);
 
-        if(user.getProfilePic() == null){
+        if (user.getProfilePic() == null) {
             Image img = new Image("images\\profile-circle.svg");
             profile.setFill(new ImagePattern(img));
-        }
-        else{
+        } else {
             Image img = new Image(new ByteArrayInputStream(user.getProfilePic()));
             profile.setFill(new ImagePattern(img));
         }
@@ -112,29 +104,21 @@ public class ProfileController {
         }
         regionBox.getItems().addAll(countries);
 
-        //building links
+        // building links
 
 
     }
 
-    //Changing scenes
-    public void switchToManageChannels(ActionEvent e) throws IOException{
-        // TODO
-    }
-
-    public void switchToEditProfile(ActionEvent e) throws IOException{
+    // changing scenes
+    public void switchToManageChannels(ActionEvent e) throws IOException {
 
     }
 
-    public void makeChanges(ActionEvent e) throws IOException{
+    public void switchToEditProfile(ActionEvent e) throws IOException {
 
     }
 
-    public ProfileController(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("profile-view.fxml")));
-        stage.setTitle("Profile setting");
-        stage.setScene(new Scene(root, 1220, 740));
-        stage.setResizable(false);
-        stage.show();
+    public void makeChanges(ActionEvent e) throws IOException {
+
     }
 }

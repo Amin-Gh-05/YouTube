@@ -30,7 +30,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class StudioController implements Initializable {
-    static Channel channel;
+    public static Channel channel;
 
     // ------------------------------ HEADER ------------------------------
 
@@ -49,10 +49,10 @@ public class StudioController implements Initializable {
     // ------------------------------ SIDE ------------------------------
 
     @FXML
-    private VBox sideBar;
+    private StackPane mainPanel;
 
     @FXML
-    private StackPane mainPanel;
+    private VBox sideBar;
 
     @FXML
     private Circle profilePic;
@@ -145,6 +145,8 @@ public class StudioController implements Initializable {
         }
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/upload-view.fxml"));
+        UploadController uploadController = loader.getController();
+        uploadController.controller = this;
         StackPane pane = loader.load();
         mainPanel.getChildren().add(pane);
     }
@@ -210,5 +212,9 @@ public class StudioController implements Initializable {
 
         scaleTransition.setCycleCount(2);
         scaleTransition.play();
+    }
+
+    public StackPane getMainPanel() {
+        return mainPanel;
     }
 }

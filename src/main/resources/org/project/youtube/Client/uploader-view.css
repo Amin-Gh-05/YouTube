@@ -1,0 +1,24 @@
+.root {
+    -fx-font-family: Roboto, Arial;
+    -fx-font-size: 12px;
+}
+
+#mainForm {
+
+    -fx-background-radius: 10px;
+}
+
+.textBox {
+    -fx-background-color: #F5F3F4;
+    -fx-background-radius: 10px;
+    -fx-border-color: #0B090A;
+    -fx-border-radius: 10px;
+}
+
+.actionButton {
+    -fx-background-color: #F5F3F4;
+    -fx-background-radius: 20px;
+    -fx-border-color: #E32636;
+    -fx-border-radius: 20px;
+    -fx-cursor: hand;
+}
