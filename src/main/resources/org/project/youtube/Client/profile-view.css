@@ -1,33 +1,37 @@
-.primary-color{
+.primary-color {
     -fx-background-color: #FFFFFF;
 }
 
 
-.button1{
+.button1 {
     -fx-text-fill: #FFFFFF;
     -fx-background-color: #FF0000;
     -fx-background-radius: 23;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 4,0,0,3);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 4, 0, 0, 3);
 }
 
-.button1:hover{
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 0,0,0,3);
+.button1:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 0, 0, 0, 3);
 }
 
-.button2{
+.button2 {
     -fx-background-color: #FFFFFF;
     -fx-border-width: 0;
     -fx-font-style: italic;
 }
 
 
-
-.button3{
+.button3 {
     -fx-text-fill: #FFFFFF;
     -fx-background-color: #FF0000;
     -fx-background-radius: 23;
 }
 
-.text-input{
+.text-input {
     -fx-background-color: #ffffff;
+    -fx-border-radius: 3;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-color: #CFCFCF;
 }
+

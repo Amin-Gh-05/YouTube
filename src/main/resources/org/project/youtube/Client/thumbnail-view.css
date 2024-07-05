@@ -1,0 +1,12 @@
+.root {
+    -fx-font-family: Roboto, Arial;
+    -fx-font-size: 12px;
+}
+
+#thumbnailPanel:hover {
+    -fx-background-color: #DDDBDC;
+}
+
+#profilePic {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 0);
+}

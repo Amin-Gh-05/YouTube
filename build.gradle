@@ -40,7 +40,10 @@ dependencies {
     implementation("org.postgresql:postgresql:42.7.3")
     implementation 'com.google.code.gson:gson:2.11.0'
     implementation 'org.json:json:20240303'
-    implementation ("commons-codec:commons-codec:1.16.1")
+    implementation("commons-codec:commons-codec:1.16.1")
+    implementation("org.controlsfx:controlsfx:11.1.1")
+    implementation("commons-io:commons-io:2.16.1")
+    implementation("org.bytedeco:javacv:1.5.7")
 }
 
 test {

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+
+<HBox id="mainView" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="900.0" spacing="10.0" stylesheets="@playlist-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.PlaylistController">
+   <children>
+      <ImageView fx:id="playlistImage" fitHeight="120.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="nameLabel" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" text="Name" wrapText="true" />
+      <Separator orientation="VERTICAL" prefHeight="200.0" />
+      <Label fx:id="descriptionLabel" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="455.0" text="Description" wrapText="true" />
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</HBox>

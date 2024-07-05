@@ -2,102 +2,145 @@ package org.project.youtube.Client.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import org.project.youtube.Client.Main;
 import org.project.youtube.Client.Model.User;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.Objects;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class ProfileController {
-    private static User user;
+    public static List<String> countries = new ArrayList<>();
+    static User user;
+
+    // ------------------------ HEADER ------------------------
+    @FXML
+    private Label usernameField;
 
     @FXML
-    private Button PreSign;
+    private Label DJField, MJField, YJField;
 
     @FXML
-    private Label DOBField;
-
-    @FXML
-    private Button ManageChannels;
+    private Button manageChannels;
 
     @FXML
     private Button editProfile;
 
     @FXML
-    private Label emailField;
+    private ImageView makeChanges;
 
     @FXML
-    private Label genderField;
-
-    @FXML
-    private HBox hyperlinks;
-
-    @FXML
-    private Label lastnameField;
-
-    @FXML
-    private Label nameField;
+    private Button preSign;
 
     @FXML
     private Circle profile;
 
+    // -------------------- PERSONAL INFO ---------------------
     @FXML
-    private Label regionField;
+    private Label DOBField, MOBField, YOBField;
 
     @FXML
-    private Label usernameField;
+    private Label nameField, lastnameField, emailField, genderField, regionField;
+
+    // ------------------------ EDITOR ------------------------
+    @FXML
+    private DatePicker datePicker;
+
+    @FXML
+    private ImageView usernameAlert, nameAlert, lastnameAlert, emailAlert, genderAlert;
+
+    @FXML
+    private TextField usernameEditor, nameEditor, lastnameEditor, emailEditor;
+
+    @FXML
+    private CheckBox femaleBox, maleBox;
+
+    @FXML
+    private ChoiceBox<String> regionBox;
 
     public void initialize() throws IOException {
-        user = MainController.getUser();
+        user = MainController.user;
 
+        //initializing header info
         usernameField.setText(user.getUsername());
+        if (!user.isPremium())
+            preSign.setVisible(false);
 
-        if(!user.isPremium())
-            PreSign.setVisible(false);
-
-        if(user.getProfilePic() == null){
-
-        }
-        else{
+        if (user.getProfilePic() == null) {
+            Image img = new Image("images\\profile-circle.svg");
+            profile.setFill(new ImagePattern(img));
+        } else {
             Image img = new Image(new ByteArrayInputStream(user.getProfilePic()));
             profile.setFill(new ImagePattern(img));
         }
+        String dj = String.valueOf(user.getJoinedDate());
+        MJField.setText(dj.substring(5, 6));
+        DJField.setText(dj.substring(8, 9));
+        YJField.setText(dj.substring(0, 3));
 
+        // initializing personal info
         nameField.setText(user.getFirstName());
         lastnameField.setText(user.getLastName());
         emailField.setText(user.getEmail());
-        DOBField.setText(user.getDateOfBirth().toString());
+        String dob = String.valueOf(user.getDateOfBirth());
+        MOBField.setText(dob.substring(5, 6));
+        DOBField.setText(dob.substring(8, 9));
+        YOBField.setText(dob.substring(0, 3));
         genderField.setText(user.getGender());
         regionField.setText(user.getRegion());
+
+        // creating region list
+        String[] locales = Locale.getISOCountries();
+        for (String countryCode : locales) {
+            Locale obj = new Locale("", countryCode);
+            countries.add(obj.getDisplayCountry());
+        }
+        regionBox.getItems().addAll(countries);
+
     }
 
-    //Changing scenes
-    public void switchToManageChannels(ActionEvent e) throws IOException{
+    // profile editor functions
+    public void switchToEditProfile(ActionEvent e) throws IOException {
+        editProfile.setDisable(true);
+        makeChanges.setVisible(true);
+        usernameField.setVisible(false);
+        manageChannels.setVisible(false);
+        genderField.setVisible(false);
+        regionField.setVisible(false);
+        nameEditor.setVisible(true);
+        nameEditor.setText(nameField.getText());
+        lastnameEditor.setVisible(true);
+        lastnameEditor.setText(lastnameField.getText());
+        emailEditor.setVisible(true);
+        emailEditor.setText(emailField.getText());
+        datePicker.setVisible(true);
+        datePicker.setValue(LocalDate.of(Integer.parseInt(YOBField.getText()), Integer.parseInt(MOBField.getText()), Integer.parseInt(DOBField.getText())));
+        femaleBox.setVisible(true);
+        maleBox.setVisible(true);
+        if (genderField.getText().equals("female")) {
+            femaleBox.setSelected(true);
+        } else if (genderField.getText().equals("male")) {
+            maleBox.setSelected(true);
+        }
+        regionBox.setVisible(true);
+        regionBox.setValue(regionField.getText());
+    }
+
+    public void makeChanges(ActionEvent e) throws IOException {
+
+    }
+
+    // changing scenes
+    public void switchToManageChannels(ActionEvent e) throws IOException {
         // TODO
     }
 
-    public void switchToEditProfile(ActionEvent e) throws IOException{
-        // TODO
-    }
 
-    public ProfileController(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("profile-view.fxml"));
-        stage.setTitle("Profile setting");
-        stage.setScene(new Scene(root, 1220, 740));
-        stage.setResizable(false);
-        stage.show();
-    }
 }

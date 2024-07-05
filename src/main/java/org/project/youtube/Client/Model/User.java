@@ -37,6 +37,23 @@ public class User {
         this.gender = gender;
         this.profilePic = profilePic;
     }
+    public User(YID yid, String username, String email, String password) {
+        this.yid = yid;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.isPremium = false;
+        this.handle = "user-" + yid.toString();
+
+        // personal info
+        this.firstName = null;
+        this.lastName = null;
+        this.region = null;
+        this.dateOfBirth = null;
+        this.joinedDate = LocalDate.now().toString();
+        this.gender = null;
+        this.profilePic = null;
+    }
 
     public User(YID yid, String username, String email, String password) {
         this.yid = yid;
