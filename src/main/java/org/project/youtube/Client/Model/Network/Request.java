@@ -313,7 +313,7 @@ public class Request {
 
     // ======================= Update =======================
 
-    public static void like(String contentType, char likeType, String userYID, UUID contentID) throws IOException {
+    public static boolean like(String contentType, char likeType, String userYID, UUID contentID) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "like");
 
@@ -486,7 +486,7 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
     }
 
-    public static void subscribe(Channel channel, User user) throws IOException {
+    public static boolean subscribe(Channel channel, User user) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "subscribe");
 
@@ -504,6 +504,7 @@ public class Request {
         jsonObject.put("reqData", data);
 
         Client.sendRequest(jsonObject.toString());
+        return Client.getBooleanResponse();
     }
 
 

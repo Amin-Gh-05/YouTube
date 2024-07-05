@@ -70,7 +70,7 @@ public class ClientHandler implements Runnable {
                     case "updateShortComment" -> ClientService.updateShortComment(data);
                     case "updateVideoViews" -> ClientService.updateVideoViews(data);
                     case "updateShortViews" -> ClientService.updateShortViews(data);
-                    case "subscribe" -> ClientService.subscribe(data);
+                    case "subscribe" -> sendBooleanResponse(ClientService.subscribe(data));
 //                    case "getRandomTags" -> ;
 //                    case "getRandomVideos" -> ;
 

@@ -280,20 +280,28 @@ public class ClientService {
         DatabaseManager.updateViews(shortt, views);
     }
 
-    public static void subscribe(JSONObject data) throws SQLException {
-        GsonBuilder builder = new GsonBuilder();
-        builder.setPrettyPrinting();
-        Gson gson = builder.create();
+    public static boolean subscribe(JSONObject data) {
+        try {
+            GsonBuilder builder = new GsonBuilder();
+            builder.setPrettyPrinting();
+            Gson gson = builder.create();
 
-        Channel channel =  gson.fromJson(data.getString("channel"), Channel.class);
-        User user =  gson.fromJson(data.getString("user"), User.class);
-        int subs = channel.getSubscribers();
+            Channel channel =  gson.fromJson(data.getString("channel"), Channel.class);
+            User user =  gson.fromJson(data.getString("user"), User.class);
+            int subs = channel.getSubscribers();
 
-        if (DatabaseManager.isSubscribed(user, channel)){
-            return;
+            if (DatabaseManager.isSubscribed(user, channel)){
+                return false;
+            }
+
+            subs++;
+            DatabaseManager.updateSubscribers(channel, subs);
+            DatabaseManager.subscribeChannel(user, channel);
+            return true;
         }
-
-        subs++;
-        DatabaseManager.updateSubscribers(channel, subs);
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
     }
 }
