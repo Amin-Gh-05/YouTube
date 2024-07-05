@@ -29,4 +29,9 @@
 
 .text-input {
     -fx-background-color: #ffffff;
+    -fx-border-radius: 3;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-color: #CFCFCF;
 }
+
