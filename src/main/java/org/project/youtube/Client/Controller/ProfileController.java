@@ -2,19 +2,12 @@ package org.project.youtube.Client.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
-import org.project.youtube.Client.Main;
 import org.project.youtube.Client.Model.User;
-import org.controlsfx.control.Notifications;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -22,11 +15,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 public class ProfileController {
-    static User user;
     public static List<String> countries = new ArrayList<>();
+    static User user;
 
     // ------------------------ HEADER ------------------------
     @FXML
@@ -74,18 +66,17 @@ public class ProfileController {
     private ChoiceBox<String> regionBox;
 
     public void initialize() throws IOException {
-        user = Main.getUser();
+        user = MainController.user;
 
         //initializing header info
         usernameField.setText(user.getUsername());
-        if(!user.isPremium())
+        if (!user.isPremium())
             preSign.setVisible(false);
 
-        if(user.getProfilePic() == null){
+        if (user.getProfilePic() == null) {
             Image img = new Image("images\\profile-circle.svg");
             profile.setFill(new ImagePattern(img));
-        }
-        else{
+        } else {
             Image img = new Image(new ByteArrayInputStream(user.getProfilePic()));
             profile.setFill(new ImagePattern(img));
         }
@@ -115,8 +106,8 @@ public class ProfileController {
 
     }
 
-    //profile editor functions
-    public void switchToEditProfile(ActionEvent e) throws IOException{
+    // profile editor functions
+    public void switchToEditProfile(ActionEvent e) throws IOException {
         editProfile.setDisable(true);
         makeChanges.setVisible(true);
         usernameField.setVisible(false);
@@ -133,22 +124,21 @@ public class ProfileController {
         datePicker.setValue(LocalDate.of(Integer.parseInt(YOBField.getText()), Integer.parseInt(MOBField.getText()), Integer.parseInt(DOBField.getText())));
         femaleBox.setVisible(true);
         maleBox.setVisible(true);
-        if(genderField.getText().equals("female")){
+        if (genderField.getText().equals("female")) {
             femaleBox.setSelected(true);
-        }
-        else if(genderField.getText().equals("male")){
+        } else if (genderField.getText().equals("male")) {
             maleBox.setSelected(true);
         }
         regionBox.setVisible(true);
         regionBox.setValue(regionField.getText());
     }
 
-    public void makeChanges(ActionEvent e) throws IOException{
+    public void makeChanges(ActionEvent e) throws IOException {
 
     }
 
-    //Changing scenes
-    public void switchToManageChannels(ActionEvent e) throws IOException{
+    // changing scenes
+    public void switchToManageChannels(ActionEvent e) throws IOException {
         // TODO
     }
 
