@@ -22,6 +22,15 @@ public class Comment {
         this.createdDateTime = createdDateTime.toString();
     }
 
+    public Comment(UUID id, UUID videoID, YID writerYID, String comment, UUID replyOnID, String createdDateTime) {
+        this.id = id;
+        this.videoID = videoID;
+        this.writerYID = writerYID;
+        this.comment = comment;
+        this.replyOnID = replyOnID;
+        this.createdDateTime = createdDateTime;
+    }
+
     public UUID getId() {
         return id;
     }
@@ -71,7 +80,7 @@ public class Comment {
     }
 
     public LocalDateTime getCreatedDateTime() {
-        return createdDateTime == null?null:LocalDateTime.parse(createdDateTime);
+        return createdDateTime == null?null: LocalDateTime.parse(createdDateTime);
     }
 
     public void setCreatedDateTime(String createdDateTime) {

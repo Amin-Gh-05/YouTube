@@ -1,15 +1,11 @@
 package org.project.youtube.Client.Controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.shape.Circle;
 import org.project.youtube.Client.Model.Comment;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public class CommentController implements Initializable {
+public class CommentController {
     Comment comment;
 
     @FXML
@@ -23,11 +19,6 @@ public class CommentController implements Initializable {
 
     @FXML
     private Label usernameLabel;
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
 
     @FXML
     void likeComment() {

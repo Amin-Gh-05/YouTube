@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.json.JSONObject;
+import org.project.youtube.Client.Controller.MainController;
 import org.project.youtube.Client.Main;
 import org.project.youtube.Client.Model.User;
 
@@ -48,7 +49,7 @@ public class Request {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        Main.setUser(gson.fromJson(respStr, User.class));
+        MainController.user = gson.fromJson(respStr, User.class);
     }
 
     public static boolean findUsername(String username) throws IOException {

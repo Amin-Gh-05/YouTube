@@ -15,15 +15,29 @@ public class Short {
     private List<String> tags;
     private byte[] thumbnail;
     private String shortHandle;
+    private int views;
 
     public Short(UUID id, String title, int duration, LocalDateTime createdDateTime, int likes, List<Comment> comments,
-                 boolean isAgeRestricted, List<String> tags, byte[] thumbnail, String shortHandle) {
+                 boolean isAgeRestricted, List<String> tags, byte[] thumbnail, String shortHandle, int views) {
         this.id = id;
         this.title = title;
         this.duration = duration;
         this.createdDateTime = createdDateTime.toString();
         this.likes = likes;
         this.comments = comments;
+        this.isAgeRestricted = isAgeRestricted;
+        this.tags = tags;
+        this.thumbnail = thumbnail;
+        this.shortHandle = shortHandle;
+        this.views = views;
+    }
+
+    public Short(UUID id, String title, int duration, String createdDateTime, boolean isAgeRestricted, List<String> tags,
+                 byte[] thumbnail, String shortHandle) {
+        this.id = id;
+        this.title = title;
+        this.duration = duration;
+        this.createdDateTime = createdDateTime;
         this.isAgeRestricted = isAgeRestricted;
         this.tags = tags;
         this.thumbnail = thumbnail;
@@ -55,7 +69,7 @@ public class Short {
     }
 
     public LocalDateTime getCreatedDateTime() {
-        return createdDateTime == null?null:LocalDateTime.parse(createdDateTime);
+        return createdDateTime == null?null: LocalDateTime.parse(createdDateTime);
     }
 
     public void setCreatedDateTime(String createdDateTime) {
@@ -108,5 +122,13 @@ public class Short {
 
     public void setShortHandle(String shortHandle) {
         this.shortHandle = shortHandle;
+    }
+
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
     }
 }

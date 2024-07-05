@@ -23,11 +23,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
+    public static User user;
     static Stage mainStage;
-    static User user;
 
     // ------------------------------ HEADER ------------------------------
-
     @FXML
     private Button moreButton;
 

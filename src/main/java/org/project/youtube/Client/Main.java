@@ -16,7 +16,6 @@ public class Main extends Application {
     private static final String SERVER_IP = "127.0.0.1";
     private static final int SERVER_PORT = 5431;
     private static final int SERVER_FILE_TRANSFER_PORT = 5430;
-    private static User user;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -42,13 +41,5 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch();
-    }
-
-    public static User getUser() {
-        return user;
-    }
-
-    public static void setUser(User user) {
-        Main.user = user;
     }
 }
