@@ -1274,9 +1274,69 @@ public class DatabaseManager {
         }
     }
 
-    public static void unlikeVideo(Comment comment, User user) {
+    public static void unlikeVideo(Video video, User user) {
         try (Connection conn = connect()) {
-            // delete like from video_comment_likes
+            // delete like from video_likes
+            String query = "DELETE FROM video_likes WHERE video_id = ? AND yid = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setObject(1, video.getId());
+            stmt.setString(2, user.getYid().toString());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void undislikeVideo(Video video, User user) {
+        try (Connection conn = connect()) {
+            // delete from video_dislikes
+            String query = "DELETE FROM video_dislikes WHERE video_id = ? AND yid = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setObject(1, video.getId());
+            stmt.setString(2, user.getYid().toString());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void unlikeShort(Short shortVideo, User user) {
+        try (Connection conn = connect()) {
+            // delete from short_likes
+            String query = "DELETE FROM short_likes WHERE short_id = ? AND yid = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setObject(1, shortVideo.getId());
+            stmt.setString(2, user.getYid().toString());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void undislikeShort(Short shortVideo, User user) {
+        try (Connection conn = connect()) {
+            // delete from short_dislikes
+            String query = "DELETE FROM short_dislikes WHERE short_id = ? AND yid = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setObject(1, shortVideo.getId());
+            stmt.setString(2, user.getYid().toString());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void unlikeVideoComment(Comment comment, User user) {
+        try (Connection conn = connect()) {
+            // delete from video_comment_likes
             String query = "DELETE FROM video_comment_likes WHERE comment_id = ? AND yid = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setObject(1, comment.getId());
@@ -1289,7 +1349,7 @@ public class DatabaseManager {
         }
     }
 
-    public static void undislikeVideo(Comment comment, User user) {
+    public static void undislikeVideoComment(Comment comment, User user) {
         try (Connection conn = connect()) {
             // delete from video_comment_dislikes
             String query = "DELETE FROM video_comment_dislikes WHERE comment_id = ? AND yid = ?";
@@ -1304,7 +1364,7 @@ public class DatabaseManager {
         }
     }
 
-    public static void unlikeShort(Comment comment, User user) {
+    public static void unlikeShortComment(Comment comment, User user) {
         try (Connection conn = connect()) {
             // delete from short_comment_likes
             String query = "DELETE FROM short_comment_likes WHERE comment_id = ? AND yid = ?";
@@ -1319,10 +1379,10 @@ public class DatabaseManager {
         }
     }
 
-    public static void undislikeShort(Comment comment, User user) {
+    public static void undislikeShortComment(Comment comment, User user) {
         try (Connection conn = connect()) {
             // delete from short_comment_dislikes
-            String query = "DELETE FROM short_comment_dislikes WHERE comment_id = ? AND yid = ?";
+            String query = "DELETE FROM video_comment_dislikes WHERE comment_id = ? AND yid = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setObject(1, comment.getId());
             stmt.setString(2, user.getYid().toString());
