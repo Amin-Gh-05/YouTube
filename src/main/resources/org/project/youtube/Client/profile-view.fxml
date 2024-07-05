@@ -67,7 +67,7 @@
             </Button>
             <ImageView fx:id="makeChanges" fitHeight="35.0" fitWidth="32.0" layoutX="360.0" layoutY="164.0" onMouseClicked="#makeChanges" opacity="0.34" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
-                  <Image url="@images/icons8-check-48.png" />
+                  <Image url="@images/check.png" />
                </image>
             </ImageView>
             <TextField fx:id="usernameEditor" layoutX="234.0" layoutY="52.0" prefHeight="47.0" prefWidth="202.0" styleClass="text-input" stylesheets="@profile-view.css" text="A username" visible="false">
