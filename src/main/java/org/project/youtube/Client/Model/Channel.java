@@ -1,7 +1,5 @@
 package org.project.youtube.Client.Model;
 
-import org.project.youtube.Server.Model.Playlist;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -18,7 +16,7 @@ public class Channel {
     private byte[] banner;
     private List<Video> videos;
     private List<Short> shorts;
-    private List<org.project.youtube.Server.Model.Playlist> playlists;
+    private List<Playlist> playlists;
 
     // links
     private String website;
@@ -35,7 +33,7 @@ public class Channel {
     public Channel(String handle, String name, YID ownerYID, String description, String createdDateTime, int views,
                    int subscribers, byte[] logo, byte[] banner, String website, String email, String facebook, String instagram,
                    String x, String telegram, String tiktok, String discord, String linkedin, String reddit, List<Video> videos,
-                   List<Short> shorts, List<org.project.youtube.Server.Model.Playlist> playlists) {
+                   List<Short> shorts, List<Playlist> playlists) {
         this.handle = handle;
         this.name = name;
         this.ownerYID = ownerYID;
@@ -63,7 +61,7 @@ public class Channel {
     }
 
     public Channel(String handle, String name, YID ownerYID, String description, String createdDateTime, byte[] logo,
-                   byte[] banner, List<Video> videos, List<Short> shorts, List<org.project.youtube.Server.Model.Playlist> playlists) {
+                   byte[] banner, List<Video> videos, List<Short> shorts, List<Playlist> playlists) {
         this.handle = handle;
         this.name = name;
         this.ownerYID = ownerYID;
@@ -246,7 +244,7 @@ public class Channel {
         this.shorts = shorts;
     }
 
-    public List<org.project.youtube.Server.Model.Playlist> getPlaylists() {
+    public List<Playlist> getPlaylists() {
         return playlists;
     }
 

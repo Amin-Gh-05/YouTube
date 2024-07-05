@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.project.youtube.Client.Main;
 import org.project.youtube.Client.Model.Network.Request;
 import org.project.youtube.Client.Model.User;
 
@@ -44,8 +43,7 @@ public class LoginController {
         if (!checkPassword(passWord.getText())) {
             return;
         }
-        User user = Request.login(usernameInt, userName.getText(), DigestUtils.sha256Hex(passWord.getText()));
-        MainController.setUser(user);
+        MainController.user = Request.login(usernameInt, userName.getText(), DigestUtils.sha256Hex(passWord.getText()));
 
         // get current stage
         Stage signupStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -124,7 +122,7 @@ public class LoginController {
         // regex pattern of password
         Pattern pattern = Pattern.compile("(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,20}");
         Matcher matcher = pattern.matcher(password);
-        if (!matcher.find()){
+        if (!matcher.find()) {
             passwordAlert();
             return false;
         }
@@ -134,10 +132,9 @@ public class LoginController {
     private void usernameAlert(boolean a) {
         // show alert for invalid username
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        if (a){
+        if (a) {
             alert.setTitle("Invalid Username or Email");
-        }
-        else {
+        } else {
             alert.setTitle("Username or Email Does not Exist");
         }
         alert.setHeaderText("Please enter a valid username");

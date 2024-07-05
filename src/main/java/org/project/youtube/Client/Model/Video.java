@@ -36,6 +36,18 @@ public class Video {
         this.views = views;
     }
 
+    public Video(UUID id, String title, String description, int duration, String createdDateTime, boolean isAgeRestricted,
+                 List<String> tags, byte[] thumbnail, String videoHandle) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.duration = duration;
+        this.createdDateTime = createdDateTime;
+        this.isAgeRestricted = isAgeRestricted;
+        this.tags = tags;
+        this.thumbnail = thumbnail;
+        this.videoHandle = videoHandle;
+    }
 
     public UUID getId() {
         return id;

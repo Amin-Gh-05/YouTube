@@ -65,11 +65,15 @@ public class UploaderController {
 
     @FXML
     void uploadVideo() throws IOException {
-        Video video = new Video(UUID.randomUUID(), titleText.getText(), descriptionText.getText(), videoLength(file),
-                LocalDateTime.now().toString(), adultOnlyCheck.isSelected(), new ArrayList<>(List.of(tagsText.getText().split(" "))),
-                thumbnailImage, StudioController.channel.getHandle());
+        if (isShort) {
 
-        // todo: send video through api and add it to database
+        } else {
+            Video video = new Video(UUID.randomUUID(), titleText.getText(), descriptionText.getText(), videoLength(file),
+                    LocalDateTime.now().toString(), adultOnlyCheck.isSelected(), new ArrayList<>(List.of(tagsText.getText().split(" "))),
+                    thumbnailImage, StudioController.channel.getHandle());
+
+            // todo: send video through api and add it to database
+        }
     }
 
     private File pickFile() {

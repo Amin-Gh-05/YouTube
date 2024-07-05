@@ -1,8 +1,5 @@
 package org.project.youtube.Client.Model;
 
-import org.project.youtube.Server.Model.Short;
-import org.project.youtube.Server.Model.Video;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -11,12 +8,12 @@ public class Playlist {
     private String name;
     private String channelHandle;
     private String description;
-    private List<org.project.youtube.Server.Model.Video> videos;
-    private List<org.project.youtube.Server.Model.Short> shorts;
+    private List<Video> videos;
+    private List<Short> shorts;
     private byte[] image;
     private boolean isPublic;
 
-    public Playlist(List<org.project.youtube.Server.Model.Video> videos, UUID id, String name, String channelHandle, String description, List<org.project.youtube.Server.Model.Short> shorts,
+    public Playlist(List<Video> videos, UUID id, String name, String channelHandle, String description, List<Short> shorts,
                     byte[] image) {
         this.videos = videos;
         this.id = id;
@@ -27,7 +24,7 @@ public class Playlist {
         this.image = image;
     }
 
-    public Playlist(UUID id, String name, String channelHandle, String description, List<org.project.youtube.Server.Model.Video> videos, List<org.project.youtube.Server.Model.Short> shorts,
+    public Playlist(UUID id, String name, String channelHandle, String description, List<Video> videos, List<Short> shorts,
                     byte[] image, boolean isPublic) {
         this.id = id;
         this.name = name;
@@ -71,7 +68,7 @@ public class Playlist {
         this.description = description;
     }
 
-    public List<org.project.youtube.Server.Model.Video> getVideos() {
+    public List<Video> getVideos() {
         return videos;
     }
 
@@ -79,7 +76,7 @@ public class Playlist {
         this.videos = videos;
     }
 
-    public List<org.project.youtube.Server.Model.Short> getShorts() {
+    public List<Short> getShorts() {
         return shorts;
     }
 
