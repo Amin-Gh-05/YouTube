@@ -49,6 +49,7 @@ public class ClientHandler implements Runnable {
                     case "findEmail" -> sendBooleanResponse(ClientService.findEmail(data));
                     case "signup" -> sendStringResponse(ClientService.signup(data));
                     case "login" -> sendStringResponse(ClientService.login(data));
+//                    case "logout" -> ;
                     case "getVideo" -> sendStringResponse(ClientService.getVideo(data));
                     case "getChannelVideos" -> sendStringResponse(ClientService.getChannelVideos(data));
                     case "getPlayListVideos" -> sendStringResponse(ClientService.getPlayListVideos(data));
@@ -59,10 +60,14 @@ public class ClientHandler implements Runnable {
                     case "getPLs" -> sendStringResponse(ClientService.getPls(data));
                     case "getChannel" -> sendStringResponse(ClientService.getChannel(data));
                     case "getChannels" -> sendStringResponse(ClientService.getChannels(data));
-//                    case "logout" -> ;
+//                    case "like" -> ;
+                    case "updateUser" -> ClientService.updateUser(data);
+                    case "updateChannel" -> ClientService.updateChannel(data);
+                    case "updateVideo" -> ClientService.updateVideo(data);
+                    case "updateShort" -> ClientService.updateShort(data);
+                    case "updatePL" -> ClientService.updatePL(data);
 //                    case "getRandomTags" -> ;
 //                    case "getRandomVideos" -> ;
-//                    case "like" -> ;
 
                 }
             }

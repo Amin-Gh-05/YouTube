@@ -184,4 +184,56 @@ public class ClientService {
 
         return gson.toJson(playlists, listType);
     }
+
+    // ======================= Update =======================
+
+    public static void updateUser(JSONObject data) throws SQLException {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        User user =  gson.fromJson(data.getString("user"), User.class);
+
+        DatabaseManager.updateUser(user);
+    }
+
+    public static void updateChannel(JSONObject data) throws SQLException {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Channel channel =  gson.fromJson(data.getString("channel"), Channel.class);
+
+        DatabaseManager.updateChannel(channel);
+    }
+
+    public static void updateVideo(JSONObject data) throws SQLException {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Video video =  gson.fromJson(data.getString("video"), Video.class);
+
+        DatabaseManager.updateVideo(video);
+    }
+
+    public static void updateShort(JSONObject data) throws SQLException {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Short shortt =  gson.fromJson(data.getString("short"), Short.class);
+
+        DatabaseManager.updateShort(shortt);
+    }
+
+    public static void updatePL(JSONObject data) throws SQLException {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Playlist playlist =  gson.fromJson(data.getString("pl"), Playlist.class);
+
+        DatabaseManager.updatePlaylist(playlist);
+    }
 }

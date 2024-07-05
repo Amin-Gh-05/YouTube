@@ -311,25 +311,111 @@ public class Request {
         return gson.fromJson(respStr, listType2);
     }
 
+    // ======================= Update =======================
 
-    public static void getByUUIDList(List<UUID> IDs, String type) throws IOException {
+    public static void like(String contentType, char likeType, String userYID, UUID contentID) throws IOException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("reqType", "get" + type + "s");
+        jsonObject.put("reqType", "like");
 
         JSONObject data = new JSONObject();
-
-        Gson gson = new Gson();
-        Type listType = new TypeToken<List<UUID>>() {}.getType();
-
-        String JsonIDListString = gson.toJson(IDs, listType);
-
-        data.put("ID List", JsonIDListString);
+        data.put("contentType", contentType); // video/short/comment
+        data.put("likeType", likeType); // L: like / D: dislike
+        data.put("userYID", userYID);
+        data.put("contentID", contentID);
 
         jsonObject.put("reqData", data);
 
         Client.sendRequest(jsonObject.toString());
-        String respStr = Client.getStringResponse();
     }
+
+    public static void updateUser(User user) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "updateUser");
+
+        JSONObject data = new JSONObject();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        String userJson = gson.toJson(user);
+        data.put("user", userJson);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+    }
+
+    public static void updateChannel(Channel channel) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "updateChannel");
+
+        JSONObject data = new JSONObject();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        String channelJson = gson.toJson(channel);
+        data.put("channel", channelJson);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+    }
+
+    public static void updateVideo(Video video) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "updateVideo");
+
+        JSONObject data = new JSONObject();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        String videoJson = gson.toJson(video);
+        data.put("video", videoJson);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+    }
+    public static void updateShort(Short shortt) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "updateShort");
+
+        JSONObject data = new JSONObject();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        String shorttJson = gson.toJson(shortt);
+        data.put("short", shorttJson);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+    }
+    public static void updatePL(Playlist playlist) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "updatePL");
+
+        JSONObject data = new JSONObject();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        String playlistJson = gson.toJson(playlist);
+        data.put("pl", playlistJson);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+    }
+
 
 
 
@@ -351,21 +437,6 @@ public class Request {
 
         JSONObject data = new JSONObject();
 
-
-        jsonObject.put("reqData", data);
-
-        Client.sendRequest(jsonObject.toString());
-    }
-
-    public static void like(String contentType, char likeType, String userYID, UUID contentID) throws IOException {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("reqType", "like");
-
-        JSONObject data = new JSONObject();
-        data.put("contentType", contentType); // video/short/comment
-        data.put("likeType", likeType); // L: like / D: dislike
-        data.put("userYID", userYID);
-        data.put("contentID", contentID);
 
         jsonObject.put("reqData", data);
 
