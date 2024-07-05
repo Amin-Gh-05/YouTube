@@ -415,6 +415,95 @@ public class Request {
 
         Client.sendRequest(jsonObject.toString());
     }
+    public static void updateVideoComment(Comment comment) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "updateVideoComment");
+
+        JSONObject data = new JSONObject();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        String commentJson = gson.toJson(comment);
+        data.put("comment", commentJson);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+    }
+    public static void updateShortComment(Comment comment) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "updateShortComment");
+
+        JSONObject data = new JSONObject();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        String commentJson = gson.toJson(comment);
+        data.put("comment", commentJson);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+    }
+
+    public static void updateVideoViews(Video video) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "updateVideoViews");
+
+        JSONObject data = new JSONObject();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        String Json = gson.toJson(video);
+        data.put("video", Json);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+    }
+
+    public static void updateShortViews(Short shortt) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "updateShortViews");
+
+        JSONObject data = new JSONObject();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        String Json = gson.toJson(shortt);
+        data.put("short", Json);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+    }
+
+    public static void subscribe(Channel channel) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "subscribe");
+
+        JSONObject data = new JSONObject();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        String Json = gson.toJson(channel);
+        data.put("channel", Json);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+    }
+
 
 
 

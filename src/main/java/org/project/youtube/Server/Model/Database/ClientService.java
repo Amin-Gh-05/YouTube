@@ -236,4 +236,58 @@ public class ClientService {
 
         DatabaseManager.updatePlaylist(playlist);
     }
+
+    public static void updateVideoComment(JSONObject data) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Comment comment =  gson.fromJson(data.getString("comment"), Comment.class);
+
+        DatabaseManager.updateVideoComment(comment);
+    }
+
+    public static void updateShortComment(JSONObject data) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Comment comment =  gson.fromJson(data.getString("comment"), Comment.class);
+
+        DatabaseManager.updateShortComment(comment);
+    }
+
+
+    public static void updateVideoViews(JSONObject data) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Video video =  gson.fromJson(data.getString("video"), Video.class);
+        int views = video.getViews();
+        views++;
+        DatabaseManager.updateViews(video, views);
+    }
+
+    public static void updateShortViews(JSONObject data) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Short shortt =  gson.fromJson(data.getString("short"), Short.class);
+        int views = shortt.getViews();
+        views++;
+        DatabaseManager.updateViews(shortt, views);
+    }
+
+    public static void subscribe(JSONObject data) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Channel channel =  gson.fromJson(data.getString("channel"), Channel.class);
+        int subs = channel.getSubscribers();
+        subs++;
+        DatabaseManager.updateSubscribers(channel, subs);
+    }
 }
