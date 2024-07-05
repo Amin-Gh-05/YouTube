@@ -634,7 +634,7 @@ public class DatabaseManager {
                     rs.getInt("duration"),
                     rs.getTimestamp("created_date_time").toString(),
                     rs.getInt("likes"),
-                    readVideoComments(shortId),
+                    readShortComments(shortId),
                     rs.getBoolean("is_age_restricted"),
                     new ArrayList<>(List.of(rs.getString("tags").split(" "))),
                     rs.getBytes("thumbnail"),
