@@ -2,15 +2,20 @@ package org.project.youtube.Server.Model.Database;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import org.json.JSONObject;
 import org.project.youtube.Server.Model.*;
 import org.project.youtube.Server.Model.Short;
 
+import java.lang.reflect.Type;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class ClientService {
 
+    // ======================= Account =======================
     public static String login(JSONObject data) throws SQLException {
         int usernameInt = Integer.parseInt(data.getString("usernameInt"));
         String username = data.getString("username");
@@ -60,6 +65,8 @@ public class ClientService {
         return DatabaseManager.findEmail(data.getString("email"));
     }
 
+    // ======================= Read =======================
+
     public static String getVideo(JSONObject data) throws SQLException {
         UUID id = UUID.fromString(data.getString("ID"));
         Video video = DatabaseManager.readVideo(id);
@@ -100,4 +107,81 @@ public class ClientService {
         return gson.toJson(playlist);
     }
 
+    public static String getChannelVideos(JSONObject data) throws SQLException {
+        String handle = data.getString("handle");
+        List<Video> videos = DatabaseManager.readVideos(handle);
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        Type listType = new TypeToken<List<Video>>() {}.getType();
+
+        return gson.toJson(videos, listType);
+    }
+
+    public static String getPlayListVideos(JSONObject data) throws SQLException {
+        UUID id = UUID.fromString(data.getString("ID"));
+        List<Video> videos = DatabaseManager.readVideos(id);
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        Type listType = new TypeToken<List<Video>>() {}.getType();
+
+        return gson.toJson(videos, listType);
+    }
+
+    public static String getChannelShorts(JSONObject data) throws SQLException {
+        String handle = data.getString("handle");
+        List<Short> shorts = DatabaseManager.readShorts(handle);
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        Type listType = new TypeToken<List<Short>>() {}.getType();
+
+        return gson.toJson(shorts, listType);
+    }
+
+    public static String getPlayListShorts(JSONObject data) throws SQLException {
+        UUID id = UUID.fromString(data.getString("ID"));
+        List<Short> shorts = DatabaseManager.readShorts(id);
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        Type listType = new TypeToken<List<Short>>() {}.getType();
+
+        return gson.toJson(shorts, listType);
+    }
+
+
+    public static String getChannels(JSONObject data) throws SQLException {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        Type listType1 = new TypeToken<List<String>>() {}.getType();
+        List<String> handleList = gson.fromJson(data.getString("Handle List"), listType1);
+
+        List<Channel> channels = new ArrayList<>();
+        for (String handle : handleList) {
+            channels.add(DatabaseManager.readChannel(handle));
+        }
+
+        Type listType2 = new TypeToken<List<Channel>>() {}.getType();
+
+        return gson.toJson(channels, listType2);
+    }
+
+    public static String getPls(JSONObject data) throws SQLException {
+        String handle = data.getString("handle");
+        List<Playlist> playlists = DatabaseManager.readPlaylists(handle);
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        Type listType = new TypeToken<List<Playlist>>() {}.getType();
+
+        return gson.toJson(playlists, listType);
+    }
 }

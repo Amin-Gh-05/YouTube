@@ -49,18 +49,20 @@ public class ClientHandler implements Runnable {
                     case "findEmail" -> sendBooleanResponse(ClientService.findEmail(data));
                     case "signup" -> sendStringResponse(ClientService.signup(data));
                     case "login" -> sendStringResponse(ClientService.login(data));
+                    case "getVideo" -> sendStringResponse(ClientService.getVideo(data));
+                    case "getChannelVideos" -> sendStringResponse(ClientService.getChannelVideos(data));
+                    case "getPlayListVideos" -> sendStringResponse(ClientService.getPlayListVideos(data));
+                    case "getShort" -> sendStringResponse(ClientService.getShort(data));
+                    case "getChannelShorts" -> sendStringResponse(ClientService.getChannelShorts(data));
+                    case "getPlayListShorts" -> sendStringResponse(ClientService.getPlayListShorts(data));
+                    case "getPL" -> sendStringResponse(ClientService.getPL(data));
+                    case "getPLs" -> sendStringResponse(ClientService.getPls(data));
+                    case "getChannel" -> sendStringResponse(ClientService.getChannel(data));
+                    case "getChannels" -> sendStringResponse(ClientService.getChannels(data));
 //                    case "logout" -> ;
 //                    case "getRandomTags" -> ;
 //                    case "getRandomVideos" -> ;
 //                    case "like" -> ;
-                    case "getVideo" -> sendStringResponse(ClientService.getVideo(data));
-//                    case "getVideos" -> ;
-                    case "getShort" -> sendStringResponse(ClientService.getShort(data));
-//                    case "getShorts" -> ;
-                    case "getPL" -> sendStringResponse(ClientService.getPL(data));
-//                    case "getPLs" -> ;
-                    case "getChannel" -> sendStringResponse(ClientService.getChannel(data));
-//                    case "getChannels" -> ;
 
                 }
             }

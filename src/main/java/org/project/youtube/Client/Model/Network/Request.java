@@ -125,7 +125,6 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
         String respStr = Client.getStringResponse();
 
-
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
@@ -143,7 +142,6 @@ public class Request {
 
         Client.sendRequest(jsonObject.toString());
         String respStr = Client.getStringResponse();
-
 
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
@@ -163,7 +161,6 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
         String respStr = Client.getStringResponse();
 
-
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
@@ -182,7 +179,6 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
         String respStr = Client.getStringResponse();
 
-
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
@@ -190,10 +186,135 @@ public class Request {
         return gson.fromJson(respStr, Playlist.class);
     }
 
+    public static List<Video> getChannelVideos(String handle) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "getChannelVideos");
+
+        JSONObject data = new JSONObject();
+        data.put("handle", handle);
+
+        jsonObject.put("reqData", data);
+
+
+        Client.sendRequest(jsonObject.toString());
+        String respStr = Client.getStringResponse();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Type listType2 = new TypeToken<List<Video>>() {}.getType();
+        return gson.fromJson(respStr, listType2);
+    }
+    public static List<Video> getPlayListVideos(UUID id) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "getPlayListVideos");
+
+        JSONObject data = new JSONObject();
+        data.put("ID", id);
+
+        jsonObject.put("reqData", data);
+
+
+        Client.sendRequest(jsonObject.toString());
+        String respStr = Client.getStringResponse();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Type listType2 = new TypeToken<List<Video>>() {}.getType();
+        return gson.fromJson(respStr, listType2);
+    }
+    public static List<Short> getChannelShorts(String handle) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "getChannelShorts");
+
+        JSONObject data = new JSONObject();
+        data.put("handle", handle);
+
+        jsonObject.put("reqData", data);
+
+
+        Client.sendRequest(jsonObject.toString());
+        String respStr = Client.getStringResponse();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Type listType2 = new TypeToken<List<Short>>() {}.getType();
+        return gson.fromJson(respStr, listType2);
+    }
+    public static List<Short> getPlayListShorts(UUID id) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "getPlayListShorts");
+
+        JSONObject data = new JSONObject();
+        data.put("ID", id);
+
+        jsonObject.put("reqData", data);
+
+
+        Client.sendRequest(jsonObject.toString());
+        String respStr = Client.getStringResponse();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Type listType2 = new TypeToken<List<Short>>() {}.getType();
+        return gson.fromJson(respStr, listType2);
+    }
+
+
+    public static List<Channel> getChannels(List<String> handles) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "getChannels");
+
+        JSONObject data = new JSONObject();
+
+        Gson gson = new Gson();
+        Type listType = new TypeToken<List<String>>() {}.getType();
+
+        String JsonIDListString = gson.toJson(handles, listType);
+
+        data.put("Handle List", JsonIDListString);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+        String respStr = Client.getStringResponse();
+
+        Type listType2 = new TypeToken<List<Channel>>() {}.getType();
+        return gson.fromJson(respStr, listType2);
+    }
+
+    public static List<Playlist> getPLs(String handle) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "getPLs");
+
+        JSONObject data = new JSONObject();
+        data.put("handle", handle);
+
+        jsonObject.put("reqData", data);
+
+
+        Client.sendRequest(jsonObject.toString());
+        String respStr = Client.getStringResponse();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Type listType2 = new TypeToken<List<Playlist>>() {}.getType();
+        return gson.fromJson(respStr, listType2);
+    }
+
 
     public static void getByUUIDList(List<UUID> IDs, String type) throws IOException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("reqType", "get" + type + "s"); // Video/Short/PL/Channel/Comment
+        jsonObject.put("reqType", "get" + type + "s");
 
         JSONObject data = new JSONObject();
 
