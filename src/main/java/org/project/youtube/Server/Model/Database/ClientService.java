@@ -509,26 +509,47 @@ public class ClientService {
         DatabaseManager.createShortComment(comment);
     }
 
-    public static void addVideoToPlaylist(JSONObject data) {
-        GsonBuilder builder = new GsonBuilder();
-        builder.setPrettyPrinting();
-        Gson gson = builder.create();
+    public static boolean addVideoToPlaylist(JSONObject data) {
+        try {
+            GsonBuilder builder = new GsonBuilder();
+            builder.setPrettyPrinting();
+            Gson gson = builder.create();
 
-        Playlist playlist = gson.fromJson(data.getString("playlist"), Playlist.class);
-        Video video = gson.fromJson(data.getString("video"), Video.class);
+            Playlist playlist = gson.fromJson(data.getString("playlist"), Playlist.class);
+            Video video = gson.fromJson(data.getString("video"), Video.class);
 
-        DatabaseManager.addVideoToPlaylist(playlist, video);
+            if (DatabaseManager.isVideoInPlaylist(video, playlist)) {
+                return false;
+            }
+
+            DatabaseManager.addVideoToPlaylist(playlist, video);
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
     }
 
-    public static void addShortToPlaylist(JSONObject data) {
-        GsonBuilder builder = new GsonBuilder();
-        builder.setPrettyPrinting();
-        Gson gson = builder.create();
+    public static boolean addShortToPlaylist(JSONObject data) {
+        try {
+            GsonBuilder builder = new GsonBuilder();
+            builder.setPrettyPrinting();
+            Gson gson = builder.create();
 
-        Playlist playlist = gson.fromJson(data.getString("playlist"), Playlist.class);
-        Short shortt = gson.fromJson(data.getString("short"), Short.class);
+            Playlist playlist = gson.fromJson(data.getString("playlist"), Playlist.class);
+            Short shortt = gson.fromJson(data.getString("short"), Short.class);
 
-        DatabaseManager.addShortToPlaylist(playlist, shortt);
+            if (DatabaseManager.isShortInPlaylist(shortt, playlist)) {
+                return false;
+            }
+
+            DatabaseManager.addShortToPlaylist(playlist, shortt);
+            return true;
+
+        }
+        catch (Exception e) {
+            return false;
+        }
     }
 
     // ======================= Delete =======================

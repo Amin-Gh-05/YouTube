@@ -594,7 +594,7 @@ public class Request {
     }
 
     // ======================= Create =======================
-    // TODO check exists
+
     public static void createChannel(Channel channel, User user) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "createChannel");
@@ -614,7 +614,7 @@ public class Request {
 
         Client.sendRequest(jsonObject.toString());
     }
-    // TODO check exists
+
     public static void createVideo(Video video, String path) throws IOException, InterruptedException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "createVideo");
@@ -634,7 +634,7 @@ public class Request {
         Thread.sleep(200);
         FileTransfer.sendFile(path, video.getId(), "video");
     }
-    // TODO check exists
+
     public static void createShort(Short shortt, String path) throws IOException, InterruptedException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "createShort");
@@ -654,7 +654,7 @@ public class Request {
         Thread.sleep(200);
         FileTransfer.sendFile(path, shortt.getId(), "short");
     }
-    // TODO check exists
+
     public static void createPlaylist(Playlist playlist) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "createPlaylist");
@@ -672,7 +672,7 @@ public class Request {
 
         Client.sendRequest(jsonObject.toString());
     }
-    // TODO check exists
+
     public static void createVideoComment(Comment comment) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "createVideoComment");
@@ -690,7 +690,7 @@ public class Request {
 
         Client.sendRequest(jsonObject.toString());
     }
-    // TODO check exists
+
     public static void createShortComment(Comment comment) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "createShortComment");
@@ -708,8 +708,8 @@ public class Request {
 
         Client.sendRequest(jsonObject.toString());
     }
-     // TODO check exists
-    public static void addVideoToPlaylist(Playlist playlist, Video video) throws IOException {
+
+    public static boolean addVideoToPlaylist(Playlist playlist, Video video) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "addVideoToPlaylist");
 
@@ -722,14 +722,15 @@ public class Request {
         String json = gson.toJson(playlist);
         data.put("playlist", json);
         String json2 = gson.toJson(video);
-        data.put("video", json);
+        data.put("video", json2);
 
         jsonObject.put("reqData", data);
 
         Client.sendRequest(jsonObject.toString());
+        return Client.getBooleanResponse();
     }
-     // TODO check exists
-    public static void addShortToPlaylist(Playlist playlist, Short shortt) throws IOException {
+
+    public static boolean addShortToPlaylist(Playlist playlist, Short shortt) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "addShortToPlaylist");
 
@@ -742,11 +743,12 @@ public class Request {
         String json = gson.toJson(playlist);
         data.put("playlist", json);
         String json2 = gson.toJson(shortt);
-        data.put("short", json);
+        data.put("short", json2);
 
         jsonObject.put("reqData", data);
 
         Client.sendRequest(jsonObject.toString());
+        return Client.getBooleanResponse();
     }
 
     // ======================= Delete =======================

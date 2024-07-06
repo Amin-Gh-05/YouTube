@@ -85,8 +85,8 @@ public class ClientHandler implements Runnable {
                     case "createPlaylist" -> ClientService.createPlaylist(data);
                     case "createVideoComment" -> ClientService.createVideoComment(data);
                     case "createShortComment" -> ClientService.createShortComment(data);
-                    case "addVideoToPlaylist" -> ClientService.addVideoToPlaylist(data);
-                    case "addShortToPlaylist" -> ClientService.addShortToPlaylist(data);
+                    case "addVideoToPlaylist" -> sendBooleanResponse(ClientService.addVideoToPlaylist(data));
+                    case "addShortToPlaylist" -> sendBooleanResponse(ClientService.addShortToPlaylist(data));
 
                     case "deleteUser" -> ClientService.deleteUser(data);
                     case "deleteChannel" -> ClientService.deleteChannel(data);
