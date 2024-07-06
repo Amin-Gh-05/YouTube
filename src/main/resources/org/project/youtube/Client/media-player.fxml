@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.media.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="810.0" style="-fx-background-color: black;" stylesheets="@MediaPlayer.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.MediaPlayerController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="810.0" style="-fx-background-color: black;" stylesheets="@media-player.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.MediaPlayerController">
     <children>
         <MediaView fx:id="mediaView" fitHeight="455.0" fitWidth="810.0">
             <cursor>

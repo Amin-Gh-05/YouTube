@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+
+<AnchorPane prefHeight="900.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.ChannelController">
+   <children>
+      <ImageView fx:id="bannerImage" fitHeight="150.0" fitWidth="900.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane layoutY="150.0" prefHeight="223.0" prefWidth="900.0">
+         <children>
+            <Circle fx:id="logoImage" fill="#ffffff00" layoutX="114.0" layoutY="112.0" radius="100.0" stroke="#db1212" strokeType="INSIDE" />
+            <Label fx:id="nameLabel" layoutX="235.0" layoutY="16.0" text="Name" />
+            <Label fx:id="handleLabel" layoutX="235.0" layoutY="67.0" text="Handle" />
+            <Label fx:id="subsLabel" layoutX="470.0" layoutY="67.0" text="Subs" />
+            <Label fx:id="descriptionLabel" layoutX="235.0" layoutY="131.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="600.0" text="Description" />
+            <Label fx:id="dateLabel" layoutX="470.0" layoutY="16.0" text="Date" />
+            <Label fx:id="viewLabel" layoutX="701.0" layoutY="67.0" text="Views" />
+         </children>
+      </AnchorPane>
+      <TabPane layoutY="390.0" prefHeight="510.0" prefWidth="900.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Videos">
+               <content>
+                  <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
+                     <content>
+                        <FlowPane fx:id="videosPanel" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="900.0" />
+                     </content>
+                  </ScrollPane>
+               </content>
+          </Tab>
+          <Tab text="Shorts">
+               <content>
+                  <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
+                     <content>
+                        <FlowPane fx:id="shortsPanel" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="900.0" />
+                     </content>
+                  </ScrollPane>
+               </content>
+          </Tab>
+            <Tab text="Playlists">
+               <content>
+                  <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
+                     <content>
+                        <VBox fx:id="playlistsPanel" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="900.0" />
+                     </content>
+                  </ScrollPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
