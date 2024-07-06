@@ -3,11 +3,6 @@
     -fx-font-size: 12px;
 }
 
-#mainView {
-    -fx-border-color: #E32636;
-    -fx-border-width: 0px 1px 0px 1px;
-}
-
 #nameLabel {
     -fx-font-size: 14px;
 }
