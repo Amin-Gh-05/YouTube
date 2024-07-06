@@ -874,7 +874,7 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
     }
 
-    public static void unSubscribeChannel(User user, Channel channel) throws IOException {
+    public static boolean unSubscribeChannel(User user, Channel channel) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "unSubscribeChannel");
 
@@ -892,6 +892,7 @@ public class Request {
         jsonObject.put("reqData", data);
 
         Client.sendRequest(jsonObject.toString());
+        return Client.getBooleanResponse();
     }
 
     public static boolean unLikeVideo(String likeType, User user, Video video) throws IOException {
