@@ -123,6 +123,7 @@ public class Request {
         jsonObject.put("reqData", data);
 
         Client.sendRequest(jsonObject.toString());
+        FileTransfer.getFile();
         String respStr = Client.getStringResponse();
 
         GsonBuilder builder = new GsonBuilder();
@@ -141,6 +142,7 @@ public class Request {
         jsonObject.put("reqData", data);
 
         Client.sendRequest(jsonObject.toString());
+        FileTransfer.getFile();
         String respStr = Client.getStringResponse();
 
         GsonBuilder builder = new GsonBuilder();
