@@ -55,7 +55,7 @@ public class UploadController {
 
         // file extension filers
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Video Files", "*.mp4", "*.mkv", "*.m4a", "*.m4v"),
+                new FileChooser.ExtensionFilter("Video Files", "*.mp4"),
                 new FileChooser.ExtensionFilter("All Files", "*.*")
         );
 

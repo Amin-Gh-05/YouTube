@@ -4,11 +4,9 @@ module org.project.youtube {
     requires java.sql;
     requires org.postgresql.jdbc;
     requires org.json;
-    requires org.apache.commons.codec;
     requires com.google.gson;
     requires org.controlsfx.controls;
-    requires org.apache.commons.io;
-    requires org.bytedeco.ffmpeg;
+    requires javafx.media;
 
 
     exports org.project.youtube.Client.Controller;

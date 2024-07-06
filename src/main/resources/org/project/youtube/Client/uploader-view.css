@@ -4,7 +4,6 @@
 }
 
 #mainForm {
-
     -fx-background-radius: 10px;
 }
 
@@ -21,4 +20,13 @@
     -fx-border-color: #E32636;
     -fx-border-radius: 20px;
     -fx-cursor: hand;
+}
+
+#descriptionBox {
+    -fx-border-color: #E32636;
+    -fx-border-radius: 0px;
+}
+
+#thumbnailButton {
+    -fx-border-color: #0B090A;
 }
