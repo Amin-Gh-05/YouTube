@@ -302,6 +302,26 @@ public class Request {
 
         jsonObject.put("reqData", data);
 
+        Client.sendRequest(jsonObject.toString());
+        String respStr = Client.getStringResponse();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Type listType2 = new TypeToken<List<Playlist>>() {}.getType();
+        return gson.fromJson(respStr, listType2);
+    }
+
+    // liked videos, watch later
+    public static List<Playlist> getDefaultPlaylists(String handle) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "getDefaultPlaylists");
+
+        JSONObject data = new JSONObject();
+        data.put("handle", handle);
+
+        jsonObject.put("reqData", data);
 
         Client.sendRequest(jsonObject.toString());
         String respStr = Client.getStringResponse();
