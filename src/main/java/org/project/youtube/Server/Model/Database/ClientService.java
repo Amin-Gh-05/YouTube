@@ -750,7 +750,7 @@ public class ClientService {
                 if (!DatabaseManager.isShortCommentDisliked(user, comment)) {
                     return false;
                 }
-                DatabaseManager.unlikeShortComment(comment, user);
+                DatabaseManager.undislikeShortComment(comment, user);
                 return true;
             }
 
@@ -767,9 +767,10 @@ public class ClientService {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
+        Playlist playlist = gson.fromJson(data.getString("playlist"), Playlist.class);
         Video video = gson.fromJson(data.getString("video"), Video.class);
 
-        DatabaseManager.deleteVideo(video);
+        DatabaseManager.removeVideoFromPlaylist(playlist, video);
     }
 
     public static void removeShortFromPlaylist(JSONObject data) {
@@ -777,9 +778,10 @@ public class ClientService {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        Video video = gson.fromJson(data.getString("video"), Video.class);
+        Playlist playlist = gson.fromJson(data.getString("playlist"), Playlist.class);
+        Short shortt = gson.fromJson(data.getString("short"), Short.class);
 
-        DatabaseManager.deleteVideo(video);
+        DatabaseManager.removeShortFromPlaylist(playlist, shortt);
 
     }
 
