@@ -4,15 +4,18 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.UUID;
 
 public class Uploader implements Runnable {
     private DataOutputStream out;
     private String path;
+    private String ID;
 
-    public Uploader(String path) {
+    public Uploader(String path, UUID ID) {
         try {
             out = new DataOutputStream((Client.getFileTransferSocket().getOutputStream()));
             this.path = path;
+            this.ID = ID.toString();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -26,7 +29,8 @@ public class Uploader implements Runnable {
             byte[] buffer = new byte[32 * 1024];
             int bytes;
 
-            out.writeUTF(file.getName());
+            String fileName = ID + ".mp4";
+            out.writeUTF(fileName);
             out.writeLong(file.length());
 
             while ((bytes = fileInputStream.read(buffer)) != -1) {
