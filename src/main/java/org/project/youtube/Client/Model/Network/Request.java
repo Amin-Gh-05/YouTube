@@ -874,9 +874,9 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
     }
 
-    public static void unSubscribeChannel(Comment comment) throws IOException {
+    public static void unSubscribeChannel(User user, Channel channel) throws IOException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("reqType", "deleteShortComment");
+        jsonObject.put("reqType", "unSubscribeChannel");
 
         JSONObject data = new JSONObject();
 
@@ -884,8 +884,10 @@ public class Request {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        String json = gson.toJson(comment);
-        data.put("comment", json);
+        String json = gson.toJson(user);
+        data.put("user", json);
+        String json2 = gson.toJson(channel);
+        data.put("channel", json2);
 
         jsonObject.put("reqData", data);
 
@@ -897,7 +899,7 @@ public class Request {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        jsonObject.put("reqType", "likeVideo");
+        jsonObject.put("reqType", "unLikeVideo");
 
         JSONObject data = new JSONObject();
         data.put("likeType", likeType); // L: like / D: dislike
@@ -914,7 +916,7 @@ public class Request {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        jsonObject.put("reqType", "likeShort");
+        jsonObject.put("reqType", "unLikeShort");
 
         JSONObject data = new JSONObject();
         data.put("likeType", likeType); // L: like / D: dislike
@@ -931,7 +933,7 @@ public class Request {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        jsonObject.put("reqType", "likeVideoComment");
+        jsonObject.put("reqType", "unLikeVideoComment");
 
         JSONObject data = new JSONObject();
         data.put("likeType", likeType); // L: like / D: dislike
@@ -948,7 +950,7 @@ public class Request {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        jsonObject.put("reqType", "likeShortComment");
+        jsonObject.put("reqType", "unLikeShortComment");
 
         JSONObject data = new JSONObject();
         data.put("likeType", likeType); // L: like / D: dislike
@@ -961,9 +963,9 @@ public class Request {
         return Client.getBooleanResponse();
     }
 
-    public static void removeVideoFromPlaylist(Comment comment) throws IOException {
+    public static void removeVideoFromPlaylist(Playlist playlist, Video video) throws IOException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("reqType", "deleteShortComment");
+        jsonObject.put("reqType", "removeVideoFromPlaylist");
 
         JSONObject data = new JSONObject();
 
@@ -971,17 +973,19 @@ public class Request {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        String json = gson.toJson(comment);
-        data.put("comment", json);
+        String json = gson.toJson(playlist);
+        data.put("playlist", json);
+        String json2 = gson.toJson(video);
+        data.put("video", json2);
 
         jsonObject.put("reqData", data);
 
         Client.sendRequest(jsonObject.toString());
     }
 
-    public static void removeShortFromPlaylist(Comment comment) throws IOException {
+    public static void removeShortFromPlaylist(Playlist playlist, Short shortt) throws IOException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("reqType", "deleteShortComment");
+        jsonObject.put("reqType", "removeShortFromPlaylist");
 
         JSONObject data = new JSONObject();
 
@@ -989,8 +993,10 @@ public class Request {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        String json = gson.toJson(comment);
-        data.put("comment", json);
+        String json = gson.toJson(playlist);
+        data.put("playlist", json);
+        String json2 = gson.toJson(shortt);
+        data.put("short", json2);
 
         jsonObject.put("reqData", data);
 
