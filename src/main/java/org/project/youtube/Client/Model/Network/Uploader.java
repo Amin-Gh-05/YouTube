@@ -10,14 +10,12 @@ public class Uploader implements Runnable {
     private DataOutputStream out;
     private String path;
     private String ID;
-    private String type;
 
-    public Uploader(String path, UUID ID, String type) {
+    public Uploader(String path, UUID ID) {
         try {
             out = new DataOutputStream((Client.getFileTransferSocket().getOutputStream()));
             this.path = path;
             this.ID = ID.toString();
-            this.type = type;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -33,7 +31,6 @@ public class Uploader implements Runnable {
 
             String fileName = ID + ".mp4";
             out.writeUTF(fileName);
-            out.writeUTF(type);
             out.writeLong(file.length());
 
             while ((bytes = fileInputStream.read(buffer)) != -1) {
