@@ -4,9 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.json.JSONObject;
+import org.project.youtube.Client.Model.Network.FileTransfer;
 import org.project.youtube.Server.Model.*;
 import org.project.youtube.Server.Model.Short;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -427,5 +429,94 @@ public class ClientService {
             System.err.println(e.getMessage());
             return false;
         }
+    }
+
+    // ======================= Create =======================
+    // TODO User...
+    public static void createChannel(JSONObject data) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        User user = gson.fromJson(data.getString("user"), User.class);
+        Channel channel = gson.fromJson(data.getString("channel"), Channel.class);
+
+        DatabaseManager.createChannel(channel);
+    }
+
+    public static void createVideo(JSONObject data) throws IOException {
+        FileTransfer.getFile();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Video video = gson.fromJson(data.getString("video"), Video.class);
+
+        DatabaseManager.createVideo(video);
+    }
+
+    public static void createShort(JSONObject data) throws IOException {
+        FileTransfer.getFile();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Short shortt = gson.fromJson(data.getString("short"), Short.class);
+
+        DatabaseManager.createShort(shortt);
+    }
+
+    public static void createPlaylist(JSONObject data) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Playlist playlist = gson.fromJson(data.getString("playlist"), Playlist.class);
+
+        DatabaseManager.createPlaylist(playlist);
+    }
+
+    public static void createVideoComment(JSONObject data) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Comment comment = gson.fromJson(data.getString("comment"), Comment.class);
+
+        DatabaseManager.createVideoComment(comment);
+    }
+
+    public static void createShortComment(JSONObject data) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Comment comment = gson.fromJson(data.getString("comment"), Comment.class);
+
+        DatabaseManager.createShortComment(comment);
+    }
+
+    public static void addVideoToPlaylist(JSONObject data) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Playlist playlist = gson.fromJson(data.getString("playlist"), Playlist.class);
+        Video video = gson.fromJson(data.getString("video"), Video.class);
+
+        DatabaseManager.addVideoToPlaylist(playlist, video);
+    }
+
+    public static void addShortToPlaylist(JSONObject data) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Playlist playlist = gson.fromJson(data.getString("playlist"), Playlist.class);
+        Short shortt = gson.fromJson(data.getString("short"), Short.class);
+
+        DatabaseManager.addShortToPlaylist(playlist, shortt);
     }
 }
