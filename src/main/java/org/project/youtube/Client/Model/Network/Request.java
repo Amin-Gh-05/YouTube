@@ -751,6 +751,27 @@ public class Request {
         return Client.getBooleanResponse();
     }
 
+    public static boolean addPlaylistToChannel(Playlist playlist, Channel channel) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "addPlaylistToChannel");
+
+        JSONObject data = new JSONObject();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        String json = gson.toJson(playlist);
+        data.put("playlist", json);
+        String json2 = gson.toJson(channel);
+        data.put("channel", json2);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+        return Client.getBooleanResponse();
+    }
+
     // ======================= Delete =======================
 
     public static void deleteUser(User user) throws IOException {
