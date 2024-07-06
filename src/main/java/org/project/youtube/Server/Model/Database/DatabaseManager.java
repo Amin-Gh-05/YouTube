@@ -397,7 +397,7 @@ public class DatabaseManager {
     public static void subscribeChannel(User user, Channel channel) {
         try (Connection conn = connect()) {
             // add row to subscribed_channels table
-            String query = "INSERT INTO subscribed_channels (yid, handle) VALUES (?, ?)";
+            String query = "INSERT INTO channel_subscriptions (yid, handle) VALUES (?, ?)";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, user.getYid().toString());
             stmt.setString(2, channel.getHandle());
@@ -1031,7 +1031,7 @@ public class DatabaseManager {
         Connection conn = connect();
 
         // checks if user has subscribed channel
-        String query = "SELECT * FROM subscribed_channels WHERE yid = ? AND handle = ?";
+        String query = "SELECT * FROM channel_subscriptions WHERE yid = ? AND handle = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, user.getYid().toString());
         stmt.setString(2, channel.getHandle());
@@ -1040,6 +1040,56 @@ public class DatabaseManager {
 
         conn.close();
         log("check if channel " + channel.getHandle() + " is subscribed by user " + user.getYid());
+
+        return rs.next();
+    }
+
+    public static boolean isVideoInPlaylist(Video video, Playlist playlist) throws SQLException {
+        Connection conn = connect();
+
+        // checks if video is in playlist
+        String query = "SELECT * FROM playlist_videos WHERE video_id = ? AND playlist_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setObject(1, video.getId());
+        stmt.setObject(2, playlist.getId());
+
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+        log("check if video " + video.getId() + " is in playlist " + playlist.getId());
+
+        return rs.next();
+    }
+
+    public static boolean isShortInPlaylist(Short shortVideo, Playlist playlist) throws SQLException {
+        Connection conn = connect();
+
+        // checks if short is in playlist
+        String query = "SELECT * FROM playlist_shorts WHERE short_id = ? AND playlist_id = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setObject(1, shortVideo.getId());
+        stmt.setObject(2, playlist.getId());
+
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+        log("check if short " + shortVideo.getId() + " is in playlist " + playlist.getId());
+
+        return rs.next();
+    }
+
+    public static boolean isPlaylistInChannel(Playlist playlist, Channel channel) throws SQLException {
+        Connection conn = connect();
+
+        String query = "SELECT * FROM playlists WHERE name = ? AND handle = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setObject(1, playlist.getId());
+        stmt.setObject(2, channel.getHandle());
+
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+        log("check if playlist " + playlist.getId() + " is in channel " + channel.getHandle());
 
         return rs.next();
     }
@@ -1265,6 +1315,22 @@ public class DatabaseManager {
             stmt.close();
 
             log("channel " + channel.getHandle() + " is subscribed");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void addPlaylistToChannel(Playlist playlist, Channel channel) {
+        try (Connection conn = connect()) {
+            String query = "UPDATE playlists SET handle = ? WHERE playlist_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, channel.getHandle());
+            stmt.setObject(2, playlist.getId());
+
+            stmt.executeUpdate();
+            stmt.close();
+
+            log("playlist " + playlist.getId() + " is added to channel " + channel.getHandle());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1523,7 +1589,7 @@ public class DatabaseManager {
     public static void unsubscribeChannel(User user, Channel channel) {
         try (Connection conn = connect()) {
             // delete from subscribed_channels
-            String query = "DELETE FROM subscribed_channels WHERE yid = ? AND handle = ?";
+            String query = "DELETE FROM channel_subscriptions WHERE yid = ? AND handle = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, user.getYid().toString());
             stmt.setString(2, channel.getHandle());
