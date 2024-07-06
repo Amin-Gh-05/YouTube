@@ -612,7 +612,7 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
     }
     // TODO check exists
-    public static void createVideo(Video video) throws IOException {
+    public static void createVideo(Video video, String path) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "createVideo");
 
@@ -628,9 +628,11 @@ public class Request {
         jsonObject.put("reqData", data);
 
         Client.sendRequest(jsonObject.toString());
+
+        FileTransfer.sendFile(path);
     }
     // TODO check exists
-    public static void createShort(Short shortt) throws IOException {
+    public static void createShort(Short shortt, String path) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "createShort");
 
@@ -646,6 +648,8 @@ public class Request {
         jsonObject.put("reqData", data);
 
         Client.sendRequest(jsonObject.toString());
+
+        FileTransfer.sendFile(path);
     }
     // TODO check exists
     public static void createPlaylist(Playlist playlist) throws IOException {
