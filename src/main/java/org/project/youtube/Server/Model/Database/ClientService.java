@@ -112,6 +112,42 @@ public class ClientService {
         return gson.toJson(playlist);
     }
 
+    public static String getWatchLaterPlaylist(JSONObject data) throws SQLException {
+        String handle = data.getString("handle");
+        List<Playlist> playlists = DatabaseManager.readPlaylists(handle);
+        Playlist watchLaterPlaylist = null;
+
+        for (Playlist playlist : playlists) {
+            if (playlist.getName().equals("Watch Later")) {
+                watchLaterPlaylist = playlist;
+            }
+        }
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        return gson.toJson(watchLaterPlaylist);
+    }
+
+    public static String getLikedVideosPlaylist(JSONObject data) throws SQLException {
+        String handle = data.getString("handle");
+        List<Playlist> playlists = DatabaseManager.readPlaylists(handle);
+        Playlist likedVideosPlaylist = null;
+
+        for (Playlist playlist : playlists) {
+            if (playlist.getName().equals("Liked Videos")) {
+                likedVideosPlaylist = playlist;
+            }
+        }
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        return gson.toJson(likedVideosPlaylist);
+    }
+
     public static String getChannelVideos(JSONObject data) throws SQLException {
         String handle = data.getString("handle");
         List<Video> videos = DatabaseManager.readVideos(handle);
@@ -188,25 +224,6 @@ public class ClientService {
         Type listType = new TypeToken<List<Playlist>>() {}.getType();
 
         return gson.toJson(playlists, listType);
-    }
-
-    public static String getDefaultPlaylists(JSONObject data) throws SQLException {
-        String handle = data.getString("handle");
-        List<Playlist> playlists = DatabaseManager.readPlaylists(handle);
-        List<Playlist> defaultPlaylists = new ArrayList<>();
-
-        for (Playlist playlist : playlists) {
-            if (playlist.getName().equals("Liked Videos") || playlist.getName().equals("Watch Later")) {
-                defaultPlaylists.add(playlist);
-            }
-        }
-
-        GsonBuilder builder = new GsonBuilder();
-        builder.setPrettyPrinting();
-        Gson gson = builder.create();
-        Type listType = new TypeToken<List<Playlist>>() {}.getType();
-
-        return gson.toJson(defaultPlaylists, listType);
     }
 
     // ======================= Update =======================
@@ -427,7 +444,6 @@ public class ClientService {
             return false;
         }
     }
-
     public static boolean likeShortComment(JSONObject data) {
         try {
             GsonBuilder builder = new GsonBuilder();
@@ -461,6 +477,7 @@ public class ClientService {
         }
     }
     // ======================= Create =======================
+
     // TODO User...
 
     public static void createChannel(JSONObject data) {
