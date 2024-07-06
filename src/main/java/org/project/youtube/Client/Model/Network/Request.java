@@ -589,4 +589,157 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
         return Client.getBooleanResponse();
     }
+
+    // ======================= Create =======================
+    // TODO check exists
+    public static void createChannel(Channel channel, User user) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "createChannel");
+
+        JSONObject data = new JSONObject();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        String channelJson = gson.toJson(channel);
+        data.put("channel", channelJson);
+        String userJson = gson.toJson(user);
+        data.put("user", userJson);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+    }
+    // TODO check exists
+    public static void createVideo(Video video) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "createVideo");
+
+        JSONObject data = new JSONObject();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        String json = gson.toJson(video);
+        data.put("video", json);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+    }
+    // TODO check exists
+    public static void createShort(Short shortt) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "createShort");
+
+        JSONObject data = new JSONObject();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        String json = gson.toJson(shortt);
+        data.put("short", json);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+    }
+    // TODO check exists
+    public static void createPlaylist(Playlist playlist) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "createPlaylist");
+
+        JSONObject data = new JSONObject();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        String json = gson.toJson(playlist);
+        data.put("playlist", json);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+    }
+    // TODO check exists
+    public static void createVideoComment(Comment comment) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "createVideoComment");
+
+        JSONObject data = new JSONObject();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        String json = gson.toJson(comment);
+        data.put("comment", json);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+    }
+    // TODO check exists
+    public static void createShortComment(Comment comment) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "createShortComment");
+
+        JSONObject data = new JSONObject();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        String json = gson.toJson(comment);
+        data.put("comment", json);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+    }
+     // TODO check exists
+    public static void addVideoToPlaylist(Playlist playlist, Video video) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "addVideoToPlaylist");
+
+        JSONObject data = new JSONObject();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        String json = gson.toJson(playlist);
+        data.put("playlist", json);
+        String json2 = gson.toJson(video);
+        data.put("video", json);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+    }
+     // TODO check exists
+    public static void addShortToPlaylist(Playlist playlist, Short shortt) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "addShortToPlaylist");
+
+        JSONObject data = new JSONObject();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        String json = gson.toJson(playlist);
+        data.put("playlist", json);
+        String json2 = gson.toJson(shortt);
+        data.put("short", json);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+    }
+
 }
