@@ -317,15 +317,17 @@ public class ClientService {
             User user = gson.fromJson(data.getString("user"), User.class);
             Video video = gson.fromJson(data.getString("video"), Video.class);
 
-            if (DatabaseManager.isLiked(user, video) || DatabaseManager.isDisliked(user, video)) {
-                return false;
-            }
-
             if (likeType.equals("L")) {
+                if (DatabaseManager.isLiked(user, video)) {
+                    return false;
+                }
                 DatabaseManager.likeVideo(video, user);
                 return true;
             }
             else if (likeType.equals("D")) {
+                if (DatabaseManager.isDisliked(user, video)) {
+                    return false;
+                }
                 DatabaseManager.dislikeVideo(video, user);
                 return true;
             }
@@ -348,15 +350,17 @@ public class ClientService {
             User user = gson.fromJson(data.getString("user"), User.class);
             Short shortt = gson.fromJson(data.getString("short"), Short.class);
 
-            if (DatabaseManager.isLiked(user, shortt) || DatabaseManager.isDisliked(user, shortt)) {
-                return false;
-            }
-
             if (likeType.equals("L")) {
+                if (DatabaseManager.isLiked(user, shortt)) {
+                    return false;
+                }
                 DatabaseManager.likeShort(shortt, user);
                 return true;
             }
             else if (likeType.equals("D")) {
+                if (DatabaseManager.isDisliked(user, shortt)) {
+                    return false;
+                }
                 DatabaseManager.dislikeShort(shortt, user);
                 return true;
             }
@@ -379,15 +383,17 @@ public class ClientService {
             User user = gson.fromJson(data.getString("user"), User.class);
             Comment comment = gson.fromJson(data.getString("comment"), Comment.class);
 
-            if (DatabaseManager.isVideoCommentLiked(user, comment) || DatabaseManager.isVideoCommentDisliked(user, comment)) {
-                return false;
-            }
-
             if (likeType.equals("L")) {
+                if (DatabaseManager.isVideoCommentLiked(user, comment)) {
+                    return false;
+                }
                 DatabaseManager.likeVideoComment(comment, user);
                 return true;
             }
             else if (likeType.equals("D")) {
+                if (DatabaseManager.isVideoCommentDisliked(user, comment)) {
+                    return false;
+                }
                 DatabaseManager.dislikeVideoComment(comment, user);
                 return true;
             }
@@ -410,15 +416,17 @@ public class ClientService {
             User user = gson.fromJson(data.getString("user"), User.class);
             Comment comment = gson.fromJson(data.getString("comment"), Comment.class);
 
-            if (DatabaseManager.isShortCommentLiked(user, comment) || DatabaseManager.isShortCommentDisliked(user, comment)) {
-                return false;
-            }
-
             if (likeType.equals("L")) {
+                if (DatabaseManager.isShortCommentLiked(user, comment)) {
+                    return false;
+                }
                 DatabaseManager.likeShortComment(comment, user);
                 return true;
             }
             else if (likeType.equals("D")) {
+                if (DatabaseManager.isShortCommentDisliked(user, comment)) {
+                    return false;
+                }
                 DatabaseManager.dislikeShortComment(comment, user);
                 return true;
             }
@@ -627,7 +635,7 @@ public class ClientService {
             User user = gson.fromJson(data.getString("user"), User.class);
             Video video = gson.fromJson(data.getString("video"), Video.class);
 
-            if (DatabaseManager.isLiked(user, video) || DatabaseManager.isDisliked(user, video)) {
+            if (!DatabaseManager.isLiked(user, video) || !DatabaseManager.isDisliked(user, video)) {
                 return false;
             }
 
