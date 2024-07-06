@@ -311,21 +311,104 @@ public class Request {
         return gson.fromJson(respStr, listType2);
     }
 
-    // ======================= Update =======================
 
-    public static void like(String contentType, char likeType, String userYID, UUID contentID) throws IOException {
+
+
+    public static void getRandomTags() throws IOException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("reqType", "like");
+        jsonObject.put("reqType", "getRandomTags");
 
         JSONObject data = new JSONObject();
-        data.put("contentType", contentType); // video/short/comment
-        data.put("likeType", likeType); // L: like / D: dislike
-        data.put("userYID", userYID);
-        data.put("contentID", contentID);
+
 
         jsonObject.put("reqData", data);
 
         Client.sendRequest(jsonObject.toString());
+    }
+
+    public static void getRandomVideos() throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "getRandomVideos");
+
+        JSONObject data = new JSONObject();
+
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+    }
+
+
+
+    // ======================= Update =======================
+
+    public static boolean likeVideo(String likeType, User user, Video video) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        jsonObject.put("reqType", "likeVideo");
+
+        JSONObject data = new JSONObject();
+        data.put("likeType", likeType); // L: like / D: dislike
+        data.put("user", gson.toJson(user));
+        data.put("video", gson.toJson(video));
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+        return Client.getBooleanResponse();
+    }
+    public static boolean likeShort(String likeType, User user, Short shortt) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        jsonObject.put("reqType", "likeShort");
+
+        JSONObject data = new JSONObject();
+        data.put("likeType", likeType); // L: like / D: dislike
+        data.put("user", gson.toJson(user));
+        data.put("short", gson.toJson(shortt));
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+        return Client.getBooleanResponse();
+    }
+    public static boolean likeVideoComment(String likeType, User user, Comment comment) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        jsonObject.put("reqType", "likeVideoComment");
+
+        JSONObject data = new JSONObject();
+        data.put("likeType", likeType); // L: like / D: dislike
+        data.put("user", gson.toJson(user));
+        data.put("comment", gson.toJson(comment));
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+        return Client.getBooleanResponse();
+    }
+    public static boolean likeShortComment(String likeType, User user, Comment comment) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        jsonObject.put("reqType", "likeShortComment");
+
+        JSONObject data = new JSONObject();
+        data.put("likeType", likeType); // L: like / D: dislike
+        data.put("user", gson.toJson(user));
+        data.put("comment", gson.toJson(comment));
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+        return Client.getBooleanResponse();
     }
 
     public static void updateUser(User user) throws IOException {
@@ -486,7 +569,7 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
     }
 
-    public static void subscribe(Channel channel, User user) throws IOException {
+    public static boolean subscribe(Channel channel, User user) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "subscribe");
 
@@ -504,33 +587,6 @@ public class Request {
         jsonObject.put("reqData", data);
 
         Client.sendRequest(jsonObject.toString());
-    }
-
-
-
-
-
-    public static void getRandomTags() throws IOException {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("reqType", "getRandomTags");
-
-        JSONObject data = new JSONObject();
-
-
-        jsonObject.put("reqData", data);
-
-        Client.sendRequest(jsonObject.toString());
-    }
-
-    public static void getRandomVideos() throws IOException {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("reqType", "getRandomVideos");
-
-        JSONObject data = new JSONObject();
-
-
-        jsonObject.put("reqData", data);
-
-        Client.sendRequest(jsonObject.toString());
+        return Client.getBooleanResponse();
     }
 }

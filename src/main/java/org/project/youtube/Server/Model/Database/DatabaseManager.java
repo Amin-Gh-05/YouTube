@@ -4,7 +4,11 @@ import org.project.youtube.Server.Model.YID;
 import org.project.youtube.Server.Model.*;
 import org.project.youtube.Server.Model.Short;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -43,6 +47,8 @@ public class DatabaseManager {
             // execute and close
             infoPrepStat.executeUpdate();
             infoPrepStat.close();
+
+            log("user " + user.getUsername() + " created");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -85,6 +91,8 @@ public class DatabaseManager {
             // execute and close
             linksPrepStat.executeUpdate();
             channelPrepStat.close();
+
+            log("channel " + channel.getHandle() + " created");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -114,6 +122,8 @@ public class DatabaseManager {
             // execute and close
             videoPrepStat.executeUpdate();
             videoPrepStat.close();
+
+            log("video " + video.getId() + " created");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -142,6 +152,8 @@ public class DatabaseManager {
             // execute and close
             shortPrepStat.executeUpdate();
             shortPrepStat.close();
+
+            log("short " + shortVideo.getId() + " created");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -160,6 +172,8 @@ public class DatabaseManager {
             // execute and update
             playlistPrepStat.executeUpdate();
             playlistPrepStat.close();
+
+            log("playlist " + playlist.getId() + " created");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -180,6 +194,8 @@ public class DatabaseManager {
             // execute and update
             commentPrepStat.executeUpdate();
             commentPrepStat.close();
+
+            log("video comment " + comment.getId() + " created for video " + comment.getVideoID());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -200,6 +216,8 @@ public class DatabaseManager {
             // execute and update
             commentPrepStat.executeUpdate();
             commentPrepStat.close();
+
+            log("short comment " + comment.getId() + " created for short " + comment.getVideoID());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -215,6 +233,8 @@ public class DatabaseManager {
             // execute and update
             likeVideoPrepStat.executeUpdate();
             likeVideoPrepStat.close();
+
+            log("video " + video.getId() + " was liked by user " + user.getYid());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -230,6 +250,8 @@ public class DatabaseManager {
             // execute and close
             dislikeVideoPrepStat.executeUpdate();
             dislikeVideoPrepStat.close();
+
+            log("video " + video.getId() + " was disliked by user " + user.getYid());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -245,6 +267,8 @@ public class DatabaseManager {
             // execute and close
             likeShortPrepStat.executeUpdate();
             likeShortPrepStat.close();
+
+            log("short " + shortVideo.getId() + " was liked by user " + user.getYid());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -260,6 +284,8 @@ public class DatabaseManager {
             // execute and close
             dislikeShortPrepStat.executeUpdate();
             dislikeShortPrepStat.close();
+
+            log("short " + shortVideo.getId() + " was disliked by user " + user.getYid());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -275,6 +301,8 @@ public class DatabaseManager {
             // execute and close
             likeCommPrepStat.executeUpdate();
             likeCommPrepStat.close();
+
+            log("video comment " + comment.getId() + " was liked by user " + user.getYid());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -290,6 +318,8 @@ public class DatabaseManager {
             // execute and close
             dislikeCommPrepStat.executeUpdate();
             dislikeCommPrepStat.close();
+
+            log("video comment " + comment.getId() + " was disliked by user " + user.getYid());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -305,6 +335,8 @@ public class DatabaseManager {
             // execute and close
             likeCommPrepStat.executeUpdate();
             likeCommPrepStat.close();
+
+            log("short comment " + comment.getId() + " was liked by user " + user.getYid());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -320,6 +352,8 @@ public class DatabaseManager {
             // execute and close
             dislikeCommPrepStat.executeUpdate();
             dislikeCommPrepStat.close();
+
+            log("short comment " + comment.getId() + " was disliked by user " + user.getYid());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -335,6 +369,8 @@ public class DatabaseManager {
             // execute and update
             stmt.executeUpdate();
             stmt.close();
+
+            log("video " + video.getId() + " was added to playlist " + playlist.getId());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -350,6 +386,8 @@ public class DatabaseManager {
             // execute and update
             stmt.executeUpdate();
             stmt.close();
+
+            log("short " + shortVideo.getId() + " was added to playlist " + playlist.getId());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -366,6 +404,8 @@ public class DatabaseManager {
             // execute and update
             stmt.executeUpdate();
             stmt.close();
+
+            log("channel " + channel.getHandle() + " was subscribed by user " + user.getYid());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -385,6 +425,8 @@ public class DatabaseManager {
         conn.close();
 
         if (rs.next()) {
+            log("get user " + rs.getString("yid") + " from database");
+
             String dateOfBirth = null;
             if (rs.getDate("date_of_birth") != null) {
                 dateOfBirth = rs.getDate("date_of_birth").toString();
@@ -421,6 +463,8 @@ public class DatabaseManager {
         conn.close();
 
         if (rs.next()) {
+            log("get user " + rs.getString("yid") + " from database");
+
             String dateOfBirth = null;
             if (rs.getDate("date_of_birth") != null) {
                 dateOfBirth = rs.getDate("date_of_birth").toString();
@@ -458,6 +502,7 @@ public class DatabaseManager {
         conn.close();
 
         if (rs.next()) {
+            log("get channel " + handle + " from database");
 
             return new Channel(
                     rs.getString("handle"),
@@ -503,6 +548,8 @@ public class DatabaseManager {
         conn.close();
 
         if (rs.next()) {
+            log("get video " + videoId + " from database");
+
             return new Video(
                     videoId,
                     rs.getString("title"),
@@ -538,6 +585,7 @@ public class DatabaseManager {
             UUID videoId = (UUID) rs.getObject("video_id");
             videos.add(readVideo(videoId));
         }
+        log("get videos of channel " + handle + " from database");
 
         return videos;
     }
@@ -558,6 +606,7 @@ public class DatabaseManager {
             UUID videoId = (UUID) rs.getObject("video_id");
             videos.add(readVideo(videoId));
         }
+        log("get videos of playlist " + playlistId + " from database");
 
         return videos;
     }
@@ -577,13 +626,15 @@ public class DatabaseManager {
         conn.close();
 
         if (rs.next()) {
+            log("get short " + shortId + " from database");
+
             return new Short(
                     shortId,
                     rs.getString("title"),
                     rs.getInt("duration"),
                     rs.getTimestamp("created_date_time").toString(),
                     rs.getInt("likes"),
-                    readVideoComments(shortId),
+                    readShortComments(shortId),
                     rs.getBoolean("is_age_restricted"),
                     new ArrayList<>(List.of(rs.getString("tags").split(" "))),
                     rs.getBytes("thumbnail"),
@@ -611,6 +662,7 @@ public class DatabaseManager {
             UUID shortId = (UUID) rs.getObject("short_id");
             shorts.add(readShort(shortId));
         }
+        log("get shorts of channel " + handle + " from database");
 
         return shorts;
     }
@@ -631,6 +683,7 @@ public class DatabaseManager {
             UUID shortId = (UUID) rs.getObject("short_id");
             shorts.add(readShort(shortId));
         }
+        log("get shorts of playlist " + playlistId + " from database");
 
         return shorts;
     }
@@ -647,6 +700,8 @@ public class DatabaseManager {
         conn.close();
 
         if (rs.next()) {
+            log("get playlist " + playlistId + " from database");
+
             return new Playlist(
                     playlistId,
                     rs.getString("name"),
@@ -678,6 +733,7 @@ public class DatabaseManager {
             UUID playlistId = (UUID) rs.getObject("playlist_id");
             playlists.add(readPlaylist(playlistId));
         }
+        log("get playlists of channel " + handle + " from database");
 
         return playlists;
     }
@@ -698,6 +754,8 @@ public class DatabaseManager {
         conn.close();
 
         if (rs.next()) {
+            log("get video comment " + commentId + " from database");
+
             return new Comment(
                     (UUID) rs.getObject("comment_id"),
                     (UUID) rs.getObject("video_id"),
@@ -728,6 +786,8 @@ public class DatabaseManager {
         conn.close();
 
         if (rs.next()) {
+            log("get short comment " + commentId + " from database");
+
             return new Comment(
                     (UUID) rs.getObject("comment_id"),
                     (UUID) rs.getObject("short_id"),
@@ -758,6 +818,7 @@ public class DatabaseManager {
             UUID commentId = (UUID) rs.getObject("comment_id");
             comments.add(readVideoComment(commentId));
         }
+        log("get comments of video " + videoId + " from database");
 
         return comments;
     }
@@ -778,6 +839,7 @@ public class DatabaseManager {
             UUID commentId = (UUID) rs.getObject("comment_id");
             comments.add(readShortComment(commentId));
         }
+        log("get comments of short " + shortId + " from database");
 
         return comments;
     }
@@ -792,6 +854,7 @@ public class DatabaseManager {
         ResultSet rs = stmt.executeQuery();
 
         conn.close();
+        log("check database for yid " + yid + " existence");
 
         return rs.next();
     }
@@ -806,6 +869,7 @@ public class DatabaseManager {
         ResultSet rs = stmt.executeQuery();
 
         conn.close();
+        log("check database for username " + username + " existence");
 
         return rs.next();
     }
@@ -820,6 +884,7 @@ public class DatabaseManager {
         ResultSet rs = stmt.executeQuery();
 
         conn.close();
+        log("check database for email " + email + " existence");
 
         return rs.next();
     }
@@ -836,6 +901,7 @@ public class DatabaseManager {
         ResultSet rs = stmt.executeQuery();
 
         conn.close();
+        log("check if video " + video.getId() + " is liked by user " + user.getYid());
 
         return rs.next();
     }
@@ -852,6 +918,7 @@ public class DatabaseManager {
         ResultSet rs = stmt.executeQuery();
 
         conn.close();
+        log("check if short " + shortVideo.getId() + " is liked by user " + user.getYid());
 
         return rs.next();
     }
@@ -868,6 +935,7 @@ public class DatabaseManager {
         ResultSet rs = stmt.executeQuery();
 
         conn.close();
+        log("check if comment " + comment.getId() + " is liked by user " + user.getYid());
 
         return rs.next();
     }
@@ -884,6 +952,7 @@ public class DatabaseManager {
         ResultSet rs = stmt.executeQuery();
 
         conn.close();
+        log("check if comment " + comment.getId() + " is liked by user " + user.getYid());
 
         return rs.next();
     }
@@ -900,6 +969,8 @@ public class DatabaseManager {
         ResultSet rs = stmt.executeQuery();
 
         conn.close();
+        log("check if video " + video.getId() + " is disliked by user " + user.getYid());
+
 
         return rs.next();
     }
@@ -916,6 +987,8 @@ public class DatabaseManager {
         ResultSet rs = stmt.executeQuery();
 
         conn.close();
+        log("check if short " + shortVideo.getId() + " is disliked by user " + user.getYid());
+
 
         return rs.next();
     }
@@ -932,6 +1005,7 @@ public class DatabaseManager {
         ResultSet rs = stmt.executeQuery();
 
         conn.close();
+        log("check if comment " + comment.getId() + " is disliked by user " + user.getYid());
 
         return rs.next();
     }
@@ -948,6 +1022,7 @@ public class DatabaseManager {
         ResultSet rs = stmt.executeQuery();
 
         conn.close();
+        log("check if comment " + comment.getId() + " is disliked by user " + user.getYid());
 
         return rs.next();
     }
@@ -964,6 +1039,7 @@ public class DatabaseManager {
         ResultSet rs = stmt.executeQuery();
 
         conn.close();
+        log("check if channel " + channel.getHandle() + " is subscribed by user " + user.getYid());
 
         return rs.next();
     }
@@ -1000,6 +1076,8 @@ public class DatabaseManager {
 
             infoStmt.executeUpdate();
             infoStmt.close();
+
+            log("user " + user.getUsername() + " is updated");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1037,6 +1115,8 @@ public class DatabaseManager {
 
             linksStmt.executeUpdate();
             linksStmt.close();
+
+            log("channel " + channel.getHandle() + " is updated");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1059,6 +1139,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("video " + video.getId() + " is updated");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1080,6 +1162,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("short " + shortVideo.getId() + " is updated");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1097,6 +1181,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("playlist " + playlist.getId() + " is updated");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1112,6 +1198,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("video comment " + comment.getId() + " is updated");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1127,6 +1215,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("short comment " + comment.getId() + " is updated");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1141,6 +1231,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("video " + video.getId() + " is viewed");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1155,6 +1247,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("short " + shortVideo + " is viewed");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1169,6 +1263,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("channel " + channel.getHandle() + " is subscribed");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1185,6 +1281,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("user " + user.getYid() + " was deleted");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1199,6 +1297,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("channel " + channel.getHandle() + " was deleted");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1213,6 +1313,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("video " + video.getId() + " was deleted");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1227,6 +1329,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("short " + shortVideo.getId() + " was deleted");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1241,6 +1345,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("playlist " + playlist.getId() + " was deleted");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1255,6 +1361,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("comment " + comment.getId() + " was deleted");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1269,6 +1377,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("comment " + comment.getId() + " was deleted");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1284,6 +1394,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("user " + user.getYid() + " got back like from video " + video.getId());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1299,6 +1411,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("user " + user.getYid() + " got back dislike from video " + video.getId());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1314,6 +1428,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("user " + user.getYid() + " got back like from short " + shortVideo.getId());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1329,6 +1445,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("user " + user.getYid() + " got back dislike from short " + shortVideo.getId());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1344,6 +1462,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("user " + user.getYid() + " got back like from comment " + comment.getId());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1359,6 +1479,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("user " + user.getYid() + " got back dislike from comment " + comment.getId());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1374,6 +1496,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("user " + user.getYid() + " got back like from comment " + comment.getId());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1389,6 +1513,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("user " + user.getYid() + " got back dislike from comment " + comment.getId());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1404,6 +1530,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("channel " + channel.getHandle() + " was unsubscribed by user " + user.getYid());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1419,6 +1547,8 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("video " + video.getId() + " was removed from playlist " + playlist.getId());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -1434,7 +1564,26 @@ public class DatabaseManager {
 
             stmt.executeUpdate();
             stmt.close();
+
+            log("short " + shortVideo.getId() + " was removed from playlist " + playlist.getId());
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void log(String stmt) {
+        try {
+            // start file writer
+            FileWriter fileWriter = new FileWriter("log.txt", true);
+
+            // get date time and format it
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+            fileWriter.write("| " + LocalDateTime.now().format(formatter) + ": " + stmt + "\n");
+            fileWriter.close();
+
+            System.out.println("| " + stmt);
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }

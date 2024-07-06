@@ -50,6 +50,7 @@ public class ClientHandler implements Runnable {
                     case "signup" -> sendStringResponse(ClientService.signup(data));
                     case "login" -> sendStringResponse(ClientService.login(data));
 //                    case "logout" -> ;
+
                     case "getVideo" -> sendStringResponse(ClientService.getVideo(data));
                     case "getChannelVideos" -> sendStringResponse(ClientService.getChannelVideos(data));
                     case "getPlayListVideos" -> sendStringResponse(ClientService.getPlayListVideos(data));
@@ -60,7 +61,9 @@ public class ClientHandler implements Runnable {
                     case "getPLs" -> sendStringResponse(ClientService.getPls(data));
                     case "getChannel" -> sendStringResponse(ClientService.getChannel(data));
                     case "getChannels" -> sendStringResponse(ClientService.getChannels(data));
-//                    case "like" -> ;
+//                    case "getRandomTags" -> ;
+//                    case "getRandomVideos" -> ;
+
                     case "updateUser" -> ClientService.updateUser(data);
                     case "updateChannel" -> ClientService.updateChannel(data);
                     case "updateVideo" -> ClientService.updateVideo(data);
@@ -70,9 +73,11 @@ public class ClientHandler implements Runnable {
                     case "updateShortComment" -> ClientService.updateShortComment(data);
                     case "updateVideoViews" -> ClientService.updateVideoViews(data);
                     case "updateShortViews" -> ClientService.updateShortViews(data);
-                    case "subscribe" -> ClientService.subscribe(data);
-//                    case "getRandomTags" -> ;
-//                    case "getRandomVideos" -> ;
+                    case "subscribe" -> sendBooleanResponse(ClientService.subscribe(data));
+                    case "likeVideo" -> sendBooleanResponse(ClientService.likeVideo(data));
+                    case "likeShort" -> sendBooleanResponse(ClientService.likeShort(data));
+                    case "likeVideoComment" -> sendBooleanResponse(ClientService.likeVideoComment(data));
+                    case "likeShortComment" -> sendBooleanResponse(ClientService.likeShortComment(data));
 
                 }
             }

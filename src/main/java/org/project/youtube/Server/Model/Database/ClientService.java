@@ -280,20 +280,152 @@ public class ClientService {
         DatabaseManager.updateViews(shortt, views);
     }
 
-    public static void subscribe(JSONObject data) throws SQLException {
-        GsonBuilder builder = new GsonBuilder();
-        builder.setPrettyPrinting();
-        Gson gson = builder.create();
+    public static boolean subscribe(JSONObject data) {
+        try {
+            GsonBuilder builder = new GsonBuilder();
+            builder.setPrettyPrinting();
+            Gson gson = builder.create();
 
-        Channel channel =  gson.fromJson(data.getString("channel"), Channel.class);
-        User user =  gson.fromJson(data.getString("user"), User.class);
-        int subs = channel.getSubscribers();
+            Channel channel =  gson.fromJson(data.getString("channel"), Channel.class);
+            User user =  gson.fromJson(data.getString("user"), User.class);
+            int subs = channel.getSubscribers();
 
-        if (DatabaseManager.isSubscribed(user, channel)){
-            return;
+            if (DatabaseManager.isSubscribed(user, channel)){
+                return false;
+            }
+
+            subs++;
+            DatabaseManager.updateSubscribers(channel, subs);
+            DatabaseManager.subscribeChannel(user, channel);
+            return true;
         }
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
 
-        subs++;
-        DatabaseManager.updateSubscribers(channel, subs);
+    public static boolean likeVideo(JSONObject data) {
+        try {
+            GsonBuilder builder = new GsonBuilder();
+            builder.setPrettyPrinting();
+            Gson gson = builder.create();
+
+            String likeType = data.getString("likeType");
+            User user = gson.fromJson(data.getString("user"), User.class);
+            Video video = gson.fromJson(data.getString("video"), Video.class);
+
+            if (DatabaseManager.isLiked(user, video) || DatabaseManager.isDisliked(user, video)) {
+                return false;
+            }
+
+            if (likeType.equals("L")) {
+                DatabaseManager.likeVideo(video, user);
+                return true;
+            }
+            else if (likeType.equals("D")) {
+                DatabaseManager.dislikeVideo(video, user);
+                return true;
+            }
+
+            return false;
+        }
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean likeShort(JSONObject data) {
+        try {
+            GsonBuilder builder = new GsonBuilder();
+            builder.setPrettyPrinting();
+            Gson gson = builder.create();
+
+            String likeType = data.getString("likeType");
+            User user = gson.fromJson(data.getString("user"), User.class);
+            Short shortt = gson.fromJson(data.getString("short"), Short.class);
+
+            if (DatabaseManager.isLiked(user, shortt) || DatabaseManager.isDisliked(user, shortt)) {
+                return false;
+            }
+
+            if (likeType.equals("L")) {
+                DatabaseManager.likeShort(shortt, user);
+                return true;
+            }
+            else if (likeType.equals("D")) {
+                DatabaseManager.dislikeShort(shortt, user);
+                return true;
+            }
+
+            return false;
+        }
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean likeVideoComment(JSONObject data) {
+        try {
+            GsonBuilder builder = new GsonBuilder();
+            builder.setPrettyPrinting();
+            Gson gson = builder.create();
+
+            String likeType = data.getString("likeType");
+            User user = gson.fromJson(data.getString("user"), User.class);
+            Comment comment = gson.fromJson(data.getString("comment"), Comment.class);
+
+            if (DatabaseManager.isVideoCommentLiked(user, comment) || DatabaseManager.isVideoCommentDisliked(user, comment)) {
+                return false;
+            }
+
+            if (likeType.equals("L")) {
+                DatabaseManager.likeVideoComment(comment, user);
+                return true;
+            }
+            else if (likeType.equals("D")) {
+                DatabaseManager.dislikeVideoComment(comment, user);
+                return true;
+            }
+
+            return false;
+        }
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean likeShortComment(JSONObject data) {
+        try {
+            GsonBuilder builder = new GsonBuilder();
+            builder.setPrettyPrinting();
+            Gson gson = builder.create();
+
+            String likeType = data.getString("likeType");
+            User user = gson.fromJson(data.getString("user"), User.class);
+            Comment comment = gson.fromJson(data.getString("comment"), Comment.class);
+
+            if (DatabaseManager.isShortCommentLiked(user, comment) || DatabaseManager.isShortCommentDisliked(user, comment)) {
+                return false;
+            }
+
+            if (likeType.equals("L")) {
+                DatabaseManager.likeShortComment(comment, user);
+                return true;
+            }
+            else if (likeType.equals("D")) {
+                DatabaseManager.dislikeShortComment(comment, user);
+                return true;
+            }
+
+            return false;
+        }
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
     }
 }
