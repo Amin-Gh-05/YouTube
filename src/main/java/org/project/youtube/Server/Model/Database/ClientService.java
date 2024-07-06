@@ -523,45 +523,243 @@ public class ClientService {
     // ======================= Delete =======================
 
     public static void deleteUser(JSONObject data) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        User user = gson.fromJson(data.getString("user"), User.class);
+
+        DatabaseManager.deleteUser(user);
     }
 
     public static void deleteChannel(JSONObject data) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Channel channel = gson.fromJson(data.getString("channel"), Channel.class);
+
+        DatabaseManager.deleteChannel(channel);
     }
 
     public static void deleteVideo(JSONObject data) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Video video = gson.fromJson(data.getString("video"), Video.class);
+
+        DatabaseManager.deleteVideo(video);
     }
 
     public static void deleteShort(JSONObject data) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Short shortt = gson.fromJson(data.getString("short"), Short.class);
+
+        DatabaseManager.deleteShort(shortt);
     }
 
     public static void deletePlaylist(JSONObject data) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Playlist playlist = gson.fromJson(data.getString("playlist"), Playlist.class);
+
+        DatabaseManager.deletePlaylist(playlist);
     }
 
     public static void deleteVideoComment(JSONObject data) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Comment comment = gson.fromJson(data.getString("comment"), Comment.class);
+
+        DatabaseManager.deleteVideoComment(comment);
     }
 
     public static void deleteShortComment(JSONObject data) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Comment comment = gson.fromJson(data.getString("comment"), Comment.class);
+
+        DatabaseManager.deleteShortComment(comment);
     }
 
-    public static void unSubscribeChannel(JSONObject data) {
+    public static boolean unSubscribeChannel(JSONObject data) {
+        try {
+            GsonBuilder builder = new GsonBuilder();
+            builder.setPrettyPrinting();
+            Gson gson = builder.create();
+
+            Channel channel =  gson.fromJson(data.getString("channel"), Channel.class);
+            User user =  gson.fromJson(data.getString("user"), User.class);
+            int subs = channel.getSubscribers();
+
+            if (!DatabaseManager.isSubscribed(user, channel)){
+                return false;
+            }
+
+            subs--;
+            DatabaseManager.updateSubscribers(channel, subs);
+            DatabaseManager.unsubscribeChannel(user, channel);
+            return true;
+        }
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
     }
 
-    public static void unLikeVideo(JSONObject data) {
+    public static boolean unLikeVideo(JSONObject data) {
+        try {
+            GsonBuilder builder = new GsonBuilder();
+            builder.setPrettyPrinting();
+            Gson gson = builder.create();
+
+            String likeType = data.getString("likeType");
+            User user = gson.fromJson(data.getString("user"), User.class);
+            Video video = gson.fromJson(data.getString("video"), Video.class);
+
+            if (DatabaseManager.isLiked(user, video) || DatabaseManager.isDisliked(user, video)) {
+                return false;
+            }
+
+            if (likeType.equals("L")) {
+                DatabaseManager.likeVideo(video, user);
+                return true;
+            }
+            else if (likeType.equals("D")) {
+                DatabaseManager.dislikeVideo(video, user);
+                return true;
+            }
+
+            return false;
+        }
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
     }
 
-    public static void unLikeShort(JSONObject data) {
+    public static boolean unLikeShort(JSONObject data) {
+        try {
+            GsonBuilder builder = new GsonBuilder();
+            builder.setPrettyPrinting();
+            Gson gson = builder.create();
+
+            String likeType = data.getString("likeType");
+            User user = gson.fromJson(data.getString("user"), User.class);
+            Short shortt = gson.fromJson(data.getString("short"), Short.class);
+
+            if (DatabaseManager.isLiked(user, shortt) || DatabaseManager.isDisliked(user, shortt)) {
+                return false;
+            }
+
+            if (likeType.equals("L")) {
+                DatabaseManager.likeShort(shortt, user);
+                return true;
+            }
+            else if (likeType.equals("D")) {
+                DatabaseManager.dislikeShort(shortt, user);
+                return true;
+            }
+
+            return false;
+        }
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
     }
 
-    public static void unLikeVideoComment(JSONObject data) {
+    public static boolean unLikeVideoComment(JSONObject data) {
+        try {
+            GsonBuilder builder = new GsonBuilder();
+            builder.setPrettyPrinting();
+            Gson gson = builder.create();
+
+            String likeType = data.getString("likeType");
+            User user = gson.fromJson(data.getString("user"), User.class);
+            Comment comment = gson.fromJson(data.getString("comment"), Comment.class);
+
+            if (DatabaseManager.isVideoCommentLiked(user, comment) || DatabaseManager.isVideoCommentDisliked(user, comment)) {
+                return false;
+            }
+
+            if (likeType.equals("L")) {
+                DatabaseManager.likeVideoComment(comment, user);
+                return true;
+            }
+            else if (likeType.equals("D")) {
+                DatabaseManager.dislikeVideoComment(comment, user);
+                return true;
+            }
+
+            return false;
+        }
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
     }
 
-    public static void unLikeShortComment(JSONObject data) {
+    public static boolean unLikeShortComment(JSONObject data) {
+        try {
+            GsonBuilder builder = new GsonBuilder();
+            builder.setPrettyPrinting();
+            Gson gson = builder.create();
+
+            String likeType = data.getString("likeType");
+            User user = gson.fromJson(data.getString("user"), User.class);
+            Comment comment = gson.fromJson(data.getString("comment"), Comment.class);
+
+            if (DatabaseManager.isShortCommentLiked(user, comment) || DatabaseManager.isShortCommentDisliked(user, comment)) {
+                return false;
+            }
+
+            if (likeType.equals("L")) {
+                DatabaseManager.likeShortComment(comment, user);
+                return true;
+            }
+            else if (likeType.equals("D")) {
+                DatabaseManager.dislikeShortComment(comment, user);
+                return true;
+            }
+
+            return false;
+        }
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
     }
 
     public static void removeVideoFromPlaylist(JSONObject data) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Video video = gson.fromJson(data.getString("video"), Video.class);
+
+        DatabaseManager.deleteVideo(video);
     }
 
     public static void removeShortFromPlaylist(JSONObject data) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Video video = gson.fromJson(data.getString("video"), Video.class);
+
+        DatabaseManager.deleteVideo(video);
+
     }
 
 
