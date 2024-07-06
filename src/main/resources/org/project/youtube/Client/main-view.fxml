@@ -21,7 +21,7 @@
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
     </padding>
     <top>
-        <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" spacing="10.0" BorderPane.alignment="CENTER">
+        <HBox fx:id="headerPanel" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
                 <Button id="moreButton" fx:id="moreButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#slideSidebar" prefHeight="23.0" prefWidth="40.0" styleClass="actionButton" />
                 <ImageView fitHeight="35.0" fitWidth="181.0" onMouseClicked="#refreshAll" pickOnBounds="true" preserveRatio="true">
@@ -40,7 +40,7 @@
                         <Font name="Roboto" size="12.0" />
                     </font>
                 </TextField>
-                <Button id="searchButton" fx:id="searchButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#searchAll" prefHeight="35.0" prefWidth="35.0" styleClass="actionButton">
+                <Button id="searchButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#searchAll" prefHeight="35.0" prefWidth="35.0" styleClass="actionButton">
                     <font>
                         <Font name="Roboto" size="12.0" />
                     </font>
@@ -73,7 +73,7 @@
     <center>
         <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" BorderPane.alignment="CENTER">
             <content>
-                <FlowPane alignment="TOP_CENTER" />
+                <FlowPane fx:id="mainPanel" alignment="TOP_CENTER" />
             </content>
         </ScrollPane>
     </center>
@@ -126,7 +126,7 @@
                 <HBox fx:id="channelBox" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" onMouseClicked="#loadChannel" prefHeight="45.0" spacing="12.0" styleClass="sideBox">
                     <children>
                         <Button id="channelButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#loadChannel" onMouseClicked="#loadChannel" prefHeight="30.0" prefWidth="30.0" styleClass="sideButton" />
-                        <Label fx:id="channelLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="164.0" text="Your Channel" />
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="164.0" text="Your Channel" />
                     </children>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -144,7 +144,7 @@
                 <HBox fx:id="playlistsBox" alignment="CENTER_LEFT" layoutX="15.0" layoutY="237.0" maxHeight="-Infinity" minHeight="-Infinity" onMouseClicked="#loadPlaylists" prefHeight="45.0" spacing="12.0" styleClass="sideBox">
                     <children>
                         <Button id="playlistsButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#loadPlaylists" onMouseClicked="#loadPlaylists" prefHeight="30.0" prefWidth="30.0" styleClass="sideButton" />
-                        <Label fx:id="playlistsLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="164.0" text="Playlists" />
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="164.0" text="Playlists" />
                     </children>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -153,7 +153,7 @@
                 <HBox fx:id="videosBox" alignment="CENTER_LEFT" layoutX="15.0" layoutY="282.0" maxHeight="-Infinity" minHeight="-Infinity" onMouseClicked="#loadVideos" prefHeight="45.0" spacing="12.0" styleClass="sideBox">
                     <children>
                         <Button id="videosButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#loadVideos" onMouseClicked="#loadVideos" prefHeight="30.0" prefWidth="30.0" styleClass="sideButton" />
-                        <Label fx:id="videosLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="164.0" text="Your Videos" />
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="164.0" text="Your Videos" />
                     </children>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -162,7 +162,7 @@
                 <HBox fx:id="latersBox" alignment="CENTER_LEFT" layoutX="15.0" layoutY="327.0" maxHeight="-Infinity" minHeight="-Infinity" onMouseClicked="#loadLaters" prefHeight="45.0" spacing="12.0" styleClass="sideBox">
                     <children>
                         <Button id="latersButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#loadLaters" onMouseClicked="#loadLaters" prefHeight="30.0" prefWidth="30.0" styleClass="sideButton" />
-                        <Label fx:id="laterLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="164.0" text="Watch Later" />
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="164.0" text="Watch Later" />
                     </children>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -171,7 +171,7 @@
                 <HBox fx:id="likedBox" alignment="CENTER_LEFT" layoutX="15.0" layoutY="373.0" maxHeight="-Infinity" minHeight="-Infinity" onMouseClicked="#loadLikes" prefHeight="45.0" spacing="12.0" styleClass="sideBox">
                     <children>
                         <Button id="likedButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#loadLikes" onMouseClicked="#loadLikes" prefHeight="30.0" prefWidth="30.0" styleClass="sideButton" />
-                        <Label fx:id="likedLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="164.0" text="Liked Videos" />
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="164.0" text="Liked Videos" />
                     </children>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -194,7 +194,7 @@
                 <HBox fx:id="helpBox" alignment="CENTER_LEFT" layoutX="15.0" layoutY="501.0" maxHeight="-Infinity" minHeight="-Infinity" onMouseClicked="#loadHelp" prefHeight="45.0" spacing="12.0" styleClass="sideBox">
                     <children>
                         <Button id="helpButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#loadHelp" prefHeight="30.0" prefWidth="30.0" styleClass="sideButton" />
-                        <Label fx:id="helpLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="164.0" text="Help" />
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="164.0" text="Help" />
                     </children>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
