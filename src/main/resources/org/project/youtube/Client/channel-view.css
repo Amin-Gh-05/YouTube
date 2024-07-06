@@ -19,3 +19,16 @@
     -fx-background-color: #E5383B;
     -fx-text-base-color: #F5F3F4;
 }
+
+.actionButton {
+    -fx-padding: 5px;
+    -fx-background-radius: 25px;
+    -fx-background-color: #F5F3F4;
+    -fx-border-radius: 25px;
+    -fx-border-color: #0B090A;
+    -fx-cursor: hand;
+}
+
+.actionButton:hover {
+    -fx-background-color: #DDDBDC;
+}

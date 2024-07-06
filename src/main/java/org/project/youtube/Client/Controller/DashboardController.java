@@ -15,7 +15,7 @@ public class DashboardController implements Initializable {
     private Label subCount;
 
     @FXML
-    private ListView<?> topVideos;
+    private ListView<String> topVideos;
 
     @FXML
     private Label viewCount;

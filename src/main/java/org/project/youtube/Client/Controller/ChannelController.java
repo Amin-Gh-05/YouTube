@@ -1,6 +1,8 @@
 package org.project.youtube.Client.Controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -19,6 +21,9 @@ public class ChannelController {
     private Label nameLabel;
 
     @FXML
+    private ContextMenu changeMenu;
+
+    @FXML
     private Label dateLabel;
 
     @FXML
@@ -31,6 +36,9 @@ public class ChannelController {
     private Label viewLabel;
 
     @FXML
+    private Button submitButton;
+
+    @FXML
     private Label descriptionLabel;
 
     @FXML
@@ -41,4 +49,14 @@ public class ChannelController {
 
     @FXML
     private VBox playlistsPanel;
+
+    @FXML
+    void editChannel() {
+
+    }
+
+    @FXML
+    void submitChanges() {
+
+    }
 }
