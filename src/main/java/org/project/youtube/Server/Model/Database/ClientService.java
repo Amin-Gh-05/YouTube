@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.json.JSONObject;
-import org.project.youtube.Client.Model.Network.FileTransfer;
+import org.project.youtube.Server.Model.Network.FileTransfer;
 import org.project.youtube.Server.Model.*;
 import org.project.youtube.Server.Model.Short;
 
@@ -73,6 +73,7 @@ public class ClientService {
     public static String getVideo(JSONObject data) throws SQLException {
         UUID id = UUID.fromString(data.getString("ID"));
         Video video = DatabaseManager.readVideo(id);
+        FileTransfer.sendFile("resources/video/" + video.getId().toString() + ".mp4");
 
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
@@ -83,6 +84,7 @@ public class ClientService {
     public static String getShort(JSONObject data) throws SQLException {
         UUID id = UUID.fromString(data.getString("ID"));
         Short shortt = DatabaseManager.readShort(id);
+        FileTransfer.sendFile("resources/short/" + shortt.getId().toString() + ".mp4");
 
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
