@@ -14,9 +14,10 @@ public class Downloader implements Runnable {
     public void run() {
         try {
             String fileName = in.readUTF();
+            String type = in.readUTF();
 
             int bytes;
-            FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+            FileOutputStream fileOutputStream = new FileOutputStream("resources/" + type + "/" + fileName);
 
             long size = in.readLong();
             byte[] buffer = new byte[32 * 1024];
