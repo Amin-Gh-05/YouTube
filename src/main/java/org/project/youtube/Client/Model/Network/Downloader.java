@@ -17,7 +17,7 @@ public class Downloader implements Runnable {
             String fileName = in.readUTF();
 
             int bytes;
-            FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+            FileOutputStream fileOutputStream = new FileOutputStream("C:/YouTube/" + fileName);
 
             long size = in.readLong();
             byte[] buffer = new byte[32 * 1024];
