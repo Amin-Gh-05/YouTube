@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.json.JSONObject;
+import org.project.youtube.Client.Controller.MainController;
 import org.project.youtube.Client.Main;
 import org.project.youtube.Client.Model.*;
 import org.project.youtube.Client.Model.Short;
@@ -427,7 +428,7 @@ public class Request {
         data.put("user", userJson);
 
         jsonObject.put("reqData", data);
-
+        MainController.user = user;
         Client.sendRequest(jsonObject.toString());
     }
 
