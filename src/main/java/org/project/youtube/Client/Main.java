@@ -10,6 +10,8 @@ import org.project.youtube.Client.Model.User;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 public class Main extends Application {
@@ -37,6 +39,9 @@ public class Main extends Application {
         Client.setSocket(new Socket(SERVER_IP, SERVER_PORT));
         Client.setFileTransferSocket(new Socket(SERVER_IP, SERVER_FILE_TRANSFER_PORT));
         Client.run();
+
+        Files.createDirectories(Paths.get("C:/YouTube"));
+        //Files.createDirectories(Paths.get("%localAppData%/YouTube"));
     }
 
     public static void main(String[] args) {
