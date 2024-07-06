@@ -522,4 +522,48 @@ public class ClientService {
 
     // ======================= Delete =======================
 
+    public static void deleteUser(JSONObject data) {
+    }
+
+    public static void deleteChannel(JSONObject data) {
+    }
+
+    public static void deleteVideo(JSONObject data) {
+    }
+
+    public static void deleteShort(JSONObject data) {
+    }
+
+    public static void deletePlaylist(JSONObject data) {
+    }
+
+    public static void deleteVideoComment(JSONObject data) {
+    }
+
+    public static void deleteShortComment(JSONObject data) {
+    }
+
+    public static void unSubscribeChannel(JSONObject data) {
+    }
+
+    public static void unLikeVideo(JSONObject data) {
+    }
+
+    public static void unLikeShort(JSONObject data) {
+    }
+
+    public static void unLikeVideoComment(JSONObject data) {
+    }
+
+    public static void unLikeShortComment(JSONObject data) {
+    }
+
+    public static void removeVideoFromPlaylist(JSONObject data) {
+    }
+
+    public static void removeShortFromPlaylist(JSONObject data) {
+    }
+
+
+
 }
