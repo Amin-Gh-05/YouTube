@@ -58,8 +58,9 @@ public class ClientHandler implements Runnable {
                     case "getChannelShorts" -> sendStringResponse(ClientService.getChannelShorts(data));
                     case "getPlayListShorts" -> sendStringResponse(ClientService.getPlayListShorts(data));
                     case "getPL" -> sendStringResponse(ClientService.getPL(data));
+                    case "getWatchLaterPlaylist" -> sendStringResponse(ClientService.getWatchLaterPlaylist(data));
+                    case "getLikedVideosPlaylist" -> sendStringResponse(ClientService.getLikedVideosPlaylist(data));
                     case "getPLs" -> sendStringResponse(ClientService.getPls(data));
-                    case "getDefaultPlaylists" -> sendStringResponse(ClientService.getDefaultPlaylists(data));
                     case "getChannel" -> sendStringResponse(ClientService.getChannel(data));
                     case "getChannels" -> sendStringResponse(ClientService.getChannels(data));
 //                    case "getRandomTags" -> ;
