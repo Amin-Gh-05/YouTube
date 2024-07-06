@@ -41,6 +41,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.11.0'
     implementation 'org.json:json:20240303'
     implementation("org.controlsfx:controlsfx:11.1.1")
+    implementation("commons-io:commons-io:2.16.1")
+    implementation("org.bytedeco:javacv:1.5.7")
 }
 
 test {
