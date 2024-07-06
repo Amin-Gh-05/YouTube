@@ -552,6 +552,28 @@ public class ClientService {
         }
     }
 
+    public static boolean addPlaylistToChannel(JSONObject data) {
+        try {
+            GsonBuilder builder = new GsonBuilder();
+            builder.setPrettyPrinting();
+            Gson gson = builder.create();
+
+            Playlist playlist = gson.fromJson(data.getString("playlist"), Playlist.class);
+            Channel channel = gson.fromJson(data.getString("channel"), Channel.class);
+
+            if (DatabaseManager.isPlaylistInChannel(playlist, channel)) {
+                return false;
+            }
+
+            DatabaseManager.addPlaylistToChannel(playlist, channel);
+            return true;
+
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
+
     // ======================= Delete =======================
 
     public static void deleteUser(JSONObject data) {
@@ -807,7 +829,5 @@ public class ClientService {
         DatabaseManager.removeShortFromPlaylist(playlist, shortt);
 
     }
-
-
 
 }
