@@ -190,6 +190,25 @@ public class ClientService {
         return gson.toJson(playlists, listType);
     }
 
+    public static String getDefaultPlaylists(JSONObject data) throws SQLException {
+        String handle = data.getString("handle");
+        List<Playlist> playlists = DatabaseManager.readPlaylists(handle);
+        List<Playlist> defaultPlaylists = new ArrayList<>();
+
+        for (Playlist playlist : playlists) {
+            if (playlist.getName().equals("Liked Videos") || playlist.getName().equals("Watch Later")) {
+                defaultPlaylists.add(playlist);
+            }
+        }
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        Type listType = new TypeToken<List<Playlist>>() {}.getType();
+
+        return gson.toJson(defaultPlaylists, listType);
+    }
+
     // ======================= Update =======================
 
     public static void updateUser(JSONObject data) throws SQLException {
@@ -441,9 +460,9 @@ public class ClientService {
             return false;
         }
     }
-
     // ======================= Create =======================
     // TODO User...
+
     public static void createChannel(JSONObject data) {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
@@ -829,5 +848,4 @@ public class ClientService {
         DatabaseManager.removeShortFromPlaylist(playlist, shortt);
 
     }
-
 }
