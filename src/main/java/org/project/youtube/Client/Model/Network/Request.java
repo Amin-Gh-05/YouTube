@@ -629,7 +629,7 @@ public class Request {
 
         Client.sendRequest(jsonObject.toString());
 
-        FileTransfer.sendFile(path);
+        FileTransfer.sendFile(path, video.getId());
     }
     // TODO check exists
     public static void createShort(Short shortt, String path) throws IOException {
@@ -649,7 +649,7 @@ public class Request {
 
         Client.sendRequest(jsonObject.toString());
 
-        FileTransfer.sendFile(path);
+        FileTransfer.sendFile(path, shortt.getId());
     }
     // TODO check exists
     public static void createPlaylist(Playlist playlist) throws IOException {
