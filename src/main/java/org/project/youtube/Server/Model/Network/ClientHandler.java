@@ -58,8 +58,6 @@ public class ClientHandler implements Runnable {
                     case "getChannelShorts" -> sendStringResponse(ClientService.getChannelShorts(data));
                     case "getPlayListShorts" -> sendStringResponse(ClientService.getPlayListShorts(data));
                     case "getPL" -> sendStringResponse(ClientService.getPL(data));
-                    case "getWatchLaterPlaylist" -> sendStringResponse(ClientService.getWatchLaterPlaylist(data));
-                    case "getLikedVideosPlaylist" -> sendStringResponse(ClientService.getLikedVideosPlaylist(data));
                     case "getPLs" -> sendStringResponse(ClientService.getPls(data));
                     case "getChannel" -> sendStringResponse(ClientService.getChannel(data));
                     case "getChannels" -> sendStringResponse(ClientService.getChannels(data));
@@ -87,24 +85,8 @@ public class ClientHandler implements Runnable {
                     case "createPlaylist" -> ClientService.createPlaylist(data);
                     case "createVideoComment" -> ClientService.createVideoComment(data);
                     case "createShortComment" -> ClientService.createShortComment(data);
-                    case "addVideoToPlaylist" -> sendBooleanResponse(ClientService.addVideoToPlaylist(data));
-                    case "addShortToPlaylist" -> sendBooleanResponse(ClientService.addShortToPlaylist(data));
-                    case "addPlaylistToChannel" -> sendBooleanResponse(ClientService.addPlaylistToChannel(data));
-
-                    case "deleteUser" -> ClientService.deleteUser(data);
-                    case "deleteChannel" -> ClientService.deleteChannel(data);
-                    case "deleteVideo" -> ClientService.deleteVideo(data);
-                    case "deleteShort" -> ClientService.deleteShort(data);
-                    case "deletePlaylist" -> ClientService.deletePlaylist(data);
-                    case "deleteVideoComment" -> ClientService.deleteVideoComment(data);
-                    case "deleteShortComment" -> ClientService.deleteShortComment(data);
-                    case "unSubscribeChannel" -> sendBooleanResponse(ClientService.unSubscribeChannel(data));
-                    case "unLikeVideo" -> sendBooleanResponse(ClientService.unLikeVideo(data));
-                    case "unLikeShort" -> sendBooleanResponse(ClientService.unLikeShort(data));
-                    case "unLikeVideoComment" -> sendBooleanResponse(ClientService.unLikeVideoComment(data));
-                    case "unLikeShortComment" -> sendBooleanResponse(ClientService.unLikeShortComment(data));
-                    case "removeVideoFromPlaylist" -> ClientService.removeVideoFromPlaylist(data);
-                    case "removeShortFromPlaylist" -> ClientService.removeShortFromPlaylist(data);
+                    case "addVideoToPlaylist" -> ClientService.addVideoToPlaylist(data);
+                    case "addShortToPlaylist" -> ClientService.addShortToPlaylist(data);
 
                 }
             }
