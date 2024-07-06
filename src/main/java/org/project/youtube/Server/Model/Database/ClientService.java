@@ -8,6 +8,7 @@ import org.project.youtube.Client.Model.Network.FileTransfer;
 import org.project.youtube.Server.Model.*;
 import org.project.youtube.Server.Model.Short;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.sql.SQLException;
@@ -557,6 +558,8 @@ public class ClientService {
 
         Video video = gson.fromJson(data.getString("video"), Video.class);
 
+        File videoFile = new File("resources/video/" + video.getId().toString() + ".mp4");
+        videoFile.delete();
         DatabaseManager.deleteVideo(video);
     }
 
@@ -567,6 +570,8 @@ public class ClientService {
 
         Short shortt = gson.fromJson(data.getString("short"), Short.class);
 
+        File shortFile = new File("resources/short/" + shortt.getId().toString() + ".mp4");
+        shortFile.delete();
         DatabaseManager.deleteShort(shortt);
     }
 
