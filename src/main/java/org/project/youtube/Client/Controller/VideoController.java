@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -74,20 +75,21 @@ public class VideoController {
 
     }
 
-    public void initialize() throws IOException {
+    public void init()  {
+
+
     }
 
 
     public void loadPlayer() throws IOException {
         FXMLLoader mediaPlayerLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/media-player.fxml"));
-        StackPane mediaPlayer = mediaPlayerLoader.load();
+        AnchorPane mediaPlayer = mediaPlayerLoader.load();
         MediaPlayerController mediaPlayerController = mediaPlayerLoader.getController();
         mediaPlayerPane.getChildren().add(mediaPlayer);
 
-        mediaPlayerController.setPath("C:\\YouTube\\a.mp4");
+        mediaPlayerController.setPath("file:///C:/YouTube/c.mp4");
         mediaPlayerController.setPane(mediaPlayerPane);
+        mediaPlayerController.init();
     }
-
-
 
 }

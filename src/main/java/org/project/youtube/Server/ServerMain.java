@@ -6,6 +6,8 @@ import org.project.youtube.Server.Model.Network.FileTransfer;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -18,6 +20,9 @@ public class ServerMain {
 
     public static void main(String[] args) {
         try {
+            Files.createDirectories(Paths.get("resources"));
+            Files.createDirectories(Paths.get("resources/video"));
+            Files.createDirectories(Paths.get("resources/short"));
             serverSocket = new ServerSocket(5431);
             serverFileTransferSocket = new ServerSocket(5430);
             runServer();
