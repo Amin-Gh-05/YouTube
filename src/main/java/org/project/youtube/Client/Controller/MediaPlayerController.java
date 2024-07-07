@@ -209,6 +209,9 @@ public class MediaPlayerController implements Initializable {
     }
 
     public void videoSliderSeek(MouseEvent mouseEvent) {
+        if (mediaPlayer.getStatus().equals(MediaPlayer.Status.STOPPED)){
+            mediaPlayer.play();
+        }
         mediaPlayer.seek(Duration.seconds(videoSlider.getValue()));
     }
 }
