@@ -533,6 +533,26 @@ public class DatabaseManager {
         return null;
     }
 
+    public static List<Channel> readChannels(User user) throws SQLException {
+        Connection conn = connect();
+        List<Channel> channels = new ArrayList<>();
+
+        // read handles from channel_subscriptions table
+        String query = "SELECT handle FROM channel_subscriptions WHERE yid = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, user.getYid().toString());
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+
+        while (rs.next()) {
+            String handle = rs.getString("handle");
+            channels.add(readChannel(handle));
+        }
+
+        return channels;
+    }
+
     public static Video readVideo(UUID videoId) throws SQLException {
         Connection conn = connect();
 
