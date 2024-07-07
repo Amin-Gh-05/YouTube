@@ -32,3 +32,30 @@
 .actionButton:hover {
     -fx-background-color: #DDDBDC;
 }
+
+.context-menu {
+    -fx-background-color: #282828;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.context-menu .menu-item {
+    -fx-text-base-color: #ffffff;
+    -fx-padding: 10px 10px;
+    -fx-font-size: 12px;
+}
+
+.context-menu .menu-item:hover {
+    -fx-background-color: #383838;
+}
+
+.context-menu .menu-item:focused {
+    -fx-background-color: #505050;
+    -fx-text-fill: #ffffff;
+}
+
+.context-menu .menu-item:pressed {
+    -fx-background-color: #1e1e1e;
+    -fx-text-fill: #ffffff;
+}
+

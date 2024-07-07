@@ -10,7 +10,6 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.project.youtube.Client.Model.Network.Request;
-import org.project.youtube.Client.Model.User;
 
 import java.io.IOException;
 import java.util.Objects;

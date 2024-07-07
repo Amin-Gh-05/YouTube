@@ -1,15 +1,16 @@
 package org.project.youtube.Client.Controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.io.IOException;
 
-public class DashboardController implements Initializable {
+
+public class DashboardController {
+    StudioController controller;
 
     @FXML
     private Label subCount;
@@ -23,13 +24,16 @@ public class DashboardController implements Initializable {
     @FXML
     private Label watchTime;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
-
     @FXML
-    void createContent(ActionEvent event) {
+    void createContent() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/upload-view.fxml"));
+        UploadController uploadController = loader.getController();
 
+        // set studio as controller of upload
+        uploadController.controller = controller;
+
+        Node node = loader.load();
+        controller.getMainPanel().getChildren().clear();
+        controller.getMainPanel().getChildren().add(node);
     }
 }

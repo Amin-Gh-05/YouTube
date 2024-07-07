@@ -6,6 +6,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.shape.Circle;
 import org.project.youtube.Client.Model.Comment;
+import org.project.youtube.Client.Model.Network.Request;
 
 public class CommentController {
     Comment comment;

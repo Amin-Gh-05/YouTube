@@ -17,7 +17,7 @@
 <AnchorPane prefHeight="900.0" prefWidth="900.0" stylesheets="@channel-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.ChannelController">
    <children>
       <ImageView fx:id="bannerImage" fitHeight="150.0" fitWidth="900.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <AnchorPane layoutY="150.0" prefHeight="223.0" prefWidth="900.0">
+      <AnchorPane fx:id="infoPanel" layoutY="150.0" prefHeight="223.0" prefWidth="900.0">
          <children>
             <Circle fx:id="logoImage" fill="#ffffff00" layoutX="114.0" layoutY="112.0" radius="100.0" stroke="#db1212" strokeType="INSIDE" />
             <Label id="nameLabel" fx:id="nameLabel" layoutX="235.0" layoutY="16.0" text="Name">

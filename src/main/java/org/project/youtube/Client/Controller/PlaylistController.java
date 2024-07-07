@@ -51,4 +51,40 @@ public class PlaylistController {
     void submitChanges() {
 
     }
+
+    public ImageView getPlaylistImage() {
+        return playlistImage;
+    }
+
+    public Label getNameLabel() {
+        return nameLabel;
+    }
+
+    public ContextMenu getChangeMenu() {
+        return changeMenu;
+    }
+
+    public Label getHandleLabel() {
+        return handleLabel;
+    }
+
+    public Label getIsPublicLabel() {
+        return isPublicLabel;
+    }
+
+    public Label getDescriptionLabel() {
+        return descriptionLabel;
+    }
+
+    public Button getSubmitButton() {
+        return submitButton;
+    }
+
+    public FlowPane getVideosPanel() {
+        return videosPanel;
+    }
+
+    public FlowPane getShortsPanel() {
+        return shortsPanel;
+    }
 }

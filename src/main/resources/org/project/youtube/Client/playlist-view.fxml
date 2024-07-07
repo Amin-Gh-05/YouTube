@@ -50,8 +50,8 @@
                </HBox.margin>
             </VBox>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
-            <Label fx:id="descriptionLabel" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="360.0" text="Description" wrapText="true" />
-            <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submitChanges" text="Submit" />
+            <Label fx:id="descriptionLabel" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="375.0" text="Description" wrapText="true" />
+            <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submitChanges" styleClass="actionButton" text="Submit" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
