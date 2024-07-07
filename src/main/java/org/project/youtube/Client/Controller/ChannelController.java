@@ -125,6 +125,10 @@ public class ChannelController {
         return bannerImage;
     }
 
+    public AnchorPane getInfoPanel() {
+        return infoPanel;
+    }
+
     public Circle getLogoImage() {
         return logoImage;
     }
