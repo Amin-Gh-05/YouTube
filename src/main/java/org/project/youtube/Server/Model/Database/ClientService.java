@@ -214,6 +214,15 @@ public class ClientService {
         return gson.toJson(channels, listType2);
     }
 
+    public static String getSubscribedChannels(JSONObject data) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        User user = gson.fromJson(data.getString("user"), User.class);
+
+    }
+
     public static String getPls(JSONObject data) throws SQLException {
         String handle = data.getString("handle");
         List<Playlist> playlists = DatabaseManager.readPlaylists(handle);
@@ -411,7 +420,6 @@ public class ClientService {
             return false;
         }
     }
-
     public static boolean likeVideoComment(JSONObject data) {
         try {
             GsonBuilder builder = new GsonBuilder();
@@ -476,6 +484,7 @@ public class ClientService {
             return false;
         }
     }
+
     // ======================= Create =======================
 
     // TODO User...

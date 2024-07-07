@@ -276,7 +276,6 @@ public class Request {
 
         jsonObject.put("reqData", data);
 
-
         Client.sendRequest(jsonObject.toString());
         String respStr = Client.getStringResponse();
 
@@ -296,7 +295,6 @@ public class Request {
 
         jsonObject.put("reqData", data);
 
-
         Client.sendRequest(jsonObject.toString());
         String respStr = Client.getStringResponse();
 
@@ -315,12 +313,34 @@ public class Request {
 
         JSONObject data = new JSONObject();
 
-        Gson gson = new Gson();
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
         Type listType = new TypeToken<List<String>>() {}.getType();
 
         String JsonIDListString = gson.toJson(handles, listType);
 
         data.put("Handle List", JsonIDListString);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+        String respStr = Client.getStringResponse();
+
+        Type listType2 = new TypeToken<List<Channel>>() {}.getType();
+        return gson.fromJson(respStr, listType2);
+    }
+
+    public static List<Channel> getSubscribedChannels(User user) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "getSubscribedChannels");
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        JSONObject data = new JSONObject();
+        data.put("user", gson.toJson(user));
 
         jsonObject.put("reqData", data);
 
