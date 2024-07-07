@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="607.0" prefWidth="342.0" stylesheets="@short-player.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.ShortPlayerController">
+   <children>
+      <Button fx:id="playBtn" layoutX="8.0" layoutY="14.0" mnemonicParsing="false" onAction="#playBtnAction" text="Button" />
+   </children>
+</AnchorPane>
