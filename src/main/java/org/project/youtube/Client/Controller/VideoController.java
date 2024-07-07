@@ -3,14 +3,12 @@ package org.project.youtube.Client.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.project.youtube.Client.Model.Video;
 
@@ -18,6 +16,7 @@ import java.io.IOException;
 
 public class VideoController {
     Video video;
+
     @FXML
     private Label dateCreatedLabel;
 
@@ -75,7 +74,7 @@ public class VideoController {
 
     }
 
-    public void init()  {
+    public void init() {
 
 
     }

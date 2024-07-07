@@ -13,6 +13,7 @@ import org.apache.commons.io.FileUtils;
 import org.bytedeco.ffmpeg.avformat.AVFormatContext;
 import org.bytedeco.ffmpeg.avutil.AVDictionary;
 import org.bytedeco.ffmpeg.global.avformat;
+import org.project.youtube.Client.Model.Network.Request;
 import org.project.youtube.Client.Model.Short;
 import org.project.youtube.Client.Model.Video;
 
@@ -72,19 +73,19 @@ public class UploaderController implements Initializable {
     }
 
     @FXML
-    void uploadVideo() throws IOException {
+    void uploadVideo() throws IOException, InterruptedException {
         if (isShort) {
             Short shortVideo = new Short(UUID.randomUUID(), titleText.getText(), videoLength(file), LocalDateTime.now().toString(),
                     adultOnlyCheck.isSelected(), new ArrayList<>(List.of(tagsText.getText().split(" "))), thumbnailImage,
                     StudioController.channel.getHandle());
 
-            // todo: send short through api and add it to database
+            Request.createShort(shortVideo, file.getAbsolutePath());
         } else {
             Video video = new Video(UUID.randomUUID(), titleText.getText(), descriptionText.getText(), videoLength(file),
                     LocalDateTime.now().toString(), adultOnlyCheck.isSelected(), new ArrayList<>(List.of(tagsText.getText().split(" "))),
                     thumbnailImage, StudioController.channel.getHandle());
 
-            // todo: send video through api and add it to database
+            Request.createVideo(video, file.getAbsolutePath());
         }
     }
 

@@ -10,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -24,11 +23,13 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 import org.project.youtube.Client.Model.Channel;
+import org.project.youtube.Client.Model.Video;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
+import java.util.Comparator;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class StudioController implements Initializable {
@@ -121,8 +122,14 @@ public class StudioController implements Initializable {
     }
 
     @FXML
-    void refreshAll() {
+    void refreshAll(ActionEvent event) throws IOException {
+        if (channel == null) {
+            loadMain(event);
+            return;
+        }
 
+        mainPanel.getChildren().clear();
+        loadDashboard();
     }
 
     @FXML
@@ -161,9 +168,8 @@ public class StudioController implements Initializable {
         // remove the previously loaded child
         mainPanel.getChildren().clear();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/dashboard-view.fxml"));
-        AnchorPane pane = loader.load();
-        mainPanel.getChildren().add(pane);
+        Node node = loadDashboard(channel);
+        mainPanel.getChildren().add(node);
     }
 
     @FXML
@@ -207,5 +213,42 @@ public class StudioController implements Initializable {
 
         scaleTransition.setCycleCount(2);
         scaleTransition.play();
+    }
+
+    private Node loadDashboard(Channel channel) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/dashboard-view.fxml"));
+        Node node = loader.load();
+        DashboardController dashboardController = loader.getController();
+
+        // set attributes
+        dashboardController.controller = this;
+        dashboardController.getSubCount().setText(String.valueOf(channel.getSubscribers()));
+        dashboardController.getViewCount().setText(String.valueOf(channel.getViews()));
+        dashboardController.getVideos().setText(String.valueOf(channel.getVideos().size()));
+        dashboardController.getTopVideos().getItems().addAll(getTopVideos(channel));
+
+        return node;
+    }
+
+    private String[] getTopVideos(Channel channel) {
+        List<Video> topVideos = channel.getVideos();
+        topVideos.sort(Comparator.comparing(Video::getTitle).reversed());
+
+        int size = topVideos.size();
+        String[] videos;
+        // fill array
+        if (size < 10) {
+            videos = new String[size];
+            for (int i = 0; i < size; i++) {
+                videos[i] = topVideos.get(i).getTitle() + " " + topVideos.get(i).getViews();
+            }
+        } else {
+            videos = new String[10];
+            for (int i = 0; i < 10; i++) {
+                videos[i] = topVideos.get(i).getTitle() + " " + topVideos.get(i).getViews();
+            }
+        }
+
+        return videos;
     }
 }

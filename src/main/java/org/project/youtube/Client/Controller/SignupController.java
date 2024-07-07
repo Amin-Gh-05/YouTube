@@ -9,9 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.project.youtube.Client.Main;
 import org.project.youtube.Client.Model.Network.Request;
-import org.project.youtube.Client.Model.User;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -21,22 +19,13 @@ import java.util.regex.Pattern;
 public class SignupController {
 
     @FXML
-    private Button SignUpButton;
-
-    @FXML
     private TextField emailAddress;
 
     @FXML
     private PasswordField passWord;
 
     @FXML
-    private Button signInButton;
-
-    @FXML
     private TextField userName;
-
-    @FXML
-    private Button returnButton;
 
     @FXML
     void signIn(ActionEvent event) throws IOException {
@@ -67,14 +56,7 @@ public class SignupController {
         }
 
         MainController.user = Request.signup(userName.getText(), emailAddress.getText(), DigestUtils.sha256Hex(passWord.getText()));
-
-        // get current stage
-        Stage signupStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        // restore the main page
-        signupStage.close();
-        MainController.mainStage.show();
-
-        System.out.println("| redirect to main panel");
+        turnBack(event);
     }
 
     @FXML
