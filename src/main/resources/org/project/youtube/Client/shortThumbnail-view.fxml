@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane id="thumbnailPanel" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#loadVideo" prefHeight="440.0" prefWidth="240.0" stylesheets="@thumbnail-view.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.ShortThumbnailController">
+    <children>
+        <ImageView fx:id="thumbnailImage" fitHeight="320.0" fitWidth="240.0" layoutX="94.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="119.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Circle id="profilePic" fx:id="profileImage" fill="#ffffff00" layoutX="39.0" layoutY="258.0" radius="25.0" stroke="#e63535" strokeType="INSIDE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="14.0" />
+        <Label fx:id="titleLabel" layoutX="80.0" layoutY="335.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="151.0" text="Title" wrapText="true" AnchorPane.bottomAnchor="48.0" />
+        <Label fx:id="viewsLabel" layoutX="80.0" layoutY="260.0" prefHeight="17.0" prefWidth="100.0" text="Views" AnchorPane.bottomAnchor="22.0" />
+        <Label fx:id="dateLabel" layoutX="190.0" layoutY="260.0" prefHeight="17.0" prefWidth="110.0" text="Date" AnchorPane.bottomAnchor="22.0" />
+    </children>
+</AnchorPane>
