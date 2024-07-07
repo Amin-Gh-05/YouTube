@@ -214,13 +214,16 @@ public class ClientService {
         return gson.toJson(channels, listType2);
     }
 
-    public static String getSubscribedChannels(JSONObject data) {
+    public static String getSubscribedChannels(JSONObject data) throws SQLException {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
+        Type listType = new TypeToken<List<Channel>>() {}.getType();
 
         User user = gson.fromJson(data.getString("user"), User.class);
+        List<Channel> channelList = DatabaseManager.readChannels(user);
 
+        return gson.toJson(channelList, listType);
     }
 
     public static String getPls(JSONObject data) throws SQLException {
