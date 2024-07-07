@@ -152,12 +152,12 @@ public class Request {
 
         return gson.fromJson(respStr, Short.class);
     }
-    public static Channel getChannel(UUID id) throws IOException {
+    public static Channel getChannel(String handle) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "getChannel");
 
         JSONObject data = new JSONObject();
-        data.put("ID", id);
+        data.put("handle", handle);
 
         jsonObject.put("reqData", data);
 

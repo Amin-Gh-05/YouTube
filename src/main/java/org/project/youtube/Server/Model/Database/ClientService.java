@@ -93,7 +93,7 @@ public class ClientService {
         return gson.toJson(shortt);
     }
     public static String getChannel(JSONObject data) throws SQLException {
-        Channel channel = DatabaseManager.readChannel(data.getString("ID"));
+        Channel channel = DatabaseManager.readChannel(data.getString("handle"));
 
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
