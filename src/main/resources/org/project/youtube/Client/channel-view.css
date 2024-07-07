@@ -3,11 +3,6 @@
     -fx-font-size: 12px;
 }
 
-#mainView {
-    -fx-border-color: #E32636;
-    -fx-border-width: 0px 1px 0px 1px;
-}
-
 #nameLabel {
     -fx-font-size: 14px;
 }
@@ -28,9 +23,14 @@
 .actionButton {
     -fx-padding: 5px;
     -fx-background-radius: 25px;
-    -fx-background-color: #f5f5f5;
+    -fx-background-color: #F5F3F4;
     -fx-border-radius: 25px;
-    -fx-border-color: #e32636;
+    -fx-border-color: #0B090A;
+    -fx-cursor: hand;
+}
+
+.actionButton:hover {
+    -fx-background-color: #DDDBDC;
 }
 
 .context-menu {
@@ -58,3 +58,4 @@
     -fx-background-color: #1e1e1e;
     -fx-text-fill: #ffffff;
 }
+

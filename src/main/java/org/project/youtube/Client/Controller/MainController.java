@@ -12,21 +12,37 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.project.youtube.Client.Model.User;
+import org.controlsfx.control.Notifications;
+import org.project.youtube.Client.Model.Short;
+import org.project.youtube.Client.Model.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     public static User user;
+    public static Channel channel;
+
     static Stage mainStage;
 
+    @FXML
+    private FlowPane mainPanel;
+
     // ------------------------------ HEADER ------------------------------
+
+    @FXML
+    private HBox headerPanel;
+
     @FXML
     private Button moreButton;
 
@@ -34,13 +50,13 @@ public class MainController implements Initializable {
     private TextField searchBox;
 
     @FXML
-    private Button searchButton;
-
-    @FXML
     private Button createButton;
 
     @FXML
     private Button signInButton;
+
+    @FXML
+    private Button profileButton;
 
     // ------------------------------ SIDE ------------------------------
 
@@ -90,28 +106,10 @@ public class MainController implements Initializable {
     private Label subLabel;
 
     @FXML
-    private Label channelLabel;
-
-    @FXML
     private Label historyLabel;
 
     @FXML
-    private Label playlistsLabel;
-
-    @FXML
-    private Label videosLabel;
-
-    @FXML
-    private Label laterLabel;
-
-    @FXML
-    private Label likedLabel;
-
-    @FXML
     private Label settingsLabel;
-
-    @FXML
-    private Label helpLabel;
 
     @FXML
     private Separator topSeparator;
@@ -126,12 +124,31 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        refreshAll();
     }
 
     @FXML
     void refreshAll() {
+        if (user == null) {
+            createButton.setDisable(true);
 
+            if (headerPanel.getChildren().contains(profileButton)) {
+                headerPanel.getChildren().remove(profileButton);
+                headerPanel.getChildren().add(signInButton);
+            }
+        } else {
+            createButton.setDisable(false);
+
+            if (headerPanel.getChildren().contains(signInButton)) {
+                headerPanel.getChildren().remove(signInButton);
+                headerPanel.getChildren().add(profileButton);
+            }
+        }
+
+        searchBox.clear();
+        loadHome();
+
+        System.out.println("| main panel refreshed");
     }
 
     @FXML
@@ -218,7 +235,14 @@ public class MainController implements Initializable {
 
     @FXML
     void loadHome() {
+        List<Video> videos = getHomeVideos(user);
+        mainPanel.getChildren().clear();
 
+        if (videos != null) {
+            for (Video video : videos) {
+                mainPanel.getChildren().add(loadThumbnail(video));
+            }
+        }
     }
 
     @FXML
@@ -263,12 +287,26 @@ public class MainController implements Initializable {
 
     @FXML
     void loadSettings() {
-
+        Notifications.create().title("Guidance").text("Everything's already set!").showInformation();
     }
 
     @FXML
     void loadHelp() {
+        Notifications.create().title("Guidance").text("We're all helpless brother!").showInformation();
+    }
 
+    private List<Video> getHomeVideos(User user) {
+        if (user == null) {
+            return loadRandomVideos();
+        }
+
+        // todo: load videos by trending and subscriptions
+        return null;
+    }
+
+    private List<Video> loadRandomVideos() {
+        // todo: load videos for unsigned home
+        return null;
     }
 
     private void playClickEffect(Button button) {
@@ -284,5 +322,88 @@ public class MainController implements Initializable {
 
         scaleTransition.setCycleCount(2);
         scaleTransition.play();
+    }
+
+    private Node loadThumbnail(Video video) {
+        // todo: load thumbnail and set attributes
+        return null;
+    }
+
+    private Node loadThumbnail(Short shortVideo) {
+        // todo: load thumbnail and set attributes
+        return null;
+    }
+
+    private Node loadPlaylist(Playlist playlist) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/playlist-view.fxml"));
+        PlaylistController playlistController = loader.getController();
+
+        // set attributes
+        playlistController.controller = this;
+        playlistController.getPlaylistImage().setImage(new Image(new ByteArrayInputStream(playlist.getImage())));
+        playlistController.getNameLabel().setText(playlist.getName());
+        playlistController.getHandleLabel().setText(playlist.getChannelHandle());
+        playlistController.getIsPublicLabel().setText(String.valueOf(playlist.isPublic()));
+        playlistController.getDescriptionLabel().setText(playlist.getDescription());
+
+        playlistController.getSubmitButton().setVisible(false);
+        if (!playlist.getChannelHandle().equals(channel.getHandle())) {
+            playlistController.getChangeMenu().hide();
+        }
+        // fill videos panel
+        if (!playlist.getVideos().isEmpty()) {
+            for (Video video : playlist.getVideos()) {
+                playlistController.getVideosPanel().getChildren().add(loadThumbnail(video));
+            }
+        }
+        // fill shorts panel
+        if (!playlist.getShorts().isEmpty()) {
+            for (Short shortVideo : playlist.getShorts()) {
+                playlistController.getShortsPanel().getChildren().add(loadThumbnail(shortVideo));
+            }
+        }
+
+        return loader.load();
+    }
+
+    private Node loadChannel(Channel channel) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/channel-view.fxml"));
+        ChannelController channelController = loader.getController();
+
+        // set attributes
+        channelController.controller = this;
+        channelController.getBannerImage().setImage(new Image(new ByteArrayInputStream(channel.getBanner())));
+        channelController.getLogoImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(channel.getLogo()))));
+        channelController.getNameLabel().setText(channel.getName());
+        channelController.getDateLabel().setText(channel.getCreatedDateTime().toString());
+        channelController.getHandleLabel().setText(channel.getHandle());
+        channelController.getSubsLabel().setText(String.valueOf(channel.getSubscribers()));
+        channelController.getViewLabel().setText(String.valueOf(channel.getViews()));
+        channelController.getDescriptionLabel().setText(channel.getDescription());
+
+        channelController.getSubmitButton().setVisible(false);
+        if (!channel.getOwnerYID().equals(user.getYid())) {
+            channelController.getChangeMenu().hide();
+        }
+        // fill videos panel
+        if (!channel.getVideos().isEmpty()) {
+            for (Video video : channel.getVideos()) {
+                channelController.getVideosPanel().getChildren().add(loadThumbnail(video));
+            }
+        }
+        // fill shorts panel
+        if (!channel.getShorts().isEmpty()) {
+            for (Short shortVideo : channel.getShorts()) {
+                channelController.getShortsPanel().getChildren().add(loadThumbnail(shortVideo));
+            }
+        }
+        // fill playlists panel
+        if (!channel.getPlaylists().isEmpty()) {
+            for (Playlist playlist : channel.getPlaylists()) {
+                channelController.getPlaylistsPanel().getChildren().add(loadPlaylist(playlist));
+            }
+        }
+
+        return loader.load();
     }
 }

@@ -55,7 +55,9 @@ public class ContentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        loadVideos(StudioController.channel.getVideos());
+        loadShorts(StudioController.channel.getShorts());
+        loadPlaylists(StudioController.channel.getPlaylists());
     }
 
     private void loadVideos(List<Video> videos) {

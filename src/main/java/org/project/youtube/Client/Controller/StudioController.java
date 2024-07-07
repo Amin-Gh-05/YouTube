@@ -22,8 +22,10 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 import org.project.youtube.Client.Model.Channel;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -36,12 +38,6 @@ public class StudioController implements Initializable {
 
     @FXML
     private Button moreButton;
-
-    @FXML
-    private TextField searchBox;
-
-    @FXML
-    private Button profileView;
 
     @FXML
     private Button createButton;
@@ -89,13 +85,12 @@ public class StudioController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // set image for profile viewer
-        ImagePattern imagePattern = new ImagePattern(new Image(Objects.requireNonNull(getClass().getResourceAsStream(
-                "/org/project/youtube/Client/images/profile-background.png"))));
+        ImagePattern imagePattern = new ImagePattern(new Image(new ByteArrayInputStream(channel.getLogo())));
         profilePic.setFill(imagePattern);
         profilePic.setEffect(new DropShadow(10, Color.BLACK));
 
         // set name of channel
-        nameLabel.setText("test");
+        nameLabel.setText(channel.getName());
     }
 
     @FXML
@@ -153,7 +148,7 @@ public class StudioController implements Initializable {
 
     @FXML
     void loadHelp() {
-
+        Notifications.create().title("Guidance").text("Call 911").showInformation();
     }
 
     @FXML
@@ -164,9 +159,7 @@ public class StudioController implements Initializable {
     @FXML
     void loadDashboard() throws IOException {
         // remove the previously loaded child
-        if (!mainPanel.getChildren().isEmpty()) {
-            mainPanel.getChildren().removeFirst();
-        }
+        mainPanel.getChildren().clear();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/dashboard-view.fxml"));
         AnchorPane pane = loader.load();
@@ -176,9 +169,7 @@ public class StudioController implements Initializable {
     @FXML
     void loadContent() throws IOException {
         // remove the previously loaded child
-        if (!mainPanel.getChildren().isEmpty()) {
-            mainPanel.getChildren().removeFirst();
-        }
+        mainPanel.getChildren().clear();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/content-view.fxml"));
         AnchorPane pane = loader.load();
@@ -187,7 +178,7 @@ public class StudioController implements Initializable {
 
     @FXML
     void loadSettings() {
-
+        Notifications.create().title("Guidance").text("You mean you're not glad with settings?").showInformation();
     }
 
     @FXML
@@ -197,6 +188,10 @@ public class StudioController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
+    }
+
+    public StackPane getMainPanel() {
+        return mainPanel;
     }
 
     private void playClickEffect(Button button) {
@@ -212,9 +207,5 @@ public class StudioController implements Initializable {
 
         scaleTransition.setCycleCount(2);
         scaleTransition.play();
-    }
-
-    public StackPane getMainPanel() {
-        return mainPanel;
     }
 }

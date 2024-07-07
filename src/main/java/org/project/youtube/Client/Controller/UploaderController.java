@@ -2,6 +2,7 @@ package org.project.youtube.Client.Controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
@@ -12,22 +13,22 @@ import org.apache.commons.io.FileUtils;
 import org.bytedeco.ffmpeg.avformat.AVFormatContext;
 import org.bytedeco.ffmpeg.avutil.AVDictionary;
 import org.bytedeco.ffmpeg.global.avformat;
+import org.project.youtube.Client.Model.Short;
 import org.project.youtube.Client.Model.Video;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.UUID;
 
-public class UploaderController {
+public class UploaderController implements Initializable {
     static File file;
-
     static boolean isShort;
-
     StudioController controller;
-
     private byte[] thumbnailImage;
 
     @FXML
@@ -41,6 +42,13 @@ public class UploaderController {
 
     @FXML
     private TextField tagsText;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (isShort) {
+            descriptionText.setDisable(true);
+        }
+    }
 
     @FXML
     void cancelButton() throws IOException {
@@ -66,7 +74,11 @@ public class UploaderController {
     @FXML
     void uploadVideo() throws IOException {
         if (isShort) {
+            Short shortVideo = new Short(UUID.randomUUID(), titleText.getText(), videoLength(file), LocalDateTime.now().toString(),
+                    adultOnlyCheck.isSelected(), new ArrayList<>(List.of(tagsText.getText().split(" "))), thumbnailImage,
+                    StudioController.channel.getHandle());
 
+            // todo: send short through api and add it to database
         } else {
             Video video = new Video(UUID.randomUUID(), titleText.getText(), descriptionText.getText(), videoLength(file),
                     LocalDateTime.now().toString(), adultOnlyCheck.isSelected(), new ArrayList<>(List.of(tagsText.getText().split(" "))),
@@ -83,7 +95,7 @@ public class UploaderController {
 
         // file extension filers
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Video Files", "*.mp4", "*.mkv", "*.m4a", "*.m4v"),
+                new FileChooser.ExtensionFilter("Video Files", "*.mp4"),
                 new FileChooser.ExtensionFilter("All Files", "*.*")
         );
 
@@ -111,7 +123,7 @@ public class UploaderController {
         }
 
         // get the duration in seconds
-        long durationInMicroseconds = formatContext.duration(); // Duration in microseconds
+        long durationInMicroseconds = formatContext.duration(); // duration in microseconds
         double durationInSeconds = durationInMicroseconds / 1_000_000.0;
 
         return (int) durationInSeconds;
