@@ -9,8 +9,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaView;
+import org.project.youtube.Client.Model.Video;
 
 public class MediaPlayerController {
+    Video video;
 
     @FXML
     private BorderPane borderPane;

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -84,14 +85,14 @@
       </AnchorPane>
     <AnchorPane layoutY="225.0" minHeight="0.0" minWidth="0.0" prefHeight="356.0" prefWidth="785.0">
          <children>
-            <VBox layoutX="200.0" layoutY="8.0" prefHeight="343.0" prefWidth="519.0">
+            <VBox layoutX="14.0" layoutY="7.0" prefHeight="343.0" prefWidth="411.0">
                <children>
                   <Label alignment="CENTER" prefHeight="36.0" prefWidth="202.0" text="Personal Info">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
                   </Label>
-                  <AnchorPane prefHeight="315.0" prefWidth="513.0">
+                  <AnchorPane prefHeight="307.0" prefWidth="398.0">
                      <children>
                         <HBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="47.0" prefWidth="434.0">
                            <children>
@@ -108,7 +109,7 @@
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="nameField" maxWidth="1.7976931348623157E308" prefHeight="47.0" prefWidth="358.0">
+                              <Label fx:id="nameField" maxWidth="1.7976931348623157E308" prefHeight="47.0" prefWidth="307.0">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -265,6 +266,11 @@
                </children>
             </VBox>
             <Separator layoutY="2.0" prefHeight="4.0" prefWidth="774.0" />
+            <ScrollPane hbarPolicy="NEVER" layoutX="374.0" layoutY="4.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="333.0" prefWidth="392.0">
+               <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="413.0" prefWidth="358.0" />
+               </content>
+            </ScrollPane>
          </children>
       </AnchorPane>
       <HBox layoutX="7.0" layoutY="196.0" maxWidth="-Infinity" prefHeight="47.0" prefWidth="227.0">
