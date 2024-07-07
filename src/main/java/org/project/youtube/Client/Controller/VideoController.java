@@ -3,6 +3,7 @@ package org.project.youtube.Client.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -74,16 +75,17 @@ public class VideoController {
     }
 
     public void initialize() throws IOException {
-        // TODO set video to mediaplayer
+    }
 
-//        FXMLLoader mediaPlayerLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/media-player.fxml"));
-//        MediaPlayerController mediaPlayerController = mediaPlayerLoader.getController();
-//        StackPane mediaPlayer = mediaPlayerLoader.load();
-//        mediaPlayerPane.getChildren().add(mediaPlayer);
-//
-//
-//        mediaPlayerController.setPath("C:\\YouTube\\a.mp4");
-//        mediaPlayerController.setPane(mediaPlayerPane);
+
+    public void loadPlayer() throws IOException {
+        FXMLLoader mediaPlayerLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/media-player.fxml"));
+        StackPane mediaPlayer = mediaPlayerLoader.load();
+        MediaPlayerController mediaPlayerController = mediaPlayerLoader.getController();
+        mediaPlayerPane.getChildren().add(mediaPlayer);
+
+        mediaPlayerController.setPath("C:\\YouTube\\a.mp4");
+        mediaPlayerController.setPane(mediaPlayerPane);
     }
 
 

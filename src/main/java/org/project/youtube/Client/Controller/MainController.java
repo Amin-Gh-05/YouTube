@@ -411,12 +411,14 @@ public class MainController implements Initializable {
 
     public void fakeBtnAction(ActionEvent actionEvent) throws IOException {
         Video video = new Video(UUID.randomUUID(), "AAAAAA", "ABCHAJASLSJSAL", 1059, LocalDate.now().toString(), 100, null, false, null, null, " ", 1000);
+        refreshAll();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/video-view.fxml"));
         Parent root = loader.load();
         mainPanel.getChildren().add(root);
         VideoController videoController = loader.getController();
         videoController.video = video;
+        videoController.loadPlayer();
 
     }
 }
