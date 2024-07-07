@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<ScrollPane hbarPolicy="NEVER" prefHeight="720.0" prefWidth="1200.0" styleClass="primary-color" stylesheets="@video-view.css" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane hbarPolicy="NEVER" prefHeight="720.0" prefWidth="1200.0" styleClass="primary-color" stylesheets="@video-view.css" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.VideoController">
    <content>
       <AnchorPane prefWidth="1200.0">
          <children>

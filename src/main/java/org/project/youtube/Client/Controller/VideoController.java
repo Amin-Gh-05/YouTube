@@ -74,18 +74,16 @@ public class VideoController {
     }
 
     public void initialize() throws IOException {
-        //this.video =
-
         // TODO set video to mediaplayer
+
         FXMLLoader mediaPlayerLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/media-player.fxml"));
         MediaPlayerController mediaPlayerController = mediaPlayerLoader.getController();
         StackPane mediaPlayer = mediaPlayerLoader.load();
         mediaPlayerPane.getChildren().add(mediaPlayer);
 
 
-
-
-
+        mediaPlayerController.setPath("C:\\YouTube\\a.mp4");
+        mediaPlayerController.setPane(mediaPlayerPane);
     }
 
 

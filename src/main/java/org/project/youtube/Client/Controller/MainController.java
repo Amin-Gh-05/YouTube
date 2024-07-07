@@ -26,8 +26,10 @@ import org.project.youtube.Client.Model.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 public class MainController implements Initializable {
     public static User user;
@@ -124,7 +126,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        refreshAll();
+        //refreshAll();
     }
 
     @FXML
@@ -405,5 +407,16 @@ public class MainController implements Initializable {
         }
 
         return loader.load();
+    }
+
+    public void fakeBtnAction(ActionEvent actionEvent) throws IOException {
+        Video video = new Video(UUID.randomUUID(), "AAAAAA", "ABCHAJASLSJSAL", 1059, LocalDate.now().toString(), 100, null, false, null, null, " ", 1000);
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/video-view.fxml"));
+        VideoController videoController = loader.getController();
+        videoController.video = video;
+        Parent root = loader.load();
+
+        mainPanel.getChildren().add(root);
     }
 }
