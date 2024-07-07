@@ -418,6 +418,7 @@ public class MainController implements Initializable {
         mainPanel.getChildren().add(root);
         VideoController videoController = loader.getController();
         videoController.video = video;
+        videoController.init();
         videoController.loadPlayer();
 
     }
