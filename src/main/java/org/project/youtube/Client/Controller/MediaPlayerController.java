@@ -1,9 +1,9 @@
 package org.project.youtube.Client.Controller;
 
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -17,6 +17,7 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.Callable;
 
 public class MediaPlayerController implements Initializable {
 
@@ -67,6 +68,7 @@ public class MediaPlayerController implements Initializable {
     private MediaPlayer mediaPlayer;
     public static Thread fadeOutThread;
     private double lastVolume;
+    private String totalTimeStr;
 
 
     @Override
@@ -78,9 +80,6 @@ public class MediaPlayerController implements Initializable {
 
         borderPane.prefWidthProperty().bind(mediaView.fitWidthProperty());
         borderPane.prefHeightProperty().bind(mediaView.fitHeightProperty());
-
-        mediaPlayer.setVolume(1);
-        mediaPlayer.setBalance(0);
 
         rateSlider.valueProperty().addListener((observable, oldValue, newValue) -> mediaPlayer.setRate((double)newValue));
         volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -97,18 +96,37 @@ public class MediaPlayerController implements Initializable {
 
         mediaPlayer.setOnReady(() -> {
             Duration totalDuration = media.getDuration();
+            totalTimeStr = getTime(totalDuration);
             videoSlider.setMax(totalDuration.toSeconds());
         });
 
         mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> videoSlider.setValue(newValue.toSeconds()));
 
         lastVolume = 1.0;
+
+        timeLbl.textProperty().bind(Bindings.createStringBinding(() -> getTime(mediaPlayer.getCurrentTime()) + " / " + totalTimeStr, mediaPlayer.currentTimeProperty()));
     }
 
     public void setPath(String path) {
         media = new Media(path);
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
+
+        mediaPlayer.setVolume(1);
+        mediaPlayer.setBalance(0);
+    }
+
+    private String getTime(Duration time) {
+        int h = (int) time.toHours();
+        int m = (int) time.toMinutes();
+        int s = (int) time.toSeconds();
+
+        if (h > 59) h %= 60;
+        if (m > 59) m %= 60;
+        if (s > 59) s %= 60;
+
+        if (h > 0) return String.format("%d:%02d:%02d", h, m, s);
+        else return String.format("%02d:%02d", m, s);
     }
 
     @FXML
