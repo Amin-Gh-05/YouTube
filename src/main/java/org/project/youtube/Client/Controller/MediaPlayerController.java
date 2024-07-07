@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -69,14 +70,13 @@ public class MediaPlayerController implements Initializable {
     public static Thread fadeOutThread;
     private double lastVolume;
     private String totalTimeStr;
+    private Pane pane;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // TODO Use The Media Player Container instead of scene
-//        Scene scene = mediaView.getScene();
-//        mediaView.fitWidthProperty().bind(scene.widthProperty());
-//        mediaView.fitHeightProperty().bind(scene.heightProperty());
+        mediaView.fitWidthProperty().bind(pane.widthProperty());
+        mediaView.fitHeightProperty().bind(pane.heightProperty());
 
         borderPane.prefWidthProperty().bind(mediaView.fitWidthProperty());
         borderPane.prefHeightProperty().bind(mediaView.fitHeightProperty());
@@ -114,6 +114,10 @@ public class MediaPlayerController implements Initializable {
 
         mediaPlayer.setVolume(1);
         mediaPlayer.setBalance(0);
+    }
+
+    public void setPane(Pane pane) {
+        this.pane = pane;
     }
 
     private String getTime(Duration time) {
