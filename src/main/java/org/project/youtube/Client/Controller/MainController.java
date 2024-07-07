@@ -227,6 +227,11 @@ public class MainController implements Initializable {
 
     @FXML
     void loadStudio(ActionEvent event) throws IOException {
+        if (user == null) {
+            System.out.println("| studio not available");
+            return;
+        }
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/studio-view.fxml"));
         Parent root = loader.load();
 
@@ -262,6 +267,11 @@ public class MainController implements Initializable {
 
     @FXML
     void loadChannel() throws IOException {
+        if (user == null) {
+            System.out.println("| channel not available");
+            return;
+        }
+
         Node node = loadFullChannel(channel);
 
         if (node != null) {
@@ -289,6 +299,11 @@ public class MainController implements Initializable {
 
     @FXML
     void loadLaters() throws IOException {
+        if (user == null) {
+            System.out.println("| watch-laters not available");
+            return;
+        }
+
         Playlist laters = Request.getWatchLaterPlaylist(channel.getHandle());
         Node node = loadPlaylist(laters);
 
@@ -303,6 +318,11 @@ public class MainController implements Initializable {
 
     @FXML
     void loadLikes() throws IOException {
+        if (user == null) {
+            System.out.println("| liked-videos not available");
+            return;
+        }
+
         Playlist liked = Request.getLikedVideosPlaylist(channel.getHandle());
         Node node = loadPlaylist(liked);
 
@@ -363,6 +383,7 @@ public class MainController implements Initializable {
 
         // set attributes
         thumbnailController.controller = this;
+        thumbnailController.video = video;
         thumbnailController.getThumbnailImage().setImage(new Image(new ByteArrayInputStream(video.getThumbnail())));
         thumbnailController.getProfileImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(videoChannel.getLogo()))));
         thumbnailController.getTitleLabel().setText(video.getTitle());
@@ -381,6 +402,7 @@ public class MainController implements Initializable {
 
         // set attributes
         thumbnailController.controller = this;
+        thumbnailController.aShort = shortVideo;
         thumbnailController.getThumbnailImage().setImage(new Image(new ByteArrayInputStream(shortVideo.getThumbnail())));
         thumbnailController.getProfileImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(shortChannel.getLogo()))));
         thumbnailController.getTitleLabel().setText(shortVideo.getTitle());

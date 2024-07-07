@@ -19,19 +19,10 @@ import java.util.regex.Pattern;
 public class LoginController {
 
     @FXML
-    private Button SignUpButton;
-
-    @FXML
     private PasswordField passWord;
 
     @FXML
-    private Button signInButton;
-
-    @FXML
     private TextField userName;
-
-    @FXML
-    private Button returnButton;
 
     @FXML
     void signIn(ActionEvent event) throws IOException {
@@ -42,15 +33,9 @@ public class LoginController {
         if (!checkPassword(passWord.getText())) {
             return;
         }
+
         MainController.user = Request.login(usernameInt, userName.getText(), DigestUtils.sha256Hex(passWord.getText()));
-
-        // get current stage
-        Stage signupStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        // restore the main page
-        signupStage.close();
-        MainController.mainStage.show();
-
-        System.out.println("| redirect to main panel");
+        turnBack(event);
     }
 
     @FXML
@@ -132,12 +117,13 @@ public class LoginController {
         // show alert for invalid username
         Alert alert = new Alert(Alert.AlertType.ERROR);
         if (a) {
-            alert.setTitle("Invalid Username or Email");
+            alert.setTitle("Invalid username or email");
         } else {
-            alert.setTitle("Username or Email Does not Exist");
+            alert.setTitle("Username or email does not exist");
         }
         alert.setHeaderText("Please enter a valid username");
-        alert.setContentText("A valid username should be unique with 6-20 characters including numbers and letters, _ and .\nA valid email should be unique and consistent with the email address");
+        alert.setContentText("A valid username should be unique with 6-20 characters including numbers and letters, _ and .\n" +
+                "A valid email should be unique and consistent with the email address");
         if (alert.showAndWait().get() == ButtonType.OK) {
             userName.clear();
             System.out.println("| try again with new username");

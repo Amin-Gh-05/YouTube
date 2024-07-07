@@ -16,13 +16,13 @@ public class DashboardController {
     private Label subCount;
 
     @FXML
-    private ListView<String> topVideos;
-
-    @FXML
     private Label viewCount;
 
     @FXML
-    private Label watchTime;
+    private Label videos;
+
+    @FXML
+    private ListView<String> topVideos;
 
     @FXML
     void createContent() throws IOException {
@@ -35,5 +35,21 @@ public class DashboardController {
         Node node = loader.load();
         controller.getMainPanel().getChildren().clear();
         controller.getMainPanel().getChildren().add(node);
+    }
+
+    public Label getSubCount() {
+        return subCount;
+    }
+
+    public Label getViewCount() {
+        return viewCount;
+    }
+
+    public Label getVideos() {
+        return videos;
+    }
+
+    public ListView<String> getTopVideos() {
+        return topVideos;
     }
 }
