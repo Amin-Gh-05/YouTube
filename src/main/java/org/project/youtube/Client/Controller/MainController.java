@@ -20,16 +20,15 @@ import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
+import org.project.youtube.Client.Model.Network.Request;
 import org.project.youtube.Client.Model.Short;
 import org.project.youtube.Client.Model.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.UUID;
 
 public class MainController implements Initializable {
     public static User user;
@@ -126,11 +125,15 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //refreshAll();
+        try {
+            refreshAll();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @FXML
-    void refreshAll() {
+    void refreshAll() throws IOException {
         if (user == null) {
             createButton.setDisable(true);
 
@@ -236,7 +239,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void loadHome() {
+    void loadHome() throws IOException {
         List<Video> videos = getHomeVideos(user);
         mainPanel.getChildren().clear();
 
@@ -258,8 +261,15 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void loadChannel() {
+    void loadChannel() throws IOException {
+        Node node = loadFullChannel(channel);
 
+        if (node != null) {
+            mainPanel.getChildren().clear();
+            mainPanel.getChildren().add(node);
+        } else {
+            System.out.println("| redirect to channel failed");
+        }
     }
 
     @FXML
@@ -278,13 +288,31 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void loadLaters() {
+    void loadLaters() throws IOException {
+        Playlist laters = Request.getWatchLaterPlaylist(channel.getHandle());
+        Node node = loadPlaylist(laters);
 
+        if (node != null) {
+            mainPanel.getChildren().clear();
+            mainPanel.getChildren().add(node);
+            System.out.println("| redirect to watch later playlist");
+        } else {
+            System.out.println("| redirect to watch-laters failed");
+        }
     }
 
     @FXML
-    void loadLikes() {
+    void loadLikes() throws IOException {
+        Playlist liked = Request.getLikedVideosPlaylist(channel.getHandle());
+        Node node = loadPlaylist(liked);
 
+        if (node != null) {
+            mainPanel.getChildren().clear();
+            mainPanel.getChildren().add(node);
+            System.out.println("| redirect to liked-videos playlist");
+        } else {
+            System.out.println("| redirect to liked-videos failed");
+        }
     }
 
     @FXML
@@ -326,18 +354,45 @@ public class MainController implements Initializable {
         scaleTransition.play();
     }
 
-    private Node loadThumbnail(Video video) {
-        // todo: load thumbnail and set attributes
-        return null;
+    private Node loadThumbnail(Video video) throws IOException {
+        Channel videoChannel = Request.getChannel(video.getVideoHandle());
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/video-thumbnail.fxml"));
+        ThumbnailController thumbnailController = loader.getController();
+        Node node = loader.load();
+
+        // set attributes
+        thumbnailController.controller = this;
+        thumbnailController.getThumbnailImage().setImage(new Image(new ByteArrayInputStream(video.getThumbnail())));
+        thumbnailController.getProfileImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(videoChannel.getLogo()))));
+        thumbnailController.getTitleLabel().setText(video.getTitle());
+        thumbnailController.getDateLabel().setText(video.getCreatedDateTime().toString());
+        thumbnailController.getViewsLabel().setText(String.valueOf(video.getViews()));
+
+        return node;
     }
 
-    private Node loadThumbnail(Short shortVideo) {
-        // todo: load thumbnail and set attributes
-        return null;
+    private Node loadThumbnail(Short shortVideo) throws IOException {
+        Channel shortChannel = Request.getChannel(shortVideo.getShortHandle());
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/short-thumbnail.fxml"));
+        ThumbnailController thumbnailController = loader.getController();
+        Node node = loader.load();
+
+        // set attributes
+        thumbnailController.controller = this;
+        thumbnailController.getThumbnailImage().setImage(new Image(new ByteArrayInputStream(shortVideo.getThumbnail())));
+        thumbnailController.getProfileImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(shortChannel.getLogo()))));
+        thumbnailController.getTitleLabel().setText(shortVideo.getTitle());
+        thumbnailController.getDateLabel().setText(shortVideo.getCreatedDateTime().toString());
+        thumbnailController.getViewsLabel().setText(String.valueOf(shortVideo.getViews()));
+
+        return node;
     }
 
     private Node loadPlaylist(Playlist playlist) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/playlist-view.fxml"));
+        Node node = loader.load();
         PlaylistController playlistController = loader.getController();
 
         // set attributes
@@ -365,11 +420,35 @@ public class MainController implements Initializable {
             }
         }
 
-        return loader.load();
+        return node;
     }
 
-    private Node loadChannel(Channel channel) throws IOException {
+    private Node loadMinChannel(Channel channel) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/channel-view.fxml"));
+        loader.load();
+        ChannelController channelController = loader.getController();
+
+        // set attributes
+        channelController.controller = this;
+        channelController.getLogoImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(channel.getLogo()))));
+        channelController.getNameLabel().setText(channel.getName());
+        channelController.getDateLabel().setText(channel.getCreatedDateTime().toString());
+        channelController.getHandleLabel().setText(channel.getHandle());
+        channelController.getSubsLabel().setText(String.valueOf(channel.getSubscribers()));
+        channelController.getViewLabel().setText(String.valueOf(channel.getViews()));
+        channelController.getDescriptionLabel().setText(channel.getDescription());
+
+        channelController.getSubmitButton().setVisible(false);
+        if (!channel.getOwnerYID().equals(user.getYid())) {
+            channelController.getChangeMenu().hide();
+        }
+
+        return channelController.getInfoPanel();
+    }
+
+    private Node loadFullChannel(Channel channel) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/channel-view.fxml"));
+        Node node = loader.load();
         ChannelController channelController = loader.getController();
 
         // set attributes
@@ -406,20 +485,6 @@ public class MainController implements Initializable {
             }
         }
 
-        return loader.load();
-    }
-
-    public void fakeBtnAction(ActionEvent actionEvent) throws IOException {
-        Video video = new Video(UUID.randomUUID(), "AAAAAA", "ABCHAJASLSJSAL", 1059, LocalDate.now().toString(), 100, null, false, null, null, " ", 1000);
-        refreshAll();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/video-view.fxml"));
-        Parent root = loader.load();
-        mainPanel.getChildren().add(root);
-        VideoController videoController = loader.getController();
-        videoController.video = video;
-        videoController.init();
-        videoController.loadPlayer();
-
+        return node;
     }
 }

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<AnchorPane id="thumbnailPanel" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#loadVideo" prefHeight="440.0" prefWidth="240.0" stylesheets="@thumbnail-view.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.ShortThumbnailController">
+<AnchorPane id="thumbnailPanel" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#loadVideo" prefHeight="440.0" prefWidth="240.0" stylesheets="@video-thumbnail.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.ThumbnailController">
     <children>
         <ImageView fx:id="thumbnailImage" fitHeight="320.0" fitWidth="240.0" layoutX="94.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="119.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <Circle id="profilePic" fx:id="profileImage" fill="#ffffff00" layoutX="39.0" layoutY="258.0" radius="25.0" stroke="#e63535" strokeType="INSIDE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="14.0" />
