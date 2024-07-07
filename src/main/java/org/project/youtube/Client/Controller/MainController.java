@@ -12,16 +12,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
-import org.project.youtube.Client.Model.Playlist;
-import org.project.youtube.Client.Model.User;
-import org.project.youtube.Client.Model.Video;
+import org.project.youtube.Client.Model.Short;
+import org.project.youtube.Client.Model.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -29,6 +31,8 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     public static User user;
+    public static Channel channel;
+
     static Stage mainStage;
 
     @FXML
@@ -325,8 +329,81 @@ public class MainController implements Initializable {
         return null;
     }
 
-    private Node loadPlaylist(Playlist playlist) {
-        // todo: load playlist page and set attributes
+    private Node loadThumbnail(Short shortVideo) {
+        // todo: load thumbnail and set attributes
         return null;
+    }
+
+    private Node loadPlaylist(Playlist playlist) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/playlist-view.fxml"));
+        PlaylistController playlistController = loader.getController();
+
+        // set attributes
+        playlistController.controller = this;
+        playlistController.getPlaylistImage().setImage(new Image(new ByteArrayInputStream(playlist.getImage())));
+        playlistController.getNameLabel().setText(playlist.getName());
+        playlistController.getHandleLabel().setText(playlist.getChannelHandle());
+        playlistController.getIsPublicLabel().setText(String.valueOf(playlist.isPublic()));
+        playlistController.getDescriptionLabel().setText(playlist.getDescription());
+
+        playlistController.getSubmitButton().setVisible(false);
+        if (!playlist.getChannelHandle().equals(channel.getHandle())) {
+            playlistController.getChangeMenu().hide();
+        }
+        // fill videos panel
+        if (!playlist.getVideos().isEmpty()) {
+            for (Video video : playlist.getVideos()) {
+                playlistController.getVideosPanel().getChildren().add(loadThumbnail(video));
+            }
+        }
+        // fill shorts panel
+        if (!playlist.getShorts().isEmpty()) {
+            for (Short shortVideo : playlist.getShorts()) {
+                playlistController.getShortsPanel().getChildren().add(loadThumbnail(shortVideo));
+            }
+        }
+
+        return loader.load();
+    }
+
+    private Node loadChannel(Channel channel) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/channel-view.fxml"));
+        ChannelController channelController = loader.getController();
+
+        // set attributes
+        channelController.controller = this;
+        channelController.getBannerImage().setImage(new Image(new ByteArrayInputStream(channel.getBanner())));
+        channelController.getLogoImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(channel.getLogo()))));
+        channelController.getNameLabel().setText(channel.getName());
+        channelController.getDateLabel().setText(channel.getCreatedDateTime().toString());
+        channelController.getHandleLabel().setText(channel.getHandle());
+        channelController.getSubsLabel().setText(String.valueOf(channel.getSubscribers()));
+        channelController.getViewLabel().setText(String.valueOf(channel.getViews()));
+        channelController.getDescriptionLabel().setText(channel.getDescription());
+
+        channelController.getSubmitButton().setVisible(false);
+        if (!channel.getOwnerYID().equals(user.getYid())) {
+            channelController.getChangeMenu().hide();
+        }
+        // fill videos panel
+        if (!channel.getVideos().isEmpty()) {
+            for (Video video : channel.getVideos()) {
+                channelController.getVideosPanel().getChildren().add(loadThumbnail(video));
+            }
+        }
+        // fill shorts panel
+        if (!channel.getShorts().isEmpty()) {
+            for (Short shortVideo : channel.getShorts()) {
+                channelController.getShortsPanel().getChildren().add(loadThumbnail(shortVideo));
+            }
+        }
+        // fill playlists panel
+        if (!channel.getPlaylists().isEmpty()) {
+            for (Playlist playlist : channel.getPlaylists()) {
+                channelController.getPlaylistsPanel().getChildren().add(loadPlaylist(playlist));
+            }
+        }
+
+        return loader.load();
     }
 }

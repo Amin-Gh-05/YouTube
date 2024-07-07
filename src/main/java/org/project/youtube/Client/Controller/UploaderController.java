@@ -27,11 +27,8 @@ import java.util.UUID;
 
 public class UploaderController implements Initializable {
     static File file;
-
     static boolean isShort;
-
     StudioController controller;
-
     private byte[] thumbnailImage;
 
     @FXML
@@ -126,7 +123,7 @@ public class UploaderController implements Initializable {
         }
 
         // get the duration in seconds
-        long durationInMicroseconds = formatContext.duration(); // Duration in microseconds
+        long durationInMicroseconds = formatContext.duration(); // duration in microseconds
         double durationInSeconds = durationInMicroseconds / 1_000_000.0;
 
         return (int) durationInSeconds;

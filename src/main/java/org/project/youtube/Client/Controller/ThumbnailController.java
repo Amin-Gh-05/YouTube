@@ -36,39 +36,19 @@ public class ThumbnailController {
         return thumbnailImage;
     }
 
-    public void setThumbnailImage(ImageView thumbnailImage) {
-        this.thumbnailImage = thumbnailImage;
-    }
-
     public Circle getProfileImage() {
         return profileImage;
-    }
-
-    public void setProfileImage(Circle profileImage) {
-        this.profileImage = profileImage;
     }
 
     public Label getTitleLabel() {
         return titleLabel;
     }
 
-    public void setTitleLabel(Label titleLabel) {
-        this.titleLabel = titleLabel;
-    }
-
     public Label getDateLabel() {
         return dateLabel;
     }
 
-    public void setDateLabel(Label dateLabel) {
-        this.dateLabel = dateLabel;
-    }
-
     public Label getViewsLabel() {
         return viewsLabel;
-    }
-
-    public void setViewsLabel(Label viewsLabel) {
-        this.viewsLabel = viewsLabel;
     }
 }
