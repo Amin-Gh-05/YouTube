@@ -71,6 +71,7 @@ public class MediaPlayerController {
     private double lastVolume;
     private String totalTimeStr;
     private Pane pane;
+    static boolean c;
 
 
     public void init() {
@@ -197,11 +198,13 @@ public class MediaPlayerController {
             fadeOutThread.interrupt();
         }
         controllersVBox.setOpacity(1);
+        c = false;
     }
 
     public void hideVBox(MouseEvent mouseEvent) {
         fadeOutThread = new Thread(new MediaPlayerFadeOut(controllersVBox));
         fadeOutThread.start();
+        c = true;
     }
 
     public void videoSliderSeek(MouseEvent mouseEvent) {
