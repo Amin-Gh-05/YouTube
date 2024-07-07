@@ -18,7 +18,9 @@ public class MediaPlayerFadeOut implements Runnable {
         try {
             while (true) {
                 Thread.sleep(1500);
-                Platform.runLater(this::hide);
+                if (MediaPlayerController.c) {
+                    Platform.runLater(this::hide);
+                }
             }
         }
         catch (InterruptedException e) {
