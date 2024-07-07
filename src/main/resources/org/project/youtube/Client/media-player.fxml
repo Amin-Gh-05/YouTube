@@ -18,7 +18,7 @@
                     <children>
                         <HBox alignment="CENTER" prefWidth="200.0" style="-fx-background-color: transparent;">
                             <children>
-                                <Slider fx:id="videoSlider" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS" />
+                                <Slider fx:id="videoSlider" onMousePressed="#videoSliderSeek" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS" />
                             </children></HBox>
                         <HBox prefWidth="200.0" spacing="10.0" style="-fx-background-color: transparent;">
                             <children>

@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -62,6 +63,7 @@ public class MediaPlayerController implements Initializable {
     private Slider volumeSlider;
 
 
+    private Media media;
     private MediaPlayer mediaPlayer;
     public static Thread fadeOutThread;
     private double lastVolume;
@@ -93,13 +95,18 @@ public class MediaPlayerController implements Initializable {
             }
         });
 
-        // TODO <seek>
+        mediaPlayer.setOnReady(() -> {
+            Duration totalDuration = media.getDuration();
+            videoSlider.setMax(totalDuration.toSeconds());
+        });
+
+        mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> videoSlider.setValue(newValue.toSeconds()));
 
         lastVolume = 1.0;
     }
 
     public void setPath(String path) {
-        Media media = new Media(path);
+        media = new Media(path);
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
     }
@@ -177,5 +184,9 @@ public class MediaPlayerController implements Initializable {
     public void hideVBox(MouseEvent mouseEvent) {
         fadeOutThread = new Thread(new MediaPlayerFadeOut(controllersVBox));
         fadeOutThread.start();
+    }
+
+    public void videoSliderSeek(MouseEvent mouseEvent) {
+        mediaPlayer.seek(Duration.seconds(videoSlider.getValue()));
     }
 }
