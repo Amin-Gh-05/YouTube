@@ -7,7 +7,6 @@ module org.project.youtube {
     requires com.google.gson;
     requires org.controlsfx.controls;
     requires javafx.media;
-    requires org.apache.commons.codec;
     requires org.apache.commons.io;
     requires org.bytedeco.ffmpeg;
 
