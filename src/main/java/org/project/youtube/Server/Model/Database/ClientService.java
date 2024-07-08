@@ -280,7 +280,7 @@ public class ClientService {
         return gson.toJson(playlists, listType);
     }
 
-    public static boolean isSubscribed(JSONObject data) {
+    public static boolean isSubscribed(JSONObject data) throws SQLException {
         String handle = data.getString("handle");
         String yid = data.getString("YID");
 
@@ -392,7 +392,7 @@ public class ClientService {
             User user = gson.fromJson(data.getString("user"), User.class);
             int subs = channel.getSubscribers();
 
-            if (DatabaseManager.isSubscribed(user, channel)) {
+            if (DatabaseManager.isSubscribed(user.getYid().toString(), channel.getHandle())) {
                 return false;
             }
 
@@ -747,7 +747,7 @@ public class ClientService {
             User user = gson.fromJson(data.getString("user"), User.class);
             int subs = channel.getSubscribers();
 
-            if (!DatabaseManager.isSubscribed(user, channel)) {
+            if (!DatabaseManager.isSubscribed(user.getYid().toString(), channel.getHandle())) {
                 return false;
             }
 
