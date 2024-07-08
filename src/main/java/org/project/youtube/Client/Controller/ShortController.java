@@ -3,13 +3,24 @@ package org.project.youtube.Client.Controller;
 import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import org.project.youtube.Client.Model.Network.Request;
+import org.project.youtube.Client.Model.Short;
+
+import java.io.IOException;
 
 public class ShortController {
+
+    private Short shortVideo;
+
+
     @FXML
     private Button commentsBtn;
 
@@ -40,6 +51,10 @@ public class ShortController {
     @FXML
     private Button saveToPLBtn;
 
+    @FXML
+    private Pane playerPane;
+
+
     private void playClickEffect(Button button) {
         // animation class
         ScaleTransition scaleTransition = new ScaleTransition();
@@ -53,6 +68,26 @@ public class ShortController {
 
         scaleTransition.setCycleCount(2);
         scaleTransition.play();
+    }
+
+    public void setShortVideo(Short shortVideo) {
+        this.shortVideo = shortVideo;
+    }
+
+    public void loadPlayer() throws IOException {
+        FXMLLoader shortPlayerLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/short-player.fxml"));
+        BorderPane shortPlayer = shortPlayerLoader.load();
+        playerPane.getChildren().add(shortPlayer);
+
+        ShortPlayerController shortPlayerController = shortPlayerLoader.getController();
+        shortPlayerController.setPane(playerPane);
+        shortPlayerController.setPath(""); //TODO
+        shortPlayerController.initBindings();
+
+        shortPlayerController.setHandle(shortVideo.getShortHandle());
+        shortPlayerController.setTitle(shortVideo.getTitle());
+        shortPlayerController.setProfileImage(shortVideo.getShortHandle());
+        //TODO disable sub button
     }
 
     public void nextBtnAction(ActionEvent actionEvent) {

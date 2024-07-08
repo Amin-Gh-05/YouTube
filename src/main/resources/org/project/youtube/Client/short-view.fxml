@@ -10,7 +10,7 @@
          <children>
             <HBox fx:id="mainHBox">
                <children>
-                  <Pane prefHeight="607.0" prefWidth="342.0" />
+                  <Pane fx:id="playerPane" prefHeight="607.0" prefWidth="342.0" />
                   <VBox alignment="BOTTOM_CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" spacing="25.0">
                      <children>
                         <BorderPane fx:id="likeBtnBorderPane" onMouseClicked="#likeBtnBorderPaneMouseClicked" prefHeight="50.0" prefWidth="50.0" styleClass="btn">

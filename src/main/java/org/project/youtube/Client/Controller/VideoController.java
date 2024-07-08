@@ -137,7 +137,6 @@ public class VideoController {
             mediaPlayerPane.getChildren().add(thumbnail);
         }
         thumbnailBox.getChildren().add(moreVideos);
-
     }
 
 

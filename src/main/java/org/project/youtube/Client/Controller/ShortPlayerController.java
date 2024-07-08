@@ -28,24 +28,34 @@ import static org.project.youtube.Client.Model.Network.Request.getChannel;
 public class ShortPlayerController {
     @FXML
     private Button playBtn;
+
     @FXML
     private Button muteBtn;
+
     @FXML
     private Button subscribeBtn;
+
     @FXML
     private HBox muteBtnHBox;
+
     @FXML
     private BorderPane borderPane;
+
     @FXML
     private Label handleLbl;
+
     @FXML
-    private Label descriptionLbl;
+    private Label titleLbl;
+
     @FXML
     private Circle profileImage;
+
     @FXML
     private Slider shortSlider;
+
     @FXML
     private MediaView mediaView;
+
     private MediaPlayer mediaPlayer;
     private Media media;
     private Pane pane;
@@ -74,19 +84,19 @@ public class ShortPlayerController {
         lastVolume = 1.0;
     }
 
-    private void setHandle(String handle) {
+    public void setHandle(String handle) {
         handleLbl.setText("@" + handle);
     }
-    private void setDescription(String text) {
-        descriptionLbl.setText(text);
+    public void setTitle(String text) {
+        titleLbl.setText(text);
     }
 
-    private void disableSubscribeBtn() {
+    public void disableSubscribeBtn() {
         subscribeBtn.setText("Subscribed");
         subscribeBtn.setDisable(true);
     }
 
-    private void setProfileImage(String handle) throws IOException {
+    public void setProfileImage(String handle) throws IOException {
         Image logo = new Image(new ByteArrayInputStream(getChannel(handle).getLogo()));
         profileImage.setFill(new ImagePattern(logo));
     }

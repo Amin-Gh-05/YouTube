@@ -64,7 +64,7 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label fx:id="descriptionLbl" text="Description" textFill="WHITE" />
+                              <Label fx:id="titleLbl" text="Title" textFill="WHITE" />
                            </children>
                            <padding>
                               <Insets bottom="5.0" left="10.0" />
