@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -62,6 +63,8 @@ public class MediaPlayerController {
     private Slider videoSlider;
 
     @FXML
+    private HBox volumeHBox;
+
     private Slider volumeSlider;
 
 
@@ -82,17 +85,7 @@ public class MediaPlayerController {
         borderPane.prefHeightProperty().bind(mediaView.fitHeightProperty());
 
         rateSlider.valueProperty().addListener((observable, oldValue, newValue) -> mediaPlayer.setRate((double)newValue));
-        volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            double newVal = (double)newValue;
-            double oldVal = (double)oldValue;
-            mediaPlayer.setVolume(newVal);
-            if (newVal == 0.0) {
-                muteShape();
-            }
-            else if (oldVal == 0.0) {
-                unMuteShape();
-            }
-        });
+
 
         mediaPlayer.setOnReady(() -> {
             Duration totalDuration = media.getDuration();
@@ -130,17 +123,48 @@ public class MediaPlayerController {
         else return String.format("%02d:%02d", m, s);
     }
 
+    private void createVolumeSlider() {
+        Slider slider = new Slider();
+        slider.setPrefWidth(70);
+        slider.setMin(0);
+        slider.setMax(1);
+        slider.setValue(mediaPlayer.getVolume());
+        slider.setBlockIncrement(0.1);
+        slider.setMajorTickUnit(0.2);
+        slider.setMinorTickCount(1);
+
+        this.volumeSlider = slider;
+
+        volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            double newVal = (double)newValue;
+            double oldVal = (double)oldValue;
+            mediaPlayer.setVolume(newVal);
+            if (newVal == 0.0) {
+                muteShape();
+            }
+            else if (oldVal == 0.0) {
+                unMuteShape();
+            }
+        });
+
+        volumeHBox.getChildren().add(slider);
+    }
+
     @FXML
     void muteBtnAction(ActionEvent event) {
         if (mediaPlayer.getVolume() > 0) {
             lastVolume = mediaPlayer.getVolume();
             mediaPlayer.setVolume(0);
-            volumeSlider.setValue(0);
+            if (volumeSlider != null) {
+                volumeSlider.setValue(0);
+            }
             muteShape();
         }
         else {
             mediaPlayer.setVolume(lastVolume);
-            volumeSlider.setValue(lastVolume);
+            if (volumeSlider != null) {
+                volumeSlider.setValue(lastVolume);
+            }
             unMuteShape();
         }
     }
@@ -212,5 +236,14 @@ public class MediaPlayerController {
 //            mediaPlayer.play();
 //        }
         mediaPlayer.seek(Duration.seconds(videoSlider.getValue()));
+    }
+
+    public void volumeHBoxEntered(MouseEvent mouseEvent) {
+        createVolumeSlider();
+    }
+
+    public void volumeHBoxExited(MouseEvent mouseEvent) {
+        volumeHBox.getChildren().remove(1);
+        volumeSlider = null;
     }
 }

@@ -70,6 +70,22 @@ public class ClientService {
 
     // ======================= Read =======================
 
+    public static String getUsers(JSONObject data) throws SQLException {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        Type listType1 = new TypeToken<List<String>>() {}.getType();
+        List<String> yidStrList = gson.fromJson(data.getString("YID List"), listType1);
+
+        List<User> users = new ArrayList<>();
+        for (String yid : yidStrList) {
+            users.add(DatabaseManager.readUser(yid));
+        }
+
+        Type listType2 = new TypeToken<List<User>>() {}.getType();
+
+        return gson.toJson(users, listType2);
+    }
     public static String getVideo(JSONObject data) throws SQLException {
         UUID id = UUID.fromString(data.getString("ID"));
         Video video = DatabaseManager.readVideo(id);
@@ -101,6 +117,7 @@ public class ClientService {
 
         return gson.toJson(channel);
     }
+
     public static String getPL(JSONObject data) throws SQLException {
         UUID id = UUID.fromString(data.getString("ID"));
         Playlist playlist = DatabaseManager.readPlaylist(id);
@@ -390,7 +407,6 @@ public class ClientService {
             return false;
         }
     }
-
     public static boolean likeShort(JSONObject data) {
         try {
             GsonBuilder builder = new GsonBuilder();
@@ -455,6 +471,7 @@ public class ClientService {
             return false;
         }
     }
+
     public static boolean likeShortComment(JSONObject data) {
         try {
             GsonBuilder builder = new GsonBuilder();

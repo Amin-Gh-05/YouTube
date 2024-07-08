@@ -9,6 +9,7 @@ module org.project.youtube {
     requires javafx.media;
     requires org.apache.commons.io;
     requires org.bytedeco.ffmpeg;
+    requires org.apache.commons.codec;
 
 
     exports org.project.youtube.Client.Controller;

@@ -51,6 +51,7 @@ public class ClientHandler implements Runnable {
                     case "login" -> sendStringResponse(ClientService.login(data));
 //                    case "logout" -> ;
 
+                    case "getUsers" -> sendStringResponse(ClientService.getUsers(data));
                     case "getVideo" -> sendStringResponse(ClientService.getVideo(data));
                     case "getChannelVideos" -> sendStringResponse(ClientService.getChannelVideos(data));
                     case "getPlayListVideos" -> sendStringResponse(ClientService.getPlayListVideos(data));
