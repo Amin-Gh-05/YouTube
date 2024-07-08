@@ -113,6 +113,25 @@ public class Request {
 
     // ======================= Read =======================
 
+    public static User getUser(YID yid) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "getUser");
+
+        JSONObject data = new JSONObject();
+        data.put("YID", yid.toString());
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+        String respStr = Client.getStringResponse();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        return gson.fromJson(respStr, User.class);
+    }
+
     public static List<User> getUsers(List<YID> yidList) throws IOException {
         List<String> yidStrList = new ArrayList<>();
         for (YID yid : yidList) {

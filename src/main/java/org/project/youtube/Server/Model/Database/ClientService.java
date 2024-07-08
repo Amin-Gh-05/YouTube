@@ -68,7 +68,19 @@ public class ClientService {
         return DatabaseManager.findEmail(data.getString("email"));
     }
 
+
     // ======================= Read =======================
+    public static String getUser(JSONObject data) throws SQLException {
+        String yid = data.getString("YID");
+
+        User user = DatabaseManager.readUser(yid);
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        return gson.toJson(user);
+    }
 
     public static String getUsers(JSONObject data) throws SQLException {
         GsonBuilder builder = new GsonBuilder();
