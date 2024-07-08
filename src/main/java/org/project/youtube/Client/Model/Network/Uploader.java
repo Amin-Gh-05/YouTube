@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.util.UUID;
 
 public class Uploader implements Runnable {
-    private DataOutputStream out;
-    private String path;
-    private String ID;
-    private String type;
+    private final DataOutputStream out;
+    private final String path;
+    private final String ID;
+    private final String type;
 
     public Uploader(String path, UUID ID, String type) {
         try {
@@ -40,6 +40,8 @@ public class Uploader implements Runnable {
                 out.write(buffer, 0, bytes);
                 out.flush();
             }
+
+            fileInputStream.close();
         }
         catch (IOException e) {
             System.out.println(e.getMessage());

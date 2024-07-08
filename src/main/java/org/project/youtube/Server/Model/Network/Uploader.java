@@ -1,10 +1,13 @@
 package org.project.youtube.Server.Model.Network;
 
-import java.io.*;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
-public class Uploader implements Runnable{
-    private DataOutputStream out;
-    private String path;
+public class Uploader implements Runnable {
+    private final DataOutputStream out;
+    private final String path;
 
     public Uploader(String path) {
         try {
@@ -14,6 +17,7 @@ public class Uploader implements Runnable{
             throw new RuntimeException(e);
         }
     }
+
     @Override
     public void run() {
         try {
@@ -29,8 +33,9 @@ public class Uploader implements Runnable{
                 out.write(buffer, 0, bytes);
                 out.flush();
             }
-        }
-        catch (IOException e) {
+
+            fileInputStream.close();
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }

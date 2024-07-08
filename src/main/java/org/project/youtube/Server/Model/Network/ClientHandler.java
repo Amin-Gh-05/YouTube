@@ -10,10 +10,10 @@ import java.net.Socket;
 import java.sql.SQLException;
 
 public class ClientHandler implements Runnable {
-    private Socket socket; // the client socket
     private static Socket userFileTransferSocket; // file transfer socket for user
-    private DataInputStream in; // input stream to receive data from the client
-    private DataOutputStream out; // output stream to send data to the client
+    private final Socket socket; // the client socket
+    private final DataInputStream in; // input stream to receive data from the client
+    private final DataOutputStream out; // output stream to send data to the client
 
     public ClientHandler(Socket socket, Socket userFileTransferSocket) throws IOException {
         this.socket = socket;
@@ -30,6 +30,7 @@ public class ClientHandler implements Runnable {
         out.writeUTF(resp);
         out.flush();
     }
+
     public void sendBooleanResponse(boolean resp) throws IOException {
         out.writeBoolean(resp);
         out.flush();
@@ -39,7 +40,7 @@ public class ClientHandler implements Runnable {
     public void run() {
         try {
             String req;
-            while (true){
+            while (socket.isConnected()) {
                 req = in.readUTF();
                 JSONObject reqJson = new JSONObject(req);
                 JSONObject data = reqJson.getJSONObject("reqData");
@@ -107,18 +108,22 @@ public class ClientHandler implements Runnable {
                     case "unLikeShortComment" -> sendBooleanResponse(ClientService.unLikeShortComment(data));
                     case "removeVideoFromPlaylist" -> ClientService.removeVideoFromPlaylist(data);
                     case "removeShortFromPlaylist" -> ClientService.removeShortFromPlaylist(data);
-
                 }
             }
 
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             System.err.println("| <IO Exception>");
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println("| <SQLException>");
         } finally {
-
+            try {
+                userFileTransferSocket.close();
+                socket.close();
+                in.close();
+                out.close();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 }

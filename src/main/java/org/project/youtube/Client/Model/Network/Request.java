@@ -5,9 +5,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.json.JSONObject;
 import org.project.youtube.Client.Controller.MainController;
-import org.project.youtube.Client.Main;
-import org.project.youtube.Client.Model.*;
 import org.project.youtube.Client.Model.Short;
+import org.project.youtube.Client.Model.*;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -128,7 +127,8 @@ public class Request {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        Type listType = new TypeToken<List<String>>() {}.getType();
+        Type listType = new TypeToken<List<String>>() {
+        }.getType();
 
         String JsonYIDListString = gson.toJson(yidStrList, listType);
         data.put("YID List", JsonYIDListString);
@@ -138,7 +138,8 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
         String respStr = Client.getStringResponse();
 
-        Type listType2 = new TypeToken<List<User>>() {}.getType();
+        Type listType2 = new TypeToken<List<User>>() {
+        }.getType();
         return gson.fromJson(respStr, listType2);
     }
 
@@ -161,6 +162,7 @@ public class Request {
 
         return gson.fromJson(respStr, Video.class);
     }
+
     public static Short getShort(UUID id) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "getShort");
@@ -180,6 +182,7 @@ public class Request {
 
         return gson.fromJson(respStr, Short.class);
     }
+
     public static Channel getChannel(String handle) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "getChannel");
@@ -198,6 +201,7 @@ public class Request {
 
         return gson.fromJson(respStr, Channel.class);
     }
+
     public static Playlist getPL(UUID id) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "getPL");
@@ -272,9 +276,11 @@ public class Request {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        Type listType2 = new TypeToken<List<Video>>() {}.getType();
+        Type listType2 = new TypeToken<List<Video>>() {
+        }.getType();
         return gson.fromJson(respStr, listType2);
     }
+
     public static List<Video> getPlayListVideos(UUID id) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "getPlayListVideos");
@@ -292,9 +298,11 @@ public class Request {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        Type listType2 = new TypeToken<List<Video>>() {}.getType();
+        Type listType2 = new TypeToken<List<Video>>() {
+        }.getType();
         return gson.fromJson(respStr, listType2);
     }
+
     public static List<Short> getChannelShorts(String handle) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "getChannelShorts");
@@ -311,9 +319,11 @@ public class Request {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        Type listType2 = new TypeToken<List<Short>>() {}.getType();
+        Type listType2 = new TypeToken<List<Short>>() {
+        }.getType();
         return gson.fromJson(respStr, listType2);
     }
+
     public static List<Short> getPlayListShorts(UUID id) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "getPlayListShorts");
@@ -330,7 +340,8 @@ public class Request {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        Type listType2 = new TypeToken<List<Short>>() {}.getType();
+        Type listType2 = new TypeToken<List<Short>>() {
+        }.getType();
         return gson.fromJson(respStr, listType2);
     }
 
@@ -344,7 +355,8 @@ public class Request {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        Type listType = new TypeToken<List<String>>() {}.getType();
+        Type listType = new TypeToken<List<String>>() {
+        }.getType();
 
         String JsonIDListString = gson.toJson(handles, listType);
 
@@ -355,7 +367,8 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
         String respStr = Client.getStringResponse();
 
-        Type listType2 = new TypeToken<List<Channel>>() {}.getType();
+        Type listType2 = new TypeToken<List<Channel>>() {
+        }.getType();
         return gson.fromJson(respStr, listType2);
     }
 
@@ -375,7 +388,8 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
         String respStr = Client.getStringResponse();
 
-        Type listType2 = new TypeToken<List<Channel>>() {}.getType();
+        Type listType2 = new TypeToken<List<Channel>>() {
+        }.getType();
         return gson.fromJson(respStr, listType2);
     }
 
@@ -395,11 +409,10 @@ public class Request {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        Type listType2 = new TypeToken<List<Playlist>>() {}.getType();
+        Type listType2 = new TypeToken<List<Playlist>>() {
+        }.getType();
         return gson.fromJson(respStr, listType2);
     }
-
-
 
 
     public static void getRandomTags() throws IOException {
@@ -427,7 +440,6 @@ public class Request {
     }
 
 
-
     // ======================= Update =======================
 
     public static boolean likeVideo(String likeType, User user, Video video) throws IOException {
@@ -447,6 +459,7 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
         return Client.getBooleanResponse();
     }
+
     public static boolean likeShort(String likeType, User user, Short shortt) throws IOException {
         JSONObject jsonObject = new JSONObject();
         GsonBuilder builder = new GsonBuilder();
@@ -464,6 +477,7 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
         return Client.getBooleanResponse();
     }
+
     public static boolean likeVideoComment(String likeType, User user, Comment comment) throws IOException {
         JSONObject jsonObject = new JSONObject();
         GsonBuilder builder = new GsonBuilder();
@@ -481,6 +495,7 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
         return Client.getBooleanResponse();
     }
+
     public static boolean likeShortComment(String likeType, User user, Comment comment) throws IOException {
         JSONObject jsonObject = new JSONObject();
         GsonBuilder builder = new GsonBuilder();
@@ -552,6 +567,7 @@ public class Request {
 
         Client.sendRequest(jsonObject.toString());
     }
+
     public static void updateShort(Short shortt) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "updateShort");
@@ -569,6 +585,7 @@ public class Request {
 
         Client.sendRequest(jsonObject.toString());
     }
+
     public static void updatePL(Playlist playlist) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "updatePL");
@@ -586,6 +603,7 @@ public class Request {
 
         Client.sendRequest(jsonObject.toString());
     }
+
     public static void updateVideoComment(Comment comment) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "updateVideoComment");
@@ -603,6 +621,7 @@ public class Request {
 
         Client.sendRequest(jsonObject.toString());
     }
+
     public static void updateShortComment(Comment comment) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "updateShortComment");
@@ -877,7 +896,7 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
     }
 
-     public static void deleteChannel(Channel channel) throws IOException {
+    public static void deleteChannel(Channel channel) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "deleteChannel");
 
@@ -895,7 +914,7 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
     }
 
-     public static void deleteVideo(Video video) throws IOException {
+    public static void deleteVideo(Video video) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "deleteVideo");
 
@@ -913,7 +932,7 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
     }
 
-     public static void deleteShort(Short shortt) throws IOException {
+    public static void deleteShort(Short shortt) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "deleteShort");
 
@@ -1023,6 +1042,7 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
         return Client.getBooleanResponse();
     }
+
     public static boolean unLikeShort(String likeType, User user, Short shortt) throws IOException {
         JSONObject jsonObject = new JSONObject();
         GsonBuilder builder = new GsonBuilder();
@@ -1040,6 +1060,7 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
         return Client.getBooleanResponse();
     }
+
     public static boolean unLikeVideoComment(String likeType, User user, Comment comment) throws IOException {
         JSONObject jsonObject = new JSONObject();
         GsonBuilder builder = new GsonBuilder();
@@ -1057,6 +1078,7 @@ public class Request {
         Client.sendRequest(jsonObject.toString());
         return Client.getBooleanResponse();
     }
+
     public static boolean unLikeShortComment(String likeType, User user, Comment comment) throws IOException {
         JSONObject jsonObject = new JSONObject();
         GsonBuilder builder = new GsonBuilder();
@@ -1114,6 +1136,4 @@ public class Request {
 
         Client.sendRequest(jsonObject.toString());
     }
-
-
 }

@@ -4,9 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.json.JSONObject;
-import org.project.youtube.Server.Model.Network.FileTransfer;
 import org.project.youtube.Server.Model.*;
 import org.project.youtube.Server.Model.Short;
+import org.project.youtube.Server.Model.Network.FileTransfer;
 
 import java.io.File;
 import java.io.IOException;
@@ -74,7 +74,8 @@ public class ClientService {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        Type listType1 = new TypeToken<List<String>>() {}.getType();
+        Type listType1 = new TypeToken<List<String>>() {
+        }.getType();
         List<String> yidStrList = gson.fromJson(data.getString("YID List"), listType1);
 
         List<User> users = new ArrayList<>();
@@ -82,10 +83,12 @@ public class ClientService {
             users.add(DatabaseManager.readUser(yid));
         }
 
-        Type listType2 = new TypeToken<List<User>>() {}.getType();
+        Type listType2 = new TypeToken<List<User>>() {
+        }.getType();
 
         return gson.toJson(users, listType2);
     }
+
     public static String getVideo(JSONObject data) throws SQLException {
         UUID id = UUID.fromString(data.getString("ID"));
         Video video = DatabaseManager.readVideo(id);
@@ -97,6 +100,7 @@ public class ClientService {
 
         return gson.toJson(video);
     }
+
     public static String getShort(JSONObject data) throws SQLException {
         UUID id = UUID.fromString(data.getString("ID"));
         Short shortt = DatabaseManager.readShort(id);
@@ -108,6 +112,7 @@ public class ClientService {
 
         return gson.toJson(shortt);
     }
+
     public static String getChannel(JSONObject data) throws SQLException {
         Channel channel = DatabaseManager.readChannel(data.getString("handle"));
 
@@ -172,7 +177,8 @@ public class ClientService {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        Type listType = new TypeToken<List<Video>>() {}.getType();
+        Type listType = new TypeToken<List<Video>>() {
+        }.getType();
 
         return gson.toJson(videos, listType);
     }
@@ -184,7 +190,8 @@ public class ClientService {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        Type listType = new TypeToken<List<Video>>() {}.getType();
+        Type listType = new TypeToken<List<Video>>() {
+        }.getType();
 
         return gson.toJson(videos, listType);
     }
@@ -196,7 +203,8 @@ public class ClientService {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        Type listType = new TypeToken<List<Short>>() {}.getType();
+        Type listType = new TypeToken<List<Short>>() {
+        }.getType();
 
         return gson.toJson(shorts, listType);
     }
@@ -208,7 +216,8 @@ public class ClientService {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        Type listType = new TypeToken<List<Short>>() {}.getType();
+        Type listType = new TypeToken<List<Short>>() {
+        }.getType();
 
         return gson.toJson(shorts, listType);
     }
@@ -218,7 +227,8 @@ public class ClientService {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        Type listType1 = new TypeToken<List<String>>() {}.getType();
+        Type listType1 = new TypeToken<List<String>>() {
+        }.getType();
         List<String> handleList = gson.fromJson(data.getString("Handle List"), listType1);
 
         List<Channel> channels = new ArrayList<>();
@@ -226,7 +236,8 @@ public class ClientService {
             channels.add(DatabaseManager.readChannel(handle));
         }
 
-        Type listType2 = new TypeToken<List<Channel>>() {}.getType();
+        Type listType2 = new TypeToken<List<Channel>>() {
+        }.getType();
 
         return gson.toJson(channels, listType2);
     }
@@ -235,7 +246,8 @@ public class ClientService {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        Type listType = new TypeToken<List<Channel>>() {}.getType();
+        Type listType = new TypeToken<List<Channel>>() {
+        }.getType();
 
         User user = gson.fromJson(data.getString("user"), User.class);
         List<Channel> channelList = DatabaseManager.readChannels(user);
@@ -250,7 +262,8 @@ public class ClientService {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        Type listType = new TypeToken<List<Playlist>>() {}.getType();
+        Type listType = new TypeToken<List<Playlist>>() {
+        }.getType();
 
         return gson.toJson(playlists, listType);
     }
@@ -262,7 +275,7 @@ public class ClientService {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        User user =  gson.fromJson(data.getString("user"), User.class);
+        User user = gson.fromJson(data.getString("user"), User.class);
 
         DatabaseManager.updateUser(user);
     }
@@ -272,7 +285,7 @@ public class ClientService {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        Channel channel =  gson.fromJson(data.getString("channel"), Channel.class);
+        Channel channel = gson.fromJson(data.getString("channel"), Channel.class);
 
         DatabaseManager.updateChannel(channel);
     }
@@ -282,7 +295,7 @@ public class ClientService {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        Video video =  gson.fromJson(data.getString("video"), Video.class);
+        Video video = gson.fromJson(data.getString("video"), Video.class);
 
         DatabaseManager.updateVideo(video);
     }
@@ -292,7 +305,7 @@ public class ClientService {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        Short shortt =  gson.fromJson(data.getString("short"), Short.class);
+        Short shortt = gson.fromJson(data.getString("short"), Short.class);
 
         DatabaseManager.updateShort(shortt);
     }
@@ -302,7 +315,7 @@ public class ClientService {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        Playlist playlist =  gson.fromJson(data.getString("pl"), Playlist.class);
+        Playlist playlist = gson.fromJson(data.getString("pl"), Playlist.class);
 
         DatabaseManager.updatePlaylist(playlist);
     }
@@ -312,7 +325,7 @@ public class ClientService {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        Comment comment =  gson.fromJson(data.getString("comment"), Comment.class);
+        Comment comment = gson.fromJson(data.getString("comment"), Comment.class);
 
         DatabaseManager.updateVideoComment(comment);
     }
@@ -322,7 +335,7 @@ public class ClientService {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        Comment comment =  gson.fromJson(data.getString("comment"), Comment.class);
+        Comment comment = gson.fromJson(data.getString("comment"), Comment.class);
 
         DatabaseManager.updateShortComment(comment);
     }
@@ -333,7 +346,7 @@ public class ClientService {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        Video video =  gson.fromJson(data.getString("video"), Video.class);
+        Video video = gson.fromJson(data.getString("video"), Video.class);
         int views = video.getViews();
         views++;
         DatabaseManager.updateViews(video, views);
@@ -344,7 +357,7 @@ public class ClientService {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        Short shortt =  gson.fromJson(data.getString("short"), Short.class);
+        Short shortt = gson.fromJson(data.getString("short"), Short.class);
         int views = shortt.getViews();
         views++;
         DatabaseManager.updateViews(shortt, views);
@@ -356,11 +369,11 @@ public class ClientService {
             builder.setPrettyPrinting();
             Gson gson = builder.create();
 
-            Channel channel =  gson.fromJson(data.getString("channel"), Channel.class);
-            User user =  gson.fromJson(data.getString("user"), User.class);
+            Channel channel = gson.fromJson(data.getString("channel"), Channel.class);
+            User user = gson.fromJson(data.getString("user"), User.class);
             int subs = channel.getSubscribers();
 
-            if (DatabaseManager.isSubscribed(user, channel)){
+            if (DatabaseManager.isSubscribed(user, channel)) {
                 return false;
             }
 
@@ -368,8 +381,7 @@ public class ClientService {
             DatabaseManager.updateSubscribers(channel, subs);
             DatabaseManager.subscribeChannel(user, channel);
             return true;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
             return false;
         }
@@ -391,8 +403,7 @@ public class ClientService {
                 }
                 DatabaseManager.likeVideo(video, user);
                 return true;
-            }
-            else if (likeType.equals("D")) {
+            } else if (likeType.equals("D")) {
                 if (DatabaseManager.isDisliked(user, video)) {
                     return false;
                 }
@@ -401,12 +412,12 @@ public class ClientService {
             }
 
             return false;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
             return false;
         }
     }
+
     public static boolean likeShort(JSONObject data) {
         try {
             GsonBuilder builder = new GsonBuilder();
@@ -423,8 +434,7 @@ public class ClientService {
                 }
                 DatabaseManager.likeShort(shortt, user);
                 return true;
-            }
-            else if (likeType.equals("D")) {
+            } else if (likeType.equals("D")) {
                 if (DatabaseManager.isDisliked(user, shortt)) {
                     return false;
                 }
@@ -433,12 +443,12 @@ public class ClientService {
             }
 
             return false;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
             return false;
         }
     }
+
     public static boolean likeVideoComment(JSONObject data) {
         try {
             GsonBuilder builder = new GsonBuilder();
@@ -455,8 +465,7 @@ public class ClientService {
                 }
                 DatabaseManager.likeVideoComment(comment, user);
                 return true;
-            }
-            else if (likeType.equals("D")) {
+            } else if (likeType.equals("D")) {
                 if (DatabaseManager.isVideoCommentDisliked(user, comment)) {
                     return false;
                 }
@@ -465,8 +474,7 @@ public class ClientService {
             }
 
             return false;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
             return false;
         }
@@ -488,8 +496,7 @@ public class ClientService {
                 }
                 DatabaseManager.likeShortComment(comment, user);
                 return true;
-            }
-            else if (likeType.equals("D")) {
+            } else if (likeType.equals("D")) {
                 if (DatabaseManager.isShortCommentDisliked(user, comment)) {
                     return false;
                 }
@@ -498,8 +505,7 @@ public class ClientService {
             }
 
             return false;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
             return false;
         }
@@ -589,8 +595,7 @@ public class ClientService {
 
             DatabaseManager.addVideoToPlaylist(playlist, video);
             return true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -611,8 +616,7 @@ public class ClientService {
             DatabaseManager.addShortToPlaylist(playlist, shortt);
             return true;
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -633,8 +637,7 @@ public class ClientService {
             DatabaseManager.addPlaylistToChannel(playlist, channel);
             return true;
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -721,11 +724,11 @@ public class ClientService {
             builder.setPrettyPrinting();
             Gson gson = builder.create();
 
-            Channel channel =  gson.fromJson(data.getString("channel"), Channel.class);
-            User user =  gson.fromJson(data.getString("user"), User.class);
+            Channel channel = gson.fromJson(data.getString("channel"), Channel.class);
+            User user = gson.fromJson(data.getString("user"), User.class);
             int subs = channel.getSubscribers();
 
-            if (!DatabaseManager.isSubscribed(user, channel)){
+            if (!DatabaseManager.isSubscribed(user, channel)) {
                 return false;
             }
 
@@ -733,8 +736,7 @@ public class ClientService {
             DatabaseManager.updateSubscribers(channel, subs);
             DatabaseManager.unsubscribeChannel(user, channel);
             return true;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
             return false;
         }
@@ -756,8 +758,7 @@ public class ClientService {
                 }
                 DatabaseManager.unlikeVideo(video, user);
                 return true;
-            }
-            else if (likeType.equals("D")) {
+            } else if (likeType.equals("D")) {
                 if (!DatabaseManager.isDisliked(user, video)) {
                     return false;
                 }
@@ -766,8 +767,7 @@ public class ClientService {
             }
 
             return false;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
             return false;
         }
@@ -789,8 +789,7 @@ public class ClientService {
                 }
                 DatabaseManager.unlikeShort(shortt, user);
                 return true;
-            }
-            else if (likeType.equals("D")) {
+            } else if (likeType.equals("D")) {
                 if (!DatabaseManager.isDisliked(user, shortt)) {
                     return false;
                 }
@@ -799,8 +798,7 @@ public class ClientService {
             }
 
             return false;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
             return false;
         }
@@ -817,13 +815,12 @@ public class ClientService {
             Comment comment = gson.fromJson(data.getString("comment"), Comment.class);
 
             if (likeType.equals("L")) {
-                if (!DatabaseManager.isVideoCommentLiked(user, comment) ) {
+                if (!DatabaseManager.isVideoCommentLiked(user, comment)) {
                     return false;
                 }
                 DatabaseManager.unlikeVideoComment(comment, user);
                 return true;
-            }
-            else if (likeType.equals("D")) {
+            } else if (likeType.equals("D")) {
                 if (!DatabaseManager.isVideoCommentDisliked(user, comment)) {
                     return false;
                 }
@@ -832,8 +829,7 @@ public class ClientService {
             }
 
             return false;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
             return false;
         }
@@ -855,8 +851,7 @@ public class ClientService {
                 }
                 DatabaseManager.unlikeShortComment(comment, user);
                 return true;
-            }
-            else if (likeType.equals("D")) {
+            } else if (likeType.equals("D")) {
                 if (!DatabaseManager.isShortCommentDisliked(user, comment)) {
                     return false;
                 }
@@ -865,8 +860,7 @@ public class ClientService {
             }
 
             return false;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
             return false;
         }
@@ -892,6 +886,5 @@ public class ClientService {
         Short shortt = gson.fromJson(data.getString("short"), Short.class);
 
         DatabaseManager.removeShortFromPlaylist(playlist, shortt);
-
     }
 }

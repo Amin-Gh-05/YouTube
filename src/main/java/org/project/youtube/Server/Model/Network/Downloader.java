@@ -7,11 +7,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class Downloader implements Runnable {
-    private DataInputStream in;
+    private final DataInputStream in;
 
-    public Downloader () throws IOException {
+    public Downloader() throws IOException {
         in = new DataInputStream(ClientHandler.getUserFileTransferSocket().getInputStream());
     }
+
     @Override
     public void run() {
         try {
@@ -22,8 +23,7 @@ public class Downloader implements Runnable {
             FileOutputStream fileOutputStream;
             if (type.equals("video")) {
                 fileOutputStream = new FileOutputStream(ServerMain.VIDEO_PATH + "/" + fileName);
-            }
-            else {
+            } else {
                 fileOutputStream = new FileOutputStream(ServerMain.SHORT_PATH + "/" + fileName);
             }
 
@@ -34,8 +34,7 @@ public class Downloader implements Runnable {
                 size -= bytes;
             }
             fileOutputStream.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
