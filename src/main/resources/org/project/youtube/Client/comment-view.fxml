@@ -46,7 +46,8 @@
             </graphic>
         </Button>
         <Button id="dislikeButton" layoutX="144.66666666666669" layoutY="80.0" mnemonicParsing="false" onAction="#dislikeComment" prefHeight="28.0" prefWidth="25.0" styleClass="actionButton" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="143.0" />
-        <Button layoutX="171.0" layoutY="84.0" mnemonicParsing="false" onAction="#replyComment" styleClass="actionButton" text="Reply" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="200.0" />
-      <Button fx:id="submitButton" layoutX="257.0" layoutY="79.0" mnemonicParsing="false" onAction="#submitChanges" styleClass="actionButton" text="Submit" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="257.0" />
+        <Button layoutX="228.0" layoutY="80.0" mnemonicParsing="false" onAction="#replyComment" styleClass="actionButton" text="Reply" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="228.0" />
+      <Button fx:id="submitButton" layoutX="283.0" layoutY="80.0" mnemonicParsing="false" onAction="#submitChanges" styleClass="actionButton" text="Submit" AnchorPane.leftAnchor="279.0" />
+      <Label fx:id="likesLabel" alignment="CENTER" layoutX="173.0" layoutY="84.0" prefHeight="18.0" prefWidth="50.0" text="likes" textAlignment="CENTER" />
     </children>
 </AnchorPane>
