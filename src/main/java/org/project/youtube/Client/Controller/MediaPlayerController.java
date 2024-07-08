@@ -51,7 +51,6 @@ public class MediaPlayerController {
     @FXML
     private Button rateIncrementBtn;
 
-
     @FXML
     private Button teaterModeBtn;
 
@@ -63,8 +62,10 @@ public class MediaPlayerController {
 
     @FXML
     private HBox volumeHBox;
+
     @FXML
     private HBox rateIncrementHBox;
+
     private Slider rateSlider;
 
     private Slider volumeSlider;
@@ -78,6 +79,16 @@ public class MediaPlayerController {
     private Pane pane;
     static boolean c;
 
+
+    public void setPane(Pane pane) {
+        this.pane = pane;
+    }
+
+    public void setPath(String path) {
+        media = new Media(path);
+        mediaPlayer = new MediaPlayer(media);
+        mediaView.setMediaPlayer(mediaPlayer);
+    }
 
     public void initBindings() {
         mediaView.fitWidthProperty().bind(pane.widthProperty());
@@ -97,16 +108,6 @@ public class MediaPlayerController {
         timeLbl.textProperty().bind(Bindings.createStringBinding(() -> getTime(mediaPlayer.getCurrentTime()) + " / " + totalTimeStr, mediaPlayer.currentTimeProperty()));
 
         lastVolume = 1.0;
-    }
-
-    public void setPath(String path) {
-        media = new Media(path);
-        mediaPlayer = new MediaPlayer(media);
-        mediaView.setMediaPlayer(mediaPlayer);
-    }
-
-    public void setPane(Pane pane) {
-        this.pane = pane;
     }
 
     private String getTime(Duration time) {
