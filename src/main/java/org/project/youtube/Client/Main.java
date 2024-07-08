@@ -19,6 +19,7 @@ public class Main extends Application {
     private static final int SERVER_PORT = 5431;
     private static final int SERVER_FILE_TRANSFER_PORT = 5430;
 
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/org/project/youtube/Client/main-view.fxml"));

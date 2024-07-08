@@ -87,7 +87,9 @@ public class ShortController {
         shortPlayerController.setHandle(shortVideo.getShortHandle());
         shortPlayerController.setTitle(shortVideo.getTitle());
         shortPlayerController.setProfileImage(shortVideo.getShortHandle());
-        //TODO disable sub button
+        if (Request.isSubscribed(MainController.user.getYid().toString(), shortVideo.getShortHandle())) {
+            shortPlayerController.disableSubscribeBtn();
+        }
     }
 
     public void nextBtnAction(ActionEvent actionEvent) {

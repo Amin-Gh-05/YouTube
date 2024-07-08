@@ -434,28 +434,42 @@ public class Request {
     }
 
 
-    public static void getRandomTags() throws IOException {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("reqType", "getRandomTags");
+//    public static void getRandomTags() throws IOException {
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("reqType", "getRandomTags");
+//
+//        JSONObject data = new JSONObject();
+//
+//
+//        jsonObject.put("reqData", data);
+//
+//        Client.sendRequest(jsonObject.toString());
+//    }
+//
+//    public static void getRandomVideos() throws IOException {
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("reqType", "getRandomVideos");
+//
+//        JSONObject data = new JSONObject();
+//
+//
+//        jsonObject.put("reqData", data);
+//
+//        Client.sendRequest(jsonObject.toString());
+//    }
 
-        JSONObject data = new JSONObject();
+    public static boolean isSubscribed(String yid, String handle) throws IOException {
+        List<String> keys = new ArrayList<>();
+        List<String> values = new ArrayList<>();
 
+        keys.add("YID");
+        values.add(yid);
 
-        jsonObject.put("reqData", data);
+        keys.add("handle");
+        values.add(handle);
 
-        Client.sendRequest(jsonObject.toString());
-    }
-
-    public static void getRandomVideos() throws IOException {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("reqType", "getRandomVideos");
-
-        JSONObject data = new JSONObject();
-
-
-        jsonObject.put("reqData", data);
-
-        Client.sendRequest(jsonObject.toString());
+        Client.sendRequest(jsonBuilder("isSubscribed", keys, values));
+        return  Client.getBooleanResponse();
     }
 
 

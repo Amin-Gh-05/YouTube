@@ -67,6 +67,8 @@ public class ClientHandler implements Runnable {
                     case "getChannel" -> sendStringResponse(ClientService.getChannel(data));
                     case "getChannels" -> sendStringResponse(ClientService.getChannels(data));
                     case "getSubscribedChannels" -> sendStringResponse(ClientService.getSubscribedChannels(data));
+                    case "isSubscribed" -> sendBooleanResponse(ClientService.isSubscribed(data));
+
 //                    case "getRandomTags" -> ;
 //                    case "getRandomVideos" -> ;
 

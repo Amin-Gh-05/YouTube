@@ -280,6 +280,13 @@ public class ClientService {
         return gson.toJson(playlists, listType);
     }
 
+    public static boolean isSubscribed(JSONObject data) {
+        String handle = data.getString("handle");
+        String yid = data.getString("YID");
+
+        return DatabaseManager.isSubscribed(yid, handle);
+    }
+
     // ======================= Update =======================
 
     public static void updateUser(JSONObject data) throws SQLException {
