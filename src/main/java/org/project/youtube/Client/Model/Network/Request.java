@@ -114,6 +114,55 @@ public class Request {
 
     // ======================= Read =======================
 
+    public static User getUser(YID yid) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "getUser");
+
+        JSONObject data = new JSONObject();
+        data.put("YID", yid.toString());
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+        String respStr = Client.getStringResponse();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        return gson.fromJson(respStr, User.class);
+    }
+
+    public static List<User> getUsers(List<YID> yidList) throws IOException {
+        List<String> yidStrList = new ArrayList<>();
+        for (YID yid : yidList) {
+            yidStrList.add(yid.toString());
+        }
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "getUsers");
+
+        JSONObject data = new JSONObject();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        Type listType = new TypeToken<List<String>>() {
+        }.getType();
+
+        String JsonYIDListString = gson.toJson(yidStrList, listType);
+        data.put("YID List", JsonYIDListString);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+        String respStr = Client.getStringResponse();
+
+        Type listType2 = new TypeToken<List<User>>() {
+        }.getType();
+        return gson.fromJson(respStr, listType2);
+    }
+
     public static Video getVideo(UUID id) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "getVideo");

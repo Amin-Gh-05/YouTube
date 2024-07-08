@@ -104,6 +104,7 @@ public class VideoController {
     }
 
     public void init() throws IOException {
+        loadPlayer();
         likeCount.setText(String.valueOf(video.getLikes()));
         viewCount.setText(String.valueOf(video.getViews()));
         titleLabel.setText(video.getTitle());
@@ -140,16 +141,15 @@ public class VideoController {
 
     }
 
-
     public void loadPlayer() throws IOException {
         FXMLLoader mediaPlayerLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/media-player.fxml"));
         AnchorPane mediaPlayer = mediaPlayerLoader.load();
         MediaPlayerController mediaPlayerController = mediaPlayerLoader.getController();
         mediaPlayerPane.getChildren().add(mediaPlayer);
 
-        mediaPlayerController.setPath("file:///C:/YouTube/c.mp4");
         mediaPlayerController.setPane(mediaPlayerPane);
-        mediaPlayerController.init();
+        mediaPlayerController.setPath("file:///C:/YouTube/c.mp4");
+        mediaPlayerController.initBindings();
     }
 
 }

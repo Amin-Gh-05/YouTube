@@ -8,8 +8,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import org.project.youtube.Client.Model.Comment;
 import org.project.youtube.Client.Model.Network.Request;
+import org.project.youtube.Client.Model.User;
 
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class CommentController {
     Comment comment;
@@ -66,6 +68,7 @@ public class CommentController {
     }
 
     public void init(){
+        //List<User> users =
         // TODO set username and profile pic
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd mmmm yyyy");
         dateLabel.setText(comment.getCreatedDateTime().format(formatter));
