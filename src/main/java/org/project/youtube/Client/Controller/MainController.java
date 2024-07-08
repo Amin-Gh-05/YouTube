@@ -125,6 +125,20 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // load profile button to use later
+        profileButton = new Button("Profile");
+        profileButton.setOnAction(event -> {
+            try {
+                loadProfile(event);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        });
+        profileButton.getStyleClass().add("actionButton");
+        profileButton.setPrefSize(60, 35);
+        profileButton.setMinSize(60, 35);
+        profileButton.setMaxSize(60, 35);
+
         try {
             refreshAll();
         } catch (IOException e) {
@@ -241,6 +255,16 @@ public class MainController implements Initializable {
         stage.setScene(scene);
 
         System.out.println("| redirect to studio panel");
+    }
+
+    @FXML
+    void loadProfile(ActionEvent event) throws IOException {
+        if (user == null) {
+            System.out.println("| profile not available");
+            return;
+        }
+
+        // todo: load profile and set attributes
     }
 
     @FXML
@@ -384,8 +408,18 @@ public class MainController implements Initializable {
         // set attributes
         thumbnailController.controller = this;
         thumbnailController.video = video;
-        thumbnailController.getThumbnailImage().setImage(new Image(new ByteArrayInputStream(video.getThumbnail())));
-        thumbnailController.getProfileImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(videoChannel.getLogo()))));
+        try {
+            thumbnailController.getThumbnailImage().setImage(new Image(new ByteArrayInputStream(video.getThumbnail())));
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            thumbnailController.getThumbnailImage().setImage(new Image("/org/project/youtube/Client/images/thumbnail-sample.png"));
+        }
+        try {
+            thumbnailController.getProfileImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(videoChannel.getLogo()))));
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            thumbnailController.getProfileImage().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/profile-sample.png")));
+        }
         thumbnailController.getTitleLabel().setText(video.getTitle());
         thumbnailController.getDateLabel().setText(video.getCreatedDateTime().toString());
         thumbnailController.getViewsLabel().setText(String.valueOf(video.getViews()));
@@ -403,8 +437,18 @@ public class MainController implements Initializable {
         // set attributes
         thumbnailController.controller = this;
         thumbnailController.aShort = shortVideo;
-        thumbnailController.getThumbnailImage().setImage(new Image(new ByteArrayInputStream(shortVideo.getThumbnail())));
-        thumbnailController.getProfileImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(shortChannel.getLogo()))));
+        try {
+            thumbnailController.getThumbnailImage().setImage(new Image(new ByteArrayInputStream(shortVideo.getThumbnail())));
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            thumbnailController.getThumbnailImage().setImage(new Image("/org/project/youtube/Client/images/thumbnail-sample.png"));
+        }
+        try {
+            thumbnailController.getProfileImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(shortChannel.getLogo()))));
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            thumbnailController.getProfileImage().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/profile-sample.png")));
+        }
         thumbnailController.getTitleLabel().setText(shortVideo.getTitle());
         thumbnailController.getDateLabel().setText(shortVideo.getCreatedDateTime().toString());
         thumbnailController.getViewsLabel().setText(String.valueOf(shortVideo.getViews()));
@@ -419,7 +463,12 @@ public class MainController implements Initializable {
 
         // set attributes
         playlistController.controller = this;
-        playlistController.getPlaylistImage().setImage(new Image(new ByteArrayInputStream(playlist.getImage())));
+        try {
+            playlistController.getPlaylistImage().setImage(new Image(new ByteArrayInputStream(playlist.getImage())));
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            playlistController.getPlaylistImage().setImage(new Image("/org/project/youtube/Client/images/playlist-sample.png"));
+        }
         playlistController.getNameLabel().setText(playlist.getName());
         playlistController.getHandleLabel().setText(playlist.getChannelHandle());
         playlistController.getIsPublicLabel().setText(String.valueOf(playlist.isPublic()));
@@ -452,7 +501,12 @@ public class MainController implements Initializable {
 
         // set attributes
         channelController.controller = this;
-        channelController.getLogoImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(channel.getLogo()))));
+        try {
+            channelController.getLogoImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(channel.getLogo()))));
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            channelController.getLogoImage().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/profile-sample.png")));
+        }
         channelController.getNameLabel().setText(channel.getName());
         channelController.getDateLabel().setText(channel.getCreatedDateTime().toString());
         channelController.getHandleLabel().setText(channel.getHandle());
@@ -475,8 +529,18 @@ public class MainController implements Initializable {
 
         // set attributes
         channelController.controller = this;
-        channelController.getBannerImage().setImage(new Image(new ByteArrayInputStream(channel.getBanner())));
-        channelController.getLogoImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(channel.getLogo()))));
+        try {
+            channelController.getBannerImage().setImage(new Image(new ByteArrayInputStream(channel.getBanner())));
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            channelController.getBannerImage().setImage(new Image("/org/project/youtube/Client/images/banner-sample.png"));
+        }
+        try {
+            channelController.getLogoImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(channel.getLogo()))));
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            channelController.getLogoImage().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/profile-sample.png")));
+        }
         channelController.getNameLabel().setText(channel.getName());
         channelController.getDateLabel().setText(channel.getCreatedDateTime().toString());
         channelController.getHandleLabel().setText(channel.getHandle());

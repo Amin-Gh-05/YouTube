@@ -46,7 +46,7 @@
                     </font>
                 </Label>
                 <Label layoutX="47.0" layoutY="170.0" text="Views" />
-                <Label layoutX="47.0" layoutY="200.0" text="Videos" />
+                <Label fx:id="videos" layoutX="47.0" layoutY="200.0" text="Videos" />
                 <Separator layoutX="36.0" layoutY="243.0" prefHeight="0.0" prefWidth="230.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
                 <Label layoutX="36.0" layoutY="267.0" style="-fx-font-size: 14px;" text="Top Videos" />
                 <Label fx:id="subCount" layoutX="238.0" layoutY="57.0" AnchorPane.rightAnchor="30.0" />

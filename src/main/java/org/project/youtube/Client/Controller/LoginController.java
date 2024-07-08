@@ -35,6 +35,7 @@ public class LoginController {
         }
 
         MainController.user = Request.login(usernameInt, userName.getText(), DigestUtils.sha256Hex(passWord.getText()));
+        MainController.channel = Request.getChannel(MainController.user.getHandle());
         turnBack(event);
     }
 

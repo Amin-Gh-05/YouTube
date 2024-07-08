@@ -6,13 +6,23 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.project.youtube.Client.Model.Channel;
 import org.project.youtube.Client.Model.Network.Request;
+import org.project.youtube.Client.Model.Playlist;
+import org.project.youtube.Client.Model.User;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -55,7 +65,28 @@ public class SignupController {
             return;
         }
 
-        MainController.user = Request.signup(userName.getText(), emailAddress.getText(), DigestUtils.sha256Hex(passWord.getText()));
+        User user = Request.signup(userName.getText(), emailAddress.getText(), DigestUtils.sha256Hex(passWord.getText()));
+
+        // create a personal channel for user
+        Channel channel = new Channel(user.getHandle(), user.getFirstName() + " " + user.getLastName(), user.getYid(),
+                null, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")),
+                null, null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        Request.createChannel(channel, user);
+
+        // create watch-laters playlist
+        Playlist watchLaters = new Playlist(new ArrayList<>(), UUID.randomUUID(), "Watch Laters", channel.getHandle(),
+                "Here comes the videos you marked to watch later", new ArrayList<>(), null);
+        Request.createPlaylist(watchLaters);
+        Request.addPlaylistToChannel(watchLaters, channel);
+
+        // create liked-videos playlist
+        Playlist likedVideos = new Playlist(new ArrayList<>(), UUID.randomUUID(), "Liked Videos", channel.getHandle(),
+                "Here comes the videos you have liked", new ArrayList<>(), null);
+        Request.createPlaylist(likedVideos);
+        Request.addPlaylistToChannel(likedVideos, channel);
+
+        MainController.user = user;
+        MainController.channel = channel;
         turnBack(event);
     }
 
@@ -112,7 +143,7 @@ public class SignupController {
         // regex pattern of password
         Pattern pattern = Pattern.compile("(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,20}");
         Matcher matcher = pattern.matcher(password);
-        if (!matcher.find()){
+        if (!matcher.find()) {
             passwordAlert();
             return false;
         }
@@ -130,10 +161,9 @@ public class SignupController {
     private void usernameAlert(boolean a) {
         // show alert for invalid username
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        if (a){
+        if (a) {
             alert.setTitle("Invalid Username");
-        }
-        else {
+        } else {
             alert.setTitle("Username Already Exists");
         }
         alert.setHeaderText("Please enter a valid username");
@@ -149,8 +179,7 @@ public class SignupController {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         if (a) {
             alert.setTitle("Invalid Email");
-        }
-        else {
+        } else {
             alert.setTitle("Email Already Exists");
         }
         alert.setHeaderText("Please enter a valid email");

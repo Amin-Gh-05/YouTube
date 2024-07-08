@@ -85,8 +85,16 @@ public class StudioController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        channel = MainController.channel;
+
         // set image for profile viewer
-        ImagePattern imagePattern = new ImagePattern(new Image(new ByteArrayInputStream(channel.getLogo())));
+        ImagePattern imagePattern;
+        try {
+            imagePattern = new ImagePattern(new Image(new ByteArrayInputStream(channel.getLogo())));
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            imagePattern = new ImagePattern(new Image("/org/project/youtube/Client/images/profile-sample.png"));
+        }
         profilePic.setFill(imagePattern);
         profilePic.setEffect(new DropShadow(10, Color.BLACK));
 

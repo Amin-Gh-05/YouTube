@@ -27,12 +27,11 @@ public class DashboardController {
     @FXML
     void createContent() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/upload-view.fxml"));
+        Node node = loader.load();
         UploadController uploadController = loader.getController();
 
         // set studio as controller of upload
         uploadController.controller = controller;
-
-        Node node = loader.load();
         controller.getMainPanel().getChildren().clear();
         controller.getMainPanel().getChildren().add(node);
     }
