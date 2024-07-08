@@ -1,5 +1,6 @@
 package org.project.youtube.Client.Controller;
 
+import javafx.animation.ScaleTransition;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -51,9 +52,6 @@ public class MediaPlayerController {
     private Button rateIncrementBtn;
 
     @FXML
-    private Slider rateSlider;
-
-    @FXML
     private Button teaterModeBtn;
 
     @FXML
@@ -64,6 +62,11 @@ public class MediaPlayerController {
 
     @FXML
     private HBox volumeHBox;
+
+    @FXML
+    private HBox rateIncrementHBox;
+
+    private Slider rateSlider;
 
     private Slider volumeSlider;
 
@@ -77,15 +80,22 @@ public class MediaPlayerController {
     static boolean c;
 
 
-    public void init() {
+    public void setPane(Pane pane) {
+        this.pane = pane;
+    }
+
+    public void setPath(String path) {
+        media = new Media(path);
+        mediaPlayer = new MediaPlayer(media);
+        mediaView.setMediaPlayer(mediaPlayer);
+    }
+
+    public void initBindings() {
         mediaView.fitWidthProperty().bind(pane.widthProperty());
         mediaView.fitHeightProperty().bind(pane.heightProperty());
 
         borderPane.prefWidthProperty().bind(mediaView.fitWidthProperty());
         borderPane.prefHeightProperty().bind(mediaView.fitHeightProperty());
-
-        rateSlider.valueProperty().addListener((observable, oldValue, newValue) -> mediaPlayer.setRate((double)newValue));
-
 
         mediaPlayer.setOnReady(() -> {
             Duration totalDuration = media.getDuration();
@@ -95,19 +105,9 @@ public class MediaPlayerController {
 
         mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> videoSlider.setValue(newValue.toSeconds()));
 
-        lastVolume = 1.0;
-
         timeLbl.textProperty().bind(Bindings.createStringBinding(() -> getTime(mediaPlayer.getCurrentTime()) + " / " + totalTimeStr, mediaPlayer.currentTimeProperty()));
-    }
 
-    public void setPath(String path) {
-        media = new Media(path);
-        mediaPlayer = new MediaPlayer(media);
-        mediaView.setMediaPlayer(mediaPlayer);
-    }
-
-    public void setPane(Pane pane) {
-        this.pane = pane;
+        lastVolume = 1.0;
     }
 
     private String getTime(Duration time) {
@@ -150,8 +150,41 @@ public class MediaPlayerController {
         volumeHBox.getChildren().add(slider);
     }
 
+    private void createRateSlider() {
+        Slider slider = new Slider();
+        slider.setPrefWidth(70);
+        slider.setMin(1);
+        slider.setMax(8);
+        slider.setValue(mediaPlayer.getRate());
+        slider.setBlockIncrement(0.5);
+        slider.setMajorTickUnit(1);
+        slider.setMinorTickCount(3);
+
+        this.rateSlider = slider;
+
+        rateSlider.valueProperty().addListener((observable, oldValue, newValue) -> mediaPlayer.setRate((double)newValue));
+
+        rateIncrementHBox.getChildren().add(slider);
+    }
+
+    private void playClickEffect(Button button) {
+        // animation class
+        ScaleTransition scaleTransition = new ScaleTransition();
+        scaleTransition.setDuration(Duration.millis(100));
+        scaleTransition.setNode(button);
+
+        // set scales
+        scaleTransition.setByX(0.1);
+        scaleTransition.setByY(0.1);
+        scaleTransition.setAutoReverse(true);
+
+        scaleTransition.setCycleCount(2);
+        scaleTransition.play();
+    }
+
     @FXML
     void muteBtnAction(ActionEvent event) {
+        playClickEffect(muteBtn);
         if (mediaPlayer.getVolume() > 0) {
             lastVolume = mediaPlayer.getVolume();
             mediaPlayer.setVolume(0);
@@ -179,11 +212,13 @@ public class MediaPlayerController {
 
     @FXML
     void nextBtnAction(ActionEvent event) {
+        playClickEffect(nextBtn);
         // TODO
     }
 
     @FXML
     void playBtnAction(ActionEvent event) {
+        playClickEffect(playBtn);
         if (mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
             playBtn.setStyle("-fx-shape : \"M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z\"");
             mediaPlayer.pause();
@@ -196,24 +231,31 @@ public class MediaPlayerController {
 
     @FXML
     void rateIncrementBtnAction(ActionEvent event) {
+        playClickEffect(rateIncrementBtn);
         double rate = mediaPlayer.getRate();
         if (rate < 8) {
             rate++;
             mediaPlayer.setRate(rate);
+            if (rateSlider != null) {
+                rateSlider.setValue(rate);
+            }
         }
     }
 
     @FXML
     void fullscreenBtnAction(ActionEvent event) {
+        playClickEffect(fullscreenBtn);
         // TODO
     }
 
     @FXML
     void teaterModeBtnAction(ActionEvent event) {
+        playClickEffect(teaterModeBtn);
         // TODO
     }
 
     public void miniPlayerBtnAction(ActionEvent actionEvent) {
+        playClickEffect(miniPlayerBtn);
         // TODO
     }
 
@@ -245,5 +287,14 @@ public class MediaPlayerController {
     public void volumeHBoxExited(MouseEvent mouseEvent) {
         volumeHBox.getChildren().remove(1);
         volumeSlider = null;
+    }
+
+    public void rateIncrementHBoxEnter(MouseEvent mouseEvent) {
+        createRateSlider();
+    }
+
+    public void rateIncrementHBoxExit(MouseEvent mouseEvent) {
+        rateIncrementHBox.getChildren().remove(1);
+        rateSlider = null;
     }
 }
