@@ -1,5 +1,7 @@
 package org.project.youtube.Server.Model.Network;
 
+import org.project.youtube.Server.ServerMain;
+
 import java.io.DataInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -17,7 +19,13 @@ public class Downloader implements Runnable {
             String type = in.readUTF();
 
             int bytes;
-            FileOutputStream fileOutputStream = new FileOutputStream("resources/" + type + "/" + fileName);
+            FileOutputStream fileOutputStream;
+            if (type.equals("video")) {
+                fileOutputStream = new FileOutputStream(ServerMain.VIDEO_PATH + "/" + fileName);
+            }
+            else {
+                fileOutputStream = new FileOutputStream(ServerMain.SHORT_PATH + "/" + fileName);
+            }
 
             long size = in.readLong();
             byte[] buffer = new byte[32 * 1024];

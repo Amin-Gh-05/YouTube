@@ -17,12 +17,16 @@ public class ServerMain {
     public static ServerSocket serverFileTransferSocket;
     private static Thread fileTransferThread;
 
+    public static final String SERVER_RESOURCES_PATH = "C:/YouTubeServer";
+    public static final String VIDEO_PATH = "C:/YouTubeServer/video";
+    public static final String SHORT_PATH = "C:/YouTubeServer/short";
+
 
     public static void main(String[] args) {
         try {
-            Files.createDirectories(Paths.get("resources"));
-            Files.createDirectories(Paths.get("resources/video"));
-            Files.createDirectories(Paths.get("resources/short"));
+            Files.createDirectories(Paths.get(SERVER_RESOURCES_PATH));
+            Files.createDirectories(Paths.get(VIDEO_PATH));
+            Files.createDirectories(Paths.get(SHORT_PATH));
             serverSocket = new ServerSocket(5431);
             serverFileTransferSocket = new ServerSocket(5430);
             runServer();
