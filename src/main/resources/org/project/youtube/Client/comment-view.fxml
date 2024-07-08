@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.SVGPath?>
 
-<AnchorPane id="mainPanel" prefHeight="120.0" prefWidth="900.0" stylesheets="@comment-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.CommentController">
+<AnchorPane id="mainPanel" fx:id="mainPanel" prefHeight="120.0" prefWidth="900.0" stylesheets="@comment-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.CommentController">
     <children>
         <Circle fx:id="profilePic" fill="#ffffff00" layoutX="54.0" layoutY="54.0" radius="40.0" stroke="#ffffff00" strokeType="INSIDE" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
         <HBox alignment="CENTER_LEFT" layoutX="107.0" layoutY="14.0" prefHeight="40.0" prefWidth="773.0" spacing="20.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -46,8 +46,7 @@
             </graphic>
         </Button>
         <Button id="dislikeButton" layoutX="144.66666666666669" layoutY="80.0" mnemonicParsing="false" onAction="#dislikeComment" prefHeight="28.0" prefWidth="25.0" styleClass="actionButton" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="143.0" />
-        <Button layoutX="228.0" layoutY="80.0" mnemonicParsing="false" onAction="#replyComment" styleClass="actionButton" text="Reply" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="228.0" />
-      <Button fx:id="submitButton" layoutX="283.0" layoutY="80.0" mnemonicParsing="false" onAction="#submitChanges" styleClass="actionButton" text="Submit" AnchorPane.leftAnchor="279.0" />
-      <Label fx:id="likesLabel" alignment="CENTER" layoutX="173.0" layoutY="84.0" prefHeight="18.0" prefWidth="50.0" text="likes" textAlignment="CENTER" />
+      <Button fx:id="submitButton" layoutX="294.0" layoutY="77.0" mnemonicParsing="false" onAction="#submitChanges" styleClass="actionButton" text="Submit" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="294.0" />
+      <Label fx:id="likesLabel" alignment="CENTER" layoutX="180.0" layoutY="83.0" prefHeight="18.0" prefWidth="50.0" text="likes" textAlignment="CENTER" AnchorPane.bottomAnchor="17.0" />
     </children>
 </AnchorPane>

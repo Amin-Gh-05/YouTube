@@ -27,6 +27,7 @@ import org.project.youtube.Client.Model.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -264,7 +265,25 @@ public class MainController implements Initializable {
             return;
         }
 
-        // todo: load profile and set attributes
+        // get current stage
+        mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        // load fxml of profile page
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/profile-view.fxml"));
+        Parent root = loader.load();
+
+        // create a new stage and show it
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.centerOnScreen();
+
+        // hide this page and open the sign in panel
+        mainStage.hide();
+        stage.show();
+
+        System.out.println("| redirect to profile panel");
     }
 
     @FXML
@@ -285,8 +304,19 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void loadSubs() {
+    void loadSubs() throws IOException {
+        if (user == null) {
+            System.out.println("| subs not available");
+            return;
+        }
 
+        List<Channel> subscriptions = Request.getSubscribedChannels(user);
+        mainPanel.getChildren().clear();
+
+        for (Channel channel : subscriptions) {
+            Node node = loadMinChannel(channel);
+            mainPanel.getChildren().add(node);
+        }
     }
 
     @FXML
@@ -312,8 +342,19 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void loadPlaylists() {
+    void loadPlaylists() throws IOException {
+        if (user == null) {
+            System.out.println("| playlists not available");
+            return;
+        }
 
+        List<Playlist> playlists = Request.getPLs(channel.getHandle());
+        mainPanel.getChildren().clear();
+
+        for (Playlist playlist : playlists) {
+            Node node = loadMinPlaylist(playlist);
+            mainPanel.getChildren().add(node);
+        }
     }
 
     @FXML
@@ -329,7 +370,7 @@ public class MainController implements Initializable {
         }
 
         Playlist laters = Request.getWatchLaterPlaylist(channel.getHandle());
-        Node node = loadPlaylist(laters);
+        Node node = loadFullPlaylist(laters);
 
         if (node != null) {
             mainPanel.getChildren().clear();
@@ -348,7 +389,7 @@ public class MainController implements Initializable {
         }
 
         Playlist liked = Request.getLikedVideosPlaylist(channel.getHandle());
-        Node node = loadPlaylist(liked);
+        Node node = loadFullPlaylist(liked);
 
         if (node != null) {
             mainPanel.getChildren().clear();
@@ -406,13 +447,13 @@ public class MainController implements Initializable {
         Node node = loader.load();
 
         // set attributes
-        thumbnailController.controller = this;
         thumbnailController.video = video;
+        thumbnailController.controller = this;
         try {
             thumbnailController.getThumbnailImage().setImage(new Image(new ByteArrayInputStream(video.getThumbnail())));
         } catch (NullPointerException e) {
             System.out.println(e.getMessage());
-            thumbnailController.getThumbnailImage().setImage(new Image("/org/project/youtube/Client/images/thumbnail-sample.png"));
+            thumbnailController.getThumbnailImage().setImage(new Image("/org/project/youtube/Client/images/sample-thumbnail.png"));
         }
         try {
             thumbnailController.getProfileImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(videoChannel.getLogo()))));
@@ -421,7 +462,7 @@ public class MainController implements Initializable {
             thumbnailController.getProfileImage().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/profile-sample.png")));
         }
         thumbnailController.getTitleLabel().setText(video.getTitle());
-        thumbnailController.getDateLabel().setText(video.getCreatedDateTime().toString());
+        thumbnailController.getDateLabel().setText(video.getCreatedDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         thumbnailController.getViewsLabel().setText(String.valueOf(video.getViews()));
 
         return node;
@@ -435,13 +476,13 @@ public class MainController implements Initializable {
         Node node = loader.load();
 
         // set attributes
-        thumbnailController.controller = this;
         thumbnailController.aShort = shortVideo;
+        thumbnailController.controller = this;
         try {
             thumbnailController.getThumbnailImage().setImage(new Image(new ByteArrayInputStream(shortVideo.getThumbnail())));
         } catch (NullPointerException e) {
             System.out.println(e.getMessage());
-            thumbnailController.getThumbnailImage().setImage(new Image("/org/project/youtube/Client/images/thumbnail-sample.png"));
+            thumbnailController.getThumbnailImage().setImage(new Image("/org/project/youtube/Client/images/sample-thumbnail.png"));
         }
         try {
             thumbnailController.getProfileImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(shortChannel.getLogo()))));
@@ -450,18 +491,19 @@ public class MainController implements Initializable {
             thumbnailController.getProfileImage().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/profile-sample.png")));
         }
         thumbnailController.getTitleLabel().setText(shortVideo.getTitle());
-        thumbnailController.getDateLabel().setText(shortVideo.getCreatedDateTime().toString());
+        thumbnailController.getDateLabel().setText(shortVideo.getCreatedDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         thumbnailController.getViewsLabel().setText(String.valueOf(shortVideo.getViews()));
 
         return node;
     }
 
-    private Node loadPlaylist(Playlist playlist) throws IOException {
+    private Node loadMinPlaylist(Playlist playlist) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/playlist-view.fxml"));
-        Node node = loader.load();
+        loader.load();
         PlaylistController playlistController = loader.getController();
 
         // set attributes
+        playlistController.playlist = playlist;
         playlistController.controller = this;
         try {
             playlistController.getPlaylistImage().setImage(new Image(new ByteArrayInputStream(playlist.getImage())));
@@ -471,13 +513,31 @@ public class MainController implements Initializable {
         }
         playlistController.getNameLabel().setText(playlist.getName());
         playlistController.getHandleLabel().setText(playlist.getChannelHandle());
-        playlistController.getIsPublicLabel().setText(String.valueOf(playlist.isPublic()));
+        playlistController.getIsPublicLabel().setText(playlist.isPublic() ? "public" : "private");
         playlistController.getDescriptionLabel().setText(playlist.getDescription());
 
-        playlistController.getSubmitButton().setVisible(false);
-        if (!playlist.getChannelHandle().equals(channel.getHandle())) {
-            playlistController.getChangeMenu().hide();
+        return playlistController.getInfoPanel();
+    }
+
+    private Node loadFullPlaylist(Playlist playlist) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/playlist-view.fxml"));
+        Node node = loader.load();
+        PlaylistController playlistController = loader.getController();
+
+        // set attributes
+        playlistController.playlist = playlist;
+        playlistController.controller = this;
+        try {
+            playlistController.getPlaylistImage().setImage(new Image(new ByteArrayInputStream(playlist.getImage())));
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            playlistController.getPlaylistImage().setImage(new Image("/org/project/youtube/Client/images/playlist-sample.png"));
         }
+        playlistController.getNameLabel().setText(playlist.getName());
+        playlistController.getHandleLabel().setText(playlist.getChannelHandle());
+        playlistController.getIsPublicLabel().setText(playlist.isPublic() ? "public" : "private");
+        playlistController.getDescriptionLabel().setText(playlist.getDescription());
+
         // fill videos panel
         if (!playlist.getVideos().isEmpty()) {
             for (Video video : playlist.getVideos()) {
@@ -500,6 +560,7 @@ public class MainController implements Initializable {
         ChannelController channelController = loader.getController();
 
         // set attributes
+        channelController.channel = channel;
         channelController.controller = this;
         try {
             channelController.getLogoImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(channel.getLogo()))));
@@ -508,16 +569,11 @@ public class MainController implements Initializable {
             channelController.getLogoImage().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/profile-sample.png")));
         }
         channelController.getNameLabel().setText(channel.getName());
-        channelController.getDateLabel().setText(channel.getCreatedDateTime().toString());
+        channelController.getDateLabel().setText(channel.getCreatedDateTime().format(DateTimeFormatter.ofPattern("yyyy MM dd")));
         channelController.getHandleLabel().setText(channel.getHandle());
         channelController.getSubsLabel().setText(String.valueOf(channel.getSubscribers()));
         channelController.getViewLabel().setText(String.valueOf(channel.getViews()));
         channelController.getDescriptionLabel().setText(channel.getDescription());
-
-        channelController.getSubmitButton().setVisible(false);
-        if (!channel.getOwnerYID().equals(user.getYid())) {
-            channelController.getChangeMenu().hide();
-        }
 
         return channelController.getInfoPanel();
     }
@@ -528,12 +584,13 @@ public class MainController implements Initializable {
         ChannelController channelController = loader.getController();
 
         // set attributes
+        channelController.channel = channel;
         channelController.controller = this;
         try {
             channelController.getBannerImage().setImage(new Image(new ByteArrayInputStream(channel.getBanner())));
         } catch (NullPointerException e) {
             System.out.println(e.getMessage());
-            channelController.getBannerImage().setImage(new Image("/org/project/youtube/Client/images/banner-sample.png"));
+            channelController.getBannerImage().setImage(new Image("/org/project/youtube/Client/images/sample-banner.png"));
         }
         try {
             channelController.getLogoImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(channel.getLogo()))));
@@ -542,16 +599,12 @@ public class MainController implements Initializable {
             channelController.getLogoImage().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/profile-sample.png")));
         }
         channelController.getNameLabel().setText(channel.getName());
-        channelController.getDateLabel().setText(channel.getCreatedDateTime().toString());
+        channelController.getDateLabel().setText(channel.getCreatedDateTime().format(DateTimeFormatter.ofPattern("yyyy MM dd")));
         channelController.getHandleLabel().setText(channel.getHandle());
         channelController.getSubsLabel().setText(String.valueOf(channel.getSubscribers()));
         channelController.getViewLabel().setText(String.valueOf(channel.getViews()));
         channelController.getDescriptionLabel().setText(channel.getDescription());
 
-        channelController.getSubmitButton().setVisible(false);
-        if (!channel.getOwnerYID().equals(user.getYid())) {
-            channelController.getChangeMenu().hide();
-        }
         // fill videos panel
         if (!channel.getVideos().isEmpty()) {
             for (Video video : channel.getVideos()) {
@@ -567,7 +620,7 @@ public class MainController implements Initializable {
         // fill playlists panel
         if (!channel.getPlaylists().isEmpty()) {
             for (Playlist playlist : channel.getPlaylists()) {
-                channelController.getPlaylistsPanel().getChildren().add(loadPlaylist(playlist));
+                channelController.getPlaylistsPanel().getChildren().add(loadFullPlaylist(playlist));
             }
         }
 

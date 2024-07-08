@@ -13,6 +13,8 @@ import org.project.youtube.Client.Model.Network.Request;
 import java.io.IOException;
 
 public class ChannelController {
+    Channel channel;
+
     MainController controller;
 
     @FXML
@@ -113,11 +115,15 @@ public class ChannelController {
             System.out.println(e.getMessage());
         }
 
+        nameLabel.setText(nameField.getText());
+        descriptionLabel.setText(descriptionArea.getText());
+
         infoPanel.getChildren().remove(nameField);
         infoPanel.getChildren().remove(descriptionArea);
         infoPanel.getChildren().add(1, nameLabel);
         infoPanel.getChildren().add(4, descriptionLabel);
 
+        submitButton.setVisible(false);
         System.out.println("| channel was successfully updated");
     }
 

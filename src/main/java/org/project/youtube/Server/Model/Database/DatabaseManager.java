@@ -1088,19 +1088,19 @@ public class DatabaseManager {
         return rs.next();
     }
 
-    public static boolean isSubscribed(User user, Channel channel) throws SQLException {
+    public static boolean isSubscribed(String yid, String handle) throws SQLException {
         Connection conn = connect();
 
         // checks if user has subscribed channel
         String query = "SELECT * FROM channel_subscriptions WHERE yid = ? AND handle = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, user.getYid().toString());
-        stmt.setString(2, channel.getHandle());
+        stmt.setString(1, yid);
+        stmt.setString(2, handle);
 
         ResultSet rs = stmt.executeQuery();
 
         conn.close();
-        log("check if channel " + channel.getHandle() + " is subscribed by user " + user.getYid());
+        log("check if channel " + handle + " is subscribed by user " + yid);
 
         return rs.next();
     }
