@@ -10,10 +10,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import org.controlsfx.control.Notifications;
 import org.project.youtube.Client.Model.Video;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.project.youtube.Client.Model.Network.Request.getRandomVideos;
@@ -34,7 +36,7 @@ public class VideoController {
     private Label likeCount, viewCount, titleLabel, dateCreatedLabel, description;
 
     @FXML
-    private Button likeImage, dislikeImage;
+    private Button likeImage, dislikeImage, saveButton, reportButton;
 
     // ---------------------- THUMBNAILS ----------------------
     @FXML
@@ -46,6 +48,16 @@ public class VideoController {
     //  ---------------------- COMMENTS -----------------------
     @FXML
     private Button moreComments;
+
+    @FXML
+    void reportAllert(ActionEvent event){
+        Notifications.create().title("Guidance").text("Here is a free country. No objection!").showInformation();
+    }
+
+    @FXML
+    void saveToPlayList(ActionEvent event){
+
+    }
 
 
     @FXML
@@ -107,12 +119,13 @@ public class VideoController {
         for(commentPNT = 0; commentPNT < 10; commentPNT++)
         {
             commentController.comment = video.getComments().get(commentPNT);
-            mediaPlayerPane.getChildren().add(comment);
+            mainVideoBox.getChildren().add(comment);
+            commentController.init();
         }
         mainVideoBox.getChildren().add(moreComments);
 
-        /* TODO loading first 10 Thumbnail
-        List<Video> randomVideo = getRandomVideos();
+        // TODO loading first 10 Thumbnails -> YID function
+        List<Video> randomVideo = new ArrayList<>();//getRandomVideos();
         thumbnailBox.getChildren().remove(moreVideos);
         FXMLLoader thumbnailLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/video-thumbnail.fxml"));
         AnchorPane thumbnail = thumbnailLoader.load();
@@ -120,10 +133,10 @@ public class VideoController {
         for(thumbnailPNT = 0; thumbnailPNT < 10; thumbnailPNT++)
         {
             thumbnailController.video = randomVideo.get(thumbnailPNT);
+            thumbnailController.init();
             mediaPlayerPane.getChildren().add(thumbnail);
         }
         thumbnailBox.getChildren().add(moreVideos);
-        */
 
     }
 

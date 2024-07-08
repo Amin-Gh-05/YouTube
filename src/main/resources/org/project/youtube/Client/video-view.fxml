@@ -36,7 +36,7 @@
                               <Insets left="1.0" right="3.0" top="8.0" />
                            </HBox.margin>
                         </Button>
-                        <Label fx:id="likeCount" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="45.0" prefWidth="97.0" text="likes" textAlignment="CENTER">
+                        <Label fx:id="likeCount" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="38.0" prefWidth="79.0" text="likes" textAlignment="CENTER">
                            <padding>
                               <Insets left="5.0" right="5.0" />
                            </padding>
@@ -52,7 +52,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="viewCount" alignment="CENTER" contentDisplay="CENTER" layoutX="181.0" layoutY="10.0" prefHeight="45.0" prefWidth="120.0" text="views" textAlignment="CENTER">
+                        <Label fx:id="viewCount" alignment="CENTER" contentDisplay="CENTER" layoutX="181.0" layoutY="10.0" prefHeight="38.0" prefWidth="96.0" text="views" textAlignment="CENTER">
                            <padding>
                               <Insets left="5.0" right="5.0" />
                            </padding>
@@ -60,6 +60,23 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
+                        <HBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="38.0" prefWidth="383.0">
+                           <children>
+                              <Button fx:id="reportButton" mnemonicParsing="false" onAction="#reportAllert" prefHeight="37.0" prefWidth="73.0" styleClass="actionButton" stylesheets="@video-view.css" text="Report">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="58.0" styleClass="actionButton" stylesheets="@video-view.css" text="Save">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="10.0" right="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
                   <Label fx:id="titleLabel" prefHeight="38.0" prefWidth="80.0" text="title">
