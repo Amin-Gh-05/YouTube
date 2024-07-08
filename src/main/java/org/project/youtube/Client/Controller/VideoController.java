@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import org.controlsfx.control.Notifications;
+import org.project.youtube.Client.Main;
 import org.project.youtube.Client.Model.Comment;
 import org.project.youtube.Client.Model.Network.Request;
 import org.project.youtube.Client.Model.User;
@@ -147,12 +148,12 @@ public class VideoController {
     public void loadPlayer() throws IOException {
         FXMLLoader mediaPlayerLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/media-player.fxml"));
         AnchorPane mediaPlayer = mediaPlayerLoader.load();
-        MediaPlayerController mediaPlayerController = mediaPlayerLoader.getController();
         mediaPlayerPane.getChildren().add(mediaPlayer);
 
-        mediaPlayerController.setPath("file:///C:/YouTube/c.mp4");
+        MediaPlayerController mediaPlayerController = mediaPlayerLoader.getController();
         mediaPlayerController.setPane(mediaPlayerPane);
-//        mediaPlayerController.init();
+        mediaPlayerController.setPath("file:///" + Main.CASH_PATH + "/" + video.getId().toString() + ".mp4");
+        mediaPlayerController.initBindings();
     }
 
     private Node loadComment(Comment comment) throws IOException {

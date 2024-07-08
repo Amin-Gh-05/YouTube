@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import org.project.youtube.Client.Main;
 import org.project.youtube.Client.Model.Network.Request;
 import org.project.youtube.Client.Model.Short;
 
@@ -81,7 +82,7 @@ public class ShortController {
 
         ShortPlayerController shortPlayerController = shortPlayerLoader.getController();
         shortPlayerController.setPane(playerPane);
-        shortPlayerController.setPath(""); //TODO
+        shortPlayerController.setPath("file:///" + Main.CASH_PATH + "/" + shortVideo.getId().toString() + ".mp4");
         shortPlayerController.initBindings();
 
         shortPlayerController.setHandle(shortVideo.getShortHandle());
