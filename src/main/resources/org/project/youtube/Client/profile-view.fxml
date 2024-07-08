@@ -85,16 +85,16 @@
       </AnchorPane>
     <AnchorPane layoutY="225.0" minHeight="0.0" minWidth="0.0" prefHeight="356.0" prefWidth="785.0">
          <children>
-            <VBox layoutX="14.0" layoutY="7.0" prefHeight="343.0" prefWidth="411.0">
+            <VBox layoutX="14.0" layoutY="7.0" prefHeight="343.0" prefWidth="346.0">
                <children>
                   <Label alignment="CENTER" prefHeight="36.0" prefWidth="202.0" text="Personal Info">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
                   </Label>
-                  <AnchorPane prefHeight="307.0" prefWidth="398.0">
+                  <AnchorPane prefHeight="307.0" prefWidth="360.0">
                      <children>
-                        <HBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="47.0" prefWidth="434.0">
+                        <HBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="47.0" prefWidth="336.0">
                            <children>
                               <ImageView fx:id="nameAlert" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                  <image>
@@ -109,14 +109,14 @@
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="nameField" maxWidth="1.7976931348623157E308" prefHeight="47.0" prefWidth="307.0">
+                              <Label fx:id="nameField" maxWidth="1.7976931348623157E308" prefHeight="47.0">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </Label>
                            </children>
                         </HBox>
-                        <HBox layoutY="47.0" maxWidth="-Infinity" prefHeight="47.0" prefWidth="434.0">
+                        <HBox layoutY="47.0" maxWidth="-Infinity" prefHeight="47.0" prefWidth="336.0">
                            <children>
                               <ImageView fx:id="lastnameAlert" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                  <image>
@@ -131,14 +131,14 @@
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lastnameField" maxWidth="-Infinity" prefHeight="47.0" prefWidth="326.0" stylesheets="@profile-view.css">
+                              <Label fx:id="lastnameField" maxWidth="-Infinity" prefHeight="47.0" prefWidth="228.0" stylesheets="@profile-view.css">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </Label>
                            </children>
                         </HBox>
-                        <HBox layoutY="94.0" maxWidth="-Infinity" prefHeight="47.0" prefWidth="434.0">
+                        <HBox layoutY="94.0" maxWidth="-Infinity" prefHeight="47.0" prefWidth="336.0">
                            <children>
                               <ImageView fx:id="emailAlert" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                  <image>
@@ -153,14 +153,14 @@
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="emailField" prefHeight="47.0" prefWidth="356.0">
+                              <Label fx:id="emailField" prefHeight="47.0">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </Label>
                            </children>
                         </HBox>
-                        <HBox layoutY="141.0" maxWidth="-Infinity" prefHeight="47.0" prefWidth="434.0">
+                        <HBox layoutY="141.0" maxWidth="-Infinity" prefHeight="47.0" prefWidth="336.0">
                            <children>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                  <image>
@@ -205,7 +205,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <HBox layoutY="183.0" maxWidth="-Infinity" prefHeight="47.0" prefWidth="434.0">
+                        <HBox layoutY="183.0" maxWidth="-Infinity" prefHeight="47.0" prefWidth="336.0">
                            <children>
                               <ImageView fx:id="genderAlert" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                  <image>
@@ -227,7 +227,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <HBox layoutY="230.0" maxWidth="-Infinity" prefHeight="47.0" prefWidth="434.0">
+                        <HBox layoutY="230.0" maxWidth="-Infinity" prefHeight="47.0" prefWidth="336.0">
                            <children>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                  <image>
@@ -239,17 +239,17 @@
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <Label prefHeight="47.0" prefWidth="342.0">
+                              <Label prefHeight="47.0">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </Label>
                            </children>
                         </HBox>
-                        <TextField fx:id="nameEditor" layoutX="73.0" layoutY="11.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="351.0" visible="false" />
-                        <TextField fx:id="lastnameEditor" layoutX="106.0" layoutY="58.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="318.0" visible="false" />
-                        <TextField fx:id="emailEditor" layoutX="75.0" layoutY="104.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="349.0" visible="false" />
-                        <DatePicker fx:id="datePicker" layoutX="125.0" layoutY="152.0" prefHeight="25.0" prefWidth="300.0" visible="false" />
+                        <TextField fx:id="nameEditor" layoutX="73.0" layoutY="11.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="260.0" visible="false" />
+                        <TextField fx:id="lastnameEditor" layoutX="106.0" layoutY="58.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="227.0" visible="false" />
+                        <TextField fx:id="emailEditor" layoutX="75.0" layoutY="104.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="258.0" visible="false" />
+                        <DatePicker fx:id="datePicker" layoutX="125.0" layoutY="152.0" prefHeight="25.0" prefWidth="208.0" visible="false" />
                         <CheckBox fx:id="maleBox" layoutX="100.0" layoutY="197.0" mnemonicParsing="false" text="Male" visible="false">
                            <font>
                               <Font size="15.0" />
@@ -260,15 +260,15 @@
                               <Font size="15.0" />
                            </font>
                         </CheckBox>
-                        <ChoiceBox fx:id="regionBox" layoutX="81.0" layoutY="242.0" prefHeight="25.0" prefWidth="184.0" visible="false" />
+                        <ChoiceBox fx:id="regionBox" layoutX="81.0" layoutY="242.0" prefHeight="25.0" prefWidth="208.0" visible="false" />
                      </children>
                   </AnchorPane>
                </children>
             </VBox>
             <Separator layoutY="2.0" prefHeight="4.0" prefWidth="774.0" />
-            <ScrollPane hbarPolicy="NEVER" layoutX="374.0" layoutY="4.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="333.0" prefWidth="392.0">
+            <ScrollPane hbarPolicy="NEVER" layoutX="359.0" layoutY="4.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="343.0" prefWidth="415.0">
                <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="413.0" prefWidth="358.0" />
+                  <VBox prefHeight="358.0" prefWidth="402.0" />
                </content>
             </ScrollPane>
          </children>

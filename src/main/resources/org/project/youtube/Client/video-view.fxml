@@ -67,7 +67,7 @@
                                     <Font size="16.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="58.0" styleClass="actionButton" stylesheets="@video-view.css" text="Save">
+                              <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveToPlayList" prefHeight="38.0" prefWidth="58.0" styleClass="actionButton" stylesheets="@video-view.css" text="Save">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
