@@ -39,6 +39,8 @@ public class ShortPlayerController {
     @FXML
     private Label handleLbl;
     @FXML
+    private Label descriptionLbl;
+    @FXML
     private Circle profileImage;
     @FXML
     private Slider shortSlider;
@@ -75,14 +77,17 @@ public class ShortPlayerController {
     private void setHandle(String handle) {
         handleLbl.setText("@" + handle);
     }
+    private void setDescription(String text) {
+        descriptionLbl.setText(text);
+    }
 
     private void disableSubscribeBtn() {
         subscribeBtn.setText("Subscribed");
         subscribeBtn.setDisable(true);
     }
 
-    private void setProfileImage(Short shortVideo) throws IOException {
-        Image logo = new Image(new ByteArrayInputStream(getChannel(shortVideo.getShortHandle()).getLogo()));
+    private void setProfileImage(String handle) throws IOException {
+        Image logo = new Image(new ByteArrayInputStream(getChannel(handle).getLogo()));
         profileImage.setFill(new ImagePattern(logo));
     }
 
