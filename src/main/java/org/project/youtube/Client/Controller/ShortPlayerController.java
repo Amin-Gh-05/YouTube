@@ -5,7 +5,9 @@ import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -13,7 +15,15 @@ import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
+import org.project.youtube.Client.Model.Short;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+
+import static org.project.youtube.Client.Model.Network.Request.getChannel;
 
 public class ShortPlayerController {
     @FXML
@@ -21,9 +31,15 @@ public class ShortPlayerController {
     @FXML
     private Button muteBtn;
     @FXML
+    private Button subscribeBtn;
+    @FXML
     private HBox muteBtnHBox;
     @FXML
     private BorderPane borderPane;
+    @FXML
+    private Label handleLbl;
+    @FXML
+    private Circle profileImage;
     @FXML
     private Slider shortSlider;
     @FXML
@@ -45,8 +61,8 @@ public class ShortPlayerController {
     }
 
     public void initBindings() {
-        //mediaView.fitWidthProperty().bind(pane.widthProperty());
-        //mediaView.fitHeightProperty().bind(pane.heightProperty());
+        mediaView.fitWidthProperty().bind(pane.widthProperty());
+        mediaView.fitHeightProperty().bind(pane.heightProperty());
 
         borderPane.prefWidthProperty().bind(mediaView.fitWidthProperty());
         borderPane.prefHeightProperty().bind(mediaView.fitHeightProperty());
@@ -54,6 +70,20 @@ public class ShortPlayerController {
         mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> shortSlider.setValue(newValue.toSeconds()));
 
         lastVolume = 1.0;
+    }
+
+    private void setHandle(String handle) {
+        handleLbl.setText("@" + handle);
+    }
+
+    private void disableSubscribeBtn() {
+        subscribeBtn.setText("Subscribed");
+        subscribeBtn.setDisable(true);
+    }
+
+    private void setProfileImage(Short shortVideo) throws IOException {
+        Image logo = new Image(new ByteArrayInputStream(getChannel(shortVideo.getShortHandle()).getLogo()));
+        profileImage.setFill(new ImagePattern(logo));
     }
 
     private void playClickEffect(Button button) {
