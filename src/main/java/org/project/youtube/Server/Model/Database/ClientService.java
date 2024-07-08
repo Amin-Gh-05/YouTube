@@ -135,7 +135,7 @@ public class ClientService {
         Playlist watchLaterPlaylist = null;
 
         for (Playlist playlist : playlists) {
-            if (playlist.getName().equals("Watch Later")) {
+            if (playlist.getName().equals("Watch Laters")) {
                 watchLaterPlaylist = playlist;
             }
         }
