@@ -726,7 +726,11 @@ public class DatabaseManager {
         }
 
         // add trending videos
-        videos.addAll(readTrendingVideos());
+        for (Video video : readTrendingVideos()) {
+            if (!videos.contains(video)) {
+                videos.add(video);
+            }
+        }
 
         Collections.shuffle(videos);
         log("load home videos from database");
@@ -887,7 +891,11 @@ public class DatabaseManager {
         }
 
         // add trending shorts
-        shorts.addAll(readTrendingShorts());
+        for (Short aShort : readTrendingShorts()) {
+            if (!shorts.contains(aShort)) {
+                shorts.add(aShort);
+            }
+        }
 
         Collections.shuffle(shorts);
         log("get home shorts from database");
