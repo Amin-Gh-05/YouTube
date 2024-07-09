@@ -191,11 +191,6 @@ public class StudioController implements Initializable {
     }
 
     @FXML
-    void loadProfile() {
-
-    }
-
-    @FXML
     void loadDashboard() throws IOException {
         // remove the previously loaded child
         mainPanel.getChildren().clear();

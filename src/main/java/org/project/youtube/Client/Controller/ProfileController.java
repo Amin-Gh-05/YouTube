@@ -186,10 +186,9 @@ public class ProfileController {
     @FXML
     void returnHome(ActionEvent event) throws IOException {
         // get current stage
-        Stage signupStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage profileStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         // restore the main page
-        signupStage.close();
-        MainController.mainController.refreshAll();
+        profileStage.close();
         MainController.mainStage.show();
 
         System.out.println("| redirect to main panel");
