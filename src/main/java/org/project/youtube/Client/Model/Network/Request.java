@@ -103,10 +103,7 @@ public class Request {
     public static void logout() throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "logout");
-
         JSONObject data = new JSONObject();
-        // TODO
-
         jsonObject.put("reqData", data);
 
         Client.sendRequest(jsonObject.toString());
