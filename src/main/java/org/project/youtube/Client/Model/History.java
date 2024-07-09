@@ -1,5 +1,8 @@
 package org.project.youtube.Client.Model;
 
+import org.project.youtube.Client.Controller.MainController;
+import org.project.youtube.Client.Main;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +20,7 @@ public class History {
     }
 
     static void serializeHistory() throws IOException {
-        FileOutputStream fileOut = new FileOutputStream("history.ser");
+        FileOutputStream fileOut = new FileOutputStream(Main.CASH_PATH + "/" + MainController.user.getYid().toString() + ".ser");
         ObjectOutputStream out = new ObjectOutputStream(fileOut);
         out.writeObject(history);
         out.close();
@@ -27,7 +30,7 @@ public class History {
     }
 
     static void deserializeHistory() throws IOException, ClassNotFoundException {
-        FileInputStream fileIn = new FileInputStream("history.ser");
+        FileInputStream fileIn = new FileInputStream(Main.CASH_PATH + "/" + MainController.user.getYid().toString() + ".ser");
         ObjectInputStream in = new ObjectInputStream(fileIn);
         history = (ArrayList<History>) in.readObject();
         in.close();
