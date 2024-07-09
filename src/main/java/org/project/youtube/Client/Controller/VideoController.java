@@ -11,7 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.Notifications;
+import org.project.youtube.Client.Model.User;
 import org.project.youtube.Client.Model.Video;
+import org.project.youtube.Client.Model.YID;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
