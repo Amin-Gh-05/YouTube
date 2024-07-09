@@ -44,19 +44,26 @@ Since the components are independent, changes to one component do not affect the
 2. How to create our API?
 <br>We used gson library to send request and recieve response which let us exchange different objects easier and faster than normal string.
 4. How should we manage the database?
-<br>Our database has been rewritten almost three times, adding new objects and attributes in each time.
-We also used DTOs which is short for "Data Transfer Object" to make data exchange faster and more efficient.
+<br>Our database has been rewritten almost three times, adding new objects and attributes in each time. This database uses CRUD designing, short for create-read-update-delete.
+<br>We also used DTOs which is short for "Data Transfer Object" to make data exchange faster and more efficient.
 6. Basic map of the program and division of labour
 <br>On this phase, the program was divided into Backend and Frontend. But in the process, we had a lot of time working on the same file or debuging two parts which were connected in functionality.
 
 ### Phase 2
 On this phase, we started designing all FXML views in the project, filling them with buttons and setting alerts and notifications. 
+> mediaplayer
+> comments
 
 ### Phase 3
 About half of the program is being executed on our main panel. On this panel, we load other panels such as video view, channels, profile etc.
+> how to download video
+
 
 ### Ideas And Chalenges🧠
 In this program, we normally don't change scenes, most of panels are being loaded on the main panel and studio panel using FXMLLoader and passing controllers. 
+> server log and history
+> client and server
+
 
 ## Program Made By👩🏽‍💻
 - Amin Ghoorchian
