@@ -99,7 +99,7 @@
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <Label fx:id="description" layoutX="30.0" layoutY="485.0" text="Description">
+                  <Label fx:id="description" layoutX="30.0" layoutY="485.0" lineSpacing="2.0" text="Description" wrapText="true">
                      <padding>
                         <Insets left="5.0" right="5.0" />
                      </padding>

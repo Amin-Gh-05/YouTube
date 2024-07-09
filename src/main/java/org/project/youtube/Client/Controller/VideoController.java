@@ -70,6 +70,8 @@ public class VideoController {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("addToPL.fxml"));
         DialogPane addtopl = loader.load();
+        addToPLController controller = loader.getController();
+        controller.video = this.video;
 
         Dialog adder = new Dialog();
         adder.setDialogPane(addtopl);
@@ -148,6 +150,13 @@ public class VideoController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
         dateCreatedLabel.setText(video.getCreatedDateTime().format(formatter));
         description.setText(video.getDescription());
+        if(MainController.user == null) {
+            likeImage.setDisable(true);
+            dislikeImage.setDisable(true);
+            saveButton.setDisable(true);
+            commentButton.setDisable(true);
+            commentSection.setDisable(true);
+        }
 
         // loading first 10 comments
         commentPNT = 0;
