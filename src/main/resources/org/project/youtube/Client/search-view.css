@@ -4,7 +4,7 @@
 
 .tab {
     -fx-background-color: #F5F3F4;
-    -fx-font-size: 17;
+    -fx-font-size: 16;
 }
 
 .tab:selected {

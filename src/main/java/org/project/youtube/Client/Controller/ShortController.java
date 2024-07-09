@@ -25,6 +25,7 @@ import java.util.List;
 
 public class ShortController {
     Short shortVideo;
+    List<Short> shortVideoList;
 
     @FXML
     private Button commentsBtn;
@@ -67,6 +68,10 @@ public class ShortController {
 
     public void setShortVideo(Short shortVideo) {
         this.shortVideo = shortVideo;
+    }
+
+    public void setShortVideoList(List<Short> shortVideoList) {
+        this.shortVideoList = shortVideoList;
     }
 
     private void playClickEffect(Button button) {
