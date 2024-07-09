@@ -40,7 +40,7 @@ public class Comment {
         this.videoID = videoID;
     }
 
-    public org.project.youtube.Server.Model.YID getWriterYID() {
+    public org.project.youtube.Client.Model.YID getWriterYID() {
         return writerYID;
     }
 
