@@ -102,13 +102,8 @@ public class VideoController {
     void loadComments() throws IOException {
         mainVideoBox.getChildren().remove(moreComments);
 
-        FXMLLoader commentLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/comment-view.fxml"));
-        AnchorPane comment = commentLoader.load();
-        CommentController commentController = commentLoader.getController();
-
         for (int i = 0; i < 10; i++) {
-            commentController.comment = video.getComments().get(commentPNT + i);
-            mediaPlayerPane.getChildren().add(comment);
+            mainVideoBox.getChildren().add(loadComment(video.getComments().get(commentPNT + i)));
         }
         commentPNT += 10;
 
