@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.project.youtube.Client.Model.Network.Client;
+import org.project.youtube.Client.Model.Network.Request;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -50,7 +51,7 @@ public class Main extends Application {
 
     @Override
     public void stop() throws Exception {
-        // todo: complete logout and use it here
+        Request.logout();
         Client.close();
     }
 }

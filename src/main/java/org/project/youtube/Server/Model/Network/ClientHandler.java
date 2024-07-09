@@ -50,7 +50,7 @@ public class ClientHandler implements Runnable {
                     case "findEmail" -> sendBooleanResponse(ClientService.findEmail(data));
                     case "signup" -> sendStringResponse(ClientService.signup(data));
                     case "login" -> sendStringResponse(ClientService.login(data));
-//                    case "logout" -> ;
+                    case "logout" -> logout();
 
                     case "getUsers" -> sendStringResponse(ClientService.getUsers(data));
                     case "getUser" -> sendStringResponse(ClientService.getUser(data));
@@ -75,7 +75,6 @@ public class ClientHandler implements Runnable {
                     case "getLatestShorts" -> sendStringResponse(ClientService.getLatestShorts(data));
                     case "getHomeVideos" -> sendStringResponse(ClientService.getHomeVideos(data));
                     case "getHomeShorts" -> sendStringResponse(ClientService.getHomeShorts(data));
-
 //                    case "getRandomVideos" -> ;
 
                     case "updateUser" -> ClientService.updateUser(data);
@@ -134,5 +133,12 @@ public class ClientHandler implements Runnable {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private void logout() throws IOException {
+        in.close();
+        out.close();
+        socket.close();
+        userFileTransferSocket.close();
     }
 }

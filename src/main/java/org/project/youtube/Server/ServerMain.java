@@ -15,7 +15,6 @@ public class ServerMain {
     private static final ExecutorService pool = Executors.newFixedThreadPool(10);
     private static ServerSocket serverSocket;
     public static ServerSocket serverFileTransferSocket;
-    private static Thread fileTransferThread;
 
     public static final String SERVER_RESOURCES_PATH = "C:/YouTubeServer";
     public static final String VIDEO_PATH = "C:/YouTubeServer/video";
@@ -51,7 +50,6 @@ public class ServerMain {
 
     private static void stopServer() throws IOException {
         if (serverSocket != null) {
-            fileTransferThread.interrupt();
             serverSocket.close();
             serverFileTransferSocket.close();
         }
