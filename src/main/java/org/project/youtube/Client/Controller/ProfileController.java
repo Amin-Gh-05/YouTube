@@ -2,7 +2,6 @@ package org.project.youtube.Client.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -11,19 +10,20 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
 import org.project.youtube.Client.Model.Channel;
 import org.project.youtube.Client.Model.User;
-import org.w3c.dom.events.MouseEvent;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.*;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,19 +32,25 @@ import static org.project.youtube.Client.Model.Network.Request.updateUser;
 
 public class ProfileController {
     public static List<String> countries = new ArrayList<>();
+
+    // ------------------------ LINKS ------------------------
+
+    public static Image alertSign = new Image("/org/project/youtube/Client/images/important.png");
     static User user;
 
-    MainController controller;
+    List<HBox> linkBoxes = new ArrayList<>();
+    List<ImageView> alertSigns = new ArrayList<>();
+    List<ImageView> logos = new ArrayList<>();
+    List<Hyperlink> urls = new ArrayList<>();
+    List<TextField> urlEditor = new ArrayList<>();
 
     // ------------------------ HEADER ------------------------
+
     @FXML
     private Label usernameField;
 
     @FXML
     private Label DJField, MJField, YJField;
-
-    @FXML
-    private Button manageChannels;
 
     @FXML
     private Button editProfile;
@@ -62,6 +68,7 @@ public class ProfileController {
     private ImageView editProfileButton;
 
     // -------------------- PERSONAL INFO ---------------------
+
     @FXML
     private Label DOBField, MOBField, YOBField;
 
@@ -72,6 +79,7 @@ public class ProfileController {
     private VBox linksBox;
 
     // ------------------------ EDITOR ------------------------
+
     @FXML
     private DatePicker datePicker;
 
@@ -87,19 +95,10 @@ public class ProfileController {
     @FXML
     private ChoiceBox<String> regionBox;
 
-    // ------------------------ LINKS ------------------------
-    public static Image alertSign = new Image("/org/project/youtube/Client/images/important.png");
-
-    List<HBox> linkBoxes = new ArrayList<>();
-    List<ImageView> alertSigns = new ArrayList<>();
-    List<ImageView> logos = new ArrayList<>();
-    List<Hyperlink> urls = new ArrayList<>();
-    List<TextField> urlEditor = new ArrayList<>();
-
     public void initialize() throws IOException {
         user = MainController.user;
 
-        //initializing header info
+        // initializing header info
         usernameField.setText(user.getUsername());
         if (!user.isPremium())
             preSign.setVisible(false);
@@ -120,11 +119,11 @@ public class ProfileController {
         nameField.setText(user.getFirstName());
         lastnameField.setText(user.getLastName());
         emailField.setText(user.getEmail());
-        String dob = String.valueOf(user.getDateOfBirth());
-        if (dob != null && !dob.equals("null")) {
-            MOBField.setText(dob.substring(5, 6));
-            DOBField.setText(dob.substring(8, 9));
-            YOBField.setText(dob.substring(0, 3));
+        LocalDate dob = user.getDateOfBirth();
+        if (dob != null) {
+            MOBField.setText(dob.format(DateTimeFormatter.ofPattern("MM")));
+            DOBField.setText(dob.format(DateTimeFormatter.ofPattern("dd")));
+            YOBField.setText(dob.format(DateTimeFormatter.ofPattern("yyyy")));
         }
         genderField.setText(user.getGender());
         regionField.setText(user.getRegion());
@@ -159,9 +158,9 @@ public class ProfileController {
         urls.add(new Hyperlink(ch.getLinkedin()));
         urls.add(new Hyperlink(ch.getReddit()));
 
-        for(int i = 0; i < 9; i++){ // indexes: 0-website  1-facebook  2-instagram  3-X  4-telegram  5-tiktok  6-discord  7-linkedin  8-reddit
+        // indexes: 0-website  1-facebook  2-instagram  3-X  4-telegram  5-tiktok  6-discord  7-linkedin  8-reddit
+        for (int i = 0; i < 9; i++) {
             HBox hbox = new HBox();
-           // hbox.getStylesheets().add(Objects.requireNonNull(getClass().getResource("profile-view.css")).toExternalForm());
             hbox.getStyleClass().add("linkHBoxes");
 
             ImageView alert = new ImageView(alertSign);
@@ -173,40 +172,55 @@ public class ProfileController {
             logos.get(i).setFitHeight(30);
             hbox.getChildren().add(logos.get(i));
 
-            //urls.get(i).getStylesheets().add(Objects.requireNonNull(getClass().getResource("profile-view.css")).toExternalForm());
             urls.get(i).getStyleClass().add("hyperlink");
             hbox.getChildren().add(urls.get(i));
 
             linkBoxes.add(hbox);
-            if(urls.get(i).getText() != null)
+            if (urls.get(i).getText() != null)
                 linksBox.getChildren().add(hbox);
 
-            //urlEditor.get(i).getStylesheets().add(Objects.requireNonNull(getClass().getResource("profile-view.css")).toExternalForm());
-           // urlEditor.get(i).getStyleClass().add("hyperlink");
+//            urlEditor.get(i).getStyleClass().add("hyperlink");
         }
     }
 
+    @FXML
+    void returnHome(ActionEvent event) throws IOException {
+        // get current stage
+        Stage signupStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        // restore the main page
+        signupStage.close();
+        MainController.mainController.refreshAll();
+        MainController.mainStage.show();
+
+        System.out.println("| redirect to main panel");
+    }
+
     // profile editor functions
-    public void switchToEditProfile(ActionEvent e) throws IOException {
+
+    @FXML
+    void switchToEditProfile() {
         // change button statements
         editProfile.setDisable(true);
         makeChanges.setVisible(true);
 
         // invisible labels
         usernameField.setVisible(false);
-        manageChannels.setVisible(false);
         genderField.setVisible(false);
         regionField.setVisible(false);
 
         // visible editors
         nameEditor.setVisible(true);
         nameEditor.setText(nameField.getText());
+
         lastnameEditor.setVisible(true);
         lastnameEditor.setText(lastnameField.getText());
+
         emailEditor.setVisible(true);
         emailEditor.setText(emailField.getText());
+
         datePicker.setVisible(true);
         datePicker.setValue(LocalDate.of(Integer.parseInt(YOBField.getText()), Integer.parseInt(MOBField.getText()), Integer.parseInt(DOBField.getText())));
+
         femaleBox.setVisible(true);
         maleBox.setVisible(true);
         if (genderField.getText().equals("female")) {
@@ -214,12 +228,13 @@ public class ProfileController {
         } else if (genderField.getText().equals("male")) {
             maleBox.setSelected(true);
         }
+
         regionBox.setVisible(true);
         regionBox.setValue(regionField.getText());
 
         // link fields
         linksBox.getChildren().clear();
-        for(int i = 0; i < 9; i++) {
+        for (int i = 0; i < 9; i++) {
             linkBoxes.get(i).getChildren().removeLast();
             urlEditor.get(i).setText(urls.get(i).getText());
             linkBoxes.get(i).getChildren().add(urlEditor.get(i));
@@ -227,45 +242,33 @@ public class ProfileController {
         linksBox.getChildren().addAll(linkBoxes);
     }
 
-    //checking for errors and setting user information
+    // checking for errors and setting user information
+
     @FXML
-    void makeChanges(ActionEvent e) throws IOException {
-        for(HBox hbox: linkBoxes) {
+    void makeChanges() {
+        for (HBox hbox : linkBoxes) {
             hbox.getChildren().getFirst().setVisible(false);
         }
-        if(!checkErrors()) {
+        if (!checkErrors()) {
             setInformation();
         }
     }
 
-    public boolean checkErrors(){
+    public boolean checkErrors() {
         boolean flag = false;
 
         return flag;
     }
 
-    public boolean checkRegex(String reg, String url){
+    public boolean checkRegex(String reg, String url) {
         Pattern pattern = Pattern.compile(reg);
         Matcher matcher = pattern.matcher(url);
 
-        if (!matcher.find()) {
-            return false;
-        }
-
-        return true;
+        return matcher.find();
     }
 
-    public void setInformation(){
+    public void setInformation() {
 
-    }
-
-    @FXML
-    void editProfilePic(MouseEvent event) throws IOException {
-        File file = pickFile();
-        if (file != null) {
-            user.setProfilePic(FileUtils.readFileToByteArray(file));
-        }
-        updateUser(user);
     }
 
     private File pickFile() {
@@ -279,19 +282,16 @@ public class ProfileController {
                 new FileChooser.ExtensionFilter("All Files", "*.*")
         );
 
-        File file = fileChooser.showOpenDialog(new Stage());
-        return file;
-    }
-
-
-
-    // changing scenes
-    public void switchToManageChannels(ActionEvent e) throws IOException {
-        // TODO
+        return fileChooser.showOpenDialog(new Stage());
     }
 
     @FXML
-    void editProfilePic() {
-
+    void editProfilePic() throws IOException {
+        File file = pickFile();
+        if (file != null) {
+            user.setProfilePic(FileUtils.readFileToByteArray(file));
+        }
+        updateUser(user);
+        System.out.println("| profile picture was updated");
     }
 }
