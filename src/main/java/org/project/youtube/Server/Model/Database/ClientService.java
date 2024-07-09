@@ -287,13 +287,44 @@ public class ClientService {
         return DatabaseManager.isSubscribed(yid, handle);
     }
 
-    public static String searchChannels(JSONObject data) {
+    public static String searchChannels(JSONObject data) throws SQLException {
+        String title = data.getString("title");
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        Type listType = new TypeToken<List<Channel>>() {}.getType();
+
+        List<Channel> channels = DatabaseManager.searchChannels(title);
+
+        return gson.toJson(channels, listType);
     }
 
-    public static String searchVideos(JSONObject data) {
+    public static String searchVideos(JSONObject data) throws SQLException {
+        String title = data.getString("title");
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        Type listType = new TypeToken<List<Video>>() {}.getType();
+
+        List<Video> videos = DatabaseManager.searchVideos(title);
+
+        return gson.toJson(videos, listType);
     }
 
-    public static String searchShorts(JSONObject data) {
+    public static String searchShorts(JSONObject data) throws SQLException {
+        String title = data.getString("title");
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Type listType = new TypeToken<List<Short>>() {}.getType();
+
+        List<Short> shorts = DatabaseManager.searchShorts(title);
+
+        return gson.toJson(shorts, listType);
     }
 
     // ======================= Update =======================
