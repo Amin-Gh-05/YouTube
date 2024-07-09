@@ -69,7 +69,7 @@ public class SearchController {
             channelController.getLogoImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(channel.getLogo()))));
         } catch (NullPointerException e) {
             System.out.println(e.getMessage());
-            channelController.getLogoImage().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/profile-sample.png")));
+            channelController.getLogoImage().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/sample-profile.png")));
         }
         channelController.getNameLabel().setText(channel.getName());
         channelController.getDateLabel().setText(channel.getCreatedDateTime().format(DateTimeFormatter.ofPattern("yyyy MM dd")));
@@ -107,7 +107,7 @@ public class SearchController {
             thumbnailController.getProfileImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(videoChannel.getLogo()))));
         } catch (NullPointerException e) {
             System.out.println(e.getMessage());
-            thumbnailController.getProfileImage().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/profile-sample.png")));
+            thumbnailController.getProfileImage().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/sample-profile.png")));
         }
         thumbnailController.getTitleLabel().setText(video.getTitle());
         thumbnailController.getDateLabel().setText(video.getCreatedDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
@@ -136,7 +136,7 @@ public class SearchController {
             thumbnailController.getProfileImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(shortChannel.getLogo()))));
         } catch (NullPointerException e) {
             System.out.println(e.getMessage());
-            thumbnailController.getProfileImage().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/profile-sample.png")));
+            thumbnailController.getProfileImage().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/sample-profile.png")));
         }
         thumbnailController.getTitleLabel().setText(shortVideo.getTitle());
         thumbnailController.getDateLabel().setText(shortVideo.getCreatedDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
