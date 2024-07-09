@@ -672,6 +672,26 @@ public class DatabaseManager {
         return videos;
     }
 
+    public static List<Video> readLatestVideos() throws SQLException {
+        Connection conn = connect();
+        List<Video> videos = new ArrayList<>();
+
+        // read the latest videos
+        String query = "SELECT video_id FROM videos ORDER BY created_date_time DESC LIMIT 10";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+
+        while (rs.next()) {
+            UUID videoId = (UUID) rs.getObject("video_id");
+            videos.add(readVideo(videoId));
+        }
+        log("get latest videos from database");
+
+        return videos;
+    }
+
     public static Short readShort(UUID shortId) throws SQLException {
         Connection conn = connect();
 
@@ -745,6 +765,26 @@ public class DatabaseManager {
             shorts.add(readShort(shortId));
         }
         log("get shorts of playlist " + playlistId + " from database");
+
+        return shorts;
+    }
+
+    public static List<Short> readLatestShorts() throws SQLException {
+        Connection conn = connect();
+        List<Short> shorts = new ArrayList<>();
+
+        // read the latest shorts
+        String query = "SELECT short_id FROM shorts ORDER BY created_date_time DESC LIMIT 10";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+
+        while (rs.next()) {
+            UUID shortId = (UUID) rs.getObject("short_id");
+            shorts.add(readShort(shortId));
+        }
+        log("get latest shorts from database");
 
         return shorts;
     }
@@ -910,9 +950,9 @@ public class DatabaseManager {
         List<Channel> channels = new ArrayList<>();
 
         // read channels from channels table
-        String query = "SELECT handle FROM channels WHERE name LIKE ?";
+        String query = "SELECT handle FROM channels WHERE LOWER(name) LIKE ?";
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, "%" + title + "%");
+        stmt.setString(1, "%" + title.toLowerCase() + "%");
         ResultSet rs = stmt.executeQuery();
 
         conn.close();
@@ -920,6 +960,7 @@ public class DatabaseManager {
         while (rs.next()) {
             channels.add(readChannel(rs.getString("handle")));
         }
+        log("search among channels for " + title);
 
         return channels;
     }
@@ -928,9 +969,9 @@ public class DatabaseManager {
         Connection conn = connect();
         List<Video> videos = new ArrayList<>();
 
-        String query = "SELECT video_id FROM videos WHERE title LIKE ?";
+        String query = "SELECT video_id FROM videos WHERE LOWER(title) LIKE ?";
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, "%" + title + "%");
+        stmt.setString(1, "%" + title.toLowerCase() + "%");
         ResultSet rs = stmt.executeQuery();
 
         conn.close();
@@ -939,6 +980,7 @@ public class DatabaseManager {
             UUID videoId = (UUID) rs.getObject("video_id");
             videos.add(readVideo(videoId));
         }
+        log("search among videos for " + title);
 
         return videos;
     }
@@ -947,9 +989,9 @@ public class DatabaseManager {
         Connection conn = connect();
         List<Short> shorts = new ArrayList<>();
 
-        String query = "SELECT short_id FROM shorts WHERE title LIKE ?";
+        String query = "SELECT short_id FROM shorts WHERE LOWER(title) LIKE ?";
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, "%" + title + "%");
+        stmt.setString(1, "%" + title.toLowerCase() + "%");
         ResultSet rs = stmt.executeQuery();
 
         conn.close();
@@ -958,6 +1000,7 @@ public class DatabaseManager {
             UUID shortId = (UUID) rs.getObject("short_id");
             shorts.add(readShort(shortId));
         }
+        log("search among shorts for " + title);
 
         return shorts;
     }
