@@ -144,9 +144,10 @@ public class VideoController {
         thumbnailPNT = 0;
         loadThumbnails();
 
+        loadPlayer();
     }
 
-    public void loadPlayer() throws IOException {
+    private void loadPlayer() throws IOException {
         FXMLLoader mediaPlayerLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/media-player.fxml"));
         AnchorPane mediaPlayer = mediaPlayerLoader.load();
         mediaPlayerPane.getChildren().add(mediaPlayer);
