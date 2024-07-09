@@ -1,5 +1,7 @@
 package org.project.youtube.Client.Model;
 
+import org.project.youtube.Server.Model.YID;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
@@ -7,19 +9,17 @@ import java.util.UUID;
 public class Comment {
     private UUID id;
     private UUID videoID; // video or short ID
-    private YID writerYID;
+    private org.project.youtube.Server.Model.YID writerYID;
     private String comment;
     private int likes;
-    private UUID replyOnID;
     private String createdDateTime;
 
-    public Comment(UUID id, UUID videoID, YID writerYID, String comment, int like, UUID replyOnID, String createdDateTime) {
+    public Comment(UUID id, UUID videoID, org.project.youtube.Server.Model.YID writerYID, String comment, int like, String createdDateTime) {
         this.id = id;
         this.videoID = videoID;
         this.writerYID = writerYID;
         this.comment = comment;
         this.likes = like;
-        this.replyOnID = replyOnID;
         this.createdDateTime = createdDateTime;
     }
 
@@ -40,7 +40,7 @@ public class Comment {
         this.videoID = videoID;
     }
 
-    public YID getWriterYID() {
+    public org.project.youtube.Server.Model.YID getWriterYID() {
         return writerYID;
     }
 
@@ -62,14 +62,6 @@ public class Comment {
 
     public void setLike(int like) {
         this.likes = like;
-    }
-
-    public UUID getReplyOnID() {
-        return replyOnID;
-    }
-
-    public void setReplyOnID(UUID replyOnID) {
-        this.replyOnID = replyOnID;
     }
 
     public LocalDateTime getCreatedDateTime() {

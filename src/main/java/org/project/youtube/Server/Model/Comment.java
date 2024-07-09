@@ -11,16 +11,14 @@ public class Comment {
     private YID writerYID;
     private String comment;
     private int likes;
-    private UUID replyOnID;
     private String createdDateTime;
 
-    public Comment(UUID id, UUID videoID, YID writerYID, String comment, int like, UUID replyOnID, String createdDateTime) {
+    public Comment(UUID id, UUID videoID, YID writerYID, String comment, int like, String createdDateTime) {
         this.id = id;
         this.videoID = videoID;
         this.writerYID = writerYID;
         this.comment = comment;
         this.likes = like;
-        this.replyOnID = replyOnID;
         this.createdDateTime = createdDateTime;
     }
 
@@ -63,14 +61,6 @@ public class Comment {
 
     public void setLike(int like) {
         this.likes = like;
-    }
-
-    public UUID getReplyOnID() {
-        return replyOnID;
-    }
-
-    public void setReplyOnID(UUID replyOnID) {
-        this.replyOnID = replyOnID;
     }
 
     public LocalDateTime getCreatedDateTime() {

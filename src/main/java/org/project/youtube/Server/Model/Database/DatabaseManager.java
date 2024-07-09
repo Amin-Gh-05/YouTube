@@ -182,15 +182,14 @@ public class DatabaseManager {
     public static void createVideoComment(Comment comment) {
         try (Connection conn = connect()) {
             // add row to video_comments table
-            String query = "INSERT INTO video_comments (comment_id, video_id, yid, comment_text, reply_id, created_date_time) " +
-                    "VALUES (?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO video_comments (comment_id, video_id, yid, comment_text, created_date_time) " +
+                    "VALUES (?, ?, ?, ?, ?)";
             PreparedStatement commentPrepStat = conn.prepareStatement(query);
             commentPrepStat.setObject(1, comment.getId());
             commentPrepStat.setObject(2, comment.getVideoID());
             commentPrepStat.setString(3, comment.getWriterYID().toString());
             commentPrepStat.setString(4, comment.getComment());
-            commentPrepStat.setObject(5, comment.getReplyOnID());
-            commentPrepStat.setTimestamp(6, Timestamp.valueOf(comment.getCreatedDateTime()));
+            commentPrepStat.setTimestamp(5, Timestamp.valueOf(comment.getCreatedDateTime()));
             // execute and update
             commentPrepStat.executeUpdate();
             commentPrepStat.close();
@@ -204,15 +203,14 @@ public class DatabaseManager {
     public static void createShortComment(Comment comment) {
         try (Connection conn = connect()) {
             // add row to short_comments table
-            String query = "INSERT INTO short_comments (comment_id, short_id, yid, comment_text, reply_id, created_date_time) " +
-                    "VALUES (?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO short_comments (comment_id, short_id, yid, comment_text, created_date_time) " +
+                    "VALUES (?, ?, ?, ?, ?)";
             PreparedStatement commentPrepStat = conn.prepareStatement(query);
             commentPrepStat.setObject(1, comment.getId());
             commentPrepStat.setObject(2, comment.getVideoID());
             commentPrepStat.setString(3, comment.getWriterYID().toString());
             commentPrepStat.setString(4, comment.getComment());
-            commentPrepStat.setObject(5, comment.getReplyOnID());
-            commentPrepStat.setTimestamp(6, Timestamp.valueOf(comment.getCreatedDateTime()));
+            commentPrepStat.setTimestamp(5, Timestamp.valueOf(comment.getCreatedDateTime()));
             // execute and update
             commentPrepStat.executeUpdate();
             commentPrepStat.close();
@@ -974,7 +972,7 @@ public class DatabaseManager {
         Connection conn = connect();
 
         // read comment from video_comments table
-        String query = "SELECT video_comments.comment_id, video_id, video_comments.yid, comment_text, reply_id, created_date_time, " +
+        String query = "SELECT video_comments.comment_id, video_id, video_comments.yid, comment_text, created_date_time, " +
                 "COUNT(video_comment_likes.comment_id) - COUNT(video_comment_dislikes.comment_id) AS likes FROM video_comments " +
                 "LEFT JOIN video_comment_likes ON video_comments.comment_id = video_comment_likes.comment_id LEFT JOIN video_comment_dislikes " +
                 "ON video_comments.comment_id = video_comment_dislikes.comment_id WHERE video_comments.comment_id = ? " +
@@ -994,7 +992,6 @@ public class DatabaseManager {
                     YID.fromString(rs.getString("yid")),
                     rs.getString("comment_text"),
                     rs.getInt("likes"),
-                    (UUID) rs.getObject("reply_id"),
                     rs.getTimestamp("created_date_time").toString()
             );
         }
@@ -1006,7 +1003,7 @@ public class DatabaseManager {
         Connection conn = connect();
 
         // read comment from short_comments table
-        String query = "SELECT short_comments.comment_id, short_id, short_comments.yid, comment_text, reply_id, created_date_time," +
+        String query = "SELECT short_comments.comment_id, short_id, short_comments.yid, comment_text, created_date_time," +
                 " COUNT(short_comment_likes.comment_id) - COUNT(short_comment_dislikes.comment_id) AS likes FROM short_comments" +
                 " LEFT JOIN short_comment_likes ON short_comments.comment_id = short_comment_likes.comment_id LEFT JOIN short_comment_dislikes" +
                 " ON short_comments.comment_id = short_comment_dislikes.comment_id WHERE short_comments.comment_id = ? " +
@@ -1026,7 +1023,6 @@ public class DatabaseManager {
                     YID.fromString(rs.getString("yid")),
                     rs.getString("comment_text"),
                     rs.getInt("likes"),
-                    (UUID) rs.getObject("reply_id"),
                     rs.getTimestamp("created_date_time").toString()
             );
         }

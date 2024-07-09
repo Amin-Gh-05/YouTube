@@ -640,7 +640,7 @@ public class MainController implements Initializable {
         // fill playlists panel
         if (!channel.getPlaylists().isEmpty()) {
             for (Playlist playlist : channel.getPlaylists()) {
-                channelController.getPlaylistsPanel().getChildren().add(loadFullPlaylist(playlist));
+                channelController.getPlaylistsPanel().getChildren().add(loadMinPlaylist(playlist));
             }
         }
 
