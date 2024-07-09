@@ -82,14 +82,6 @@ public class LoginController {
         Pattern pattern2 = Pattern.compile("[\\w-.]+@[\\w-.]+\\.[\\w-]{2,4}");
         Matcher matcher2 = pattern2.matcher(username);
 
-        //username
-        if (matcher.find()) {
-            if (!findUsername(username)) {
-                usernameAlert(false);
-                return 0;
-            }
-            return 1;
-        }
         //email
         if (matcher2.find()) {
             if (!findEmail(username)) {
@@ -97,6 +89,15 @@ public class LoginController {
                 return 0;
             }
             return 2;
+        }
+
+        //username
+        if (matcher.find()) {
+            if (!findUsername(username)) {
+                usernameAlert(false);
+                return 0;
+            }
+            return 1;
         }
 
         usernameAlert(true);
