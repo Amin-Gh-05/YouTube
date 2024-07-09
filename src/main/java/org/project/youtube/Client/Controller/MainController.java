@@ -100,6 +100,9 @@ public class MainController implements Initializable {
     private HBox helpBox;
 
     @FXML
+    private HBox logoutBox;
+
+    @FXML
     private Label homeLabel;
 
     @FXML
@@ -113,6 +116,9 @@ public class MainController implements Initializable {
 
     @FXML
     private Label settingsLabel;
+
+    @FXML
+    private Label logoutLabel;
 
     @FXML
     private Separator topSeparator;
@@ -193,6 +199,7 @@ public class MainController implements Initializable {
             homeBox.getChildren().remove(1);
             historyBox.getChildren().remove(1);
             settingsBox.getChildren().remove(1);
+            logoutBox.getChildren().remove(1);
         } else {
             slideBar = true;
 
@@ -202,6 +209,7 @@ public class MainController implements Initializable {
             subsBox.getChildren().add(subLabel);
             historyBox.getChildren().add(historyLabel);
             settingsBox.getChildren().add(settingsLabel);
+            logoutBox.getChildren().add(logoutLabel);
 
             // add children of sideBox
             sideBar.getChildren().add(3, topSeparator);
@@ -481,6 +489,17 @@ public class MainController implements Initializable {
     @FXML
     void loadHelp() {
         Notifications.create().title("Guidance").text("We're all helpless brother!").showInformation();
+    }
+
+    @FXML
+    void logOut() throws IOException {
+        MainController.user = null;
+        MainController.channel = null;
+        StudioController.channel = null;
+
+        refreshAll();
+        Notifications.create().title("Logout").text("You're logged out").showInformation();
+        System.out.println("| user logged out");
     }
 
     private void createPlaylist(String playlistName) throws IOException {

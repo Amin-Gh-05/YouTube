@@ -16,7 +16,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="540.0" minWidth="960.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@main-view.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.MainController">
+<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="540.0" minWidth="960.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@main-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.MainController">
     <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
     </padding>
@@ -204,6 +204,15 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
                 </HBox>
+            <HBox fx:id="logoutBox" alignment="CENTER_LEFT" layoutX="15.0" layoutY="549.0" maxHeight="-Infinity" minHeight="-Infinity" onMouseClicked="#logOut" prefHeight="45.0" spacing="12.0" styleClass="sideBox">
+               <children>
+                  <Button id="logoutButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#logOut" prefHeight="30.0" prefWidth="30.0" styleClass="sideButton" />
+                  <Label fx:id="logoutLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="164.0" text="Logout" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
             </children>
         </VBox>
     </left>
