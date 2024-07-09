@@ -1,6 +1,7 @@
 package org.project.youtube.Client.Controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -67,7 +68,9 @@ public class PlaylistController {
 
     @FXML
     void openPlaylist() throws IOException {
-        controller.loadFullPlaylist(playlist);
+        Node node = controller.loadFullPlaylist(playlist);
+        controller.getMainPanel().getChildren().clear();
+        controller.getMainPanel().getChildren().add(node);
         System.out.println("| redirect to playlist page");
     }
 
