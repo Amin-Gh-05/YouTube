@@ -27,16 +27,6 @@ public class ProfileController {
     public static List<String> countries = new ArrayList<>();
     static User user;
 
-    public static HBox webBox = new HBox();
-    public static HBox fbBox = new HBox();
-    public static HBox igBox = new HBox();
-    public static HBox xBox = new HBox();
-    public static HBox tgBox = new HBox();
-    public static HBox tiktokBox = new HBox();
-    public static HBox discordBox = new HBox();
-    public static HBox InBox = new HBox();
-    public static HBox redditBox = new HBox();
-
     // ------------------------ HEADER ------------------------
     @FXML
     private Label usernameField;
@@ -85,6 +75,49 @@ public class ProfileController {
     @FXML
     private ChoiceBox<String> regionBox;
 
+    // ------------------------ LINKS ------------------------
+    static Font font = new Font("System", 15);
+
+    private static HBox webBox = new HBox();
+    private static Hyperlink webUrl = new Hyperlink();
+    private static TextField webEditor = new TextField();
+
+    private static HBox fbBox = new HBox();
+    private static Hyperlink fbUrl = new Hyperlink();
+    private static TextField fbEditor = new TextField();
+
+    private static HBox igBox = new HBox();
+    private static Hyperlink igUrl = new Hyperlink();
+    private static TextField igEditor = new TextField();
+
+    private static HBox xBox = new HBox();
+    private static Hyperlink xUrl = new Hyperlink();
+    private static TextField xEditor = new TextField();
+
+    private static HBox tgBox = new HBox();
+    private static Hyperlink tgUrl = new Hyperlink();
+    private static TextField tgEditor = new TextField();
+
+    private static HBox tiktokBox = new HBox();
+    private static Hyperlink tiktokUrl = new Hyperlink();
+    private static TextField tiktokEditor = new TextField();
+
+    private static HBox discordBox = new HBox();
+    private static Hyperlink discordUrl = new Hyperlink();
+    private static TextField discordEditor = new TextField();
+
+    private static HBox InBox = new HBox();
+    private static Hyperlink InUrl = new Hyperlink();
+    private static TextField InEditor = new TextField();
+
+    private static HBox redditBox = new HBox();
+    private static Hyperlink redditUrl = new Hyperlink();
+    private static TextField redditEditor = new TextField();
+
+
+
+
+
     public void initialize() throws IOException {
         user = MainController.user;
 
@@ -126,12 +159,12 @@ public class ProfileController {
 
         // Creating hyperlinks
         Channel ch = getChannel(user.getHandle());
-        Font font = new Font("System", 15);
         //webBox
         Image webimg = new Image("images/icons8-website-50.png");
         ImageView webView = new ImageView(webimg);
-        Hyperlink webUrl = new Hyperlink(ch.getWebsite());
-        webUrl.setFont(font);
+        webView.setFitHeight(30);
+        webUrl = new Hyperlink(ch.getWebsite());
+        webUrl.setStyle("profile-view: hyperlink");
         webBox.getChildren().add(webView);
         webBox.getChildren().add(webUrl);
         if(webUrl != null)
@@ -140,8 +173,9 @@ public class ProfileController {
         //fbBox
         Image fbimg = new Image("icons8-facebook-48.png");
         ImageView fbView = new ImageView(fbimg);
-        Hyperlink fbUrl = new Hyperlink(ch.getFacebook());
-        fbUrl.setFont(font);
+        fbView.setFitHeight(30);
+        fbUrl = new Hyperlink(ch.getFacebook());
+        fbUrl.setStyle("profile-view: hyperlink");
         fbBox.getChildren().add(fbView);
         fbBox.getChildren().add(fbUrl);
         if(fbUrl != null)
@@ -150,8 +184,9 @@ public class ProfileController {
         //igBox
         Image igimg = new Image("images/icons8-insta-48.png");
         ImageView igView = new ImageView(igimg);
+        igView.setFitHeight(30);
         Hyperlink igUrl = new Hyperlink(ch.getInstagram());
-        igUrl.setFont(font);
+        igUrl.setStyle("profile-view: hyperlink");
         igBox.getChildren().add(igView);
         igBox.getChildren().add(igUrl);
         if(igUrl != null)
@@ -160,8 +195,9 @@ public class ProfileController {
         //xBox = new HBox();
         Image ximg = new Image("images/icons8-twitterx-50.png");
         ImageView xView = new ImageView(ximg);
+        xView.setFitHeight(30);
         Hyperlink xUrl = new Hyperlink(ch.getX());
-        xUrl.setFont(font);
+        xUrl.setStyle("profile-view: hyperlink");
         xBox.getChildren().add(xView);
         xBox.getChildren().add(xUrl);
         if(xUrl != null)
@@ -170,8 +206,9 @@ public class ProfileController {
         //tgBox
         Image tgimg = new Image("images/icons8-telegram-48.png");
         ImageView tgView = new ImageView(tgimg);
+        tgView.setFitHeight(30);
         Hyperlink tgUrl = new Hyperlink(ch.getTelegram());
-        tgUrl.setFont(font);
+        tgUrl.setStyle("profile-view: hyperlink");
         tgBox.getChildren().add(tgView);
         tgBox.getChildren().add(tgUrl);
         if(tgUrl != null)
@@ -180,8 +217,9 @@ public class ProfileController {
         //tiktokBox
         Image tiktokimg = new Image("images/icons8-tiktok-48.png");
         ImageView tiktokView = new ImageView(tiktokimg);
+        tiktokView.setFitHeight(30);
         Hyperlink tiktokUrl = new Hyperlink(ch.getTiktok());
-        tiktokUrl.setFont(font);
+        tiktokUrl.setStyle("profile-view: hyperlink");
         tiktokBox.getChildren().add(tiktokView);
         tiktokBox.getChildren().add(tiktokUrl);
         if(tiktokUrl != null)
@@ -190,26 +228,37 @@ public class ProfileController {
         //discordBox
         Image discordimg = new Image("images/Discord.png");
         ImageView discordView = new ImageView(discordimg);
+        discordView.setFitHeight(30);
         Hyperlink discordUrl = new Hyperlink(ch.getDiscord());
-        discordUrl.setFont(font);
+        discordUrl.setStyle("profile-view: hyperlink");
         discordBox.getChildren().add(discordView);
         discordBox.getChildren().add(discordUrl);
+        if(discordUrl != null)
+            linksBox.getChildren().add(discordBox);
+
 
         //InBox
         Image Inimg = new Image("images/icons8-linkedin-48.png");
         ImageView InView = new ImageView(Inimg);
+        InView.setFitHeight(30);
         Hyperlink InUrl = new Hyperlink(ch.getLinkedin());
-        InUrl.setFont(font);
+        InUrl.setStyle("profile-view: hyperlink");
         InBox.getChildren().add(InView);
         InBox.getChildren().add(InUrl);
+        if(InUrl != null)
+            linksBox.getChildren().add(InBox);
 
         //redditBox
         Image redditimg = new Image("images/reddit.png");
         ImageView redditView = new ImageView(redditimg);
+        redditView.setFitHeight(30);
         Hyperlink redditUrl = new Hyperlink(ch.getReddit());
-        redditUrl.setFont(font);
+        redditUrl.setStyle("profile-view: hyperlink");
         redditBox.getChildren().add(redditView);
         redditBox.getChildren().add(redditUrl);
+        if(redditUrl != null)
+            linksBox.getChildren().add(redditBox);
+
     }
 
     // profile editor functions
@@ -242,6 +291,14 @@ public class ProfileController {
         }
         regionBox.setVisible(true);
         regionBox.setValue(regionField.getText());
+
+        // link fields
+        linksBox.getChildren().clear();
+        webBox.getChildren().remove(webUrl);
+        webEditor.setText(webUrl.getText());
+        webEditor.setFont(font);
+
+
     }
 
     //checking for errors and setting user information
