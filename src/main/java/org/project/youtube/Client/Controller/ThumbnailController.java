@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import org.project.youtube.Client.Main;
+import org.project.youtube.Client.Model.Network.Request;
 import org.project.youtube.Client.Model.Short;
 import org.project.youtube.Client.Model.Video;
 
@@ -16,6 +17,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import static org.project.youtube.Client.Model.Network.Request.*;
 
@@ -23,6 +25,7 @@ import static org.project.youtube.Client.Model.Network.Request.*;
 public class ThumbnailController {
     Video video;
     Short aShort;
+    List<Short> shortList;
 
     MainController controller;
 
@@ -49,6 +52,7 @@ public class ThumbnailController {
             if (!(new File(Main.CASH_PATH + "/" + video.getId().toString() + ".mp4").exists())) {
                 Video video1 = getVideo(video.getId());
             }
+            Request.updateVideoViews(video);
 
             loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/video-view.fxml"));
             Node node = loader.load();
@@ -67,15 +71,17 @@ public class ThumbnailController {
 
         if (aShort != null) {
             if (!(new File(Main.CASH_PATH + "/" + aShort.getId().toString() + ".mp4").exists())) {
-                getShort(aShort.getId());
+                Short short1 = getShort(aShort.getId());
             }
+            Request.updateShortViews(aShort);
 
             loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/short-view.fxml"));
             Node node = loader.load();
             ShortController shortController = loader.getController();
 
             shortController.shortVideo = aShort;
-            // todo: set attributes - or call init() method
+            shortController.shortVideoList = shortList;
+            shortController.loadPlayer();
 
             controller.getMainPanel().getChildren().clear();
             controller.getMainPanel().getChildren().add(node);

@@ -46,7 +46,7 @@ public class SearchController {
     private void loadShorts() throws IOException {
         List<Short> shortList = Request.searchShorts(title);
         for (Short shorVideo : shortList) {
-            shortsFlowPane.getChildren().add(loadThumbnail(shorVideo));
+            shortsFlowPane.getChildren().add(loadThumbnail(shorVideo, shortList));
         }
     }
 
@@ -116,7 +116,7 @@ public class SearchController {
         return node;
     }
 
-    private Node loadThumbnail(Short shortVideo) throws IOException {
+    private Node loadThumbnail(Short shortVideo, List<Short> shortList) throws IOException {
         Channel shortChannel = Request.getChannel(shortVideo.getShortHandle());
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/short-thumbnail.fxml"));
@@ -125,6 +125,7 @@ public class SearchController {
 
         // set attributes
         thumbnailController.aShort = shortVideo;
+        thumbnailController.shortList = shortList;
         thumbnailController.controller = Main.mainController;
         try {
             thumbnailController.getThumbnailImage().setImage(new Image(new ByteArrayInputStream(shortVideo.getThumbnail())));

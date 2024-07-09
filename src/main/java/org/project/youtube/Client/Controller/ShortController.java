@@ -26,6 +26,8 @@ import java.util.List;
 public class ShortController {
     Short shortVideo;
     List<Short> shortVideoList;
+    int shortNumber = 0;
+    private boolean commentsEnabled = false;
 
     @FXML
     private Button commentsBtn;
@@ -66,12 +68,34 @@ public class ShortController {
     @FXML
     private FlowPane commentsFlowPane;
 
-    public void setShortVideo(Short shortVideo) {
-        this.shortVideo = shortVideo;
-    }
 
-    public void setShortVideoList(List<Short> shortVideoList) {
-        this.shortVideoList = shortVideoList;
+    public void loadPlayer() throws IOException {
+        for (int i = 0; i < shortVideoList.size(); i++) {
+            if (shortVideoList.get(i).getId().toString().equals(shortVideo.getId().toString())) {
+                shortNumber = i;
+            }
+        }
+
+        if (shortNumber == 0) {
+            previousBtn.setDisable(true);
+        }
+
+        FXMLLoader shortPlayerLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/short-player.fxml"));
+        BorderPane shortPlayer = shortPlayerLoader.load();
+        playerPane.getChildren().clear();
+        playerPane.getChildren().add(shortPlayer);
+
+        ShortPlayerController shortPlayerController = shortPlayerLoader.getController();
+        shortPlayerController.setPane(playerPane);
+        shortPlayerController.setPath("file:///" + Main.CASH_PATH + "/" + shortVideo.getId().toString() + ".mp4");
+        shortPlayerController.initBindings();
+
+        shortPlayerController.setHandle(shortVideo.getShortHandle());
+        shortPlayerController.setTitle(shortVideo.getTitle());
+        shortPlayerController.setProfileImage(shortVideo.getShortHandle());
+        if (Request.isSubscribed(MainController.user.getYid().toString(), shortVideo.getShortHandle())) {
+            shortPlayerController.disableSubscribeBtn();
+        }
     }
 
     private void playClickEffect(Button button) {
@@ -89,41 +113,42 @@ public class ShortController {
         scaleTransition.play();
     }
 
-    public void loadPlayer() throws IOException {
-        FXMLLoader shortPlayerLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/short-player.fxml"));
-        BorderPane shortPlayer = shortPlayerLoader.load();
-        playerPane.getChildren().add(shortPlayer);
 
-        ShortPlayerController shortPlayerController = shortPlayerLoader.getController();
-        shortPlayerController.setPane(playerPane);
-        shortPlayerController.setPath("file:///" + Main.CASH_PATH + "/" + shortVideo.getId().toString() + ".mp4");
-        shortPlayerController.initBindings();
-
-        shortPlayerController.setHandle(shortVideo.getShortHandle());
-        shortPlayerController.setTitle(shortVideo.getTitle());
-        shortPlayerController.setProfileImage(shortVideo.getShortHandle());
-        if (Request.isSubscribed(MainController.user.getYid().toString(), shortVideo.getShortHandle())) {
-            shortPlayerController.disableSubscribeBtn();
+    private void nextBtnClick() throws IOException {
+        shortNumber++;
+        if (previousBtn.isDisable()) {
+            previousBtn.setDisable(false);
         }
-    }
 
-    //TODO
-    public void nextBtnAction(ActionEvent actionEvent) {
+        loadPlayer();
+    }
+    public void nextBtnAction(ActionEvent actionEvent) throws IOException {
         playClickEffect(nextBtn);
+        nextBtnClick();
     }
-    public void nextBtnBorderPaneMouseClicked(MouseEvent mouseEvent) {
+    public void nextBtnBorderPaneMouseClicked(MouseEvent mouseEvent) throws IOException {
+        nextBtnClick();
     }
 
+    private void previousBtnClick() throws IOException {
+        shortNumber--;
+        if (shortNumber == 0) {
+            previousBtn.setDisable(true);
+        }
 
-    //TODO
-    public void previousBtnAction(ActionEvent actionEvent) {
+        loadPlayer();
+    }
+    public void previousBtnAction(ActionEvent actionEvent) throws IOException {
         playClickEffect(previousBtn);
+        previousBtnClick();
     }
-    public void previousBtnBorderPaneMouseClicked(MouseEvent mouseEvent) {
+    public void previousBtnBorderPaneMouseClicked(MouseEvent mouseEvent) throws IOException {
+        previousBtnClick();
     }
+
 
     private void like() throws IOException {
-        boolean canLike = Request.likeShort("L", MainController.user, shortVideo);
+        boolean canLike = Request.likeShort("L", MainController.user, shortVideoList.get(shortNumber));
 
         if (canLike) {
             dislikeBtn.setDisable(true);
@@ -131,7 +156,7 @@ public class ShortController {
         }
         else {
             dislikeBtn.setDisable(false);
-            Request.unLikeShort("L", MainController.user, shortVideo);
+            Request.unLikeShort("L", MainController.user, shortVideoList.get(shortNumber));
             System.out.println("| short was unliked");
         }
     }
@@ -144,7 +169,7 @@ public class ShortController {
     }
 
     private void dislike() throws IOException {
-        boolean canLike = Request.likeShort("D", MainController.user, shortVideo);
+        boolean canLike = Request.likeShort("D", MainController.user, shortVideoList.get(shortNumber));
 
         if (canLike) {
             likeBtn.setDisable(true);
@@ -152,7 +177,7 @@ public class ShortController {
         }
         else {
             likeBtn.setDisable(false);
-            Request.unLikeShort("D", MainController.user, shortVideo);
+            Request.unLikeShort("D", MainController.user, shortVideoList.get(shortNumber));
             System.out.println("| short was unDisliked");
         }
     }
@@ -192,13 +217,29 @@ public class ShortController {
         return node;
     }
     void loadComments() throws IOException {
-        commentsScrollPane.setPrefWidth(305);
+        if (!commentsEnabled) {
+            nextBtn.setDisable(true);
+            previousBtn.setDisable(true);
 
-        // TODO new comment
+            commentsScrollPane.setPrefWidth(305);
 
-        List<Comment> commentList = shortVideo.getComments();
-        for (Comment comment : commentList) {
-            commentsFlowPane.getChildren().add(loadComment(comment));
+            // TODO new comment
+
+            List<Comment> commentList = shortVideoList.get(shortNumber).getComments();
+            for (Comment comment : commentList) {
+                commentsFlowPane.getChildren().add(loadComment(comment));
+            }
+
+            commentsEnabled = true;
+        }
+        else {
+            nextBtn.setDisable(false);
+            previousBtn.setDisable(false);
+
+            commentsScrollPane.setPrefWidth(3);
+            commentsFlowPane.getChildren().clear();
+
+            commentsEnabled = false;
         }
     }
     public void commentsBtnAction(ActionEvent actionEvent) throws IOException {
