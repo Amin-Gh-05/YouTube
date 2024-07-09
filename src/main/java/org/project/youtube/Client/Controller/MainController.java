@@ -307,9 +307,40 @@ public class MainController implements Initializable {
         }
     }
 
-    @FXML
-    void loadShorts() {
+    private List<Video> getHomeVideos(User user) throws IOException {
+        if (user == null) {
+            return loadLatestVideos();
+        }
 
+        return Request.getHomeVideos(user);
+    }
+
+    private List<Video> loadLatestVideos() throws IOException {
+        return Request.getLatestVideos();
+    }
+
+    @FXML
+    void loadShorts() throws IOException {
+        List<Short> shorts = getHomeShorts(user);
+        mainPanel.getChildren().clear();
+
+        if (shorts != null) {
+            for (Short aShort : shorts) {
+                mainPanel.getChildren().add(loadThumbnail(aShort));
+            }
+        }
+    }
+
+    private List<Short> getHomeShorts(User user) throws IOException {
+        if (user == null) {
+            return loadLatestShorts();
+        }
+
+        return Request.getHomeShorts(user);
+    }
+
+    private List<Short> loadLatestShorts() throws IOException {
+        return Request.getLatestShorts();
     }
 
     @FXML
@@ -426,20 +457,6 @@ public class MainController implements Initializable {
     @FXML
     void loadHelp() {
         Notifications.create().title("Guidance").text("We're all helpless brother!").showInformation();
-    }
-
-    private List<Video> getHomeVideos(User user) {
-        if (user == null) {
-            return loadRandomVideos();
-        }
-
-        // todo: load videos by trending and subscriptions
-        return null;
-    }
-
-    private List<Video> loadRandomVideos() {
-        // todo: load videos for unsigned home
-        return null;
     }
 
     private void playClickEffect(Button button) {
