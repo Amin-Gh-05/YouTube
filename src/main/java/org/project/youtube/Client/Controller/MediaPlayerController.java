@@ -218,10 +218,12 @@ public class MediaPlayerController {
 
         if (media == null || mediaPlayer == null) {
             setPath(path);
+            initBindings();
         }
 
         if (!mediaPlayer.getStatus().equals(MediaPlayer.Status.READY) && !mediaPlayer.getStatus().equals(MediaPlayer.Status.STOPPED) && !mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
             setPath(path);
+            initBindings();
         }
 
         if (mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
