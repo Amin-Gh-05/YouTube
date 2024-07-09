@@ -353,6 +353,30 @@ public class ClientService {
         return gson.toJson(shorts, listType);
     }
 
+    public static String getRandomVideos(JSONObject data) throws SQLException {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Type listType = new TypeToken<List<Video>>() {}.getType();
+
+        List<Video> videos = DatabaseManager.randomVideos();
+
+        return gson.toJson(videos, listType);
+    }
+
+    public static String getRandomShorts(JSONObject data) throws SQLException {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Type listType = new TypeToken<List<Short>>() {}.getType();
+
+        List<Short> shorts = DatabaseManager.randomShorts();
+
+        return gson.toJson(shorts, listType);
+    }
+
     public static String getHomeVideos(JSONObject data) throws SQLException {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
@@ -621,8 +645,8 @@ public class ClientService {
         }
     }
 
-
     // ======================= Create =======================
+
     // TODO User...
 
     public static void createChannel(JSONObject data) {

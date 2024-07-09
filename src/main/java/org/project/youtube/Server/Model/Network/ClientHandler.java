@@ -73,9 +73,10 @@ public class ClientHandler implements Runnable {
                     case "searchShorts" -> sendStringResponse(ClientService.searchShorts(data));
                     case "getLatestVideos" -> sendStringResponse(ClientService.getLatestVideos(data));
                     case "getLatestShorts" -> sendStringResponse(ClientService.getLatestShorts(data));
+                    case "getRandomVideos" -> sendStringResponse(ClientService.getRandomVideos(data));
+                    case "getRandomShorts" -> sendStringResponse(ClientService.getRandomShorts(data));
                     case "getHomeVideos" -> sendStringResponse(ClientService.getHomeVideos(data));
                     case "getHomeShorts" -> sendStringResponse(ClientService.getHomeShorts(data));
-//                    case "getRandomVideos" -> ;
 
                     case "updateUser" -> ClientService.updateUser(data);
                     case "updateChannel" -> ClientService.updateChannel(data);
