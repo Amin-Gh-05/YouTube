@@ -1,5 +1,6 @@
 package org.project.youtube.Server.Model.Database;
 
+import org.project.youtube.Client.Controller.LoginController;
 import org.project.youtube.Server.Model.Short;
 import org.project.youtube.Server.Model.*;
 
@@ -9,6 +10,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -692,6 +694,51 @@ public class DatabaseManager {
         return videos;
     }
 
+    public static List<Video> readTrendingVideos() throws SQLException {
+        Connection conn = connect();
+        List<Video> videos = new ArrayList<>();
+
+        // read the trending videos
+        String query = "SELECT video_id FROM videos ORDER BY views DESC LIMIT 10";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+
+        while (rs.next()) {
+            UUID videoId = (UUID) rs.getObject("video_id");
+            videos.add(readVideo(videoId));
+        }
+        log("get trending videos from database");
+
+        return videos;
+    }
+
+    public static List<Video> readHomeVideos(User user) throws SQLException {
+        List<Video> videos = new ArrayList<>();
+
+        // add videos of subscribed channels into videos
+        for (Channel channel : readChannels(user)) {
+            List<Video> channelVideos = readVideos(channel.getHandle());
+            int size = channelVideos.size();
+
+            if (size < 10) {
+                videos.addAll(channelVideos);
+            } else {
+                for (int i = size - 1; i >= size - 10; i--) {
+                    videos.add(channelVideos.get(i));
+                }
+            }
+        }
+
+        // add trending videos
+        videos.addAll(readTrendingVideos());
+
+        Collections.shuffle(videos);
+        log("load home videos from database");
+        return videos;
+    }
+
     public static Short readShort(UUID shortId) throws SQLException {
         Connection conn = connect();
 
@@ -786,6 +833,51 @@ public class DatabaseManager {
         }
         log("get latest shorts from database");
 
+        return shorts;
+    }
+
+    public static List<Short> readTrendingShorts() throws SQLException {
+        Connection conn = connect();
+        List<Short> shorts = new ArrayList<>();
+
+        // read the trending shorts
+        String query = "SELECT short_id FROM shorts ORDER BY views DESC LIMIT 5";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+
+        while (rs.next()) {
+            UUID shortId = (UUID) rs.getObject("short_id");
+            shorts.add(readShort(shortId));
+        }
+        log("get trending shorts from database");
+
+        return shorts;
+    }
+
+    public static List<Short> readHomeShorts(User user) throws SQLException {
+        List<Short> shorts = new ArrayList<>();
+
+        // add shorts of subscribed channels into shorts
+        for (Channel channel : readChannels(user)) {
+            List<Short> channelShorts = readShorts(channel.getHandle());
+            int size = channelShorts.size();
+
+            if (size < 5) {
+                shorts.addAll(channelShorts);
+            } else {
+                for (int i = size - 1; i >= size - 5; i--) {
+                    shorts.add(channelShorts.get(i));
+                }
+            }
+        }
+
+        // add trending shorts
+        shorts.addAll(readTrendingShorts());
+
+        Collections.shuffle(shorts);
+        log("get home shorts from database");
         return shorts;
     }
 
