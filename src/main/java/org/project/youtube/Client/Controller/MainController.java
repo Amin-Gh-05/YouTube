@@ -443,8 +443,8 @@ public class MainController implements Initializable {
         Channel videoChannel = Request.getChannel(video.getVideoHandle());
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/video-thumbnail.fxml"));
-        ThumbnailController thumbnailController = loader.getController();
         Node node = loader.load();
+        ThumbnailController thumbnailController = loader.getController();
 
         // set attributes
         thumbnailController.video = video;
@@ -472,8 +472,8 @@ public class MainController implements Initializable {
         Channel shortChannel = Request.getChannel(shortVideo.getShortHandle());
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/short-thumbnail.fxml"));
-        ThumbnailController thumbnailController = loader.getController();
         Node node = loader.load();
+        ThumbnailController thumbnailController = loader.getController();
 
         // set attributes
         thumbnailController.aShort = shortVideo;

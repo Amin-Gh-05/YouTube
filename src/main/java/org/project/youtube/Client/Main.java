@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.project.youtube.Client.Controller.MainController;
 import org.project.youtube.Client.Model.Network.Client;
 import org.project.youtube.Client.Model.Network.Request;
 
@@ -19,11 +20,13 @@ public class Main extends Application {
     private static final int SERVER_PORT = 5431;
     private static final int SERVER_FILE_TRANSFER_PORT = 5430;
     public static final String CASH_PATH = "C:/YouTube";
+    public static MainController mainController;
 
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/org/project/youtube/Client/main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
+        mainController = fxmlLoader.getController();
         stage.setTitle("YouTube");
         stage.setScene(scene);
         stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/org/project/youtube/Client/images/icon.png"))));
