@@ -39,16 +39,22 @@ public class SearchController {
     private void loadVideos() throws IOException {
         List<Video> videoList = Request.searchVideos(title);
         for (Video video : videoList) {
-
+            videosFlowPane.getChildren().add(loadThumbnail(video));
         }
     }
 
     private void loadShorts() throws IOException {
         List<Short> shortList = Request.searchShorts(title);
+        for (Short shorVideo : shortList) {
+            shortsFlowPane.getChildren().add(loadThumbnail(shorVideo));
+        }
     }
 
     private void loadChannels() throws IOException {
         List<Channel> channelList = Request.searchChannels(title);
+        for (Channel channel : channelList) {
+            channelsFlowPane.getChildren().add(loadMinChannel(channel));
+        }
     }
 
     private Node loadMinChannel(Channel channel) throws IOException {
