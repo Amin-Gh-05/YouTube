@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import org.project.youtube.Server.Model.*;
 import org.project.youtube.Server.Model.Short;
 import org.project.youtube.Server.Model.Network.FileTransfer;
+import org.project.youtube.Server.ServerMain;
 
 import java.io.File;
 import java.io.IOException;
@@ -258,8 +259,7 @@ public class ClientService {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        Type listType = new TypeToken<List<Channel>>() {
-        }.getType();
+        Type listType = new TypeToken<List<Channel>>() {}.getType();
 
         User user = gson.fromJson(data.getString("user"), User.class);
         List<Channel> channelList = DatabaseManager.readChannels(user);
@@ -285,6 +285,15 @@ public class ClientService {
         String yid = data.getString("YID");
 
         return DatabaseManager.isSubscribed(yid, handle);
+    }
+
+    public static String searchChannels(JSONObject data) {
+    }
+
+    public static String searchVideos(JSONObject data) {
+    }
+
+    public static String searchShorts(JSONObject data) {
     }
 
     // ======================= Update =======================
@@ -690,7 +699,7 @@ public class ClientService {
 
         Video video = gson.fromJson(data.getString("video"), Video.class);
 
-        File videoFile = new File("resources/video/" + video.getId().toString() + ".mp4");
+        File videoFile = new File(ServerMain.VIDEO_PATH + "/" + video.getId().toString() + ".mp4");
         videoFile.delete();
         DatabaseManager.deleteVideo(video);
     }
@@ -702,7 +711,7 @@ public class ClientService {
 
         Short shortt = gson.fromJson(data.getString("short"), Short.class);
 
-        File shortFile = new File("resources/short/" + shortt.getId().toString() + ".mp4");
+        File shortFile = new File(ServerMain.SHORT_PATH + "/" + shortt.getId().toString() + ".mp4");
         shortFile.delete();
         DatabaseManager.deleteShort(shortt);
     }

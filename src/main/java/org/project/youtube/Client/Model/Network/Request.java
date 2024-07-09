@@ -3,6 +3,7 @@ package org.project.youtube.Client.Model.Network;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import javafx.geometry.VerticalDirection;
 import org.json.JSONObject;
 import org.project.youtube.Client.Controller.MainController;
 import org.project.youtube.Client.Model.Short;
@@ -433,31 +434,6 @@ public class Request {
         return gson.fromJson(respStr, listType2);
     }
 
-
-//    public static void getRandomTags() throws IOException {
-//        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("reqType", "getRandomTags");
-//
-//        JSONObject data = new JSONObject();
-//
-//
-//        jsonObject.put("reqData", data);
-//
-//        Client.sendRequest(jsonObject.toString());
-//    }
-//
-//    public static void getRandomVideos() throws IOException {
-//        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("reqType", "getRandomVideos");
-//
-//        JSONObject data = new JSONObject();
-//
-//
-//        jsonObject.put("reqData", data);
-//
-//        Client.sendRequest(jsonObject.toString());
-//    }
-
     public static boolean isSubscribed(String yid, String handle) throws IOException {
         List<String> keys = new ArrayList<>();
         List<String> values = new ArrayList<>();
@@ -471,6 +447,67 @@ public class Request {
         Client.sendRequest(jsonBuilder("isSubscribed", keys, values));
         return  Client.getBooleanResponse();
     }
+
+    public static List<Channel> searchChannels(String title) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "searchChannels");
+
+        JSONObject data = new JSONObject();
+        data.put("title", title);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+        String respStr = Client.getStringResponse();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        Type listType = new TypeToken<List<Channel>>() {
+        }.getType();
+        return gson.fromJson(respStr, listType);
+    }
+
+    public static List<Video> searchVideos(String title) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "searchVideos");
+
+        JSONObject data = new JSONObject();
+        data.put("title", title);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+        String respStr = Client.getStringResponse();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        Type listType = new TypeToken<List<Video>>() {
+        }.getType();
+        return gson.fromJson(respStr, listType);
+    }
+
+    public static List<Short> searchShorts(String title) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "searchShorts");
+
+        JSONObject data = new JSONObject();
+        data.put("title", title);
+
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+        String respStr = Client.getStringResponse();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        Type listType = new TypeToken<List<Short>>() {
+        }.getType();
+        return gson.fromJson(respStr, listType);
+    }
+
 
 
     // ======================= Update =======================
