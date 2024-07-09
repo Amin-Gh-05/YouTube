@@ -121,7 +121,7 @@ public class ProfileController {
         lastnameField.setText(user.getLastName());
         emailField.setText(user.getEmail());
         String dob = String.valueOf(user.getDateOfBirth());
-        if (dob != null || !dob.equals("null")) {
+        if (dob != null && !dob.equals("null")) {
             MOBField.setText(dob.substring(5, 6));
             DOBField.setText(dob.substring(8, 9));
             YOBField.setText(dob.substring(0, 3));
@@ -161,7 +161,7 @@ public class ProfileController {
 
         for(int i = 0; i < 9; i++){ // indexes: 0-website  1-facebook  2-instagram  3-X  4-telegram  5-tiktok  6-discord  7-linkedin  8-reddit
             HBox hbox = new HBox();
-            hbox.getStylesheets().add(Objects.requireNonNull(getClass().getResource("profile-view.css")).toExternalForm());
+           // hbox.getStylesheets().add(Objects.requireNonNull(getClass().getResource("profile-view.css")).toExternalForm());
             hbox.getStyleClass().add("linkHBoxes");
 
             ImageView alert = new ImageView(alertSign);
@@ -173,7 +173,7 @@ public class ProfileController {
             logos.get(i).setFitHeight(30);
             hbox.getChildren().add(logos.get(i));
 
-            urls.get(i).getStylesheets().add(Objects.requireNonNull(getClass().getResource("profile-view.css")).toExternalForm());
+            //urls.get(i).getStylesheets().add(Objects.requireNonNull(getClass().getResource("profile-view.css")).toExternalForm());
             urls.get(i).getStyleClass().add("hyperlink");
             hbox.getChildren().add(urls.get(i));
 
@@ -181,8 +181,8 @@ public class ProfileController {
             if(urls.get(i).getText() != null)
                 linksBox.getChildren().add(hbox);
 
-            urlEditor.get(i).getStylesheets().add(Objects.requireNonNull(getClass().getResource("profile-view.css")).toExternalForm());
-            urlEditor.get(i).getStyleClass().add("hyperlink");
+            //urlEditor.get(i).getStylesheets().add(Objects.requireNonNull(getClass().getResource("profile-view.css")).toExternalForm());
+           // urlEditor.get(i).getStyleClass().add("hyperlink");
         }
     }
 
