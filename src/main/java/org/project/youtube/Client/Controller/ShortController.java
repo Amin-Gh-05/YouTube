@@ -114,33 +114,35 @@ public class ShortController {
     }
 
 
-    private void nextBtnClick() {
+    private void nextBtnClick() throws IOException {
         shortNumber++;
         if (previousBtn.isDisable()) {
             previousBtn.setDisable(false);
         }
 
-
+        loadPlayer();
     }
-    public void nextBtnAction(ActionEvent actionEvent) {
+    public void nextBtnAction(ActionEvent actionEvent) throws IOException {
         playClickEffect(nextBtn);
         nextBtnClick();
     }
-    public void nextBtnBorderPaneMouseClicked(MouseEvent mouseEvent) {
+    public void nextBtnBorderPaneMouseClicked(MouseEvent mouseEvent) throws IOException {
         nextBtnClick();
     }
 
-    private void previousBtnClick() {
+    private void previousBtnClick() throws IOException {
         shortNumber--;
         if (shortNumber == 0) {
             previousBtn.setDisable(true);
         }
+
+        loadPlayer();
     }
-    public void previousBtnAction(ActionEvent actionEvent) {
+    public void previousBtnAction(ActionEvent actionEvent) throws IOException {
         playClickEffect(previousBtn);
         previousBtnClick();
     }
-    public void previousBtnBorderPaneMouseClicked(MouseEvent mouseEvent) {
+    public void previousBtnBorderPaneMouseClicked(MouseEvent mouseEvent) throws IOException {
         previousBtnClick();
     }
 
