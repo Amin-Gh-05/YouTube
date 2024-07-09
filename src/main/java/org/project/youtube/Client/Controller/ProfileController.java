@@ -121,9 +121,11 @@ public class ProfileController {
         lastnameField.setText(user.getLastName());
         emailField.setText(user.getEmail());
         String dob = String.valueOf(user.getDateOfBirth());
-        MOBField.setText(dob.substring(5, 6));
-        DOBField.setText(dob.substring(8, 9));
-        YOBField.setText(dob.substring(0, 3));
+        if (dob != null) {
+            MOBField.setText(dob.substring(5, 6));
+            DOBField.setText(dob.substring(8, 9));
+            YOBField.setText(dob.substring(0, 3));
+        }
         genderField.setText(user.getGender());
         regionField.setText(user.getRegion());
 
