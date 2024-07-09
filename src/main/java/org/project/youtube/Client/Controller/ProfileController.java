@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
@@ -179,7 +180,9 @@ public class ProfileController {
             if (urls.get(i).getText() != null)
                 linksBox.getChildren().add(hbox);
 
-//            urlEditor.get(i).getStyleClass().add("hyperlink");
+            urlEditor.get(i).setFont(new Font(16));
+            urlEditor.get(i).setPrefWidth(342);
+            urlEditor.get(i).setPrefHeight(31);
         }
     }
 
@@ -218,7 +221,7 @@ public class ProfileController {
         emailEditor.setText(emailField.getText());
 
         datePicker.setVisible(true);
-        datePicker.setValue(LocalDate.of(Integer.parseInt(YOBField.getText()), Integer.parseInt(MOBField.getText()), Integer.parseInt(DOBField.getText())));
+        datePicker.setValue(LocalDate.of(Integer.valueOf(YOBField.getText()), Integer.valueOf(MOBField.getText()), Integer.valueOf(DOBField.getText())));
 
         femaleBox.setVisible(true);
         maleBox.setVisible(true);
