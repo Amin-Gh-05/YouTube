@@ -261,6 +261,7 @@ public class ShortController {
 
         Dialog adder = new Dialog();
         adder.setDialogPane(addToPL);
+        adder.show();
     }
     public void saveToPLBtnAction(ActionEvent actionEvent) throws IOException {
         playClickEffect(saveToPLBtn);
