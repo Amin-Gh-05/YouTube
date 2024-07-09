@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import org.project.youtube.Server.Model.*;
 import org.project.youtube.Server.Model.Short;
 import org.project.youtube.Server.Model.Network.FileTransfer;
+import org.project.youtube.Server.ServerMain;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.lang.reflect.Type;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.UUID;
 
 public class ClientService {
@@ -258,8 +260,7 @@ public class ClientService {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        Type listType = new TypeToken<List<Channel>>() {
-        }.getType();
+        Type listType = new TypeToken<List<Channel>>() {}.getType();
 
         User user = gson.fromJson(data.getString("user"), User.class);
         List<Channel> channelList = DatabaseManager.readChannels(user);
@@ -285,6 +286,70 @@ public class ClientService {
         String yid = data.getString("YID");
 
         return DatabaseManager.isSubscribed(yid, handle);
+    }
+
+    public static String searchChannels(JSONObject data) throws SQLException {
+        String title = data.getString("title");
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        Type listType = new TypeToken<List<Channel>>() {}.getType();
+
+        List<Channel> channels = DatabaseManager.searchChannels(title);
+
+        return gson.toJson(channels, listType);
+    }
+
+    public static String searchVideos(JSONObject data) throws SQLException {
+        String title = data.getString("title");
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        Type listType = new TypeToken<List<Video>>() {}.getType();
+
+        List<Video> videos = DatabaseManager.searchVideos(title);
+
+        return gson.toJson(videos, listType);
+    }
+
+    public static String searchShorts(JSONObject data) throws SQLException {
+        String title = data.getString("title");
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Type listType = new TypeToken<List<Short>>() {}.getType();
+
+        List<Short> shorts = DatabaseManager.searchShorts(title);
+
+        return gson.toJson(shorts, listType);
+    }
+
+    public static String getLatestVideos(JSONObject data) throws SQLException {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Type listType = new TypeToken<List<Video>>() {}.getType();
+
+        List<Video> videos = DatabaseManager.readLatestVideos();
+
+        return gson.toJson(videos, listType);
+    }
+
+    public static String getLatestShorts(JSONObject data) throws SQLException {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Type listType = new TypeToken<List<Short>>() {}.getType();
+
+        List<Short> shorts = DatabaseManager.readLatestShorts();
+
+        return gson.toJson(shorts, listType);
     }
 
     // ======================= Update =======================
@@ -690,7 +755,7 @@ public class ClientService {
 
         Video video = gson.fromJson(data.getString("video"), Video.class);
 
-        File videoFile = new File("resources/video/" + video.getId().toString() + ".mp4");
+        File videoFile = new File(ServerMain.VIDEO_PATH + "/" + video.getId().toString() + ".mp4");
         videoFile.delete();
         DatabaseManager.deleteVideo(video);
     }
@@ -702,7 +767,7 @@ public class ClientService {
 
         Short shortt = gson.fromJson(data.getString("short"), Short.class);
 
-        File shortFile = new File("resources/short/" + shortt.getId().toString() + ".mp4");
+        File shortFile = new File(ServerMain.SHORT_PATH + "/" + shortt.getId().toString() + ".mp4");
         shortFile.delete();
         DatabaseManager.deleteShort(shortt);
     }
