@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import org.controlsfx.control.Notifications;
 import org.project.youtube.Client.Main;
+import org.project.youtube.Client.Model.Channel;
 import org.project.youtube.Client.Model.Comment;
 import org.project.youtube.Client.Model.Network.Request;
 import org.project.youtube.Client.Model.User;
@@ -23,12 +24,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.project.youtube.Client.Model.Network.Request.getLatestVideos;
+import static org.project.youtube.Client.Model.Network.Request.getRandomVideos;
 
 public class VideoController {
     static int commentPNT;
     static int thumbnailPNT;
 
     Video video;
+
+    MainController controller;
 
     // ------------------------ VIDEO ------------------------
 
@@ -111,17 +115,14 @@ public class VideoController {
 
     @FXML
     void loadThumbnails() throws IOException {
-        List<Video> randomVideo = getLatestVideos();
+        List<Video> videos = getRandomVideos();
         thumbnailBox.getChildren().remove(moreVideos);
-        FXMLLoader thumbnailLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/video-thumbnail.fxml"));
-        AnchorPane thumbnail = thumbnailLoader.load();
-        ThumbnailController thumbnailController = thumbnailLoader.getController();
-        for(int i = 0; i < 10; i++)
-        {
-            thumbnailController.video = randomVideo.get(thumbnailPNT + i);
-            mediaPlayerPane.getChildren().add(thumbnail);
+
+        for (int i = 0; i < 10; i++) {
+            thumbnailBox.getChildren().add(loadThumbnail(videos.get(thumbnailPNT + i)));
         }
         thumbnailPNT += 10;
+
         thumbnailBox.getChildren().add(moreVideos);
 
     }
@@ -136,28 +137,13 @@ public class VideoController {
         description.setText(video.getDescription());
 
         // loading first 10 comments
-        mainVideoBox.getChildren().remove(moreComments);
-        FXMLLoader commentLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/comment-view.fxml"));
-        AnchorPane comment = commentLoader.load();
-        CommentController commentController = commentLoader.getController();
-        for (commentPNT = 0; commentPNT < 10; commentPNT++) {
-            commentController.comment = video.getComments().get(commentPNT);
-            mainVideoBox.getChildren().add(comment);
-//            commentController.init();
-        }
-        mainVideoBox.getChildren().add(moreComments);
+        commentPNT = 0;
+        loadComments();
 
-        List<Video> randomVideo = getLatestVideos();
-        thumbnailBox.getChildren().remove(moreVideos);
-        FXMLLoader thumbnailLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/video-thumbnail.fxml"));
-        AnchorPane thumbnail = thumbnailLoader.load();
-        ThumbnailController thumbnailController = thumbnailLoader.getController();
-        for (thumbnailPNT = 0; thumbnailPNT < 10; thumbnailPNT++) {
-            thumbnailController.video = randomVideo.get(thumbnailPNT);
-            thumbnailController.init();
-            mediaPlayerPane.getChildren().add(thumbnail);
-        }
-        thumbnailBox.getChildren().add(moreVideos);
+        // loading first 10 thumbnails
+        thumbnailPNT = 0;
+        loadThumbnails();
+
     }
 
     public void loadPlayer() throws IOException {
@@ -195,6 +181,34 @@ public class VideoController {
             commentController.getEditItem().setDisable(true);
             commentController.getDeleteItem().setDisable(true);
         }
+        return node;
+    }
+
+    private Node loadThumbnail(Video video) throws IOException {
+        Channel videoChannel = Request.getChannel(video.getVideoHandle());
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/video-thumbnail.fxml"));
+        ThumbnailController thumbnailController = loader.getController();
+        Node node = loader.load();
+
+        // set attributes
+        thumbnailController.video = video;
+        thumbnailController.controller = this.controller;
+        try {
+            thumbnailController.getThumbnailImage().setImage(new Image(new ByteArrayInputStream(video.getThumbnail())));
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            thumbnailController.getThumbnailImage().setImage(new Image("/org/project/youtube/Client/images/sample-thumbnail.png"));
+        }
+        try {
+            thumbnailController.getProfileImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(videoChannel.getLogo()))));
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            thumbnailController.getProfileImage().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/profile-sample.png")));
+        }
+        thumbnailController.getTitleLabel().setText(video.getTitle());
+        thumbnailController.getDateLabel().setText(video.getCreatedDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        thumbnailController.getViewsLabel().setText(String.valueOf(video.getViews()));
 
         return node;
     }
