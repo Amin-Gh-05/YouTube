@@ -17,9 +17,12 @@ import org.project.youtube.Client.Model.Network.Request;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.UUID;
 
+import static org.project.youtube.Client.Model.Network.Request.createVideoComment;
 import static org.project.youtube.Client.Model.Network.Request.getRandomVideos;
 
 public class VideoController {
@@ -108,8 +111,11 @@ public class VideoController {
     }
 
     @FXML
-    void postNewComment(){
-
+    void postNewComment(ActionEvent e) throws IOException {
+        if(commentSection.getText() != null){
+            Comment comment = new Comment(UUID.randomUUID(), video.getId(), MainController.user.getYid(), commentSection.getText(), 0, String.valueOf(LocalDate.now()));
+            createVideoComment(comment);
+        }
     }
 
     @FXML
