@@ -2,6 +2,7 @@ package org.project.youtube.Client.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -11,21 +12,29 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import org.apache.commons.io.FileUtils;
 import org.project.youtube.Client.Model.Channel;
 import org.project.youtube.Client.Model.User;
+import org.w3c.dom.events.MouseEvent;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.project.youtube.Client.Model.Network.Request.getChannel;
+import static org.project.youtube.Client.Model.Network.Request.updateUser;
 
 public class ProfileController {
     public static List<String> countries = new ArrayList<>();
     static User user;
+
+    MainController controller;
 
     // ------------------------ HEADER ------------------------
     @FXML
@@ -48,6 +57,9 @@ public class ProfileController {
 
     @FXML
     private Circle profile;
+
+    @FXML
+    private ImageView editProfileButton;
 
     // -------------------- PERSONAL INFO ---------------------
     @FXML
@@ -76,47 +88,13 @@ public class ProfileController {
     private ChoiceBox<String> regionBox;
 
     // ------------------------ LINKS ------------------------
-    static Font font = new Font("System", 15);
+    public static Image alertSign = new Image("images/important.png");
 
-    private static HBox webBox = new HBox();
-    private static Hyperlink webUrl = new Hyperlink();
-    private static TextField webEditor = new TextField();
-
-    private static HBox fbBox = new HBox();
-    private static Hyperlink fbUrl = new Hyperlink();
-    private static TextField fbEditor = new TextField();
-
-    private static HBox igBox = new HBox();
-    private static Hyperlink igUrl = new Hyperlink();
-    private static TextField igEditor = new TextField();
-
-    private static HBox xBox = new HBox();
-    private static Hyperlink xUrl = new Hyperlink();
-    private static TextField xEditor = new TextField();
-
-    private static HBox tgBox = new HBox();
-    private static Hyperlink tgUrl = new Hyperlink();
-    private static TextField tgEditor = new TextField();
-
-    private static HBox tiktokBox = new HBox();
-    private static Hyperlink tiktokUrl = new Hyperlink();
-    private static TextField tiktokEditor = new TextField();
-
-    private static HBox discordBox = new HBox();
-    private static Hyperlink discordUrl = new Hyperlink();
-    private static TextField discordEditor = new TextField();
-
-    private static HBox InBox = new HBox();
-    private static Hyperlink InUrl = new Hyperlink();
-    private static TextField InEditor = new TextField();
-
-    private static HBox redditBox = new HBox();
-    private static Hyperlink redditUrl = new Hyperlink();
-    private static TextField redditEditor = new TextField();
-
-
-
-
+    List<HBox> linkBoxes = new ArrayList<>();
+    List<ImageView> alertSigns = new ArrayList<>();
+    List<ImageView> logos = new ArrayList<>();
+    List<Hyperlink> urls = new ArrayList<>();
+    List<TextField> urlEditor = new ArrayList<>();
 
     public void initialize() throws IOException {
         user = MainController.user;
@@ -157,108 +135,53 @@ public class ProfileController {
         }
         regionBox.getItems().addAll(countries);
 
-        // Creating hyperlinks
+        // initializing hyperlinks ===============================
+        logos.add(new ImageView(new Image("images/website.png")));
+        logos.add(new ImageView(new Image("images/facebook.png")));
+        logos.add(new ImageView(new Image("images/instagram.png")));
+        logos.add(new ImageView(new Image("images/twitter.png")));
+        logos.add(new ImageView(new Image("images/telegram.png")));
+        logos.add(new ImageView(new Image("images/tiktok.png")));
+        logos.add(new ImageView(new Image("images/discord.png")));
+        logos.add(new ImageView(new Image("images/linkedin.png")));
+        logos.add(new ImageView(new Image("images/reddit.png")));
+
         Channel ch = getChannel(user.getHandle());
-        //webBox
-        Image webimg = new Image("images/website.png");
-        ImageView webView = new ImageView(webimg);
-        webView.setFitHeight(30);
-        webUrl = new Hyperlink(ch.getWebsite());
-        webUrl.setStyle("profile-view: hyperlink");
-        webBox.getChildren().add(webView);
-        webBox.getChildren().add(webUrl);
-        if(webUrl != null)
-            linksBox.getChildren().add(webBox);
+        urls.add(new Hyperlink(ch.getWebsite()));
+        urls.add(new Hyperlink(ch.getFacebook()));
+        urls.add(new Hyperlink(ch.getInstagram()));
+        urls.add(new Hyperlink(ch.getX()));
+        urls.add(new Hyperlink(ch.getTelegram()));
+        urls.add(new Hyperlink(ch.getTiktok()));
+        urls.add(new Hyperlink(ch.getDiscord()));
+        urls.add(new Hyperlink(ch.getLinkedin()));
+        urls.add(new Hyperlink(ch.getReddit()));
 
-        //fbBox
-        Image fbimg = new Image("facebook.png");
-        ImageView fbView = new ImageView(fbimg);
-        fbView.setFitHeight(30);
-        fbUrl = new Hyperlink(ch.getFacebook());
-        fbUrl.setStyle("profile-view: hyperlink");
-        fbBox.getChildren().add(fbView);
-        fbBox.getChildren().add(fbUrl);
-        if(fbUrl != null)
-            linksBox.getChildren().add(fbBox);
+        for(int i = 0; i < 9; i++){ // indexes: 0-website  1-facebook  2-instagram  3-X  4-telegram  5-tiktok  6-discord  7-linkedin  8-reddit
+            HBox hbox = new HBox();
+            hbox.getStylesheets().add(Objects.requireNonNull(getClass().getResource("profile-view.css")).toExternalForm());
+            hbox.getStyleClass().add("linkHBoxes");
 
-        //igBox
-        Image igimg = new Image("images/instagram.png");
-        ImageView igView = new ImageView(igimg);
-        igView.setFitHeight(30);
-        Hyperlink igUrl = new Hyperlink(ch.getInstagram());
-        igUrl.setStyle("profile-view: hyperlink");
-        igBox.getChildren().add(igView);
-        igBox.getChildren().add(igUrl);
-        if(igUrl != null)
-            linksBox.getChildren().add(igBox);
+            ImageView alert = new ImageView(alertSign);
+            alert.setVisible(false);
+            alert.setFitHeight(30);
+            alertSigns.add(alert);
+            hbox.getChildren().add(alert);
 
-        //xBox = new HBox();
-        Image ximg = new Image("images/twitter.png");
-        ImageView xView = new ImageView(ximg);
-        xView.setFitHeight(30);
-        Hyperlink xUrl = new Hyperlink(ch.getX());
-        xUrl.setStyle("profile-view: hyperlink");
-        xBox.getChildren().add(xView);
-        xBox.getChildren().add(xUrl);
-        if(xUrl != null)
-            linksBox.getChildren().add(xBox);
+            logos.get(i).setFitHeight(30);
+            hbox.getChildren().add(logos.get(i));
 
-        //tgBox
-        Image tgimg = new Image("images/telegram.png");
-        ImageView tgView = new ImageView(tgimg);
-        tgView.setFitHeight(30);
-        Hyperlink tgUrl = new Hyperlink(ch.getTelegram());
-        tgUrl.setStyle("profile-view: hyperlink");
-        tgBox.getChildren().add(tgView);
-        tgBox.getChildren().add(tgUrl);
-        if(tgUrl != null)
-            linksBox.getChildren().add(tgBox);
+            urls.get(i).getStylesheets().add(Objects.requireNonNull(getClass().getResource("profile-view.css")).toExternalForm());
+            urls.get(i).getStyleClass().add("hyperlink");
+            hbox.getChildren().add(urls.get(i));
 
-        //tiktokBox
-        Image tiktokimg = new Image("images/tiktok.png");
-        ImageView tiktokView = new ImageView(tiktokimg);
-        tiktokView.setFitHeight(30);
-        Hyperlink tiktokUrl = new Hyperlink(ch.getTiktok());
-        tiktokUrl.setStyle("profile-view: hyperlink");
-        tiktokBox.getChildren().add(tiktokView);
-        tiktokBox.getChildren().add(tiktokUrl);
-        if(tiktokUrl != null)
-            linksBox.getChildren().add(tiktokBox);
+            linkBoxes.add(hbox);
+            if(urls.get(i).getText() != null)
+                linksBox.getChildren().add(hbox);
 
-        //discordBox
-        Image discordimg = new Image("images/discord.png");
-        ImageView discordView = new ImageView(discordimg);
-        discordView.setFitHeight(30);
-        Hyperlink discordUrl = new Hyperlink(ch.getDiscord());
-        discordUrl.setStyle("profile-view: hyperlink");
-        discordBox.getChildren().add(discordView);
-        discordBox.getChildren().add(discordUrl);
-        if(discordUrl != null)
-            linksBox.getChildren().add(discordBox);
-
-
-        //InBox
-        Image Inimg = new Image("images/linkedin.png");
-        ImageView InView = new ImageView(Inimg);
-        InView.setFitHeight(30);
-        Hyperlink InUrl = new Hyperlink(ch.getLinkedin());
-        InUrl.setStyle("profile-view: hyperlink");
-        InBox.getChildren().add(InView);
-        InBox.getChildren().add(InUrl);
-        if(InUrl != null)
-            linksBox.getChildren().add(InBox);
-
-        //redditBox
-        Image redditimg = new Image("images/reddit.png");
-        ImageView redditView = new ImageView(redditimg);
-        redditView.setFitHeight(30);
-        Hyperlink redditUrl = new Hyperlink(ch.getReddit());
-        redditUrl.setStyle("profile-view: hyperlink");
-        redditBox.getChildren().add(redditView);
-        redditBox.getChildren().add(redditUrl);
-        if(redditUrl != null)
-            linksBox.getChildren().add(redditBox);
-
+            urlEditor.get(i).getStylesheets().add(Objects.requireNonNull(getClass().getResource("profile-view.css")).toExternalForm());
+            urlEditor.get(i).getStyleClass().add("hyperlink");
+        }
     }
 
     // profile editor functions
@@ -294,16 +217,75 @@ public class ProfileController {
 
         // link fields
         linksBox.getChildren().clear();
-        webBox.getChildren().remove(webUrl);
-        webEditor.setText(webUrl.getText());
-        webEditor.setFont(font);
+        for(int i = 0; i < 9; i++) {
+            linkBoxes.get(i).getChildren().remove(linkBoxes.get(i).getChildren().size() - 1);
+            urlEditor.get(i).setText(urls.get(i).getText());
+            linkBoxes.get(i).getChildren().add(urlEditor.get(i));
+        }
+        linksBox.getChildren().addAll(linkBoxes);
+    }
+
+    //checking for errors and setting user information
+    @FXML
+    void makeChanges(ActionEvent e) throws IOException {
+        for(HBox hbox: linkBoxes) {
+            hbox.getChildren().get(0).setVisible(false);
+        }
+        if(!checkErrors()) {
+
+        }
+
 
 
     }
 
-    //checking for errors and setting user information
-    public void makeChanges(ActionEvent e) throws IOException {
+    public boolean checkErrors(){
+        boolean flag = false;
 
+
+
+        return flag;
+    }
+
+    public boolean checkRegex(String reg, String url){
+        Pattern pattern = Pattern.compile(reg);
+        Matcher matcher = pattern.matcher(url);
+
+        if (!matcher.find()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @FXML
+    void editProfilePic(MouseEvent event) throws IOException {
+        File file = pickFile();
+        if (file != null) {
+            user.setProfilePic(FileUtils.readFileToByteArray(file));
+        }
+        updateUser(user);
+    }
+
+    private File pickFile() {
+        // show the file picker dialog
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select an Image");
+
+        // file extension filers
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg"),
+                new FileChooser.ExtensionFilter("All Files", "*.*")
+        );
+
+        File file = fileChooser.showOpenDialog(new Stage());
+        if (file != null) {
+            System.out.println("| file selected: " + file.getAbsolutePath());
+            return file;
+        } else {
+            System.out.println("| file not selected");
+            return null;
+        }
     }
 
 

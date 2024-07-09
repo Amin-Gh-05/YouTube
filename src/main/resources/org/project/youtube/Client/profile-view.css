@@ -29,9 +29,9 @@
 .hyperlink {
     -fx-font-size: 15px;
     -fx-pref-width: 342px;
-    -fx-pref-height: 35px;
+    -fx-pref-height: 31px;
 }
 
-.allertImage {
-    -fx-ma
+.linkHBoxes {
+    -fx-padding: 3px;
 }
