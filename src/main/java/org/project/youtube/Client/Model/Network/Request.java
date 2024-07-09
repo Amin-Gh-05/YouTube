@@ -508,6 +508,40 @@ public class Request {
         return gson.fromJson(respStr, listType);
     }
 
+    public static List<Video> getLatestVideos() throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "getLatestVideos");
+        JSONObject data = new JSONObject();
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+        String respStr = Client.getStringResponse();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        Type listType = new TypeToken<List<Video>>() {
+        }.getType();
+        return gson.fromJson(respStr, listType);
+    }
+
+    public static List<Short> getLatestShorts() throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reqType", "getLatestShorts");
+        JSONObject data = new JSONObject();
+        jsonObject.put("reqData", data);
+
+        Client.sendRequest(jsonObject.toString());
+        String respStr = Client.getStringResponse();
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        Type listType = new TypeToken<List<Short>>() {
+        }.getType();
+        return gson.fromJson(respStr, listType);
+    }
+
 
 
     // ======================= Update =======================

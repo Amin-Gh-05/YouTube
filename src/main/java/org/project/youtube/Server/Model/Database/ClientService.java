@@ -15,6 +15,7 @@ import java.lang.reflect.Type;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.UUID;
 
 public class ClientService {
@@ -323,6 +324,30 @@ public class ClientService {
         Type listType = new TypeToken<List<Short>>() {}.getType();
 
         List<Short> shorts = DatabaseManager.searchShorts(title);
+
+        return gson.toJson(shorts, listType);
+    }
+
+    public static String getLatestVideos(JSONObject data) throws SQLException {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Type listType = new TypeToken<List<Video>>() {}.getType();
+
+        List<Video> videos = DatabaseManager.readLatestVideos();
+
+        return gson.toJson(videos, listType);
+    }
+
+    public static String getLatestShorts(JSONObject data) throws SQLException {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+
+        Type listType = new TypeToken<List<Short>>() {}.getType();
+
+        List<Short> shorts = DatabaseManager.readLatestShorts();
 
         return gson.toJson(shorts, listType);
     }
