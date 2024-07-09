@@ -8,10 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -236,8 +233,16 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void searchAll() {
-
+    void searchAll() throws IOException {
+        if (searchBox.getText().length() > 1) {
+            // load fxml of search page
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/search-view.fxml"));
+            TabPane tabPane = loader.load();
+            SearchController searchController = loader.getController();
+            searchController.load(searchBox.getText());
+            mainPanel.getChildren().clear();
+            mainPanel.getChildren().add(tabPane);
+        }
     }
 
     @FXML
