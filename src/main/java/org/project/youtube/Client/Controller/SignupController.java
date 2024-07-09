@@ -68,7 +68,7 @@ public class SignupController {
         User user = Request.signup(userName.getText(), emailAddress.getText(), DigestUtils.sha256Hex(passWord.getText()));
 
         // create a personal channel for user
-        Channel channel = new Channel(user.getHandle(), user.getFirstName() + " " + user.getLastName(), user.getYid(),
+        Channel channel = new Channel(user.getHandle(), user.getUsername(), user.getYid(),
                 null, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")),
                 null, null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         Request.createChannel(channel, user);

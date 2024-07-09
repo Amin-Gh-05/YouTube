@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -251,11 +253,22 @@ public class ShortController {
     }
 
 
-    //TODO
-    public void saveToPLBtnAction(ActionEvent actionEvent) {
-        playClickEffect(saveToPLBtn);
+    private void saveToPlaylist() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/addToPL-view.fxml"));
+        DialogPane addToPL = loader.load();
+        AddToPLController controller = loader.getController();
+        controller.shortVideo = this.shortVideo;
+
+        Dialog adder = new Dialog();
+        adder.setDialogPane(addToPL);
     }
-    public void saveToPLBtnBorderPaneMouseClicked(MouseEvent mouseEvent) {
+    public void saveToPLBtnAction(ActionEvent actionEvent) throws IOException {
+        playClickEffect(saveToPLBtn);
+        saveToPlaylist();
+    }
+
+    public void saveToPLBtnBorderPaneMouseClicked(MouseEvent mouseEvent) throws IOException {
+        saveToPlaylist();
     }
 
 }

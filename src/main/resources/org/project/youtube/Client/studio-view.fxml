@@ -1,54 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0"
-            prefWidth="1280.0" stylesheets="@studio-view.css" xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.StudioController">
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@studio-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.StudioController">
     <top>
-        <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="70.0" prefHeight="80.0" spacing="15.0"
-              BorderPane.alignment="CENTER">
+        <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="70.0" prefHeight="80.0" spacing="15.0" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="moreButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                        minWidth="-Infinity" mnemonicParsing="false" onAction="#slideSidebar" prefHeight="23.0"
-                        prefWidth="40.0"/>
-                <ImageView fitHeight="35.0" fitWidth="200.0" onMouseClicked="#refreshAll" pickOnBounds="true"
-                           preserveRatio="true">
+                <Button fx:id="moreButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#slideSidebar" prefHeight="23.0" prefWidth="40.0" />
+                <ImageView fitHeight="35.0" fitWidth="200.0" onMouseClicked="#refreshAll" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@images/studio.png"/>
+                        <Image url="@images/studio.png" />
                     </image>
                 </ImageView>
-                <Label/>
-                <TextField id="searchBox" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity"
-                           prefHeight="35.0" promptText="Search among your channel"
-                           HBox.hgrow="ALWAYS">
+                <Label />
+                <TextField id="searchBox" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" promptText="Search among your channel" HBox.hgrow="ALWAYS">
                     <HBox.margin>
-                        <Insets left="30.0" right="30.0"/>
+                        <Insets left="30.0" right="30.0" />
                     </HBox.margin>
                 </TextField>
-                <Button id="helpButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                        minWidth="-Infinity" mnemonicParsing="false" onAction="#loadHelp" prefHeight="35.0"
-                        prefWidth="35.0" styleClass="actionButton"/>
-                <Button id="createButton" fx:id="createButton" maxHeight="-Infinity" maxWidth="-Infinity"
-                        minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#createContent"
-                        prefHeight="35.0" prefWidth="80.0" styleClass="actionButton" text="Create">
+                <Button id="helpButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#loadHelp" prefHeight="35.0" prefWidth="35.0" styleClass="actionButton" />
+                <Button id="createButton" fx:id="createButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#createContent" prefHeight="35.0" prefWidth="80.0" styleClass="actionButton" text="Create">
                     <graphic>
-                        <SVGPath
-                                content="M14 13h-3v3H9v-3H6v-2h3V8h2v3h3v2zm3-7H3v12h14v-6.39l4 1.83V8.56l-4 1.83V6m1-1v3.83L22 7v8l-4-1.83V19H2V5h16z"/>
+                        <SVGPath content="M14 13h-3v3H9v-3H6v-2h3V8h2v3h3v2zm3-7H3v12h14v-6.39l4 1.83V8.56l-4 1.83V6m1-1v3.83L22 7v8l-4-1.83V19H2V5h16z" />
                     </graphic>
                 </Button>
-                <Button id="profileView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                        minWidth="-Infinity" mnemonicParsing="false" onAction="#loadProfile" prefHeight="35.0"
-                        prefWidth="35.0" styleClass="actionButton"/>
             </children>
             <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </padding>
         </HBox>
     </top>
@@ -57,87 +49,77 @@
             <children>
                 <Circle fx:id="profilePic" fill="#ffffff00" radius="103.0" stroke="TRANSPARENT" strokeType="INSIDE">
                     <VBox.margin>
-                        <Insets bottom="2.0"/>
+                        <Insets bottom="2.0" />
                     </VBox.margin>
                 </Circle>
                 <Label fx:id="nameLabel">
                     <VBox.margin>
-                        <Insets bottom="10.0"/>
+                        <Insets bottom="10.0" />
                     </VBox.margin>
                     <font>
-                        <Font name="Roboto Black" size="13.0"/>
+                        <Font name="Roboto Black" size="13.0" />
                     </font>
                     <contextMenu>
                         <ContextMenu>
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#changeProfile" text="Change Profile"/>
-                                <MenuItem mnemonicParsing="false" onAction="#changeBanner" text="Change Banner"/>
+                                <MenuItem mnemonicParsing="false" onAction="#changeProfile" text="Change Profile" />
+                                <MenuItem mnemonicParsing="false" onAction="#changeBanner" text="Change Banner" />
                             </items>
                         </ContextMenu>
                     </contextMenu>
                 </Label>
-                <HBox fx:id="dashboardBox" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="60.0"
-                      onMouseClicked="#loadDashboard" prefHeight="70.0" spacing="10.0" styleClass="sideBox">
+                <HBox fx:id="dashboardBox" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="60.0" onMouseClicked="#loadDashboard" prefHeight="70.0" spacing="10.0" styleClass="sideBox">
                     <children>
-                        <Button id="dashboardButton" mnemonicParsing="false" onAction="#loadDashboard" prefHeight="35.0"
-                                prefWidth="35.0" styleClass="sideButton"/>
-                        <Label fx:id="dashboardLabel" prefHeight="17.0" prefWidth="150.0" text="Dashboard"/>
+                        <Button id="dashboardButton" mnemonicParsing="false" onAction="#loadDashboard" prefHeight="35.0" prefWidth="35.0" styleClass="sideButton" />
+                        <Label fx:id="dashboardLabel" prefHeight="17.0" prefWidth="150.0" text="Dashboard" />
                     </children>
                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
                 </HBox>
-                <HBox fx:id="contentBox" alignment="CENTER_LEFT" layoutX="12.0" layoutY="210.0" maxHeight="-Infinity"
-                      minHeight="60.0" onMouseClicked="#loadContent" prefHeight="70.0" spacing="10.0"
-                      styleClass="sideBox">
+                <HBox fx:id="contentBox" alignment="CENTER_LEFT" layoutX="12.0" layoutY="210.0" maxHeight="-Infinity" minHeight="60.0" onMouseClicked="#loadContent" prefHeight="70.0" spacing="10.0" styleClass="sideBox">
                     <children>
-                        <Button id="contentButton" mnemonicParsing="false" onAction="#loadContent" prefHeight="35.0"
-                                prefWidth="35.0" styleClass="sideButton"/>
-                        <Label fx:id="contentLabel" prefHeight="17.0" prefWidth="150.0" text="Content"/>
+                        <Button id="contentButton" mnemonicParsing="false" onAction="#loadContent" prefHeight="35.0" prefWidth="35.0" styleClass="sideButton" />
+                        <Label fx:id="contentLabel" prefHeight="17.0" prefWidth="150.0" text="Content" />
                     </children>
                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
                 </HBox>
-                <HBox fx:id="settingsBox" alignment="CENTER_LEFT" layoutX="12.0" layoutY="285.0" maxHeight="-Infinity"
-                      minHeight="60.0" onMouseClicked="#loadSettings" prefHeight="70.0" spacing="10.0"
-                      styleClass="sideBox">
+                <HBox fx:id="settingsBox" alignment="CENTER_LEFT" layoutX="12.0" layoutY="285.0" maxHeight="-Infinity" minHeight="60.0" onMouseClicked="#loadSettings" prefHeight="70.0" spacing="10.0" styleClass="sideBox">
                     <children>
-                        <Button id="settingsButton" mnemonicParsing="false" onAction="#loadSettings" prefHeight="35.0"
-                                prefWidth="35.0" styleClass="sideButton"/>
-                        <Label fx:id="settingsLabel" prefHeight="17.0" prefWidth="150.0" text="Settings"/>
+                        <Button id="settingsButton" mnemonicParsing="false" onAction="#loadSettings" prefHeight="35.0" prefWidth="35.0" styleClass="sideButton" />
+                        <Label fx:id="settingsLabel" prefHeight="17.0" prefWidth="150.0" text="Settings" />
                     </children>
                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
                 </HBox>
-                <HBox fx:id="returnBox" alignment="CENTER_LEFT" layoutX="20.0" layoutY="403.0" maxHeight="-Infinity"
-                      minHeight="60.0" onMouseClicked="#loadMain" prefHeight="70.0" spacing="10.0" styleClass="sideBox">
+                <HBox fx:id="returnBox" alignment="CENTER_LEFT" layoutX="20.0" layoutY="403.0" maxHeight="-Infinity" minHeight="60.0" onMouseClicked="#loadMain" prefHeight="70.0" spacing="10.0" styleClass="sideBox">
                     <children>
-                        <Button id="returnButton" mnemonicParsing="false" onAction="#loadMain" prefHeight="35.0"
-                                prefWidth="35.0" styleClass="sideButton"/>
-                        <Label fx:id="returnLabel" prefHeight="17.0" prefWidth="150.0" text="Return"/>
+                        <Button id="returnButton" mnemonicParsing="false" onAction="#loadMain" prefHeight="35.0" prefWidth="35.0" styleClass="sideButton" />
+                        <Label fx:id="returnLabel" prefHeight="17.0" prefWidth="150.0" text="Return" />
                     </children>
                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
                 </HBox>
             </children>
             <BorderPane.margin>
-                <Insets/>
+                <Insets />
             </BorderPane.margin>
             <padding>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
         </VBox>
     </left>
     <padding>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
     </padding>
     <center>
         <StackPane fx:id="mainPanel" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <BorderPane.margin>
-                <Insets left="20.0"/>
+                <Insets left="20.0" />
             </BorderPane.margin>
         </StackPane>
     </center>
