@@ -67,12 +67,34 @@ public class VideoController {
     }
 
     @FXML
-    void likeVideo() {
+    void likeVideo() throws IOException {
+        boolean canLike = Request.likeVideo("L", MainController.user, video);
 
+        if (canLike) {
+            dislikeImage.setDisable(true);
+            System.out.println("| video was liked");
+        }
+        else {
+            dislikeImage.setDisable(false);
+            Request.unLikeVideo("L", MainController.user, video);
+            System.out.println("| video was unliked");
+        }
     }
 
     @FXML
-    void dislikeVideo() {
+    void dislikeVideo() throws IOException {
+        boolean canLike = Request.likeVideo("D", MainController.user, video);
+
+        if (canLike) {
+            likeImage.setDisable(true);
+            System.out.println("| video was disliked");
+        }
+        else {
+            likeCount.setDisable(false);
+            Request.unLikeVideo("D", MainController.user, video);
+            System.out.println("| video was unDisliked");
+        }
+
 
     }
 
@@ -110,6 +132,7 @@ public class VideoController {
         thumbnailBox.getChildren().add(moreVideos);
         */
     }
+
 
     public void init() throws IOException {
         likeCount.setText(String.valueOf(video.getLikes()));
