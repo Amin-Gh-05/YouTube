@@ -358,8 +358,16 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void loadVideos() {
+    void loadVideos() throws IOException {
+        if (user == null) {
+            System.out.println("| videos not available");
+            return;
+        }
 
+        mainPanel.getChildren().clear();
+        for (Video video : channel.getVideos()) {
+            mainPanel.getChildren().add(loadThumbnail(video));
+        }
     }
 
     @FXML

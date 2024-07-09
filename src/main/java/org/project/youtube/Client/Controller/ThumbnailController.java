@@ -49,6 +49,7 @@ public class ThumbnailController {
             VideoController videoController = loader.getController();
 
             videoController.video = video;
+            videoController.controller = controller;
             videoController.init();
 
             controller.getMainPanel().getChildren().clear();

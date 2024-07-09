@@ -16,7 +16,7 @@ import java.util.UUID;
 public class DatabaseManager {
     private static final String JDBC_URL = "jdbc:postgresql://localhost:5432/youtube";
     private static final String USERNAME = "postgres";
-    private static final String PASSWORD = "root";
+    private static final String PASSWORD = "2005tmsv";
 
     private static Connection connect() throws SQLException {
         return DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);

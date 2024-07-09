@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -72,17 +73,23 @@ public class UploaderController implements Initializable {
     @FXML
     void uploadVideo() throws IOException, InterruptedException {
         if (isShort) {
-            Short shortVideo = new Short(UUID.randomUUID(), titleText.getText(), LocalDateTime.now().toString(),
-                    adultOnlyCheck.isSelected(), new ArrayList<>(List.of(tagsText.getText().split(" "))), thumbnailImage,
-                    StudioController.channel.getHandle());
+            Short shortVideo = new Short(UUID.randomUUID(), titleText.getText(),
+                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")),
+                    adultOnlyCheck.isSelected(), new ArrayList<>(List.of(tagsText.getText().split(" "))),
+                    thumbnailImage, StudioController.channel.getHandle());
 
             Request.createShort(shortVideo, file.getAbsolutePath());
+            System.out.println("| short upload complete");
+            cancelButton();
         } else {
             Video video = new Video(UUID.randomUUID(), titleText.getText(), descriptionText.getText(),
-                    LocalDateTime.now().toString(), adultOnlyCheck.isSelected(), new ArrayList<>(List.of(tagsText.getText().split(" "))),
+                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")),
+                    adultOnlyCheck.isSelected(), new ArrayList<>(List.of(tagsText.getText().split(" "))),
                     thumbnailImage, StudioController.channel.getHandle());
 
             Request.createVideo(video, file.getAbsolutePath());
+            System.out.println("| video upload complete");
+            cancelButton();
         }
     }
 
