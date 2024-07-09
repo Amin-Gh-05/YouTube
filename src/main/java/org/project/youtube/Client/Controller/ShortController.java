@@ -4,17 +4,25 @@ import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.ImagePattern;
 import javafx.util.Duration;
 import org.project.youtube.Client.Main;
+import org.project.youtube.Client.Model.Comment;
 import org.project.youtube.Client.Model.Network.Request;
 import org.project.youtube.Client.Model.Short;
+import org.project.youtube.Client.Model.User;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class ShortController {
     Short shortVideo;
@@ -52,6 +60,15 @@ public class ShortController {
     @FXML
     private Pane playerPane;
 
+    @FXML
+    private ScrollPane commentsScrollPane;
+
+    @FXML
+    private FlowPane commentsFlowPane;
+
+    public void setShortVideo(Short shortVideo) {
+        this.shortVideo = shortVideo;
+    }
 
     private void playClickEffect(Button button) {
         // animation class
@@ -86,6 +103,7 @@ public class ShortController {
         }
     }
 
+    //TODO
     public void nextBtnAction(ActionEvent actionEvent) {
         playClickEffect(nextBtn);
     }
@@ -93,6 +111,7 @@ public class ShortController {
     }
 
 
+    //TODO
     public void previousBtnAction(ActionEvent actionEvent) {
         playClickEffect(previousBtn);
     }
@@ -141,14 +160,51 @@ public class ShortController {
         dislike();
     }
 
+    private Node loadComment(Comment comment) throws IOException {
+        User user = Request.getUser(comment.getWriterYID());
 
-    public void commentsBtnAction(ActionEvent actionEvent) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/comment-view.fxml"));
+        Node node = loader.load();
+        CommentController commentController = loader.getController();
+
+        // set attributes
+        commentController.comment = comment;
+        commentController.shortController = this;
+        try {
+            commentController.getProfilePic().setFill(new ImagePattern(new Image(new ByteArrayInputStream(user.getProfilePic()))));
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            commentController.getProfilePic().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/profile-sample.png")));
+        }
+        commentController.getUsernameLabel().setText(user.getUsername());
+        commentController.getDateLabel().setText(comment.getCreatedDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        commentController.getTextLabel().setText(comment.getComment());
+        commentController.getLikesLabel().setText(String.valueOf(comment.getLike()));
+        if (!comment.getWriterYID().equals(MainController.user.getYid())) {
+            commentController.getEditItem().setDisable(true);
+            commentController.getDeleteItem().setDisable(true);
+        }
+
+        return node;
+    }
+    void loadComments() throws IOException {
+        commentsScrollPane.setPrefWidth(305);
+
+        List<Comment> commentList = shortVideo.getComments();
+        for (Comment comment : commentList) {
+            commentsFlowPane.getChildren().add(loadComment(comment));
+        }
+    }
+    public void commentsBtnAction(ActionEvent actionEvent) throws IOException {
         playClickEffect(commentsBtn);
+        loadComments();
     }
-    public void commentsBtnBorderPaneMouseClicked(MouseEvent mouseEvent) {
+    public void commentsBtnBorderPaneMouseClicked(MouseEvent mouseEvent) throws IOException {
+        loadComments();
     }
 
 
+    //TODO
     public void saveToPLBtnAction(ActionEvent actionEvent) {
         playClickEffect(saveToPLBtn);
     }
