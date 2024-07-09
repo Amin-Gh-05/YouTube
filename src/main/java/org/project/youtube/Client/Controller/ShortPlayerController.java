@@ -64,12 +64,14 @@ public class ShortPlayerController {
     private double lastVolume;
     private Slider volumeSlider;
     private String handle;
+    private String path;
 
     public void setPane(Pane pane) {
         this.pane = pane;
     }
 
     public void setPath(String path) {
+        this.path = path;
         media = new Media(path);
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
@@ -134,6 +136,15 @@ public class ShortPlayerController {
 
     public void playBtnMouseClicked(MouseEvent mouseEvent) {
         playClickEffect(playBtn);
+
+        if (media == null || mediaPlayer == null) {
+            setPath(path);
+        }
+
+        if (!mediaPlayer.getStatus().equals(MediaPlayer.Status.READY) && !mediaPlayer.getStatus().equals(MediaPlayer.Status.STOPPED) && !mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
+            setPath(path);
+        }
+
         if (mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
             playBtn.setStyle("-fx-shape : \"M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z\"");
             mediaPlayer.pause();

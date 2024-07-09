@@ -366,6 +366,7 @@ public class MainController implements Initializable {
 
         mainPanel.getChildren().clear();
         for (Video video : channel.getVideos()) {
+            Request.getVideo(video.getId());
             mainPanel.getChildren().add(loadThumbnail(video));
         }
     }

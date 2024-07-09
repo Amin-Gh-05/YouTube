@@ -8,14 +8,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import org.project.youtube.Client.Main;
 import org.project.youtube.Client.Model.Short;
 import org.project.youtube.Client.Model.Video;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
-import static org.project.youtube.Client.Model.Network.Request.getChannel;
+import static org.project.youtube.Client.Model.Network.Request.*;
 
 
 public class ThumbnailController {
@@ -44,6 +46,10 @@ public class ThumbnailController {
         FXMLLoader loader;
 
         if (video != null) {
+            if (!(new File(Main.CASH_PATH + "/" + video.getId().toString() + ".mp4").exists())) {
+                getVideo(video.getId());
+            }
+
             loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/video-view.fxml"));
             Node node = loader.load();
             VideoController videoController = loader.getController();
@@ -60,6 +66,10 @@ public class ThumbnailController {
         }
 
         if (aShort != null) {
+            if (!(new File(Main.CASH_PATH + "/" + aShort.getId().toString() + ".mp4").exists())) {
+                getShort(aShort.getId());
+            }
+
             loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/short-view.fxml"));
             Node node = loader.load();
             ShortController shortController = loader.getController();

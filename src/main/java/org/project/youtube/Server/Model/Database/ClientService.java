@@ -107,7 +107,7 @@ public class ClientService {
     public static String getVideo(JSONObject data) throws SQLException {
         UUID id = UUID.fromString(data.getString("ID"));
         Video video = DatabaseManager.readVideo(id);
-        FileTransfer.sendFile("resources/video/" + video.getId().toString() + ".mp4");
+        FileTransfer.sendFile(ServerMain.VIDEO_PATH + "/" + video.getId().toString() + ".mp4");
 
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
@@ -119,7 +119,7 @@ public class ClientService {
     public static String getShort(JSONObject data) throws SQLException {
         UUID id = UUID.fromString(data.getString("ID"));
         Short shortt = DatabaseManager.readShort(id);
-        FileTransfer.sendFile("resources/short/" + shortt.getId().toString() + ".mp4");
+        FileTransfer.sendFile(ServerMain.SHORT_PATH + "/" + shortt.getId().toString() + ".mp4");
 
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();

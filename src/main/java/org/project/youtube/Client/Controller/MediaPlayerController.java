@@ -71,6 +71,7 @@ public class MediaPlayerController {
     private Slider volumeSlider;
 
 
+    private String path;
     private Media media;
     private MediaPlayer mediaPlayer;
     public static Thread fadeOutThread;
@@ -85,6 +86,7 @@ public class MediaPlayerController {
     }
 
     public void setPath(String path) {
+        this.path = path;
         media = new Media(path);
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
@@ -211,14 +213,17 @@ public class MediaPlayerController {
     }
 
     @FXML
-    void nextBtnAction(ActionEvent event) {
-        playClickEffect(nextBtn);
-        // TODO
-    }
-
-    @FXML
     void playBtnAction(ActionEvent event) {
         playClickEffect(playBtn);
+
+        if (media == null || mediaPlayer == null) {
+            setPath(path);
+        }
+
+        if (!mediaPlayer.getStatus().equals(MediaPlayer.Status.READY) && !mediaPlayer.getStatus().equals(MediaPlayer.Status.STOPPED) && !mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
+            setPath(path);
+        }
+
         if (mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
             playBtn.setStyle("-fx-shape : \"M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z\"");
             mediaPlayer.pause();
