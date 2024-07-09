@@ -352,6 +352,31 @@ public class ClientService {
         return gson.toJson(shorts, listType);
     }
 
+    public static String getHomeVideos(JSONObject data) throws SQLException {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        Type listType = new TypeToken<List<Video>>() {}.getType();
+
+        User user = gson.fromJson(data.getString("user"), User.class);
+        List<Video> videoList = DatabaseManager.readHomeVideos(user);
+
+        return gson.toJson(videoList, listType);
+    }
+
+    public static String getHomeShorts(JSONObject data) throws SQLException {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        Type listType = new TypeToken<List<Short>>() {}.getType();
+
+        User user = gson.fromJson(data.getString("user"), User.class);
+        List<Short> shortList = DatabaseManager.readHomeShorts(user);
+
+        return gson.toJson(shortList, listType);
+    }
+
+
     // ======================= Update =======================
 
     public static void updateUser(JSONObject data) throws SQLException {
