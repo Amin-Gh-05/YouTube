@@ -71,6 +71,7 @@
                         <ContextMenu>
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#changeProfile" text="Change Profile"/>
+                                <MenuItem mnemonicParsing="false" onAction="#changeBanner" text="Change Banner"/>
                             </items>
                         </ContextMenu>
                     </contextMenu>

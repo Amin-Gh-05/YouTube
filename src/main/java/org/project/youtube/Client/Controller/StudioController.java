@@ -158,6 +158,18 @@ public class StudioController implements Initializable {
     }
 
     @FXML
+    void changeBanner() throws IOException {
+        File picture = pickFile();
+        if (picture != null) {
+            channel.setBanner(FileUtils.readFileToByteArray(picture));
+            Request.updateChannel(channel);
+            System.out.println("| banner image was successfully updated");
+        }
+
+        refreshAll();
+    }
+
+    @FXML
     void createContent() throws IOException {
         playClickEffect(createButton);
 
