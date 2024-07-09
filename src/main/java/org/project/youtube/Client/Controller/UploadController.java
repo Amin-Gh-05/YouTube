@@ -22,9 +22,9 @@ public class UploadController {
 
         // load uploader panel
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/uploader-view.fxml"));
+        Node node = loader.load();
         UploaderController uploaderController = loader.getController();
         uploaderController.controller = this.controller;
-        Node node = loader.load();
 
         controller.getMainPanel().getChildren().removeFirst();
         controller.getMainPanel().getChildren().add(node);
@@ -40,9 +40,9 @@ public class UploadController {
 
         // load uploader panel
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/uploader-view.fxml"));
+        Node node = loader.load();
         UploaderController uploaderController = loader.getController();
         uploaderController.controller = this.controller;
-        Node node = loader.load();
 
         controller.getMainPanel().getChildren().removeFirst();
         controller.getMainPanel().getChildren().add(node);

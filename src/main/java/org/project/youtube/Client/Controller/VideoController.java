@@ -23,12 +23,10 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static org.project.youtube.Client.Model.Network.Request.getLatestVideos;
 import static org.project.youtube.Client.Model.Network.Request.getRandomVideos;
 
 public class VideoController {
     static int commentPNT;
-    static int thumbnailPNT;
 
     Video video;
 
@@ -49,9 +47,6 @@ public class VideoController {
     private Button likeImage, dislikeImage, saveButton, reportButton;
 
     // ---------------------- THUMBNAILS ----------------------
-
-    @FXML
-    private Button moreVideos;
 
     @FXML
     private VBox thumbnailBox;
@@ -78,8 +73,7 @@ public class VideoController {
         if (canLike) {
             dislikeImage.setDisable(true);
             System.out.println("| video was liked");
-        }
-        else {
+        } else {
             dislikeImage.setDisable(false);
             Request.unLikeVideo("L", MainController.user, video);
             System.out.println("| video was unliked");
@@ -93,8 +87,7 @@ public class VideoController {
         if (canLike) {
             likeImage.setDisable(true);
             System.out.println("| video was disliked");
-        }
-        else {
+        } else {
             likeImage.setDisable(false);
             Request.unLikeVideo("D", MainController.user, video);
             System.out.println("| video was unDisliked");
@@ -105,10 +98,16 @@ public class VideoController {
     void loadComments() throws IOException {
         mainVideoBox.getChildren().remove(moreComments);
 
-        for (int i = 0; i < 10; i++) {
-            mainVideoBox.getChildren().add(loadComment(video.getComments().get(commentPNT + i)));
+        try {
+            for (int i = 0; i < 10; i++) {
+                mainVideoBox.getChildren().add(loadComment(video.getComments().get(commentPNT + i)));
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("| no more comments");
+            moreComments.setDisable(true);
+        } finally {
+            commentPNT += 10;
         }
-        commentPNT += 10;
 
         mainVideoBox.getChildren().add(moreComments);
     }
@@ -116,15 +115,11 @@ public class VideoController {
     @FXML
     void loadThumbnails() throws IOException {
         List<Video> videos = getRandomVideos();
-        thumbnailBox.getChildren().remove(moreVideos);
-
-        for (int i = 0; i < 10; i++) {
-            thumbnailBox.getChildren().add(loadThumbnail(videos.get(thumbnailPNT + i)));
+        for (Video video : videos) {
+            thumbnailBox.getChildren().add(loadThumbnail(video));
         }
-        thumbnailPNT += 10;
 
-        thumbnailBox.getChildren().add(moreVideos);
-
+        System.out.println("| thumbnails loaded");
     }
 
 
@@ -140,10 +135,10 @@ public class VideoController {
         commentPNT = 0;
         loadComments();
 
-        // loading first 10 thumbnails
-        thumbnailPNT = 0;
+        // loading 10 thumbnails
         loadThumbnails();
 
+        loadPlayer();
     }
 
     public void loadPlayer() throws IOException {
@@ -188,8 +183,8 @@ public class VideoController {
         Channel videoChannel = Request.getChannel(video.getVideoHandle());
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/video-thumbnail.fxml"));
-        ThumbnailController thumbnailController = loader.getController();
         Node node = loader.load();
+        ThumbnailController thumbnailController = loader.getController();
 
         // set attributes
         thumbnailController.video = video;
@@ -204,7 +199,7 @@ public class VideoController {
             thumbnailController.getProfileImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(videoChannel.getLogo()))));
         } catch (NullPointerException e) {
             System.out.println(e.getMessage());
-            thumbnailController.getProfileImage().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/profile-sample.png")));
+            thumbnailController.getProfileImage().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/sample-profile.png")));
         }
         thumbnailController.getTitleLabel().setText(video.getTitle());
         thumbnailController.getDateLabel().setText(video.getCreatedDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));

@@ -8,7 +8,6 @@ import java.util.UUID;
 public class Short {
     private UUID id;
     private String title;
-    private int duration;
     private String createdDateTime;
     private int likes;
     private List<Comment> comments;
@@ -18,11 +17,10 @@ public class Short {
     private String shortHandle;
     private int views;
 
-    public Short(UUID id, String title, int duration, String createdDateTime, int likes, List<Comment> comments,
+    public Short(UUID id, String title, String createdDateTime, int likes, List<Comment> comments,
                  boolean isAgeRestricted, List<String> tags, byte[] thumbnail, String shortHandle, int views) {
         this.id = id;
         this.title = title;
-        this.duration = duration;
         this.createdDateTime = createdDateTime;
         this.likes = likes;
         this.comments = comments;
@@ -33,11 +31,10 @@ public class Short {
         this.views = views;
     }
 
-    public Short(UUID id, String title, int duration, String createdDateTime, boolean isAgeRestricted, List<String> tags,
+    public Short(UUID id, String title, String createdDateTime, boolean isAgeRestricted, List<String> tags,
                  byte[] thumbnail, String shortHandle) {
         this.id = id;
         this.title = title;
-        this.duration = duration;
         this.createdDateTime = createdDateTime;
         this.isAgeRestricted = isAgeRestricted;
         this.tags = tags;
@@ -59,14 +56,6 @@ public class Short {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
     }
 
     public LocalDateTime getCreatedDateTime() {

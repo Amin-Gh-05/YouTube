@@ -106,19 +106,18 @@ public class DatabaseManager {
             }
 
             // add row to videos table
-            String query = "INSERT INTO videos (video_id, title, description, duration, created_date_time, tags, " +
-                    "is_age_restricted, thumbnail, handle, views) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO videos (video_id, title, description, created_date_time, tags, " +
+                    "is_age_restricted, thumbnail, handle, views) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement videoPrepStat = conn.prepareStatement(query);
             videoPrepStat.setObject(1, video.getId());
             videoPrepStat.setString(2, video.getTitle());
             videoPrepStat.setString(3, video.getDescription());
-            videoPrepStat.setInt(4, video.getDuration());
-            videoPrepStat.setTimestamp(5, Timestamp.valueOf(video.getCreatedDateTime()));
-            videoPrepStat.setString(6, tags.toString());
-            videoPrepStat.setBoolean(7, video.isAgeRestricted());
-            videoPrepStat.setBytes(8, video.getThumbnail());
-            videoPrepStat.setString(9, video.getVideoHandle());
-            videoPrepStat.setInt(10, video.getViews());
+            videoPrepStat.setTimestamp(4, Timestamp.valueOf(video.getCreatedDateTime()));
+            videoPrepStat.setString(5, tags.toString());
+            videoPrepStat.setBoolean(6, video.isAgeRestricted());
+            videoPrepStat.setBytes(7, video.getThumbnail());
+            videoPrepStat.setString(8, video.getVideoHandle());
+            videoPrepStat.setInt(9, video.getViews());
             // execute and close
             videoPrepStat.executeUpdate();
             videoPrepStat.close();
@@ -137,18 +136,17 @@ public class DatabaseManager {
             }
 
             // add row to shorts table
-            String query = "INSERT INTO shorts (short_id, title, duration, created_date_time, tags, " +
-                    "is_age_restricted, thumbnail, handle, views) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO shorts (short_id, title, created_date_time, tags, " +
+                    "is_age_restricted, thumbnail, handle, views) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement shortPrepStat = conn.prepareStatement(query);
             shortPrepStat.setObject(1, shortVideo.getId());
             shortPrepStat.setString(2, shortVideo.getTitle());
-            shortPrepStat.setInt(3, shortVideo.getDuration());
-            shortPrepStat.setTimestamp(4, Timestamp.valueOf(shortVideo.getCreatedDateTime()));
-            shortPrepStat.setString(5, tags.toString());
-            shortPrepStat.setBoolean(6, shortVideo.isAgeRestricted());
-            shortPrepStat.setBytes(7, shortVideo.getThumbnail());
-            shortPrepStat.setString(8, shortVideo.getShortHandle());
-            shortPrepStat.setInt(9, shortVideo.getViews());
+            shortPrepStat.setTimestamp(3, Timestamp.valueOf(shortVideo.getCreatedDateTime()));
+            shortPrepStat.setString(4, tags.toString());
+            shortPrepStat.setBoolean(5, shortVideo.isAgeRestricted());
+            shortPrepStat.setBytes(6, shortVideo.getThumbnail());
+            shortPrepStat.setString(7, shortVideo.getShortHandle());
+            shortPrepStat.setInt(8, shortVideo.getViews());
             // execute and close
             shortPrepStat.executeUpdate();
             shortPrepStat.close();
@@ -597,7 +595,7 @@ public class DatabaseManager {
         Connection conn = connect();
 
         // read videos from video, video_likes, video_dislikes tables
-        String query = "SELECT videos.video_id, title, description, duration, created_date_time, tags, is_age_restricted," +
+        String query = "SELECT videos.video_id, title, description, created_date_time, tags, is_age_restricted," +
                 " thumbnail, handle, views, COUNT(video_likes.video_id) - COUNT(video_dislikes.video_id) AS likes FROM videos " +
                 "LEFT JOIN video_likes ON videos.video_id = video_likes.video_id LEFT JOIN video_dislikes ON videos.video_id" +
                 " = video_dislikes.video_id WHERE videos.video_id = ? GROUP BY videos.video_id";
@@ -614,7 +612,6 @@ public class DatabaseManager {
                     videoId,
                     rs.getString("title"),
                     rs.getString("description"),
-                    rs.getInt("duration"),
                     rs.getTimestamp("created_date_time").toString(),
                     rs.getInt("likes"),
                     readVideoComments(videoId),
@@ -760,7 +757,7 @@ public class DatabaseManager {
         Connection conn = connect();
 
         // read shorts from shorts, short_likes, short_dislikes tables
-        String query = "SELECT shorts.short_id, title, duration, created_date_time, tags, is_age_restricted, thumbnail, " +
+        String query = "SELECT shorts.short_id, title, created_date_time, tags, is_age_restricted, thumbnail, " +
                 "handle, views, COUNT(short_likes.short_id) - COUNT(short_dislikes.short_id) AS likes FROM shorts LEFT JOIN " +
                 "short_likes ON shorts.short_id = short_likes.short_id LEFT JOIN short_dislikes ON shorts.short_id = " +
                 "short_dislikes.short_id WHERE shorts.short_id = ? GROUP BY shorts.short_id";
@@ -776,7 +773,6 @@ public class DatabaseManager {
             return new Short(
                     shortId,
                     rs.getString("title"),
-                    rs.getInt("duration"),
                     rs.getTimestamp("created_date_time").toString(),
                     rs.getInt("likes"),
                     readShortComments(shortId),

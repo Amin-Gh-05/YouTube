@@ -9,7 +9,6 @@ public class Video {
     private UUID id;
     private String title;
     private String description;
-    private int duration;
     private String createdDateTime;
     private int likes;
     private List<Comment> comments;
@@ -19,13 +18,12 @@ public class Video {
     private String videoHandle;
     private int views;
 
-    public Video(UUID id, String title, String description, int duration, String createdDateTime, int likes,
+    public Video(UUID id, String title, String description, String createdDateTime, int likes,
                  List<Comment> comments, boolean isAgeRestricted, List<String> tags, byte[] thumbnail, String videoHandle,
                  int views) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.duration = duration;
         this.createdDateTime = createdDateTime;
         this.likes = likes;
         this.comments = comments;
@@ -36,12 +34,11 @@ public class Video {
         this.views = views;
     }
 
-    public Video(UUID id, String title, String description, int duration, String createdDateTime, boolean isAgeRestricted,
+    public Video(UUID id, String title, String description, String createdDateTime, boolean isAgeRestricted,
                  List<String> tags, byte[] thumbnail, String videoHandle) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.duration = duration;
         this.createdDateTime = createdDateTime;
         this.isAgeRestricted = isAgeRestricted;
         this.tags = tags;
@@ -71,14 +68,6 @@ public class Video {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
     }
 
     public LocalDateTime getCreatedDateTime() {
