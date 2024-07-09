@@ -11,10 +11,10 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.SVGPath?>
 
-<AnchorPane id="mainPanel" fx:id="mainPanel" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="300.0" stylesheets="@comment-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.CommentController">
+<AnchorPane id="mainPanel" fx:id="mainPanel" stylesheets="@comment-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.CommentController">
     <children>
         <Circle fx:id="profilePic" fill="#ffffff00" layoutX="34.66666666666667" layoutY="34.66666666666667" radius="20.0" stroke="#ffffff00" strokeType="INSIDE" AnchorPane.leftAnchor="13.0" AnchorPane.topAnchor="13.0" />
-        <HBox alignment="CENTER_LEFT" layoutX="84.66666666666666" layoutY="14.666666666666668" maxWidth="320.0" prefHeight="40.0" prefWidth="301.0" spacing="20.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+        <HBox alignment="CENTER_LEFT" layoutX="84.66666666666666" layoutY="14.666666666666668" maxWidth="320.0" prefHeight="40.0" prefWidth="212.0" spacing="20.0" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="10.0">
             <children>
                 <Label fx:id="usernameLabel" text="Username" />
                 <Label fx:id="dateLabel" text="Date" />
@@ -23,7 +23,7 @@
                 <Insets left="5.0" />
             </padding>
         </HBox>
-        <Label fx:id="textLabel" layoutX="112.66666666666666" layoutY="56.66666666666667" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Text" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="55.0">
+        <Label fx:id="textLabel" layoutX="112.66666666666666" layoutY="56.66666666666667" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="212.0" text="Text" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="55.0">
             <contextMenu>
                 <ContextMenu fx:id="changeMenu">
                     <items>
@@ -47,7 +47,7 @@
             </graphic>
         </Button>
         <Button id="dislikeButton" fx:id="dislikeBtn" layoutX="144.66666666666669" layoutY="80.0" mnemonicParsing="false" onAction="#dislikeComment" prefHeight="28.0" prefWidth="25.0" styleClass="actionButton" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="70.0" />
-        <Button fx:id="submitButton" layoutX="294.0" layoutY="77.0" mnemonicParsing="false" onAction="#submitChanges" styleClass="actionButton" text="Submit" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="294.0" />
+        <Button fx:id="submitButton" layoutX="294.0" layoutY="77.0" mnemonicParsing="false" onAction="#submitChanges" styleClass="actionButton" text="Submit" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="180.0" />
         <Label fx:id="likesLabel" alignment="CENTER" layoutX="118.0" layoutY="94.0" prefHeight="18.0" prefWidth="50.0" text="likes" textAlignment="CENTER" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="110.0" />
     </children>
 </AnchorPane>

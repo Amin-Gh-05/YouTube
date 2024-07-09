@@ -21,7 +21,6 @@ import org.project.youtube.Client.Model.Video;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.project.youtube.Client.Model.Network.Request.getLatestVideos;
@@ -172,7 +171,7 @@ public class VideoController {
             commentController.getProfilePic().setFill(new ImagePattern(new Image(new ByteArrayInputStream(user.getProfilePic()))));
         } catch (NullPointerException e) {
             System.out.println(e.getMessage());
-            commentController.getProfilePic().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/profile-sample.png")));
+            commentController.getProfilePic().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/sample-profile.png")));
         }
         commentController.getUsernameLabel().setText(user.getUsername());
         commentController.getDateLabel().setText(comment.getCreatedDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
