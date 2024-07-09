@@ -18,6 +18,7 @@ import javafx.scene.media.MediaView;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
+import org.project.youtube.Client.Model.Network.Request;
 import org.project.youtube.Client.Model.Short;
 
 import java.io.ByteArrayInputStream;
@@ -56,11 +57,13 @@ public class ShortPlayerController {
     @FXML
     private MediaView mediaView;
 
+
     private MediaPlayer mediaPlayer;
     private Media media;
     private Pane pane;
     private double lastVolume;
     private Slider volumeSlider;
+    private String handle;
 
     public void setPane(Pane pane) {
         this.pane = pane;
@@ -86,6 +89,7 @@ public class ShortPlayerController {
 
     public void setHandle(String handle) {
         handleLbl.setText("@" + handle);
+        this.handle = handle;
     }
     public void setTitle(String text) {
         titleLbl.setText(text);
@@ -207,6 +211,7 @@ public class ShortPlayerController {
         mediaPlayer.seek(Duration.seconds(shortSlider.getValue()));
     }
 
-    public void subscribeBtnAction(ActionEvent actionEvent) {
+    public void subscribeBtnAction(ActionEvent actionEvent) throws IOException {
+        Request.subscribe(Request.getChannel(handle), MainController.user);
     }
 }
