@@ -738,6 +738,26 @@ public class DatabaseManager {
         return videos;
     }
 
+    public static List<Video> randomVideos() throws SQLException {
+        Connection conn = connect();
+        List<Video> videos = new ArrayList<>();
+
+        // get random videos
+        String query = "SELECT video_id FROM videos ORDER BY RANDOM() LIMIT 10";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+
+        while (rs.next()) {
+            UUID videoId = (UUID) rs.getObject("video_id");
+            videos.add(readVideo(videoId));
+        }
+        log("get random videos from database");
+
+        return videos;
+    }
+
     public static Short readShort(UUID shortId) throws SQLException {
         Connection conn = connect();
 
@@ -877,6 +897,26 @@ public class DatabaseManager {
 
         Collections.shuffle(shorts);
         log("get home shorts from database");
+        return shorts;
+    }
+
+    public static List<Short> randomShorts() throws SQLException {
+        Connection conn = connect();
+        List<Short> shorts = new ArrayList<>();
+
+        // read random shorts
+        String query = "SELECT short_id FROM shorts ORDER BY RANDOM() LIMIT 10";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+
+        while (rs.next()) {
+            UUID shortId = (UUID) rs.getObject("short_id");
+            shorts.add(readShort(shortId));
+        }
+        log("get random shorts from database");
+
         return shorts;
     }
 
