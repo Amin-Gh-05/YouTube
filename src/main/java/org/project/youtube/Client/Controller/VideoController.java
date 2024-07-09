@@ -76,6 +76,7 @@ public class VideoController {
 
         Dialog adder = new Dialog();
         adder.setDialogPane(addToPL);
+        adder.show();
     }
 
     @FXML

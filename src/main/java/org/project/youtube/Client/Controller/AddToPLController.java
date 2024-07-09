@@ -32,23 +32,30 @@ public class AddToPLController {
     }
 
     @FXML
-    void addToPL(ActionEvent event) throws IOException {
-        String name = plChoiceBox.getValue();
-        if(name != null){
-            if (video != null) {
-                for (Playlist playlist : channel.getPlaylists()) {
-                    if (playlist.getName().equals(name)) {
-                        addVideoToPlaylist(playlist, video);
+    void addToPL(ActionEvent event)  {
+        try {
+
+            String name = plChoiceBox.getValue();
+            if(name != null){
+                if (video != null) {
+                    for (Playlist playlist : channel.getPlaylists()) {
+                        if (playlist.getName().equals(name)) {
+                            addVideoToPlaylist(playlist, video);
+                        }
+                    }
+                }
+                else if (shortVideo != null) {
+                    for (Playlist playlist : channel.getPlaylists()) {
+                        if (playlist.getName().equals(name)) {
+                            addShortToPlaylist(playlist, shortVideo);
+                        }
                     }
                 }
             }
-            else if (shortVideo != null) {
-                for (Playlist playlist : channel.getPlaylists()) {
-                    if (playlist.getName().equals(name)) {
-                        addShortToPlaylist(playlist, shortVideo);
-                    }
-                }
-            }
+
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
