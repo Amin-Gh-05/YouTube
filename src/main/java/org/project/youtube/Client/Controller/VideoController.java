@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -57,6 +58,12 @@ public class VideoController {
     private Button moreComments;
 
     @FXML
+    private Button commentButton;
+
+    @FXML
+    private TextField commentSection;
+
+    @FXML
     void reportAlert() {
         Notifications.create().title("Guidance").text("Here is a free country. No objection!").showInformation();
     }
@@ -96,6 +103,11 @@ public class VideoController {
             System.out.println("| video was unDisliked");
             likeCount.setText(Integer.toString(Integer.parseInt(likeCount.getText()) + 1));
         }
+    }
+
+    @FXML
+    void postNewComment(){
+
     }
 
     @FXML

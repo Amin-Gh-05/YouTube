@@ -194,6 +194,8 @@ public class ShortController {
     void loadComments() throws IOException {
         commentsScrollPane.setPrefWidth(305);
 
+        // TODO new comment
+
         List<Comment> commentList = shortVideo.getComments();
         for (Comment comment : commentList) {
             commentsFlowPane.getChildren().add(loadComment(comment));

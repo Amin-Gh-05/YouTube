@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -114,9 +115,29 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="10.0" />
                      </VBox.margin>
                   </Label>
+                  <HBox prefHeight="173.0" prefWidth="680.0">
+                     <children>
+                        <TextField fx:id="commentSection" alignment="TOP_LEFT" prefHeight="88.0" prefWidth="582.0" promptText="write your comment...">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                        <Button fx:id="commentButton" mnemonicParsing="false" onAction="#postNewComment" prefHeight="37.0" prefWidth="67.0" styleClass="actionButton" stylesheets="@video-view.css" text="Post">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="18.0" top="8.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
                   <Button fx:id="moreComments" mnemonicParsing="false" onAction="#loadComments" styleClass="moreButton" stylesheets="@video-view.css" text="More Comments...">
                      <font>
                         <Font size="13.0" />
@@ -124,7 +145,7 @@
                   </Button>
                </children>
                <padding>
-                  <Insets left="20.0" right="20.0" top="20.0" />
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
             </VBox>
             <Separator orientation="VERTICAL" prefHeight="900.0" />

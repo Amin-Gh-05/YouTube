@@ -232,7 +232,7 @@ public class ProfileController {
             hbox.getChildren().get(0).setVisible(false);
         }
         if(!checkErrors()) {
-
+            setInformation();
         }
 
 
@@ -241,8 +241,6 @@ public class ProfileController {
 
     public boolean checkErrors(){
         boolean flag = false;
-
-
 
         return flag;
     }
@@ -256,6 +254,10 @@ public class ProfileController {
         }
 
         return true;
+    }
+
+    public void setInformation(){
+
     }
 
     @FXML
@@ -279,13 +281,7 @@ public class ProfileController {
         );
 
         File file = fileChooser.showOpenDialog(new Stage());
-        if (file != null) {
-            System.out.println("| file selected: " + file.getAbsolutePath());
-            return file;
-        } else {
-            System.out.println("| file not selected");
-            return null;
-        }
+        return file;
     }
 
 

@@ -5,7 +5,6 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
@@ -285,129 +284,7 @@
                               <Insets top="1.0" />
                            </VBox.margin>
                         </Label>
-                        <VBox fx:id="linksBox" prefHeight="292.0" prefWidth="398.0">
-                           <children>
-                              <HBox prefHeight="17.0" prefWidth="392.0" styleClass="linkBoxes" stylesheets="@profile-view.css">
-                                 <children>
-                                    <ImageView fx:id="emailAlert1" fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/important.png" />
-                                       </image>
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </ImageView>
-                                    <ImageView fitHeight="29.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/website.png" />
-                                       </image>
-                                       <HBox.margin>
-                                          <Insets bottom="3.0" />
-                                       </HBox.margin>
-                                    </ImageView>
-                                    <TextField alignment="CENTER" prefHeight="31.0" prefWidth="265.0" styleClass="hyperlink" stylesheets="@profile-view.css">
-                                       <padding>
-                                          <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                                       </padding>
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </TextField>
-                                 </children>
-                              </HBox>
-                              <HBox layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="392.0">
-                                 <children>
-                                    <ImageView fitHeight="29.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/icons8-facebook-48.png" />
-                                       </image>
-                                       <HBox.margin>
-                                          <Insets bottom="3.0" top="3.0" />
-                                       </HBox.margin>
-                                    </ImageView>
-                                    <TextField alignment="CENTER" prefHeight="35.0" prefWidth="366.0" />
-                                 </children>
-                              </HBox>
-                              <HBox layoutX="10.0" layoutY="39.0" prefHeight="17.0" prefWidth="392.0" styleClass="linkBoxes" stylesheets="@profile-view.css">
-                                 <children>
-                                    <ImageView fitHeight="29.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/icons8-insta-48.png" />
-                                       </image>
-                                       <HBox.margin>
-                                          <Insets bottom="3.0" top="3.0" />
-                                       </HBox.margin>
-                                    </ImageView>
-                                    <Hyperlink prefHeight="31.0" prefWidth="363.0" stylesheets="@profile-view.css" text="Hyperlink" />
-                                 </children>
-                              </HBox>
-                              <HBox layoutX="10.0" layoutY="68.0" prefHeight="17.0" prefWidth="392.0">
-                                 <children>
-                                    <ImageView fitHeight="29.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/icons8-twitterx-50.png" />
-                                       </image>
-                                       <HBox.margin>
-                                          <Insets bottom="3.0" top="3.0" />
-                                       </HBox.margin>
-                                    </ImageView>
-                                    <Hyperlink prefHeight="31.0" prefWidth="363.0" stylesheets="@profile-view.css" text="Hyperlink" />
-                                 </children>
-                              </HBox>
-                              <HBox layoutX="10.0" layoutY="97.0" prefHeight="17.0" prefWidth="392.0">
-                                 <children>
-                                    <ImageView fitHeight="29.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/icons8-telegram-48.png" />
-                                       </image>
-                                       <HBox.margin>
-                                          <Insets bottom="3.0" top="3.0" />
-                                       </HBox.margin>
-                                    </ImageView>
-                                    <Hyperlink prefHeight="31.0" prefWidth="363.0" stylesheets="@profile-view.css" text="Hyperlink" />
-                                 </children>
-                              </HBox>
-                              <HBox layoutX="10.0" layoutY="126.0" prefHeight="17.0" prefWidth="392.0">
-                                 <children>
-                                    <ImageView fitHeight="29.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/icons8-tiktok-48.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Hyperlink prefHeight="31.0" prefWidth="363.0" stylesheets="@profile-view.css" text="Hyperlink" />
-                                 </children>
-                              </HBox>
-                              <HBox layoutX="10.0" layoutY="155.0" prefHeight="17.0" prefWidth="392.0">
-                                 <children>
-                                    <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/Discord.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Hyperlink prefHeight="31.0" prefWidth="363.0" stylesheets="@profile-view.css" text="Hyperlink" />
-                                 </children>
-                              </HBox>
-                              <HBox layoutX="10.0" layoutY="184.0" prefHeight="17.0" prefWidth="392.0">
-                                 <children>
-                                    <ImageView fitHeight="29.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/icons8-linkedin-48.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Hyperlink prefHeight="31.0" prefWidth="363.0" stylesheets="@profile-view.css" text="Hyperlink" />
-                                 </children>
-                              </HBox>
-                              <HBox layoutX="10.0" layoutY="213.0" prefHeight="17.0" prefWidth="392.0">
-                                 <children>
-                                    <ImageView fitHeight="29.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/reddit.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Hyperlink prefHeight="31.0" prefWidth="363.0" stylesheets="@profile-view.css" text="Hyperlink" />
-                                 </children>
-                              </HBox>
-                           </children></VBox>
+                        <VBox fx:id="linksBox" prefHeight="292.0" prefWidth="398.0" />
                      </children>
                      <padding>
                         <Insets bottom="20.0" />

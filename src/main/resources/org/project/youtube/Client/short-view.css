@@ -17,6 +17,27 @@
     -fx-background-color: black;
 }
 
+.text-field{
+    -fx-pref-width: 200px;
+    -fx-font-size: 16;
+}
+
+.actionButton {
+    -fx-pref-height: 67px;
+    -fx-pref-height: 37px;
+    -fx-font-size: 16;
+    -fx-padding: 5px;
+    -fx-background-radius: 25px;
+    -fx-background-color: #F5F3F4;
+    -fx-border-radius: 25px;
+    -fx-border-color: #0B090A;
+    -fx-cursor: hand;
+}
+
+.actionButton:hover {
+    -fx-background-color: #DDDBDC;
+}
+
 #previousBtn {
     -fx-cursor: hand;
     -fx-shape: "M19.884 10.114a1.25 1.25 0 01-1.768 1.768L13.25 7.016v12.982a1.25 1.25 0 11-2.5 0V7.016l-4.866 4.866a1.25 1.25 0 11-1.768-1.768L12 2.23l7.884 7.884Z"
