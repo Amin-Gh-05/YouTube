@@ -180,7 +180,7 @@ public class VideoController {
 
         MediaPlayerController mediaPlayerController = mediaPlayerLoader.getController();
         mediaPlayerController.setPane(mediaPlayerPane);
-        mediaPlayerController.setPath("file:///" + Main.CASH_PATH + "/" + video.getId().toString() + ".mp4");
+        mediaPlayerController.setPath("file:///" + Main.CASH_PATH + "/" + video.getId().toString() + ".mp4", video.getId());
         mediaPlayerController.initBindings();
     }
 

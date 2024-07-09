@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import org.project.youtube.Client.Main;
+import org.project.youtube.Client.Model.History;
 import org.project.youtube.Client.Model.Network.Request;
 import org.project.youtube.Client.Model.Short;
 import org.project.youtube.Client.Model.Video;
@@ -52,7 +53,11 @@ public class ThumbnailController {
             if (!(new File(Main.CASH_PATH + "/" + video.getId().toString() + ".mp4").exists())) {
                 Video video1 = getVideo(video.getId());
             }
+
             Request.updateVideoViews(video);
+
+            History.addNewHistory(video.getId());
+            History.serializeHistory();
 
             loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/video-view.fxml"));
             Node node = loader.load();
@@ -73,7 +78,11 @@ public class ThumbnailController {
             if (!(new File(Main.CASH_PATH + "/" + aShort.getId().toString() + ".mp4").exists())) {
                 Short short1 = getShort(aShort.getId());
             }
+
             Request.updateShortViews(aShort);
+
+            History.addNewHistory(aShort.getId());
+            History.serializeHistory();
 
             loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/short-view.fxml"));
             Node node = loader.load();
