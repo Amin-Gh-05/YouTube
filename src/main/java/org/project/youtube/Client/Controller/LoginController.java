@@ -56,11 +56,12 @@ public class LoginController {
     }
 
     @FXML
-    void turnBack(ActionEvent event) {
+    void turnBack(ActionEvent event) throws IOException {
         // get current stage
         Stage loginStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         // restore the main page
         loginStage.close();
+        MainController.mainController.refreshAll();
         MainController.mainStage.show();
 
         System.out.println("| redirect to main panel");
