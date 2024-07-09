@@ -16,6 +16,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import static org.project.youtube.Client.Model.Network.Request.*;
 
@@ -23,6 +24,7 @@ import static org.project.youtube.Client.Model.Network.Request.*;
 public class ThumbnailController {
     Video video;
     Short aShort;
+    List<Short> shortList;
 
     MainController controller;
 
@@ -75,7 +77,8 @@ public class ThumbnailController {
             ShortController shortController = loader.getController();
 
             shortController.shortVideo = aShort;
-            // todo: set attributes - or call init() method
+            shortController.shortVideoList = shortList;
+            shortController.loadPlayer();
 
             controller.getMainPanel().getChildren().clear();
             controller.getMainPanel().getChildren().add(node);

@@ -337,7 +337,7 @@ public class MainController implements Initializable {
 
         if (shorts != null) {
             for (Short aShort : shorts) {
-                mainPanel.getChildren().add(loadThumbnail(aShort));
+                mainPanel.getChildren().add(loadThumbnail(aShort, shorts));
             }
         }
     }
@@ -553,7 +553,7 @@ public class MainController implements Initializable {
         return node;
     }
 
-    Node loadThumbnail(Short shortVideo) throws IOException {
+    Node loadThumbnail(Short shortVideo, List<Short> shortList) throws IOException {
         Channel shortChannel = Request.getChannel(shortVideo.getShortHandle());
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/short-thumbnail.fxml"));
@@ -561,7 +561,7 @@ public class MainController implements Initializable {
         ThumbnailController thumbnailController = loader.getController();
 
         // set attributes
-        thumbnailController.aShort = shortVideo;
+        thumbnailController.shortList = shortList;
         thumbnailController.controller = this;
         try {
             thumbnailController.getThumbnailImage().setImage(new Image(new ByteArrayInputStream(shortVideo.getThumbnail())));
@@ -640,7 +640,7 @@ public class MainController implements Initializable {
         // fill shorts panel
         if (!playlist.getShorts().isEmpty()) {
             for (Short shortVideo : playlist.getShorts()) {
-                playlistController.getShortsPanel().getChildren().add(loadThumbnail(shortVideo));
+                playlistController.getShortsPanel().getChildren().add(loadThumbnail(shortVideo, playlist.getShorts()));
             }
         }
 
@@ -719,7 +719,7 @@ public class MainController implements Initializable {
         // fill shorts panel
         if (!channel.getShorts().isEmpty()) {
             for (Short shortVideo : channel.getShorts()) {
-                channelController.getShortsPanel().getChildren().add(loadThumbnail(shortVideo));
+                channelController.getShortsPanel().getChildren().add(loadThumbnail(shortVideo, channel.getShorts()));
             }
         }
         // fill playlists panel
