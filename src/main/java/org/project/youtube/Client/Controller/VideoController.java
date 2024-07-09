@@ -1,11 +1,10 @@
 package org.project.youtube.Client.Controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -13,17 +12,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import org.controlsfx.control.Notifications;
 import org.project.youtube.Client.Main;
-import org.project.youtube.Client.Model.Channel;
-import org.project.youtube.Client.Model.Comment;
+import org.project.youtube.Client.Model.*;
 import org.project.youtube.Client.Model.Network.Request;
-import org.project.youtube.Client.Model.User;
-import org.project.youtube.Client.Model.Video;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import static org.project.youtube.Client.Model.Network.Request.getChannel;
 import static org.project.youtube.Client.Model.Network.Request.getRandomVideos;
 
 public class VideoController {
@@ -69,8 +66,15 @@ public class VideoController {
     }
 
     @FXML
-    void saveToPlayList() {
+    void saveToPlayList(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("addToPL.fxml"));
+        DialogPane addtopl = loader.load();
+        addToPLController controller = loader.getController();
+        controller.video = this.video;
 
+        Dialog adder = new Dialog();
+        adder.setDialogPane(addtopl);
     }
 
     @FXML
@@ -146,6 +150,13 @@ public class VideoController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
         dateCreatedLabel.setText(video.getCreatedDateTime().format(formatter));
         description.setText(video.getDescription());
+        if(MainController.user == null) {
+            likeImage.setDisable(true);
+            dislikeImage.setDisable(true);
+            saveButton.setDisable(true);
+            commentButton.setDisable(true);
+            commentSection.setDisable(true);
+        }
 
         // loading first 10 comments
         commentPNT = 0;
