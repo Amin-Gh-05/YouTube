@@ -73,10 +73,12 @@ public class VideoController {
         if (canLike) {
             dislikeImage.setDisable(true);
             System.out.println("| video was liked");
+            likeCount.setText(Integer.toString(Integer.parseInt(likeCount.getText()) + 1));
         } else {
             dislikeImage.setDisable(false);
             Request.unLikeVideo("L", MainController.user, video);
             System.out.println("| video was unliked");
+            likeCount.setText(Integer.toString(Integer.parseInt(likeCount.getText()) - 1));
         }
     }
 
@@ -87,10 +89,12 @@ public class VideoController {
         if (canLike) {
             likeImage.setDisable(true);
             System.out.println("| video was disliked");
+            likeCount.setText(Integer.toString(Integer.parseInt(likeCount.getText()) - 1));
         } else {
             likeImage.setDisable(false);
             Request.unLikeVideo("D", MainController.user, video);
             System.out.println("| video was unDisliked");
+            likeCount.setText(Integer.toString(Integer.parseInt(likeCount.getText()) + 1));
         }
     }
 
