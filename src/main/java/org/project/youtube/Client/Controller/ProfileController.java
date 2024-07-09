@@ -160,7 +160,7 @@ public class ProfileController {
         // Creating hyperlinks
         Channel ch = getChannel(user.getHandle());
         //webBox
-        Image webimg = new Image("images/icons8-website-50.png");
+        Image webimg = new Image("images/website.png");
         ImageView webView = new ImageView(webimg);
         webView.setFitHeight(30);
         webUrl = new Hyperlink(ch.getWebsite());
@@ -171,7 +171,7 @@ public class ProfileController {
             linksBox.getChildren().add(webBox);
 
         //fbBox
-        Image fbimg = new Image("icons8-facebook-48.png");
+        Image fbimg = new Image("facebook.png");
         ImageView fbView = new ImageView(fbimg);
         fbView.setFitHeight(30);
         fbUrl = new Hyperlink(ch.getFacebook());
@@ -182,7 +182,7 @@ public class ProfileController {
             linksBox.getChildren().add(fbBox);
 
         //igBox
-        Image igimg = new Image("images/icons8-insta-48.png");
+        Image igimg = new Image("images/instagram.png");
         ImageView igView = new ImageView(igimg);
         igView.setFitHeight(30);
         Hyperlink igUrl = new Hyperlink(ch.getInstagram());
@@ -193,7 +193,7 @@ public class ProfileController {
             linksBox.getChildren().add(igBox);
 
         //xBox = new HBox();
-        Image ximg = new Image("images/icons8-twitterx-50.png");
+        Image ximg = new Image("images/twitter.png");
         ImageView xView = new ImageView(ximg);
         xView.setFitHeight(30);
         Hyperlink xUrl = new Hyperlink(ch.getX());
@@ -204,7 +204,7 @@ public class ProfileController {
             linksBox.getChildren().add(xBox);
 
         //tgBox
-        Image tgimg = new Image("images/icons8-telegram-48.png");
+        Image tgimg = new Image("images/telegram.png");
         ImageView tgView = new ImageView(tgimg);
         tgView.setFitHeight(30);
         Hyperlink tgUrl = new Hyperlink(ch.getTelegram());
@@ -215,7 +215,7 @@ public class ProfileController {
             linksBox.getChildren().add(tgBox);
 
         //tiktokBox
-        Image tiktokimg = new Image("images/icons8-tiktok-48.png");
+        Image tiktokimg = new Image("images/tiktok.png");
         ImageView tiktokView = new ImageView(tiktokimg);
         tiktokView.setFitHeight(30);
         Hyperlink tiktokUrl = new Hyperlink(ch.getTiktok());
@@ -226,7 +226,7 @@ public class ProfileController {
             linksBox.getChildren().add(tiktokBox);
 
         //discordBox
-        Image discordimg = new Image("images/Discord.png");
+        Image discordimg = new Image("images/discord.png");
         ImageView discordView = new ImageView(discordimg);
         discordView.setFitHeight(30);
         Hyperlink discordUrl = new Hyperlink(ch.getDiscord());
@@ -238,7 +238,7 @@ public class ProfileController {
 
 
         //InBox
-        Image Inimg = new Image("images/icons8-linkedin-48.png");
+        Image Inimg = new Image("images/linkedin.png");
         ImageView InView = new ImageView(Inimg);
         InView.setFitHeight(30);
         Hyperlink InUrl = new Hyperlink(ch.getLinkedin());

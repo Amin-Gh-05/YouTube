@@ -78,7 +78,7 @@
             </TextField>
             <ImageView fx:id="usernameAlert" fitHeight="32.0" fitWidth="35.0" layoutX="437.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
-                  <Image url="@images/important-32.png" />
+                  <Image url="@images/important.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="55.0" fitWidth="62.0" layoutX="84.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true" />
@@ -99,7 +99,7 @@
                            <children>
                               <ImageView fx:id="nameAlert" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                  <image>
-                                    <Image url="@images/important-32.png" />
+                                    <Image url="@images/important.png" />
                                  </image>
                                  <HBox.margin>
                                     <Insets top="10.0" />
@@ -121,7 +121,7 @@
                            <children>
                               <ImageView fx:id="lastnameAlert" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                  <image>
-                                    <Image url="@images/important-32.png" />
+                                    <Image url="@images/important.png" />
                                  </image>
                                  <HBox.margin>
                                     <Insets top="11.0" />
@@ -143,7 +143,7 @@
                            <children>
                               <ImageView fx:id="emailAlert" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                  <image>
-                                    <Image url="@images/important-32.png" />
+                                    <Image url="@images/important.png" />
                                  </image>
                                  <HBox.margin>
                                     <Insets top="11.0" />
@@ -165,7 +165,7 @@
                            <children>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                  <image>
-                                    <Image url="@images/important-32.png" />
+                                    <Image url="@images/important.png" />
                                  </image>
                               </ImageView>
                               <Label prefHeight="47.0" text="Date Of Birth: ">
@@ -210,7 +210,7 @@
                            <children>
                               <ImageView fx:id="genderAlert" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                  <image>
-                                    <Image url="@images/important-32.png" />
+                                    <Image url="@images/important.png" />
                                  </image>
                                  <HBox.margin>
                                     <Insets top="10.0" />
@@ -232,7 +232,7 @@
                            <children>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                  <image>
-                                    <Image url="@images/important-32.png" />
+                                    <Image url="@images/important.png" />
                                  </image>
                               </ImageView>
                               <Label fx:id="regionField" prefHeight="47.0" text="Region: ">
