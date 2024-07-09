@@ -50,10 +50,13 @@ We also used DTOs which is short for "Data Transfer Object" to make data exchang
 <br>On this phase, the program was divided into Backend and Frontend. But in the process, we had a lot of time working on the same file or debuging two parts which were connected in functionality.
 
 ### Phase 2
+On this phase, we started designing all FXML views in the project, filling them with buttons and setting alerts and notifications. 
+
 ### Phase 3
+About half of the program is being executed on our main panel. On this panel, we load other panels such as video view, channels, profile etc.
 
 ### Ideas And Chalenges🧠
-
+In this program, we normally don't change scenes, most of panels are being loaded on the main panel and studio panel using FXMLLoader and passing controllers. 
 
 ## Program Made By👩🏽‍💻
 - Amin Ghoorchian
