@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.ImagePattern;
+import org.project.youtube.Client.Main;
 import org.project.youtube.Client.Model.Channel;
 import org.project.youtube.Client.Model.Network.Request;
 import org.project.youtube.Client.Model.Short;
@@ -57,7 +58,7 @@ public class SearchController {
 
         // set attributes
         channelController.channel = channel;
-        //channelController.controller = this;
+        channelController.controller = Main.mainController;
         try {
             channelController.getLogoImage().setFill(new ImagePattern(new Image(new ByteArrayInputStream(channel.getLogo()))));
         } catch (NullPointerException e) {
@@ -73,9 +74,9 @@ public class SearchController {
         if (!MainController.user.getYid().equals(channel.getOwnerYID())) {
             channelController.getEditItem().setDisable(true);
         }
-//        if (Request.isSubscribed(user.getYid().toString(), channel.getHandle())) {
-//            channelController.getSubscribeButton().setDisable(true);
-//        }
+        if (Request.isSubscribed(MainController.user.getYid().toString(), channel.getHandle())) {
+            channelController.getSubscribeButton().setDisable(true);
+        }
 
         return channelController.getInfoPanel();
     }
@@ -87,8 +88,9 @@ public class SearchController {
         Node node = loader.load();
         ThumbnailController thumbnailController = loader.getController();
 
+        // set attributes
         thumbnailController.video = video;
-
+        thumbnailController.controller = Main.mainController;
         try {
             thumbnailController.getThumbnailImage().setImage(new Image(new ByteArrayInputStream(video.getThumbnail())));
         } catch (NullPointerException e) {
@@ -117,7 +119,7 @@ public class SearchController {
 
         // set attributes
         thumbnailController.aShort = shortVideo;
-        thumbnailController.controller = this;
+        thumbnailController.controller = Main.mainController;
         try {
             thumbnailController.getThumbnailImage().setImage(new Image(new ByteArrayInputStream(shortVideo.getThumbnail())));
         } catch (NullPointerException e) {
