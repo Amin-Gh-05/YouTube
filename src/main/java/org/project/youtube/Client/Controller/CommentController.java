@@ -1,10 +1,7 @@
 package org.project.youtube.Client.Controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import org.project.youtube.Client.Model.Comment;
@@ -29,6 +26,12 @@ public class CommentController {
 
     @FXML
     private ContextMenu changeMenu;
+
+    @FXML
+    private MenuItem editItem;
+
+    @FXML
+    private MenuItem deleteItem;
 
     @FXML
     private Label dateLabel;
@@ -140,6 +143,7 @@ public class CommentController {
         mainPanel.getChildren().add(2, textArea);
 
         changeMenu.hide();
+        editItem.setDisable(true);
         submitButton.setVisible(true);
     }
 
@@ -147,14 +151,12 @@ public class CommentController {
     void deleteComment() throws IOException {
         if (videoController != null) {
             Request.deleteVideoComment(comment);
-            videoController.getMainVideoBox().getChildren().remove(mainPanel);
             System.out.println("| comment was deleted from video");
             return;
         }
 
         if (shortController != null) {
             Request.deleteShortComment(comment);
-            // todo: remove comment from short page
             System.out.println("| comment was deleted from short");
             return;
         }
@@ -177,6 +179,7 @@ public class CommentController {
             mainPanel.getChildren().remove(textArea);
             mainPanel.getChildren().add(2, textLabel);
 
+            editItem.setDisable(false);
             submitButton.setVisible(false);
             return;
         }
@@ -194,6 +197,7 @@ public class CommentController {
             mainPanel.getChildren().remove(textArea);
             mainPanel.getChildren().add(2, textLabel);
 
+            editItem.setDisable(false);
             submitButton.setVisible(false);
             return;
         }
@@ -207,6 +211,14 @@ public class CommentController {
 
     public Label getUsernameLabel() {
         return usernameLabel;
+    }
+
+    public MenuItem getEditItem() {
+        return editItem;
+    }
+
+    public MenuItem getDeleteItem() {
+        return deleteItem;
     }
 
     public Label getDateLabel() {

@@ -515,6 +515,10 @@ public class MainController implements Initializable {
         playlistController.getHandleLabel().setText(playlist.getChannelHandle());
         playlistController.getIsPublicLabel().setText(playlist.isPublic() ? "public" : "private");
         playlistController.getDescriptionLabel().setText(playlist.getDescription());
+        if (!playlist.getChannelHandle().equals(channel.getHandle())) {
+            playlistController.getEditItem().setDisable(true);
+            playlistController.getDeleteItem().setDisable(true);
+        }
 
         return playlistController.getInfoPanel();
     }
@@ -537,6 +541,10 @@ public class MainController implements Initializable {
         playlistController.getHandleLabel().setText(playlist.getChannelHandle());
         playlistController.getIsPublicLabel().setText(playlist.isPublic() ? "public" : "private");
         playlistController.getDescriptionLabel().setText(playlist.getDescription());
+        if (!playlist.getChannelHandle().equals(channel.getHandle())) {
+            playlistController.getEditItem().setDisable(true);
+            playlistController.getDeleteItem().setDisable(true);
+        }
 
         // fill videos panel
         if (!playlist.getVideos().isEmpty()) {
@@ -574,6 +582,12 @@ public class MainController implements Initializable {
         channelController.getSubsLabel().setText(String.valueOf(channel.getSubscribers()));
         channelController.getViewLabel().setText(String.valueOf(channel.getViews()));
         channelController.getDescriptionLabel().setText(channel.getDescription());
+        if (!MainController.user.getYid().equals(channel.getOwnerYID())) {
+            channelController.getEditItem().setDisable(true);
+        }
+        if (Request.isSubscribed(user.getYid().toString(), channel.getHandle())) {
+            channelController.getSubscribeButton().setDisable(true);
+        }
 
         return channelController.getInfoPanel();
     }
@@ -599,11 +613,17 @@ public class MainController implements Initializable {
             channelController.getLogoImage().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/profile-sample.png")));
         }
         channelController.getNameLabel().setText(channel.getName());
-        channelController.getDateLabel().setText(channel.getCreatedDateTime().format(DateTimeFormatter.ofPattern("yyyy MM dd")));
+        channelController.getDateLabel().setText(channel.getCreatedDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         channelController.getHandleLabel().setText(channel.getHandle());
         channelController.getSubsLabel().setText(String.valueOf(channel.getSubscribers()));
         channelController.getViewLabel().setText(String.valueOf(channel.getViews()));
         channelController.getDescriptionLabel().setText(channel.getDescription());
+        if (!MainController.user.getYid().equals(channel.getOwnerYID())) {
+            channelController.getEditItem().setDisable(true);
+        }
+        if (Request.isSubscribed(user.getYid().toString(), channel.getHandle())) {
+            channelController.getSubscribeButton().setDisable(true);
+        }
 
         // fill videos panel
         if (!channel.getVideos().isEmpty()) {

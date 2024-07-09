@@ -23,19 +23,22 @@
                             <contextMenu>
                                 <ContextMenu fx:id="changeMenu">
                                     <items>
-                                        <MenuItem mnemonicParsing="false" onAction="#addToChannel" text="Add">
+                                        <MenuItem mnemonicParsing="false" fx:id="addItem" onAction="#addToChannel"
+                                                  text="Add">
                                             <accelerator>
                                                 <KeyCodeCombination alt="UP" code="R" control="ANY" meta="UP" shift="UP"
                                                                     shortcut="UP"/>
                                             </accelerator>
                                         </MenuItem>
-                                        <MenuItem mnemonicParsing="false" onAction="#editPlaylist" text="Edit">
+                                        <MenuItem mnemonicParsing="false" fx:id="editItem" onAction="#editPlaylist"
+                                                  text="Edit">
                                             <accelerator>
                                                 <KeyCodeCombination alt="UP" code="R" control="ANY" meta="UP" shift="UP"
                                                                     shortcut="UP"/>
                                             </accelerator>
                                         </MenuItem>
-                                        <MenuItem mnemonicParsing="false" onAction="#deletePlaylist" text="Delete">
+                                        <MenuItem mnemonicParsing="false" fx:id="deleteItem" onAction="#deletePlaylist"
+                                                  text="Delete">
                                             <accelerator>
                                                 <KeyCodeCombination alt="UP" code="D" control="ANY" meta="UP" shift="UP"
                                                                     shortcut="UP"/>

@@ -33,6 +33,15 @@ public class PlaylistController {
     private ContextMenu changeMenu;
 
     @FXML
+    private MenuItem addItem;
+
+    @FXML
+    private MenuItem editItem;
+
+    @FXML
+    private MenuItem deleteItem;
+
+    @FXML
     private Label handleLabel;
 
     @FXML
@@ -61,12 +70,9 @@ public class PlaylistController {
 
     @FXML
     void addToChannel() throws IOException {
-        if (!Request.getPLs(MainController.channel.getHandle()).contains(playlist)) {
-            Request.addPlaylistToChannel(playlist, MainController.channel);
-            System.out.println("| added playlist to channel");
-        } else {
-            System.out.println("| already added playlist to channel");
-        }
+        Request.addPlaylistToChannel(playlist, MainController.channel);
+        addItem.setDisable(true);
+        System.out.println("| added playlist to channel");
     }
 
     @FXML
@@ -100,6 +106,7 @@ public class PlaylistController {
         infoPanel.getChildren().add(3, descriptionArea);
 
         changeMenu.hide();
+        editItem.setDisable(true);
         submitButton.setVisible(true);
     }
 
@@ -132,6 +139,7 @@ public class PlaylistController {
         infoPanel.getChildren().add(3, descriptionLabel);
 
         submitButton.setVisible(false);
+        editItem.setDisable(false);
         System.out.println("| playlist was successfully updated");
     }
 
@@ -145,6 +153,14 @@ public class PlaylistController {
 
     public Label getNameLabel() {
         return nameLabel;
+    }
+
+    public MenuItem getEditItem() {
+        return editItem;
+    }
+
+    public MenuItem getDeleteItem() {
+        return deleteItem;
     }
 
     public Label getHandleLabel() {

@@ -197,6 +197,10 @@ public class VideoController {
         commentController.getDateLabel().setText(comment.getCreatedDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         commentController.getTextLabel().setText(comment.getComment());
         commentController.getLikesLabel().setText(String.valueOf(comment.getLike()));
+        if (!comment.getWriterYID().equals(MainController.user.getYid())) {
+            commentController.getEditItem().setDisable(true);
+            commentController.getDeleteItem().setDisable(true);
+        }
 
         return node;
     }

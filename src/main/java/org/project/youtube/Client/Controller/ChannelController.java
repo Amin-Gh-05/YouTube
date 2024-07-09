@@ -33,6 +33,9 @@ public class ChannelController {
     private ContextMenu changeMenu;
 
     @FXML
+    private MenuItem editItem;
+
+    @FXML
     private Label dateLabel;
 
     @FXML
@@ -49,6 +52,9 @@ public class ChannelController {
 
     @FXML
     private Label descriptionLabel;
+
+    @FXML
+    private Button subscribeButton;
 
     @FXML
     private FlowPane videosPanel;
@@ -100,6 +106,7 @@ public class ChannelController {
         infoPanel.getChildren().add(4, descriptionArea);
 
         changeMenu.hide();
+        editItem.setDisable(true);
         submitButton.setVisible(true);
     }
 
@@ -124,7 +131,15 @@ public class ChannelController {
         infoPanel.getChildren().add(4, descriptionLabel);
 
         submitButton.setVisible(false);
+        editItem.setDisable(false);
         System.out.println("| channel was successfully updated");
+    }
+
+    @FXML
+    void subChannel() throws IOException {
+        Request.subscribe(channel, MainController.user);
+        subscribeButton.setDisable(true);
+        System.out.println("| channel subscribed");
     }
 
     public ImageView getBannerImage() {
@@ -143,8 +158,8 @@ public class ChannelController {
         return nameLabel;
     }
 
-    public ContextMenu getChangeMenu() {
-        return changeMenu;
+    public MenuItem getEditItem() {
+        return editItem;
     }
 
     public Label getDateLabel() {
@@ -163,12 +178,12 @@ public class ChannelController {
         return viewLabel;
     }
 
-    public Button getSubmitButton() {
-        return submitButton;
-    }
-
     public Label getDescriptionLabel() {
         return descriptionLabel;
+    }
+
+    public Button getSubscribeButton() {
+        return subscribeButton;
     }
 
     public FlowPane getVideosPanel() {
