@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,8 +26,10 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 public class MainController implements Initializable {
     public static User user;
@@ -388,6 +391,27 @@ public class MainController implements Initializable {
             return;
         }
 
+        // configure HBox
+        HBox createPlaylist = new HBox();
+        createPlaylist.setPrefWidth(mainPanel.getWidth());
+        createPlaylist.setAlignment(Pos.CENTER);
+        createPlaylist.setSpacing(10);
+        // configure children of create panel
+        Label createLabel = new Label("Create a new playlist");
+        TextField nameField = new TextField();
+        Button addButton = new Button("Create");
+        addButton.setOnAction(event -> {
+            try {
+                createPlaylist(nameField.getText());
+                nameField.clear();
+                loadPlaylists();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        });
+        // add elements to HBox
+        createPlaylist.getChildren().addAll(createLabel, nameField, addButton);
+
         List<Playlist> playlists = Request.getPLs(channel.getHandle());
         mainPanel.getChildren().clear();
 
@@ -457,6 +481,13 @@ public class MainController implements Initializable {
     @FXML
     void loadHelp() {
         Notifications.create().title("Guidance").text("We're all helpless brother!").showInformation();
+    }
+
+    private void createPlaylist(String playlistName) throws IOException {
+        Playlist playlist = new Playlist(new ArrayList<>(), UUID.randomUUID(), playlistName, channel.getHandle(),
+                null, new ArrayList<>(), null);
+        Request.createPlaylist(playlist);
+        System.out.println("| playlist created");
     }
 
     private void playClickEffect(Button button) {
@@ -620,7 +651,7 @@ public class MainController implements Initializable {
         if (!MainController.user.getYid().equals(channel.getOwnerYID())) {
             channelController.getEditItem().setDisable(true);
         }
-        if (Request.isSubscribed(user.getYid().toString(), channel.getHandle())) {
+        if (Request.isSubscribed(user.getYid().toString(), channel.getHandle()) || channel.getHandle().equals(MainController.channel.getHandle())) {
             channelController.getSubscribeButton().setDisable(true);
         }
 
@@ -656,7 +687,7 @@ public class MainController implements Initializable {
         if (!MainController.user.getYid().equals(channel.getOwnerYID())) {
             channelController.getEditItem().setDisable(true);
         }
-        if (Request.isSubscribed(user.getYid().toString(), channel.getHandle())) {
+        if (Request.isSubscribed(user.getYid().toString(), channel.getHandle()) || channel.getHandle().equals(MainController.channel.getHandle())) {
             channelController.getSubscribeButton().setDisable(true);
         }
 
