@@ -90,12 +90,10 @@ public class VideoController {
             System.out.println("| video was disliked");
         }
         else {
-            likeCount.setDisable(false);
+            likeImage.setDisable(false);
             Request.unLikeVideo("D", MainController.user, video);
             System.out.println("| video was unDisliked");
         }
-
-
     }
 
     @FXML
