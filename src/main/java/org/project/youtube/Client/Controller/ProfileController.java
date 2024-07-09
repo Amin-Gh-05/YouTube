@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
@@ -64,6 +65,9 @@ public class ProfileController {
 
     @FXML
     private Label nameField, lastnameField, emailField, genderField, regionField;
+
+    @FXML
+    private VBox linksBox;
 
     // ------------------------ EDITOR ------------------------
     @FXML
@@ -130,6 +134,8 @@ public class ProfileController {
         webUrl.setFont(font);
         webBox.getChildren().add(webView);
         webBox.getChildren().add(webUrl);
+        if(webUrl != null)
+            linksBox.getChildren().add(webBox);
 
         //fbBox
         Image fbimg = new Image("icons8-facebook-48.png");
@@ -138,6 +144,8 @@ public class ProfileController {
         fbUrl.setFont(font);
         fbBox.getChildren().add(fbView);
         fbBox.getChildren().add(fbUrl);
+        if(fbUrl != null)
+            linksBox.getChildren().add(fbBox);
 
         //igBox
         Image igimg = new Image("images/icons8-insta-48.png");
@@ -146,6 +154,8 @@ public class ProfileController {
         igUrl.setFont(font);
         igBox.getChildren().add(igView);
         igBox.getChildren().add(igUrl);
+        if(igUrl != null)
+            linksBox.getChildren().add(igBox);
 
         //xBox = new HBox();
         Image ximg = new Image("images/icons8-twitterx-50.png");
@@ -154,6 +164,8 @@ public class ProfileController {
         xUrl.setFont(font);
         xBox.getChildren().add(xView);
         xBox.getChildren().add(xUrl);
+        if(xUrl != null)
+            linksBox.getChildren().add(xBox);
 
         //tgBox
         Image tgimg = new Image("images/icons8-telegram-48.png");
@@ -162,6 +174,8 @@ public class ProfileController {
         tgUrl.setFont(font);
         tgBox.getChildren().add(tgView);
         tgBox.getChildren().add(tgUrl);
+        if(tgUrl != null)
+            linksBox.getChildren().add(tgBox);
 
         //tiktokBox
         Image tiktokimg = new Image("images/icons8-tiktok-48.png");
@@ -170,6 +184,8 @@ public class ProfileController {
         tiktokUrl.setFont(font);
         tiktokBox.getChildren().add(tiktokView);
         tiktokBox.getChildren().add(tiktokUrl);
+        if(tiktokUrl != null)
+            linksBox.getChildren().add(tiktokBox);
 
         //discordBox
         Image discordimg = new Image("images/Discord.png");

@@ -23,6 +23,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.project.youtube.Client.Model.Network.Request.getLatestVideos;
+
 public class VideoController {
     static int commentPNT;
     static int thumbnailPNT;
@@ -95,8 +97,7 @@ public class VideoController {
 
     @FXML
     void loadThumbnails() throws IOException {
-        /* TODO loading first 10 Thumbnail
-        List<Video> randomVideo = getRandomVideos();
+        List<Video> randomVideo = getLatestVideos();
         thumbnailBox.getChildren().remove(moreVideos);
         FXMLLoader thumbnailLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/video-thumbnail.fxml"));
         AnchorPane thumbnail = thumbnailLoader.load();
@@ -108,7 +109,7 @@ public class VideoController {
         }
         thumbnailPNT += 10;
         thumbnailBox.getChildren().add(moreVideos);
-        */
+
     }
 
     public void init() throws IOException {
@@ -131,8 +132,7 @@ public class VideoController {
         }
         mainVideoBox.getChildren().add(moreComments);
 
-        // TODO loading first 10 Thumbnails -> YID function
-        List<Video> randomVideo = new ArrayList<>();//getRandomVideos();
+        List<Video> randomVideo = getLatestVideos();
         thumbnailBox.getChildren().remove(moreVideos);
         FXMLLoader thumbnailLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/video-thumbnail.fxml"));
         AnchorPane thumbnail = thumbnailLoader.load();
