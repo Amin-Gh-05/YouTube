@@ -2,11 +2,16 @@ package org.project.youtube.Client.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import org.project.youtube.Client.Model.Channel;
 import org.project.youtube.Client.Model.User;
 
 import java.io.ByteArrayInputStream;
@@ -16,9 +21,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import static org.project.youtube.Client.Model.Network.Request.getChannel;
+
 public class ProfileController {
     public static List<String> countries = new ArrayList<>();
     static User user;
+
+    public static HBox webBox = new HBox();
+    public static HBox fbBox = new HBox();
+    public static HBox igBox = new HBox();
+    public static HBox xBox = new HBox();
+    public static HBox tgBox = new HBox();
+    public static HBox tiktokBox = new HBox();
+    public static HBox discordBox = new HBox();
+    public static HBox InBox = new HBox();
+    public static HBox redditBox = new HBox();
 
     // ------------------------ HEADER ------------------------
     @FXML
@@ -48,6 +65,9 @@ public class ProfileController {
 
     @FXML
     private Label nameField, lastnameField, emailField, genderField, regionField;
+
+    @FXML
+    private VBox linksBox;
 
     // ------------------------ EDITOR ------------------------
     @FXML
@@ -104,16 +124,107 @@ public class ProfileController {
         }
         regionBox.getItems().addAll(countries);
 
+        // Creating hyperlinks
+        Channel ch = getChannel(user.getHandle());
+        Font font = new Font("System", 15);
+        //webBox
+        Image webimg = new Image("images/icons8-website-50.png");
+        ImageView webView = new ImageView(webimg);
+        Hyperlink webUrl = new Hyperlink(ch.getWebsite());
+        webUrl.setFont(font);
+        webBox.getChildren().add(webView);
+        webBox.getChildren().add(webUrl);
+        if(webUrl != null)
+            linksBox.getChildren().add(webBox);
+
+        //fbBox
+        Image fbimg = new Image("icons8-facebook-48.png");
+        ImageView fbView = new ImageView(fbimg);
+        Hyperlink fbUrl = new Hyperlink(ch.getFacebook());
+        fbUrl.setFont(font);
+        fbBox.getChildren().add(fbView);
+        fbBox.getChildren().add(fbUrl);
+        if(fbUrl != null)
+            linksBox.getChildren().add(fbBox);
+
+        //igBox
+        Image igimg = new Image("images/icons8-insta-48.png");
+        ImageView igView = new ImageView(igimg);
+        Hyperlink igUrl = new Hyperlink(ch.getInstagram());
+        igUrl.setFont(font);
+        igBox.getChildren().add(igView);
+        igBox.getChildren().add(igUrl);
+        if(igUrl != null)
+            linksBox.getChildren().add(igBox);
+
+        //xBox = new HBox();
+        Image ximg = new Image("images/icons8-twitterx-50.png");
+        ImageView xView = new ImageView(ximg);
+        Hyperlink xUrl = new Hyperlink(ch.getX());
+        xUrl.setFont(font);
+        xBox.getChildren().add(xView);
+        xBox.getChildren().add(xUrl);
+        if(xUrl != null)
+            linksBox.getChildren().add(xBox);
+
+        //tgBox
+        Image tgimg = new Image("images/icons8-telegram-48.png");
+        ImageView tgView = new ImageView(tgimg);
+        Hyperlink tgUrl = new Hyperlink(ch.getTelegram());
+        tgUrl.setFont(font);
+        tgBox.getChildren().add(tgView);
+        tgBox.getChildren().add(tgUrl);
+        if(tgUrl != null)
+            linksBox.getChildren().add(tgBox);
+
+        //tiktokBox
+        Image tiktokimg = new Image("images/icons8-tiktok-48.png");
+        ImageView tiktokView = new ImageView(tiktokimg);
+        Hyperlink tiktokUrl = new Hyperlink(ch.getTiktok());
+        tiktokUrl.setFont(font);
+        tiktokBox.getChildren().add(tiktokView);
+        tiktokBox.getChildren().add(tiktokUrl);
+        if(tiktokUrl != null)
+            linksBox.getChildren().add(tiktokBox);
+
+        //discordBox
+        Image discordimg = new Image("images/Discord.png");
+        ImageView discordView = new ImageView(discordimg);
+        Hyperlink discordUrl = new Hyperlink(ch.getDiscord());
+        discordUrl.setFont(font);
+        discordBox.getChildren().add(discordView);
+        discordBox.getChildren().add(discordUrl);
+
+        //InBox
+        Image Inimg = new Image("images/icons8-linkedin-48.png");
+        ImageView InView = new ImageView(Inimg);
+        Hyperlink InUrl = new Hyperlink(ch.getLinkedin());
+        InUrl.setFont(font);
+        InBox.getChildren().add(InView);
+        InBox.getChildren().add(InUrl);
+
+        //redditBox
+        Image redditimg = new Image("images/reddit.png");
+        ImageView redditView = new ImageView(redditimg);
+        Hyperlink redditUrl = new Hyperlink(ch.getReddit());
+        redditUrl.setFont(font);
+        redditBox.getChildren().add(redditView);
+        redditBox.getChildren().add(redditUrl);
     }
 
     // profile editor functions
     public void switchToEditProfile(ActionEvent e) throws IOException {
+        // change button statements
         editProfile.setDisable(true);
         makeChanges.setVisible(true);
+
+        // invisible labels
         usernameField.setVisible(false);
         manageChannels.setVisible(false);
         genderField.setVisible(false);
         regionField.setVisible(false);
+
+        // visible editors
         nameEditor.setVisible(true);
         nameEditor.setText(nameField.getText());
         lastnameEditor.setVisible(true);
@@ -133,9 +244,12 @@ public class ProfileController {
         regionBox.setValue(regionField.getText());
     }
 
+    //checking for errors and setting user information
     public void makeChanges(ActionEvent e) throws IOException {
 
     }
+
+
 
     // changing scenes
     public void switchToManageChannels(ActionEvent e) throws IOException {

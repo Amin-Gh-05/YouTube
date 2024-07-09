@@ -99,18 +99,46 @@ public class ShortController {
     public void previousBtnBorderPaneMouseClicked(MouseEvent mouseEvent) {
     }
 
+    private void like() throws IOException {
+        boolean canLike = Request.likeShort("L", MainController.user, shortVideo);
 
-    public void likeBtnAction(ActionEvent actionEvent) {
+        if (canLike) {
+            dislikeBtn.setDisable(true);
+            System.out.println("| short was liked");
+        }
+        else {
+            dislikeBtn.setDisable(false);
+            Request.unLikeShort("L", MainController.user, shortVideo);
+            System.out.println("| short was unliked");
+        }
+    }
+    public void likeBtnAction(ActionEvent actionEvent) throws IOException {
         playClickEffect(likeBtn);
+        like();
     }
-    public void likeBtnBorderPaneMouseClicked(MouseEvent mouseEvent) {
+    public void likeBtnBorderPaneMouseClicked(MouseEvent mouseEvent) throws IOException {
+        like();
     }
 
+    private void dislike() throws IOException {
+        boolean canLike = Request.likeShort("D", MainController.user, shortVideo);
 
-    public void dislikeBtnAction(ActionEvent actionEvent) {
+        if (canLike) {
+            likeBtn.setDisable(true);
+            System.out.println("| short was disliked");
+        }
+        else {
+            likeBtn.setDisable(false);
+            Request.unLikeShort("D", MainController.user, shortVideo);
+            System.out.println("| short was unDisliked");
+        }
+    }
+    public void dislikeBtnAction(ActionEvent actionEvent) throws IOException {
         playClickEffect(dislikeBtn);
+        dislike();
     }
-    public void dislikeBtnBorderPaneMouseClicked(MouseEvent mouseEvent) {
+    public void dislikeBtnBorderPaneMouseClicked(MouseEvent mouseEvent) throws IOException {
+        dislike();
     }
 
 

@@ -43,18 +43,42 @@ public class CommentController {
     private Button submitButton;
 
     @FXML
+    private Button likeBtn;
+
+    @FXML
+    private Button dislikeBtn;
+
+    @FXML
     private TextArea textArea;
 
     @FXML
     void likeComment() throws IOException {
         if (videoController != null) {
-            Request.likeVideoComment("L", MainController.user, comment);
+            boolean canLike = Request.likeVideoComment("L", MainController.user, comment);
+
+            if (canLike) {
+                dislikeBtn.setDisable(true);
+            }
+            else {
+                dislikeBtn.setDisable(false);
+                Request.unLikeVideoComment("L", MainController.user, comment);
+            }
+
             System.out.println("| comment was liked");
             return;
         }
 
         if (shortController != null) {
-            Request.likeShortComment("L", MainController.user, comment);
+            boolean canLike = Request.likeShortComment("L", MainController.user, comment);
+
+            if (canLike) {
+                dislikeBtn.setDisable(true);
+            }
+            else {
+                dislikeBtn.setDisable(false);
+                Request.unLikeShortComment("L", MainController.user, comment);
+            }
+
             System.out.println("| comment was liked");
             return;
         }
@@ -65,13 +89,31 @@ public class CommentController {
     @FXML
     void dislikeComment() throws IOException {
         if (videoController != null) {
-            Request.likeVideoComment("D", MainController.user, comment);
+            boolean canDislike = Request.likeVideoComment("D", MainController.user, comment);
+
+            if (canDislike) {
+                likeBtn.setDisable(true);
+            }
+            else {
+                likeBtn.setDisable(false);
+                Request.unLikeVideoComment("D", MainController.user, comment);
+            }
+
             System.out.println("| comment was disliked");
             return;
         }
 
         if (shortController != null) {
-            Request.likeShortComment("D", MainController.user, comment);
+            boolean canDislike = Request.likeShortComment("D", MainController.user, comment);
+
+            if (canDislike) {
+                likeBtn.setDisable(true);
+            }
+            else {
+                likeBtn.setDisable(false);
+                Request.unLikeShortComment("D", MainController.user, comment);
+            }
+
             System.out.println("| comment was disliked");
             return;
         }

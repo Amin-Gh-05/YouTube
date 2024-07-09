@@ -23,6 +23,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.project.youtube.Client.Model.Network.Request.getLatestVideos;
+
 public class VideoController {
     static int commentPNT;
     static int thumbnailPNT;
@@ -67,13 +69,33 @@ public class VideoController {
     }
 
     @FXML
-    void likeVideo() {
+    void likeVideo() throws IOException {
+        boolean canLike = Request.likeVideo("L", MainController.user, video);
 
+        if (canLike) {
+            dislikeImage.setDisable(true);
+            System.out.println("| video was liked");
+        }
+        else {
+            dislikeImage.setDisable(false);
+            Request.unLikeVideo("L", MainController.user, video);
+            System.out.println("| video was unliked");
+        }
     }
 
     @FXML
-    void dislikeVideo() {
+    void dislikeVideo() throws IOException {
+        boolean canLike = Request.likeVideo("D", MainController.user, video);
 
+        if (canLike) {
+            likeImage.setDisable(true);
+            System.out.println("| video was disliked");
+        }
+        else {
+            likeImage.setDisable(false);
+            Request.unLikeVideo("D", MainController.user, video);
+            System.out.println("| video was unDisliked");
+        }
     }
 
     @FXML
@@ -95,8 +117,7 @@ public class VideoController {
 
     @FXML
     void loadThumbnails() throws IOException {
-        /* TODO loading first 10 Thumbnail
-        List<Video> randomVideo = getRandomVideos();
+        List<Video> randomVideo = getLatestVideos();
         thumbnailBox.getChildren().remove(moreVideos);
         FXMLLoader thumbnailLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/video-thumbnail.fxml"));
         AnchorPane thumbnail = thumbnailLoader.load();
@@ -108,8 +129,9 @@ public class VideoController {
         }
         thumbnailPNT += 10;
         thumbnailBox.getChildren().add(moreVideos);
-        */
+
     }
+
 
     public void init() throws IOException {
         likeCount.setText(String.valueOf(video.getLikes()));
@@ -131,8 +153,7 @@ public class VideoController {
         }
         mainVideoBox.getChildren().add(moreComments);
 
-        // TODO loading first 10 Thumbnails -> YID function
-        List<Video> randomVideo = new ArrayList<>();//getRandomVideos();
+        List<Video> randomVideo = getLatestVideos();
         thumbnailBox.getChildren().remove(moreVideos);
         FXMLLoader thumbnailLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/video-thumbnail.fxml"));
         AnchorPane thumbnail = thumbnailLoader.load();
