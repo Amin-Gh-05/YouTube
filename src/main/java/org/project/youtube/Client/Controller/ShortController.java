@@ -10,10 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.ImagePattern;
 import javafx.util.Duration;
 import org.project.youtube.Client.Main;
@@ -65,6 +62,9 @@ public class ShortController {
 
     @FXML
     private ScrollPane commentsScrollPane;
+
+    @FXML
+    private FlowPane commentsFlowPane;
 
     public void setShortVideo(Short shortVideo) {
         this.shortVideo = shortVideo;
@@ -160,53 +160,47 @@ public class ShortController {
         dislike();
     }
 
-//    private Node loadComment(Comment comment) throws IOException {
-//        User user = Request.getUser(comment.getWriterYID());
-//
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/comment-view.fxml"));
-//        Node node = loader.load();
-//        CommentController commentController = loader.getController();
-//
-//        // set attributes
-//        commentController.comment = comment;
-//        commentController.shortController = this;
-//        try {
-//            commentController.getProfilePic().setFill(new ImagePattern(new Image(new ByteArrayInputStream(user.getProfilePic()))));
-//        } catch (NullPointerException e) {
-//            System.out.println(e.getMessage());
-//            commentController.getProfilePic().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/profile-sample.png")));
-//        }
-//        commentController.getUsernameLabel().setText(user.getUsername());
-//        commentController.getDateLabel().setText(comment.getCreatedDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-//        commentController.getTextLabel().setText(comment.getComment());
-//        commentController.getLikesLabel().setText(String.valueOf(comment.getLike()));
-//        if (!comment.getWriterYID().equals(MainController.user.getYid())) {
-//            commentController.getEditItem().setDisable(true);
-//            commentController.getDeleteItem().setDisable(true);
-//        }
-//
-//        return node;
-//    }
-//    void loadComments() throws IOException {
-//        commentsScrollPane.setPrefWidth();
-//
-//        FXMLLoader commentLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/comment-view.fxml"));
-//        AnchorPane comment = commentLoader.load();
-//        CommentController commentController = commentLoader.getController();
-//
-//        List<Comment> commentList = shortVideo.getComments();
-//        for (Comment comment1 : commentList) {
-//            commentsScrollPane.add
-//        }
-//
-//
-//    }
+    private Node loadComment(Comment comment) throws IOException {
+        User user = Request.getUser(comment.getWriterYID());
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/comment-view.fxml"));
+        Node node = loader.load();
+        CommentController commentController = loader.getController();
+
+        // set attributes
+        commentController.comment = comment;
+        commentController.shortController = this;
+        try {
+            commentController.getProfilePic().setFill(new ImagePattern(new Image(new ByteArrayInputStream(user.getProfilePic()))));
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            commentController.getProfilePic().setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/profile-sample.png")));
+        }
+        commentController.getUsernameLabel().setText(user.getUsername());
+        commentController.getDateLabel().setText(comment.getCreatedDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        commentController.getTextLabel().setText(comment.getComment());
+        commentController.getLikesLabel().setText(String.valueOf(comment.getLike()));
+        if (!comment.getWriterYID().equals(MainController.user.getYid())) {
+            commentController.getEditItem().setDisable(true);
+            commentController.getDeleteItem().setDisable(true);
+        }
+
+        return node;
+    }
+    void loadComments() throws IOException {
+        commentsScrollPane.setPrefWidth(305);
+
+        List<Comment> commentList = shortVideo.getComments();
+        for (Comment comment : commentList) {
+            commentsFlowPane.getChildren().add(loadComment(comment));
+        }
+    }
     public void commentsBtnAction(ActionEvent actionEvent) throws IOException {
         playClickEffect(commentsBtn);
-//        loadComments();
+        loadComments();
     }
     public void commentsBtnBorderPaneMouseClicked(MouseEvent mouseEvent) throws IOException {
-//        loadComments();
+        loadComments();
     }
 
 
