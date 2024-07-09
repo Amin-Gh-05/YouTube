@@ -6,16 +6,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import org.project.youtube.Client.Model.Channel;
 import org.project.youtube.Client.Model.Playlist;
+import org.project.youtube.Client.Model.Short;
 import org.project.youtube.Client.Model.Video;
 
 import java.io.IOException;
 
-import static org.project.youtube.Client.Model.Network.Request.addVideoToPlaylist;
-import static org.project.youtube.Client.Model.Network.Request.getChannel;
+import static org.project.youtube.Client.Model.Network.Request.*;
 
 public class AddToPLController {
     Channel channel;
     Video video;
+    Short shortVideo;
 
     @FXML
     private Button addButton;
@@ -34,9 +35,18 @@ public class AddToPLController {
     void addToPL(ActionEvent event) throws IOException {
         String name = plChoiceBox.getValue();
         if(name != null){
-            for (Playlist playlist : channel.getPlaylists()) {
-                if (playlist.getName().equals(name)){
-                    addVideoToPlaylist(playlist, video);
+            if (video != null) {
+                for (Playlist playlist : channel.getPlaylists()) {
+                    if (playlist.getName().equals(name)) {
+                        addVideoToPlaylist(playlist, video);
+                    }
+                }
+            }
+            else if (shortVideo != null) {
+                for (Playlist playlist : channel.getPlaylists()) {
+                    if (playlist.getName().equals(name)) {
+                        addShortToPlaylist(playlist, shortVideo);
+                    }
                 }
             }
         }

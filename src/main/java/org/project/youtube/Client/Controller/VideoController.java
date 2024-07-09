@@ -66,14 +66,13 @@ public class VideoController {
 
     @FXML
     void saveToPlayList(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("addToPL.fxml"));
-        DialogPane addtopl = loader.load();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/addToPL-view.fxml"));
+        DialogPane addToPL = loader.load();
         AddToPLController controller = loader.getController();
         controller.video = this.video;
 
         Dialog adder = new Dialog();
-        adder.setDialogPane(addtopl);
+        adder.setDialogPane(addToPL);
     }
 
     @FXML
