@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static org.project.youtube.Client.Model.Network.Request.getChannel;
 import static org.project.youtube.Client.Model.Network.Request.getRandomVideos;
 
 public class VideoController {
@@ -70,7 +69,7 @@ public class VideoController {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("addToPL.fxml"));
         DialogPane addtopl = loader.load();
-        addToPLController controller = loader.getController();
+        AddToPLController controller = loader.getController();
         controller.video = this.video;
 
         Dialog adder = new Dialog();

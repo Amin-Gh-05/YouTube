@@ -13,7 +13,7 @@ import java.io.IOException;
 import static org.project.youtube.Client.Model.Network.Request.addVideoToPlaylist;
 import static org.project.youtube.Client.Model.Network.Request.getChannel;
 
-public class addToPLController {
+public class AddToPLController {
     Channel channel;
     Video video;
 
