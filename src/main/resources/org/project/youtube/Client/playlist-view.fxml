@@ -23,8 +23,8 @@
                             <contextMenu>
                                 <ContextMenu fx:id="changeMenu">
                                     <items>
-                                        <MenuItem mnemonicParsing="false" fx:id="addItem" onAction="#addToChannel"
-                                                  text="Add">
+                                        <MenuItem mnemonicParsing="false" onAction="#openPlaylist"
+                                                  text="Open">
                                             <accelerator>
                                                 <KeyCodeCombination alt="UP" code="R" control="ANY" meta="UP" shift="UP"
                                                                     shortcut="UP"/>

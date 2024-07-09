@@ -33,9 +33,6 @@ public class PlaylistController {
     private ContextMenu changeMenu;
 
     @FXML
-    private MenuItem addItem;
-
-    @FXML
     private MenuItem editItem;
 
     @FXML
@@ -69,10 +66,9 @@ public class PlaylistController {
     private TextArea descriptionArea;
 
     @FXML
-    void addToChannel() throws IOException {
-        Request.addPlaylistToChannel(playlist, MainController.channel);
-        addItem.setDisable(true);
-        System.out.println("| added playlist to channel");
+    void openPlaylist() throws IOException {
+        controller.loadFullPlaylist(playlist);
+        System.out.println("| redirect to playlist page");
     }
 
     @FXML

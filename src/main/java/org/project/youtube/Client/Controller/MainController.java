@@ -439,7 +439,7 @@ public class MainController implements Initializable {
         scaleTransition.play();
     }
 
-    private Node loadThumbnail(Video video) throws IOException {
+    Node loadThumbnail(Video video) throws IOException {
         Channel videoChannel = Request.getChannel(video.getVideoHandle());
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/video-thumbnail.fxml"));
@@ -468,7 +468,7 @@ public class MainController implements Initializable {
         return node;
     }
 
-    private Node loadThumbnail(Short shortVideo) throws IOException {
+    Node loadThumbnail(Short shortVideo) throws IOException {
         Channel shortChannel = Request.getChannel(shortVideo.getShortHandle());
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/short-thumbnail.fxml"));
@@ -497,7 +497,7 @@ public class MainController implements Initializable {
         return node;
     }
 
-    private Node loadMinPlaylist(Playlist playlist) throws IOException {
+    Node loadMinPlaylist(Playlist playlist) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/playlist-view.fxml"));
         loader.load();
         PlaylistController playlistController = loader.getController();
@@ -523,7 +523,7 @@ public class MainController implements Initializable {
         return playlistController.getInfoPanel();
     }
 
-    private Node loadFullPlaylist(Playlist playlist) throws IOException {
+    Node loadFullPlaylist(Playlist playlist) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/playlist-view.fxml"));
         Node node = loader.load();
         PlaylistController playlistController = loader.getController();
@@ -562,7 +562,7 @@ public class MainController implements Initializable {
         return node;
     }
 
-    private Node loadMinChannel(Channel channel) throws IOException {
+    Node loadMinChannel(Channel channel) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/channel-view.fxml"));
         loader.load();
         ChannelController channelController = loader.getController();
@@ -592,7 +592,7 @@ public class MainController implements Initializable {
         return channelController.getInfoPanel();
     }
 
-    private Node loadFullChannel(Channel channel) throws IOException {
+    Node loadFullChannel(Channel channel) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/channel-view.fxml"));
         Node node = loader.load();
         ChannelController channelController = loader.getController();
