@@ -88,7 +88,7 @@ public class ProfileController {
     private ChoiceBox<String> regionBox;
 
     // ------------------------ LINKS ------------------------
-    public static Image alertSign = new Image("images/important.png");
+    public static Image alertSign = new Image("/org/project/youtube/Client/images/important.png");
 
     List<HBox> linkBoxes = new ArrayList<>();
     List<ImageView> alertSigns = new ArrayList<>();
@@ -105,7 +105,7 @@ public class ProfileController {
             preSign.setVisible(false);
 
         if (user.getProfilePic() == null) {
-            Image img = new Image("images\\profile-circle.svg");
+            Image img = new Image("/org/project/youtube/Client/images/sample-profile.png");
             profile.setFill(new ImagePattern(img));
         } else {
             Image img = new Image(new ByteArrayInputStream(user.getProfilePic()));
@@ -136,15 +136,15 @@ public class ProfileController {
         regionBox.getItems().addAll(countries);
 
         // initializing hyperlinks ===============================
-        logos.add(new ImageView(new Image("images/website.png")));
-        logos.add(new ImageView(new Image("images/facebook.png")));
-        logos.add(new ImageView(new Image("images/instagram.png")));
-        logos.add(new ImageView(new Image("images/twitter.png")));
-        logos.add(new ImageView(new Image("images/telegram.png")));
-        logos.add(new ImageView(new Image("images/tiktok.png")));
-        logos.add(new ImageView(new Image("images/discord.png")));
-        logos.add(new ImageView(new Image("images/linkedin.png")));
-        logos.add(new ImageView(new Image("images/reddit.png")));
+        logos.add(new ImageView(new Image("/org/project/youtube/Client/images/website.png")));
+        logos.add(new ImageView(new Image("/org/project/youtube/Client/images/facebook.png")));
+        logos.add(new ImageView(new Image("/org/project/youtube/Client/images/instagram.png")));
+        logos.add(new ImageView(new Image("/org/project/youtube/Client/images/twitter.png")));
+        logos.add(new ImageView(new Image("/org/project/youtube/Client/images/telegram.png")));
+        logos.add(new ImageView(new Image("/org/project/youtube/Client/images/tiktok.png")));
+        logos.add(new ImageView(new Image("/org/project/youtube/Client/images/discord.png")));
+        logos.add(new ImageView(new Image("/org/project/youtube/Client/images/linkedin.png")));
+        logos.add(new ImageView(new Image("/org/project/youtube/Client/images/reddit.png")));
 
         Channel ch = getChannel(user.getHandle());
         urls.add(new Hyperlink(ch.getWebsite()));
@@ -218,7 +218,7 @@ public class ProfileController {
         // link fields
         linksBox.getChildren().clear();
         for(int i = 0; i < 9; i++) {
-            linkBoxes.get(i).getChildren().remove(linkBoxes.get(i).getChildren().size() - 1);
+            linkBoxes.get(i).getChildren().removeLast();
             urlEditor.get(i).setText(urls.get(i).getText());
             linkBoxes.get(i).getChildren().add(urlEditor.get(i));
         }
@@ -229,14 +229,11 @@ public class ProfileController {
     @FXML
     void makeChanges(ActionEvent e) throws IOException {
         for(HBox hbox: linkBoxes) {
-            hbox.getChildren().get(0).setVisible(false);
+            hbox.getChildren().getFirst().setVisible(false);
         }
         if(!checkErrors()) {
             setInformation();
         }
-
-
-
     }
 
     public boolean checkErrors(){
@@ -291,5 +288,8 @@ public class ProfileController {
         // TODO
     }
 
+    @FXML
+    void editProfilePic() {
 
+    }
 }
