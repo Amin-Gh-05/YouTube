@@ -1,7 +1,7 @@
 # Introduction
 ![Static Badge](https://img.shields.io/badge/SBU_University-b?logo=bookstack&logoColor=red&labelColor=black&color=green)
 ![powered by](https://img.shields.io/badge/Powered_By-JAVA-blue)
-These project is a simple version of the famous streaming app, YouTube. Our program is based on java and the GUI used for this app is javaFX.
+<br>This project is a simple version of the famous streaming app, YouTube. Our program is based on java and the GUI used for this app is javaFX.
 
 ## Getting Started
 
