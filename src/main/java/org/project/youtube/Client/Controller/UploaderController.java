@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
+import org.project.youtube.Client.Model.Channel;
 import org.project.youtube.Client.Model.Network.Request;
 import org.project.youtube.Client.Model.Short;
 import org.project.youtube.Client.Model.Video;
@@ -89,6 +90,10 @@ public class UploaderController implements Initializable {
 
             Request.createVideo(video, file.getAbsolutePath());
             System.out.println("| video upload complete");
+
+            Channel updatedChannel = Request.getChannel(video.getVideoHandle());
+            MainController.channel = updatedChannel;
+            StudioController.channel = updatedChannel;
             cancelButton();
         }
     }

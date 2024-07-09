@@ -31,6 +31,7 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
     public static User user;
     public static Channel channel;
+    public static MainController mainController;
 
     static Stage mainStage;
 
@@ -123,6 +124,8 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        mainController = this;
+
         // load profile button to use later
         profileButton = new Button("Profile");
         profileButton.setOnAction(event -> {
@@ -137,6 +140,7 @@ public class MainController implements Initializable {
         profileButton.setMinSize(60, 35);
         profileButton.setMaxSize(60, 35);
 
+        // refresh panel
         try {
             refreshAll();
         } catch (IOException e) {

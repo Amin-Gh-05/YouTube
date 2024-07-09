@@ -213,6 +213,8 @@ public class StudioController implements Initializable {
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
+
+        MainController.mainController.refreshAll();
         stage.setScene(scene);
     }
 
@@ -235,7 +237,7 @@ public class StudioController implements Initializable {
         scaleTransition.play();
     }
 
-    private Node loadDashboard(Channel channel) throws IOException {
+    Node loadDashboard(Channel channel) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/dashboard-view.fxml"));
         Node node = loader.load();
         DashboardController dashboardController = loader.getController();
