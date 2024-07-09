@@ -905,6 +905,63 @@ public class DatabaseManager {
         return comments;
     }
 
+    public static List<Channel> searchChannels(String title) throws SQLException {
+        Connection conn = connect();
+        List<Channel> channels = new ArrayList<>();
+
+        // read channels from channels table
+        String query = "SELECT handle FROM channels WHERE name LIKE ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, "%" + title + "%");
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+
+        while (rs.next()) {
+            channels.add(readChannel(rs.getString("handle")));
+        }
+
+        return channels;
+    }
+
+    public static List<Video> searchVideos(String title) throws SQLException {
+        Connection conn = connect();
+        List<Video> videos = new ArrayList<>();
+
+        String query = "SELECT video_id FROM videos WHERE title LIKE ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, "%" + title + "%");
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+
+        while (rs.next()) {
+            UUID videoId = (UUID) rs.getObject("video_id");
+            videos.add(readVideo(videoId));
+        }
+
+        return videos;
+    }
+
+    public static List<Short> searchShorts(String title) throws SQLException {
+        Connection conn = connect();
+        List<Short> shorts = new ArrayList<>();
+
+        String query = "SELECT short_id FROM shorts WHERE title LIKE ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, "%" + title + "%");
+        ResultSet rs = stmt.executeQuery();
+
+        conn.close();
+
+        while (rs.next()) {
+            UUID shortId = (UUID) rs.getObject("short_id");
+            shorts.add(readShort(shortId));
+        }
+
+        return shorts;
+    }
+
     public static boolean findYid(String yid) throws SQLException {
         Connection conn = connect();
 
