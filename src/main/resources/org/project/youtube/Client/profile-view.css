@@ -2,7 +2,6 @@
     -fx-background-color: #FFFFFF;
 }
 
-
 .button1 {
     -fx-text-fill: #FFFFFF;
     -fx-background-color: #FF0000;
@@ -25,13 +24,5 @@
     -fx-text-fill: #FFFFFF;
     -fx-background-color: #FF0000;
     -fx-background-radius: 23;
-}
-
-.text-input {
-    -fx-background-color: #ffffff;
-    -fx-border-radius: 3;
-    -fx-border-color: #000000;
-    -fx-border-width: 1;
-    -fx-border-color: #CFCFCF;
 }
 
