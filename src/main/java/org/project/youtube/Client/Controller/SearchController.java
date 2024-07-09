@@ -124,6 +124,7 @@ public class SearchController {
         ThumbnailController thumbnailController = loader.getController();
 
         // set attributes
+        thumbnailController.aShort = shortVideo;
         thumbnailController.shortList = shortList;
         thumbnailController.controller = Main.mainController;
         try {
