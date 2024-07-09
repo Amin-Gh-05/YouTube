@@ -4,11 +4,15 @@ import java.io.IOException;
 import java.util.UUID;
 
 public class FileTransfer {
-    public static void sendFile(String path, UUID ID, String type) {
-        new Thread(new Uploader(path, ID, type)).start();
+    public static Thread sendFile(String path, UUID ID, String type) {
+         Thread thread = new Thread(new Uploader(path, ID, type));
+         thread.start();
+         return thread;
     }
 
-    public static void getFile() throws IOException {
-        new Thread(new Downloader()).start();
+    public static Thread getFile() throws IOException {
+        Thread thread = new Thread(new Downloader());
+        thread.start();
+        return thread;
     }
 }

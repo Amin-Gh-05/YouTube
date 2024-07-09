@@ -430,7 +430,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void loadVideos() throws IOException {
+    void loadVideos() throws IOException, InterruptedException {
         if (user == null) {
             System.out.println("| videos not available");
             return;
@@ -438,7 +438,7 @@ public class MainController implements Initializable {
 
         mainPanel.getChildren().clear();
         for (Video video : channel.getVideos()) {
-            Request.getVideo(video.getId());
+            Video video1 = Request.getVideo(video.getId());
             mainPanel.getChildren().add(loadThumbnail(video));
         }
     }

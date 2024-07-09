@@ -160,7 +160,7 @@ public class Request {
         return gson.fromJson(respStr, listType2);
     }
 
-    public static Video getVideo(UUID id) throws IOException {
+    public static Video getVideo(UUID id) throws IOException, InterruptedException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "getVideo");
 
@@ -170,7 +170,8 @@ public class Request {
         jsonObject.put("reqData", data);
 
         Client.sendRequest(jsonObject.toString());
-        FileTransfer.getFile();
+        Thread thread = FileTransfer.getFile();
+        thread.join();
         String respStr = Client.getStringResponse();
 
         GsonBuilder builder = new GsonBuilder();
@@ -180,7 +181,7 @@ public class Request {
         return gson.fromJson(respStr, Video.class);
     }
 
-    public static Short getShort(UUID id) throws IOException {
+    public static Short getShort(UUID id) throws IOException, InterruptedException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reqType", "getShort");
 
@@ -190,7 +191,8 @@ public class Request {
         jsonObject.put("reqData", data);
 
         Client.sendRequest(jsonObject.toString());
-        FileTransfer.getFile();
+        Thread thread = FileTransfer.getFile();
+        thread.join();
         String respStr = Client.getStringResponse();
 
         GsonBuilder builder = new GsonBuilder();

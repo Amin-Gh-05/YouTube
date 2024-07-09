@@ -42,12 +42,12 @@ public class ThumbnailController {
     private Label viewsLabel;
 
     @FXML
-    void loadVideo() throws IOException {
+    void loadVideo() throws IOException, InterruptedException {
         FXMLLoader loader;
 
         if (video != null) {
             if (!(new File(Main.CASH_PATH + "/" + video.getId().toString() + ".mp4").exists())) {
-                getVideo(video.getId());
+                Video video1 = getVideo(video.getId());
             }
 
             loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/video-view.fxml"));
