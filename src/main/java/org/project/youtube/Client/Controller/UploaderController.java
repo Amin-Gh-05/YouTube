@@ -10,9 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
-import org.bytedeco.ffmpeg.avformat.AVFormatContext;
-import org.bytedeco.ffmpeg.avutil.AVDictionary;
-import org.bytedeco.ffmpeg.global.avformat;
 import org.project.youtube.Client.Model.Network.Request;
 import org.project.youtube.Client.Model.Short;
 import org.project.youtube.Client.Model.Video;
@@ -75,13 +72,13 @@ public class UploaderController implements Initializable {
     @FXML
     void uploadVideo() throws IOException, InterruptedException {
         if (isShort) {
-            Short shortVideo = new Short(UUID.randomUUID(), titleText.getText(), videoLength(file), LocalDateTime.now().toString(),
+            Short shortVideo = new Short(UUID.randomUUID(), titleText.getText(), LocalDateTime.now().toString(),
                     adultOnlyCheck.isSelected(), new ArrayList<>(List.of(tagsText.getText().split(" "))), thumbnailImage,
                     StudioController.channel.getHandle());
 
             Request.createShort(shortVideo, file.getAbsolutePath());
         } else {
-            Video video = new Video(UUID.randomUUID(), titleText.getText(), descriptionText.getText(), videoLength(file),
+            Video video = new Video(UUID.randomUUID(), titleText.getText(), descriptionText.getText(),
                     LocalDateTime.now().toString(), adultOnlyCheck.isSelected(), new ArrayList<>(List.of(tagsText.getText().split(" "))),
                     thumbnailImage, StudioController.channel.getHandle());
 
@@ -108,25 +105,5 @@ public class UploaderController implements Initializable {
             System.out.println("| file not selected");
             return null;
         }
-    }
-
-    private int videoLength(File file) {
-        String filePath = file.getAbsolutePath();
-
-        AVFormatContext formatContext = avformat.avformat_alloc_context();
-        if (avformat.avformat_open_input(formatContext, filePath, null, null) != 0) {
-            throw new RuntimeException("Could not open video file: " + filePath);
-        }
-
-        // retrieve stream information
-        if (avformat.avformat_find_stream_info(formatContext, (AVDictionary) null) < 0) {
-            throw new RuntimeException("Could not retrieve stream information.");
-        }
-
-        // get the duration in seconds
-        long durationInMicroseconds = formatContext.duration(); // duration in microseconds
-        double durationInSeconds = durationInMicroseconds / 1_000_000.0;
-
-        return (int) durationInSeconds;
     }
 }

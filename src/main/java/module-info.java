@@ -8,7 +8,6 @@ module org.project.youtube {
     requires org.controlsfx.controls;
     requires javafx.media;
     requires org.apache.commons.io;
-    requires org.bytedeco.ffmpeg;
     requires org.apache.commons.codec;
 
 
