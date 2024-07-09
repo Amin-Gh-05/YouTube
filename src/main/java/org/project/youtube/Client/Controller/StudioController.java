@@ -1,7 +1,6 @@
 package org.project.youtube.Client.Controller;
 
 import javafx.animation.ScaleTransition;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,13 +19,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.commons.io.FileUtils;
 import org.controlsfx.control.Notifications;
 import org.project.youtube.Client.Model.Channel;
+import org.project.youtube.Client.Model.Network.Request;
 import org.project.youtube.Client.Model.Video;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Comparator;
@@ -88,19 +91,11 @@ public class StudioController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         channel = MainController.channel;
 
-        // set image for profile viewer
-        ImagePattern imagePattern;
         try {
-            imagePattern = new ImagePattern(new Image(new ByteArrayInputStream(channel.getLogo())));
-        } catch (NullPointerException e) {
+            refreshAll();
+        } catch (IOException e) {
             System.out.println(e.getMessage());
-            imagePattern = new ImagePattern(new Image("/org/project/youtube/Client/images/profile-sample.png"));
         }
-        profilePic.setFill(imagePattern);
-        profilePic.setEffect(new DropShadow(10, Color.BLACK));
-
-        // set name of channel
-        nameLabel.setText(channel.getName());
     }
 
     @FXML
@@ -131,19 +126,35 @@ public class StudioController implements Initializable {
     }
 
     @FXML
-    void refreshAll(ActionEvent event) throws IOException {
-        if (channel == null) {
-            loadMain(event);
-            return;
+    void refreshAll() throws IOException {
+        // set image for profile viewer
+        ImagePattern imagePattern;
+        try {
+            imagePattern = new ImagePattern(new Image(new ByteArrayInputStream(channel.getLogo())));
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            imagePattern = new ImagePattern(new Image("/org/project/youtube/Client/images/profile-sample.png"));
         }
+        profilePic.setFill(imagePattern);
+        profilePic.setEffect(new DropShadow(10, Color.BLACK));
+
+        // set name of channel
+        nameLabel.setText(channel.getName());
 
         mainPanel.getChildren().clear();
         loadDashboard();
     }
 
     @FXML
-    void searchChannel() {
+    void changeProfile() throws IOException {
+        File picture = pickFile();
+        if (picture != null) {
+            channel.setLogo(FileUtils.readFileToByteArray(picture));
+            Request.updateChannel(channel);
+            System.out.println("| logo image was successfully updated");
+        }
 
+        refreshAll();
     }
 
     @FXML
@@ -233,7 +244,7 @@ public class StudioController implements Initializable {
         dashboardController.controller = this;
         dashboardController.getSubCount().setText(String.valueOf(channel.getSubscribers()));
         dashboardController.getViewCount().setText(String.valueOf(channel.getViews()));
-        dashboardController.getVideos().setText(String.valueOf(channel.getVideos().size()));
+        dashboardController.getVideosCount().setText(String.valueOf(channel.getVideos().size()));
         dashboardController.getTopVideos().getItems().addAll(getTopVideos(channel));
 
         return node;
@@ -259,5 +270,26 @@ public class StudioController implements Initializable {
         }
 
         return videos;
+    }
+
+    private File pickFile() {
+        // show the file picker dialog
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select a Video File");
+
+        // file extension filers
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Video Files", "*.mp4"),
+                new FileChooser.ExtensionFilter("All Files", "*.*")
+        );
+
+        File file = fileChooser.showOpenDialog(new Stage());
+        if (file != null) {
+            System.out.println("| file selected: " + file.getAbsolutePath());
+            return file;
+        } else {
+            System.out.println("| file not selected");
+            return null;
+        }
     }
 }

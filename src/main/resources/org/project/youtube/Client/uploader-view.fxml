@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@uploader-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.UploaderController">
+<?import javafx.scene.layout.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="900.0" stylesheets="@uploader-view.css" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.project.youtube.Client.Controller.UploaderController">
     <children>
-        <AnchorPane id="mainForm" layoutX="117.0" layoutY="200.0" prefHeight="500.0" prefWidth="350.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="50.0">
+        <AnchorPane id="mainForm" layoutX="117.0" layoutY="200.0" prefHeight="500.0" prefWidth="350.0"
+                    AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="50.0">
             <children>
-                <TextField fx:id="titleText" layoutX="15.0" layoutY="42.0" prefHeight="25.0" prefWidth="270.0" promptText="Video Title" styleClass="textBox" />
-                <TextArea id="descriptionBox" fx:id="descriptionText" layoutX="14.0" layoutY="84.0" prefHeight="130.0" prefWidth="320.0" promptText="Description" styleClass="textBox" />
-                <Label layoutX="14.0" layoutY="242.0" text="Check if your content is:" />
-                <CheckBox fx:id="adultOnlyCheck" layoutX="258.0" layoutY="242.0" mnemonicParsing="false" text="Adult only" />
-                <TextField fx:id="tagsText" layoutX="14.0" layoutY="281.0" prefHeight="25.0" prefWidth="320.0" promptText="Tags - Separated by SPACE" styleClass="textBox" />
-                <Label layoutX="15.0" layoutY="335.0" text="Upload a thumbnail picture" />
-                <Button id="thumbnailButton" layoutX="279.0" layoutY="330.0" mnemonicParsing="false" onAction="#pickThumbnail" styleClass="actionButton" text="Button" />
-                <Button layoutX="87.0" layoutY="442.0" mnemonicParsing="false" onAction="#uploadVideo" styleClass="actionButton" text="Upload" />
-                <Button layoutX="205.0" layoutY="442.0" mnemonicParsing="false" onAction="#cancelButton" styleClass="actionButton" text="Cancel" />
+                <TextField fx:id="titleText" layoutX="15.0" layoutY="42.0" prefHeight="25.0" prefWidth="270.0"
+                           promptText="Video Title" styleClass="textBox"/>
+                <TextArea id="descriptionBox" fx:id="descriptionText" layoutX="14.0" layoutY="84.0" prefHeight="130.0"
+                          prefWidth="320.0" promptText="Description" styleClass="textBox"/>
+                <Label layoutX="14.0" layoutY="242.0" text="Check if your content is:"/>
+                <CheckBox fx:id="adultOnlyCheck" layoutX="258.0" layoutY="242.0" mnemonicParsing="false"
+                          text="Adult only"/>
+                <TextField fx:id="tagsText" layoutX="14.0" layoutY="281.0" prefHeight="25.0" prefWidth="320.0"
+                           promptText="Tags - Separated by SPACE" styleClass="textBox"/>
+                <Label layoutX="15.0" layoutY="335.0" text="Upload a thumbnail picture"/>
+                <Button id="thumbnailButton" layoutX="279.0" layoutY="330.0" mnemonicParsing="false"
+                        onAction="#pickThumbnail" styleClass="actionButton" text="Button"/>
+                <Button layoutX="87.0" layoutY="442.0" mnemonicParsing="false" onAction="#uploadVideo"
+                        styleClass="actionButton" text="Upload"/>
+                <Button layoutX="205.0" layoutY="442.0" mnemonicParsing="false" onAction="#cancelButton"
+                        styleClass="actionButton" text="Cancel"/>
             </children>
         </AnchorPane>
         <ImageView fitHeight="300.0" fitWidth="300.0" layoutX="514.0" layoutY="150.0" opacity="0.8" pickOnBounds="true">
             <image>
-                <Image url="@images/uploader.png" />
+                <Image url="@images/uploader.png"/>
             </image>
         </ImageView>
     </children>

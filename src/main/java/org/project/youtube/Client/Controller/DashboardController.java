@@ -19,7 +19,7 @@ public class DashboardController {
     private Label viewCount;
 
     @FXML
-    private Label videos;
+    private Label videosCount;
 
     @FXML
     private ListView<String> topVideos;
@@ -44,8 +44,8 @@ public class DashboardController {
         return viewCount;
     }
 
-    public Label getVideos() {
-        return videos;
+    public Label getVideosCount() {
+        return videosCount;
     }
 
     public ListView<String> getTopVideos() {

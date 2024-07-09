@@ -1,6 +1,5 @@
 package org.project.youtube.Server.Model.Database;
 
-import org.project.youtube.Client.Controller.LoginController;
 import org.project.youtube.Server.Model.Short;
 import org.project.youtube.Server.Model.*;
 

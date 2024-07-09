@@ -40,13 +40,12 @@ public class Client {
         return in.readBoolean();
     }
 
-    private static void close() throws IOException {
+    public static void close() throws IOException {
         if (socket != null) {
             in.close();
             out.close();
             socket.close();
             fileTransferSocket.close();
         }
-
     }
 }

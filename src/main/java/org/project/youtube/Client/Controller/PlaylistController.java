@@ -59,6 +59,15 @@ public class PlaylistController {
     @FXML
     private TextArea descriptionArea;
 
+    @FXML
+    void addToChannel() throws IOException {
+        if (!Request.getPLs(MainController.channel.getHandle()).contains(playlist)) {
+            Request.addPlaylistToChannel(playlist, MainController.channel);
+            System.out.println("| added playlist to channel");
+        } else {
+            System.out.println("| already added playlist to channel");
+        }
+    }
 
     @FXML
     void editPlaylist() {
