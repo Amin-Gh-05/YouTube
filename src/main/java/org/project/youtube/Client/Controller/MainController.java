@@ -626,4 +626,8 @@ public class MainController implements Initializable {
 
         return node;
     }
+
+    public FlowPane getMainPanel() {
+        return mainPanel;
+    }
 }

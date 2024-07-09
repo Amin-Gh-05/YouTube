@@ -1,6 +1,8 @@
 package org.project.youtube.Client.Controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -38,8 +40,40 @@ public class ThumbnailController {
     private Label viewsLabel;
 
     @FXML
-    void loadVideo() {
+    void loadVideo() throws IOException {
+        FXMLLoader loader;
 
+        if (video != null) {
+            loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/video-view.fxml"));
+            Node node = loader.load();
+            VideoController videoController = loader.getController();
+
+            videoController.video = video;
+            videoController.init();
+
+            controller.getMainPanel().getChildren().clear();
+            controller.getMainPanel().getChildren().add(node);
+
+            System.out.println("| redirect to video page");
+            return;
+        }
+
+        if (aShort != null) {
+            loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/short-view.fxml"));
+            Node node = loader.load();
+            ShortController shortController = loader.getController();
+
+            shortController.shortVideo = aShort;
+            // todo: set attributes - or call init() method
+
+            controller.getMainPanel().getChildren().clear();
+            controller.getMainPanel().getChildren().add(node);
+
+            System.out.println("| redirect to short page");
+            return;
+        }
+
+        System.out.println("| redirect to video/short page failed");
     }
 
     public ImageView getThumbnailImage() {
@@ -69,10 +103,7 @@ public class ThumbnailController {
         profileImage.setFill(new ImagePattern(logo));
         titleLabel.setText(video.getTitle());
         viewsLabel.setText(String.valueOf(video.getViews()));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd mmmm yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
         dateLabel.setText(video.getCreatedDateTime().format(formatter));
     }
-
-
-
 }

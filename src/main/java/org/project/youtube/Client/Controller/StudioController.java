@@ -2,6 +2,7 @@ package org.project.youtube.Client.Controller;
 
 import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -155,9 +156,9 @@ public class StudioController implements Initializable {
         }
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/upload-view.fxml"));
+        StackPane pane = loader.load();
         UploadController uploadController = loader.getController();
         uploadController.controller = this;
-        StackPane pane = loader.load();
         mainPanel.getChildren().add(pane);
     }
 
@@ -196,7 +197,7 @@ public class StudioController implements Initializable {
     }
 
     @FXML
-    void loadMain(ActionEvent event) throws IOException {
+    void loadMain(Event event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/main-view.fxml"));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

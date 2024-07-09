@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -18,9 +17,7 @@ import org.project.youtube.Client.Model.Short;
 import java.io.IOException;
 
 public class ShortController {
-
-    private Short shortVideo;
-
+    Short shortVideo;
 
     @FXML
     private Button commentsBtn;
@@ -69,10 +66,6 @@ public class ShortController {
 
         scaleTransition.setCycleCount(2);
         scaleTransition.play();
-    }
-
-    public void setShortVideo(Short shortVideo) {
-        this.shortVideo = shortVideo;
     }
 
     public void loadPlayer() throws IOException {
