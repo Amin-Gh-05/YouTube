@@ -388,8 +388,17 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void loadHistory() {
+    void loadHistory() throws IOException, InterruptedException {
+        if (user == null) {
+            System.out.println("| history not available");
+            return;
+        }
 
+        mainPanel.getChildren().clear();
+        for (History history : History.history) {
+            Node node = loadThumbnail(Request.getVideo(history.getVideoId()));
+            mainPanel.getChildren().add(node);
+        }
     }
 
     @FXML
