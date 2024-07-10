@@ -57,7 +57,6 @@ public class ThumbnailController {
             Request.updateVideoViews(video);
 
             History.addNewHistory(video.getId());
-            History.serializeHistory();
 
             loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/video-view.fxml"));
             Node node = loader.load();
@@ -82,7 +81,6 @@ public class ThumbnailController {
             Request.updateShortViews(aShort);
 
             History.addNewHistory(aShort.getId());
-            History.serializeHistory();
 
             loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/short-view.fxml"));
             Node node = loader.load();
