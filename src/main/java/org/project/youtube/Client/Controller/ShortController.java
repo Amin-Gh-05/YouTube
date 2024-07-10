@@ -66,6 +66,15 @@ public class ShortController {
     private Button saveToPLBtn;
 
     @FXML
+    private BorderPane saveToPLBtnBorderPane;
+
+    @FXML
+    private BorderPane previousBtnBorderPane;
+
+    @FXML
+    private BorderPane nextBtnBorderPane;
+
+    @FXML
     private Pane playerPane;
 
     @FXML
@@ -81,8 +90,11 @@ public class ShortController {
     public void loadPlayer() throws IOException {
         if(MainController.user == null) {
             likeBtn.setDisable(true);
+            likeBtnBorderPane.setDisable(true);
             dislikeBtn.setDisable(true);
+            dislikeBtnBorderPane.setDisable(true);
             saveToPLBtn.setDisable(true);
+            saveToPLBtnBorderPane.setDisable(true);
         }
 
         likeCnt.setText(String.valueOf(shortVideo.getLikes()));
@@ -96,6 +108,14 @@ public class ShortController {
 
         if (shortNumber == 0) {
             previousBtn.setDisable(true);
+            previousBtnBorderPane.setDisable(true);
+        }
+
+        if (shortVideoList.size() == 1) {
+            previousBtn.setDisable(true);
+            previousBtnBorderPane.setDisable(true);
+            nextBtn.setDisable(true);
+            nextBtnBorderPane.setDisable(true);
         }
 
         FXMLLoader shortPlayerLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/short-player.fxml"));
@@ -141,6 +161,7 @@ public class ShortController {
         shortNumber++;
         if (previousBtn.isDisable()) {
             previousBtn.setDisable(false);
+            previousBtnBorderPane.setDisable(false);
         }
 
         loadPlayer();
@@ -157,6 +178,7 @@ public class ShortController {
         shortNumber--;
         if (shortNumber == 0) {
             previousBtn.setDisable(true);
+            previousBtnBorderPane.setDisable(true);
         }
 
         loadPlayer();
@@ -175,10 +197,12 @@ public class ShortController {
 
         if (canLike) {
             dislikeBtn.setDisable(true);
+            dislikeBtnBorderPane.setDisable(true);
             System.out.println("| short was liked");
         }
         else {
             dislikeBtn.setDisable(false);
+            dislikeBtnBorderPane.setDisable(false);
             Request.unLikeShort("L", MainController.user, shortVideoList.get(shortNumber));
             System.out.println("| short was unliked");
         }
@@ -196,10 +220,12 @@ public class ShortController {
 
         if (canLike) {
             likeBtn.setDisable(true);
+            likeBtnBorderPane.setDisable(true);
             System.out.println("| short was disliked");
         }
         else {
             likeBtn.setDisable(false);
+            likeBtnBorderPane.setDisable(false);
             Request.unLikeShort("D", MainController.user, shortVideoList.get(shortNumber));
             System.out.println("| short was unDisliked");
         }
@@ -242,7 +268,9 @@ public class ShortController {
     void loadComments() throws IOException {
         if (!commentsEnabled) {
             nextBtn.setDisable(true);
+            nextBtnBorderPane.setDisable(true);
             previousBtn.setDisable(true);
+            previousBtnBorderPane.setDisable(true);
 
             commentsScrollPane.setPrefWidth(305);
 
@@ -288,7 +316,9 @@ public class ShortController {
         }
         else {
             nextBtn.setDisable(false);
+            nextBtnBorderPane.setDisable(false);
             previousBtn.setDisable(false);
+            previousBtnBorderPane.setDisable(false);
 
             commentsScrollPane.setPrefWidth(3);
             commentsFlowPane.getChildren().clear();
