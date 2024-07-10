@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.project.youtube.Client.Model.Network.Request.createVideoComment;
+import static org.project.youtube.Client.Model.Network.Request.unLikeShort;
 
 public class ShortController {
     Short shortVideo;
@@ -65,6 +66,15 @@ public class ShortController {
     private Button saveToPLBtn;
 
     @FXML
+    private BorderPane saveToPLBtnBorderPane;
+
+    @FXML
+    private BorderPane previousBtnBorderPane;
+
+    @FXML
+    private BorderPane nextBtnBorderPane;
+
+    @FXML
     private Pane playerPane;
 
     @FXML
@@ -78,39 +88,55 @@ public class ShortController {
 
 
     public void loadPlayer() throws IOException {
-        if(MainController.user == null) {
-            likeBtn.setDisable(true);
-            dislikeBtn.setDisable(true);
-            saveToPLBtn.setDisable(true);
-        }
-
-        likeCnt.setText(String.valueOf(shortVideo.getLikes()));
-        viewCnt.setText("view: "+ String.valueOf(shortVideo.getViews()));
-
         for (int i = 0; i < shortVideoList.size(); i++) {
             if (shortVideoList.get(i).getId().toString().equals(shortVideo.getId().toString())) {
                 shortNumber = i;
             }
         }
+        if(MainController.user == null) {
+            likeBtn.setDisable(true);
+            likeBtnBorderPane.setDisable(true);
+            dislikeBtn.setDisable(true);
+            dislikeBtnBorderPane.setDisable(true);
+            saveToPLBtn.setDisable(true);
+            saveToPLBtnBorderPane.setDisable(true);
+        }
+
+        likeCnt.setText(String.valueOf(shortVideoList.get(shortNumber).getLikes()));
+        viewCnt.setText("view: "+ String.valueOf(shortVideoList.get(shortNumber).getViews()));
+
 
         if (shortNumber == 0) {
             previousBtn.setDisable(true);
+            previousBtnBorderPane.setDisable(true);
+        }
+
+        if (shortVideoList.size() == 1) {
+            previousBtn.setDisable(true);
+            previousBtnBorderPane.setDisable(true);
+            nextBtn.setDisable(true);
+            nextBtnBorderPane.setDisable(true);
         }
 
         FXMLLoader shortPlayerLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/short-player.fxml"));
-        BorderPane shortPlayer = shortPlayerLoader.load();
+        AnchorPane shortPlayer = shortPlayerLoader.load();
         playerPane.getChildren().clear();
         playerPane.getChildren().add(shortPlayer);
 
         ShortPlayerController shortPlayerController = shortPlayerLoader.getController();
         shortPlayerController.setPane(playerPane);
-        shortPlayerController.setPath("file:///" + Main.CASH_PATH + "/" + shortVideo.getId().toString() + ".mp4", shortVideo.getId());
+        shortPlayerController.setPath("file:///" + Main.CASH_PATH + "/" + shortVideoList.get(shortNumber).getId().toString() + ".mp4", shortVideoList.get(shortNumber).getId());
         shortPlayerController.initBindings();
 
-        shortPlayerController.setHandle(shortVideo.getShortHandle());
-        shortPlayerController.setTitle(shortVideo.getTitle());
-        shortPlayerController.setProfileImage(shortVideo.getShortHandle());
-        if (Request.isSubscribed(MainController.user.getYid().toString(), shortVideo.getShortHandle())) {
+        shortPlayerController.setHandle(shortVideoList.get(shortNumber).getShortHandle());
+        shortPlayerController.setTitle(shortVideoList.get(shortNumber).getTitle());
+        shortPlayerController.setProfileImage(shortVideoList.get(shortNumber).getShortHandle());
+        if (MainController.user != null) {
+            if (Request.isSubscribed(MainController.user.getYid().toString(), shortVideoList.get(shortNumber).getShortHandle())) {
+                shortPlayerController.disableSubscribeBtn();
+            }
+        }
+        else {
             shortPlayerController.disableSubscribeBtn();
         }
     }
@@ -135,6 +161,7 @@ public class ShortController {
         shortNumber++;
         if (previousBtn.isDisable()) {
             previousBtn.setDisable(false);
+            previousBtnBorderPane.setDisable(false);
         }
 
         loadPlayer();
@@ -151,6 +178,7 @@ public class ShortController {
         shortNumber--;
         if (shortNumber == 0) {
             previousBtn.setDisable(true);
+            previousBtnBorderPane.setDisable(true);
         }
 
         loadPlayer();
@@ -169,10 +197,12 @@ public class ShortController {
 
         if (canLike) {
             dislikeBtn.setDisable(true);
+            dislikeBtnBorderPane.setDisable(true);
             System.out.println("| short was liked");
         }
         else {
             dislikeBtn.setDisable(false);
+            dislikeBtnBorderPane.setDisable(false);
             Request.unLikeShort("L", MainController.user, shortVideoList.get(shortNumber));
             System.out.println("| short was unliked");
         }
@@ -190,10 +220,12 @@ public class ShortController {
 
         if (canLike) {
             likeBtn.setDisable(true);
+            likeBtnBorderPane.setDisable(true);
             System.out.println("| short was disliked");
         }
         else {
             likeBtn.setDisable(false);
+            likeBtnBorderPane.setDisable(false);
             Request.unLikeShort("D", MainController.user, shortVideoList.get(shortNumber));
             System.out.println("| short was unDisliked");
         }
@@ -236,7 +268,9 @@ public class ShortController {
     void loadComments() throws IOException {
         if (!commentsEnabled) {
             nextBtn.setDisable(true);
+            nextBtnBorderPane.setDisable(true);
             previousBtn.setDisable(true);
+            previousBtnBorderPane.setDisable(true);
 
             commentsScrollPane.setPrefWidth(305);
 
@@ -256,7 +290,7 @@ public class ShortController {
             postComment.setText("Post");
             postComment.setOnAction(event -> {
                 if(commentSection.getText() != null){
-                    Comment comment = new Comment(UUID.randomUUID(), shortVideo.getId(), MainController.user.getYid(), commentSection.getText(), 0, String.valueOf(LocalDate.now()));
+                    Comment comment = new Comment(UUID.randomUUID(), shortVideoList.get(shortNumber).getId(), MainController.user.getYid(), commentSection.getText(), 0, String.valueOf(LocalDate.now()));
                     try {
                         Request.createShortComment(comment);
                     } catch (IOException e) {
@@ -282,7 +316,9 @@ public class ShortController {
         }
         else {
             nextBtn.setDisable(false);
+            nextBtnBorderPane.setDisable(false);
             previousBtn.setDisable(false);
+            previousBtnBorderPane.setDisable(false);
 
             commentsScrollPane.setPrefWidth(3);
             commentsFlowPane.getChildren().clear();
@@ -303,7 +339,7 @@ public class ShortController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/addToPL-view.fxml"));
         DialogPane addToPL = loader.load();
         AddToPLController controller = loader.getController();
-        controller.shortVideo = this.shortVideo;
+        controller.shortVideo = this.shortVideoList.get(shortNumber);
 
         Dialog adder = new Dialog();
         adder.setDialogPane(addToPL);

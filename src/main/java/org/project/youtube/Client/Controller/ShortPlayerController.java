@@ -108,8 +108,14 @@ public class ShortPlayerController {
     }
 
     public void setProfileImage(String handle) throws IOException {
-        Image logo = new Image(new ByteArrayInputStream(getChannel(handle).getLogo()));
-        profileImage.setFill(new ImagePattern(logo));
+        try {
+            Image logo = new Image(new ByteArrayInputStream(getChannel(handle).getLogo()));
+            profileImage.setFill(new ImagePattern(logo));
+        }
+        catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            profileImage.setFill(new ImagePattern(new Image("/org/project/youtube/Client/images/sample-profile.png")));
+        }
     }
 
     private void playClickEffect(Button button) {
