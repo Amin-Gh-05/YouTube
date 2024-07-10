@@ -307,6 +307,8 @@ public class ShortController {
                 newCmt.setDisable(true);
             }
 
+            commentsFlowPane.getChildren().add(newCmt);
+
             List<Comment> commentList = shortVideoList.get(shortNumber).getComments();
             for (Comment comment : commentList) {
                 commentsFlowPane.getChildren().add(loadComment(comment));
