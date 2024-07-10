@@ -36,13 +36,15 @@ public class History {
     }
 
     public static void serializeHistory() throws IOException {
-        FileOutputStream fileOut = new FileOutputStream(Main.CASH_PATH + "/" + MainController.user.getYid().toString() + ".ser");
-        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-        out.writeObject(history);
-        out.close();
-        fileOut.close();
+        if (MainController.user != null) {
+            FileOutputStream fileOut = new FileOutputStream(Main.CASH_PATH + "/" + MainController.user.getYid().toString() + ".ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(history);
+            out.close();
+            fileOut.close();
 
-        System.out.println("| history was serialized");
+            System.out.println("| history was serialized");
+        }
     }
 
     public static void deserializeHistory() {
