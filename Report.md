@@ -17,6 +17,12 @@
 - [Resources 📚](https://github.com/Amin-Gh-05/YouTube/new/Reports.md#resources)
 
 ## First of all💁‍♂️
+
+<p align="center">
+  <img src = "https://github.com/Amin-Gh-05/YouTube/blob/Reports/logo.png">
+</p>
+
+
 This app is our final project for [Advanced Programming](https://github.com/Advanced-Programming-1402) course at Shahid Beheshti University. The program is based on Java and we also used some other languages such as CSS and Html.
 <br>The design pattern used for this project is MVC. For further information on this design pattern check the ***The Process*** section.
 
@@ -31,8 +37,10 @@ This app is our final project for [Advanced Programming](https://github.com/Adva
 - Design Patterns
 
 ## UML Designs🧭
-
-![umls]()
+<p align="center">
+  <img src = "https://github.com/Amin-Gh-05/YouTube/blob/Reports/client-uml.png">
+  <img src = "https://github.com/Amin-Gh-05/YouTube/blob/Reports/server-uml.png">
+</p>
 
 ## The Process♟
 ### Phase 1
@@ -62,6 +70,9 @@ About half of the program is being executed on our main panel. On this panel, we
 ### Ideas And Chalenges🧠
 
 #### Database
+<p align="center">
+  <img src = "https://github.com/Amin-Gh-05/YouTube/blob/Reports/Erd.png">
+</p>
 CRUD is an acronym for CREATE, READ(SELECT), UPDATE, and DELETE statements in SQL Server. CRUD in database terms can be mentioned as Data Manipulation Language (DML) Statements as well. Data Manipulation Language is used to manage or manipulate the data present inside database Tables.
 <br>DTO stands for Data Transfer Object which is a design pattern. It is one of the EPA patterns which we call when we need to use such objects that encapsulate and aggregate data for transfer. A DTO is similar to a data structure, but like a data structure, it doesn't contain any business logic.
 
