@@ -104,7 +104,7 @@ public class ShortController {
 
         ShortPlayerController shortPlayerController = shortPlayerLoader.getController();
         shortPlayerController.setPane(playerPane);
-        shortPlayerController.setPath("file:///" + Main.CASH_PATH + "/" + shortVideo.getId().toString() + ".mp4");
+        shortPlayerController.setPath("file:///" + Main.CASH_PATH + "/" + shortVideo.getId().toString() + ".mp4", shortVideo.getId());
         shortPlayerController.initBindings();
 
         shortPlayerController.setHandle(shortVideo.getShortHandle());

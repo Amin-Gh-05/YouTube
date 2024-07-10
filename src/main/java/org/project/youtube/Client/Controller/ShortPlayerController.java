@@ -18,11 +18,13 @@ import javafx.scene.media.MediaView;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
+import org.project.youtube.Client.Model.History;
 import org.project.youtube.Client.Model.Network.Request;
 import org.project.youtube.Client.Model.Short;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.UUID;
 
 import static org.project.youtube.Client.Model.Network.Request.getChannel;
 
@@ -65,16 +67,19 @@ public class ShortPlayerController {
     private Slider volumeSlider;
     private String handle;
     private String path;
+    private UUID shortID;
 
     public void setPane(Pane pane) {
         this.pane = pane;
     }
 
-    public void setPath(String path) {
+    public void setPath(String path, UUID shortID) {
         this.path = path;
+        this.shortID = shortID;
         media = new Media(path);
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
+        mediaPlayer.setStartTime(Duration.seconds(History.getHistory(shortID)));
     }
 
     public void initBindings() {
@@ -124,6 +129,17 @@ public class ShortPlayerController {
 
     public void playBtnAction(ActionEvent actionEvent) {
         playClickEffect(playBtn);
+
+        if (media == null || mediaPlayer == null) {
+            setPath(path, shortID);
+            initBindings();
+        }
+
+        if (!mediaPlayer.getStatus().equals(MediaPlayer.Status.READY) && !mediaPlayer.getStatus().equals(MediaPlayer.Status.STOPPED) && !mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
+            setPath(path, shortID);
+            initBindings();
+        }
+
         if (mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
             playBtn.setStyle("-fx-shape : \"M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z\"");
             mediaPlayer.pause();
@@ -138,12 +154,12 @@ public class ShortPlayerController {
         playClickEffect(playBtn);
 
         if (media == null || mediaPlayer == null) {
-            setPath(path);
+            setPath(path, shortID);
             initBindings();
         }
 
         if (!mediaPlayer.getStatus().equals(MediaPlayer.Status.READY) && !mediaPlayer.getStatus().equals(MediaPlayer.Status.STOPPED) && !mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
-            setPath(path);
+            setPath(path, shortID);
             initBindings();
         }
 
