@@ -1,0 +1,11 @@
+#borderP {
+    -fx-background-color: transparent;
+}
+
+.btn {
+    -fx-cursor: hand;
+}
+
+/*.slider .track {*/
+/*    -fx-background-color: red;*/
+/*}*/

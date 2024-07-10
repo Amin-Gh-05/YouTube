@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.*?>
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="630.0" prefWidth="900.0" stylesheets="@playlist-view.css" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.project.youtube.Client.Controller.PlaylistController">
+    <children>
+        <HBox id="mainView" fx:id="infoPanel" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity"
+              minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="900.0" spacing="10.0">
+            <children>
+                <ImageView fx:id="playlistImage" fitHeight="120.0" fitWidth="200.0" pickOnBounds="true"
+                           preserveRatio="true"/>
+                <VBox fx:id="namePanel" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+                      minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="200.0" spacing="15.0">
+                    <children>
+                        <Label id="nameLabel" fx:id="nameLabel" maxWidth="-Infinity" minWidth="-Infinity"
+                               prefHeight="15.0" prefWidth="180.0" text="Name" wrapText="true">
+                            <contextMenu>
+                                <ContextMenu fx:id="changeMenu">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#openPlaylist" text="Open">
+                                            <accelerator>
+                                                <KeyCodeCombination alt="UP" code="R" control="ANY" meta="UP" shift="UP"
+                                                                    shortcut="UP"/>
+                                            </accelerator>
+                                        </MenuItem>
+                                        <MenuItem fx:id="editItem" mnemonicParsing="false" onAction="#editPlaylist"
+                                                  text="Edit">
+                                            <accelerator>
+                                                <KeyCodeCombination alt="UP" code="R" control="ANY" meta="UP" shift="UP"
+                                                                    shortcut="UP"/>
+                                            </accelerator>
+                                        </MenuItem>
+                                        <MenuItem fx:id="deleteItem" mnemonicParsing="false" onAction="#deletePlaylist"
+                                                  text="Delete">
+                                            <accelerator>
+                                                <KeyCodeCombination alt="UP" code="D" control="ANY" meta="UP" shift="UP"
+                                                                    shortcut="UP"/>
+                                            </accelerator>
+                                        </MenuItem>
+                                    </items>
+                                </ContextMenu>
+                            </contextMenu>
+                        </Label>
+                        <Label fx:id="handleLabel" prefHeight="15.0" prefWidth="180.0" text="Handle"/>
+                        <Label fx:id="isPublicLabel" prefHeight="15.0" prefWidth="180.0" text="Is Public"/>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0"/>
+                    </padding>
+                    <HBox.margin>
+                        <Insets/>
+                    </HBox.margin>
+                </VBox>
+                <Separator orientation="VERTICAL" prefHeight="200.0"/>
+                <Label fx:id="descriptionLabel" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="17.0"
+                       prefWidth="375.0" text="Description" wrapText="true"/>
+                <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submitChanges" styleClass="actionButton"
+                        text="Submit" visible="false"/>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+        </HBox>
+        <TabPane layoutY="130.0" prefHeight="500.0" prefWidth="900.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Videos">
+                    <content>
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                            <content>
+                                <FlowPane fx:id="videosPanel" hgap="10.0" prefHeight="470.0" prefWidth="900.0"
+                                          vgap="10.0">
+                                    <padding>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                    </padding>
+                                </FlowPane>
+                            </content>
+                        </ScrollPane>
+                    </content>
+                </Tab>
+                <Tab text="Shorts">
+                    <content>
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                            <content>
+                                <FlowPane fx:id="shortsPanel" hgap="10.0" prefHeight="470.0" prefWidth="900.0"
+                                          vgap="10.0">
+                                    <padding>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                    </padding>
+                                </FlowPane>
+                            </content>
+                        </ScrollPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>

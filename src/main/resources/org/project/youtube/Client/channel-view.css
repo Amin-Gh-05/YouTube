@@ -1,0 +1,69 @@
+.root {
+    -fx-font-family: Roboto, Arial;
+    -fx-font-size: 12px;
+}
+
+#nameLabel {
+    -fx-font-size: 14px;
+}
+
+.tab-pane {
+    -fx-background-color: #F5F3F4;
+}
+
+.tab {
+    -fx-background-color: #F5F3F4;
+}
+
+.tab:selected {
+    -fx-background-color: #E5383B;
+    -fx-text-base-color: #F5F3F4;
+}
+
+.actionButton {
+    -fx-padding: 5px;
+    -fx-background-radius: 25px;
+    -fx-background-color: #F5F3F4;
+    -fx-border-radius: 25px;
+    -fx-border-color: #0B090A;
+    -fx-cursor: hand;
+}
+
+.actionButton:hover {
+    -fx-background-color: #DDDBDC;
+}
+
+.context-menu {
+    -fx-background-color: #282828;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.context-menu .menu-item {
+    -fx-text-base-color: #ffffff;
+    -fx-padding: 10px 10px;
+    -fx-font-size: 12px;
+}
+
+.context-menu .menu-item:hover {
+    -fx-background-color: #383838;
+}
+
+.context-menu .menu-item:focused {
+    -fx-background-color: #505050;
+    -fx-text-fill: #ffffff;
+}
+
+.context-menu .menu-item:pressed {
+    -fx-background-color: #1e1e1e;
+    -fx-text-fill: #ffffff;
+}
+
+.actionButton {
+    -fx-padding: 5px;
+    -fx-background-radius: 25px;
+    -fx-background-color: #F5F3F4;
+    -fx-border-radius: 25px;
+    -fx-border-color: #E32636;
+    -fx-cursor: hand;
+}

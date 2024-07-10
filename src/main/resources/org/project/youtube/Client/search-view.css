@@ -1,0 +1,13 @@
+.tab-pane {
+    -fx-background-color: #F5F3F4;
+}
+
+.tab {
+    -fx-background-color: #F5F3F4;
+    -fx-font-size: 16;
+}
+
+.tab:selected {
+    -fx-background-color: #E5383B;
+    -fx-text-base-color: #F5F3F4;
+}

@@ -20,24 +20,29 @@ ext {
 sourceCompatibility = '21'
 targetCompatibility = '21'
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
 application {
-    mainModule = 'org.project.youtube'
-    mainClass = 'org.project.youtube.HelloApplication'
+    mainModule = 'org.project.youtube.Client'
+    mainClass = 'org.project.youtube.Client.Main'
 }
 
 javafx {
     version = '21'
-    modules = ['javafx.controls', 'javafx.fxml']
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.media']
 }
 
 dependencies {
-
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    implementation("org.postgresql:postgresql:42.7.3")
+    implementation 'com.google.code.gson:gson:2.11.0'
+    implementation 'org.json:json:20240303'
+    implementation("org.controlsfx:controlsfx:11.1.1")
+    implementation("commons-io:commons-io:2.16.1")
+    implementation 'commons-codec:commons-codec:1.16.1'
 }
 
 test {

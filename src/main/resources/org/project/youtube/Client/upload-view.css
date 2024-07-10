@@ -1,0 +1,23 @@
+#uploadPanel {
+    -fx-padding: 10px;
+    -fx-background-color: #f5f5f5;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 0);
+}
+
+.actionButton {
+    -fx-padding: 10px;
+    -fx-background-radius: 25px;
+    -fx-background-color: #f5f5f5;
+    -fx-border-radius: 25px;
+    -fx-border-color: #e32636;
+    -fx-font-size: 14px;
+}
+
+.actionButton:hover {
+    -fx-background-color: #e32636;
+}
+
+.actionButton:pressed {
+    -fx-background-color: #ba0021;
+    -fx-border-color: #ba0021;
+}

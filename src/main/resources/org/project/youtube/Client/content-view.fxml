@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="900.0" stylesheets="@content-view.css" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.ContentController">
+    <children>
+        <Label layoutX="14.0" layoutY="14.0" text="Channel Content" AnchorPane.leftAnchor="14.0"
+               AnchorPane.topAnchor="14.0">
+            <font>
+                <Font name="Roboto Black" size="18.0"/>
+            </font>
+        </Label>
+        <TabPane layoutX="3.0" layoutY="50.0" prefHeight="545.0" prefWidth="893.0" tabClosingPolicy="UNAVAILABLE"
+                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                 AnchorPane.topAnchor="50.0">
+            <tabs>
+                <Tab text="Videos">
+                    <content>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
+                            <content>
+                                <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                                    <children>
+                                        <Label layoutX="14.0" layoutY="22.0" text="Video" AnchorPane.leftAnchor="14.0"
+                                               AnchorPane.topAnchor="20.0"/>
+                                        <Label layoutX="462.0" layoutY="22.0" text="Restriction"
+                                               AnchorPane.rightAnchor="381.0" AnchorPane.topAnchor="20.0"/>
+                                        <Label layoutX="570.0" layoutY="22.0" text="Date" AnchorPane.rightAnchor="304.0"
+                                               AnchorPane.topAnchor="20.0"/>
+                                        <Label layoutX="731.0" layoutY="20.0" text="Views"
+                                               AnchorPane.rightAnchor="139.0" AnchorPane.topAnchor="20.0"/>
+                                        <Label layoutX="815.0" layoutY="20.0" text="Likes" AnchorPane.rightAnchor="59.0"
+                                               AnchorPane.topAnchor="20.0"/>
+                                        <VBox fx:id="videoColumn" layoutX="14.0" layoutY="62.0" prefHeight="445.0"
+                                              prefWidth="436.0" spacing="10.0" styleClass="column"
+                                              AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="450.0">
+                                            <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                            </padding>
+                                        </VBox>
+                                        <VBox fx:id="videoRestColumn" layoutX="462.0" layoutY="62.0" prefHeight="445.0"
+                                              prefWidth="85.0" spacing="10.0" styleClass="column"
+                                              AnchorPane.rightAnchor="353.0">
+                                            <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                            </padding>
+                                        </VBox>
+                                        <VBox fx:id="videoDateColumn" layoutX="570.0" layoutY="62.0" prefHeight="445.0"
+                                              prefWidth="145.0" spacing="10.0" styleClass="column"
+                                              AnchorPane.rightAnchor="185.0">
+                                            <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                            </padding>
+                                        </VBox>
+                                        <VBox fx:id="videoViewColumn" layoutX="731.0" layoutY="62.0" prefHeight="445.0"
+                                              prefWidth="65.0" spacing="10.0" styleClass="column"
+                                              AnchorPane.rightAnchor="104.0">
+                                            <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                            </padding>
+                                        </VBox>
+                                        <VBox fx:id="videoLikeColumn" layoutX="811.0" layoutY="62.0" prefHeight="445.0"
+                                              prefWidth="65.0" spacing="10.0" styleClass="column"
+                                              AnchorPane.rightAnchor="24.0">
+                                            <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                            </padding>
+                                        </VBox>
+                                        <Separator layoutX="14.0" layoutY="48.0" prefWidth="200.0"
+                                                   AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0"/>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </ScrollPane>
+                    </content>
+                </Tab>
+                <Tab text="Shorts">
+                    <content>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
+                            <content>
+                                <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                                    <children>
+                                        <Label layoutX="14.0" layoutY="22.0" text="Short" AnchorPane.leftAnchor="14.0"
+                                               AnchorPane.topAnchor="20.0"/>
+                                        <Label layoutX="462.0" layoutY="22.0" text="Restriction"
+                                               AnchorPane.rightAnchor="381.0" AnchorPane.topAnchor="20.0"/>
+                                        <Label layoutX="570.0" layoutY="22.0" text="Date" AnchorPane.rightAnchor="304.0"
+                                               AnchorPane.topAnchor="20.0"/>
+                                        <Label layoutX="731.0" layoutY="20.0" text="Views"
+                                               AnchorPane.rightAnchor="139.0" AnchorPane.topAnchor="20.0"/>
+                                        <Label layoutX="815.0" layoutY="20.0" text="Likes" AnchorPane.rightAnchor="59.0"
+                                               AnchorPane.topAnchor="20.0"/>
+                                        <VBox fx:id="shortColumn" layoutX="14.0" layoutY="62.0" prefHeight="445.0"
+                                              prefWidth="436.0" spacing="10.0" styleClass="column"
+                                              AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="450.0">
+                                            <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                            </padding>
+                                        </VBox>
+                                        <VBox fx:id="shortRestColumn" layoutX="462.0" layoutY="62.0" prefHeight="445.0"
+                                              prefWidth="85.0" spacing="10.0" styleClass="column"
+                                              AnchorPane.rightAnchor="353.0">
+                                            <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                            </padding>
+                                        </VBox>
+                                        <VBox fx:id="shortDateColumn" layoutX="570.0" layoutY="62.0" prefHeight="445.0"
+                                              prefWidth="145.0" spacing="10.0" styleClass="column"
+                                              AnchorPane.rightAnchor="185.0">
+                                            <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                            </padding>
+                                        </VBox>
+                                        <VBox fx:id="shortViewColumn" layoutX="731.0" layoutY="62.0" prefHeight="445.0"
+                                              prefWidth="65.0" spacing="10.0" styleClass="column"
+                                              AnchorPane.rightAnchor="104.0">
+                                            <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                            </padding>
+                                        </VBox>
+                                        <VBox fx:id="shortLikeColumn" layoutX="811.0" layoutY="62.0" prefHeight="445.0"
+                                              prefWidth="65.0" spacing="10.0" styleClass="column"
+                                              AnchorPane.rightAnchor="24.0">
+                                            <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                            </padding>
+                                        </VBox>
+                                        <Separator layoutX="14.0" layoutY="48.0" prefWidth="200.0"
+                                                   AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0"/>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </ScrollPane>
+                    </content>
+                </Tab>
+                <Tab text="Playlists">
+                    <content>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
+                            <content>
+                                <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                                    <children>
+                                        <Label layoutX="14.0" layoutY="22.0" text="Playlist"
+                                               AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="20.0"/>
+                                        <Label layoutX="617.0" layoutY="20.0" text="Shorts Count"
+                                               AnchorPane.rightAnchor="213.0" AnchorPane.topAnchor="20.0"/>
+                                        <Label layoutX="779.0" layoutY="20.0" text="Videos Count"
+                                               AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="20.0"/>
+                                        <VBox fx:id="playlistColumn" layoutX="14.0" layoutY="60.0" prefHeight="445.0"
+                                              prefWidth="520.0" spacing="10.0" styleClass="column"
+                                              AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="366.0">
+                                            <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                            </padding>
+                                        </VBox>
+                                        <VBox fx:id="shortCountColumn" layoutX="617.0" layoutY="60.0" prefHeight="445.0"
+                                              prefWidth="100.0" spacing="10.0" styleClass="column"
+                                              AnchorPane.rightAnchor="185.0">
+                                            <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                            </padding>
+                                        </VBox>
+                                        <VBox fx:id="videoCountColumn" layoutX="779.0" layoutY="60.0" prefHeight="445.0"
+                                              prefWidth="100.0" spacing="10.0" styleClass="column"
+                                              AnchorPane.rightAnchor="24.0">
+                                            <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                            </padding>
+                                        </VBox>
+                                        <Separator layoutX="14.0" layoutY="48.0" prefWidth="200.0"
+                                                   AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0"/>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </ScrollPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>

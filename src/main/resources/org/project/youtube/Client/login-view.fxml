@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane id="backGround" prefHeight="600.0" prefWidth="900.0" stylesheets="@login-view.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.project.youtube.Client.Controller.LoginController">
+    <children>
+        <AnchorPane id="mainForm" layoutX="90.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                    minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="360.0"
+                    AnchorPane.leftAnchor="120.0">
+            <children>
+                <Label id="signInTitle" layoutX="30.0" layoutY="34.0" styleClass="textLabel" text="Sign In"
+                       AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="30.0" layoutY="88.0" styleClass="textLabel" text="Be more than just a viewer."
+                       AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="85.0">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Label>
+                <TextField fx:id="userName" layoutX="30.0" layoutY="187.0" promptText="Username or Email"
+                           styleClass="inputBox" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </TextField>
+                <PasswordField fx:id="passWord" layoutX="30.0" layoutY="254.0" promptText="Password"
+                               styleClass="inputBox" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </PasswordField>
+                <Button fx:id="signInButton" layoutX="72.0" layoutY="344.0" mnemonicParsing="false" onAction="#signIn"
+                        styleClass="actionButton" text="Sign In" AnchorPane.leftAnchor="72.0">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="SignUpButton" layoutX="225.0" layoutY="344.0" mnemonicParsing="false" onAction="#signUp"
+                        styleClass="actionButton" text="Sign Up" AnchorPane.rightAnchor="72.0">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+            </children>
+        </AnchorPane>
+        <ImageView id="sideLogo" fitHeight="150.0" fitWidth="200.0" layoutX="591.0" layoutY="225.0" pickOnBounds="true"
+                   preserveRatio="true" AnchorPane.rightAnchor="120.0">
+            <image>
+                <Image url="@images/logo-black.png"/>
+            </image>
+        </ImageView>
+        <Button id="returnButton" fx:id="returnButton" layoutX="791.0" layoutY="60.0" mnemonicParsing="false"
+                onAction="#turnBack" prefHeight="40.0" prefWidth="59.0" AnchorPane.rightAnchor="50.0"
+                AnchorPane.topAnchor="35.0"/>
+    </children>
+</AnchorPane>
