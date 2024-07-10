@@ -96,6 +96,7 @@ public class MediaPlayerController {
         media = new Media(path);
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
+        mediaPlayer.setStartTime(Duration.seconds(History.getHistory(videoID)));
     }
 
     public void initBindings() {
