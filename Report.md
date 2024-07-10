@@ -11,9 +11,9 @@
   - [Phase 1](https://github.com/Amin-Gh-05/YouTube/edit/Reports/Report.md#phase-1)
   - [Phase 2](https://github.com/Amin-Gh-05/YouTube/edit/Reports/Report.md#phase-2)
   - [Phase 3](https://github.com/Amin-Gh-05/YouTube/edit/Reports/Report.md#phase-3)
-- [Ideas And Chalenges 🧠]
-- [Creators 👩🏽‍💻](
-- [Special Thanks to...🙏]
+- [Ideas And Chalenges 🧠](https://github.com/Amin-Gh-05/YouTube/edit/Reports/Report.md#ideas-and-chalenges)
+- [Creators 👩🏽‍💻](https://github.com/Amin-Gh-05/YouTube/edit/Reports/Report.md#program-made-by)
+- [Special Thanks to...🙏](https://github.com/Amin-Gh-05/YouTube/edit/Reports/Report.md#special-thanks-to)
 - [Resources 📚](https://github.com/Amin-Gh-05/YouTube/new/Reports.md#resources)
 
 ## First of all💁‍♂️
@@ -56,13 +56,24 @@ On this phase, we started designing all FXML views in the project, filling them 
 
 ### Phase 3
 About half of the program is being executed on our main panel. On this panel, we load other panels such as video view, channels, profile etc.
-> how to download video
+<br>And besides our frontend, the connection our sockets and different part of program have is quite fascinating. The data exchange between server and client was a part where we could show our socket programming skills.
 
 
 ### Ideas And Chalenges🧠
+
+#### Database
+CRUD is an acronym for CREATE, READ(SELECT), UPDATE, and DELETE statements in SQL Server. CRUD in database terms can be mentioned as Data Manipulation Language (DML) Statements as well. Data Manipulation Language is used to manage or manipulate the data present inside database Tables.
+<br>DTO stands for Data Transfer Object which is a design pattern. It is one of the EPA patterns which we call when we need to use such objects that encapsulate and aggregate data for transfer. A DTO is similar to a data structure, but like a data structure, it doesn't contain any business logic.
+
+#### Server log
+Every interaction that server does is being saved and written into a file so you can always access all we have done from the beginning till now.
+
+#### Download and send files
+
+#### API
+
+#### FXML loader
 In this program, we normally don't change scenes, most of panels are being loaded on the main panel and studio panel using FXMLLoader and passing controllers. 
-> server log and history
-> client and server
 
 
 ## Program Made By👩🏽‍💻
