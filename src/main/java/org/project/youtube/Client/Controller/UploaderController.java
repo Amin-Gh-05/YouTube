@@ -81,6 +81,11 @@ public class UploaderController implements Initializable {
 
             Request.createShort(shortVideo, file.getAbsolutePath());
             System.out.println("| short upload complete");
+
+            Channel updatedChannel = Request.getChannel(shortVideo.getShortHandle());
+            MainController.channel = updatedChannel;
+            StudioController.channel = updatedChannel;
+
             cancelButton();
         } else {
             Video video = new Video(UUID.randomUUID(), titleText.getText(), descriptionText.getText(),
