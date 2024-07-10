@@ -61,7 +61,7 @@
                   <Font name="System Bold" size="10.0" />
                </font>
             </Button>
-            <ImageView fx:id="makeChanges" fitHeight="35.0" fitWidth="32.0" layoutX="360.0" layoutY="164.0" opacity="0.34" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="makeChanges" fitHeight="35.0" fitWidth="32.0" layoutX="360.0" layoutY="164.0" onContextMenuRequested="#CheckChanges" opacity="0.34" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@images/check.png" />
                </image>
