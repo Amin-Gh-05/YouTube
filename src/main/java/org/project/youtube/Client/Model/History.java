@@ -32,13 +32,15 @@ public class History {
     }
 
     public static void updateHistory(UUID id, int t) {
-        for (int i = 0; i < History.history.size(); i++) {
-            if (History.history.get(i).videoId.toString().equals(id.toString())) {
-                History.history.set(i, new History(id, t));
+        if (history != null) {
+            for (int i = 0; i < History.history.size(); i++) {
+                if (History.history.get(i).videoId.toString().equals(id.toString())) {
+                    History.history.set(i, new History(id, t));
+                }
             }
-        }
 
-        System.out.println("| a history updated");
+            System.out.println("| a history updated");
+        }
     }
 
     public static int getHistory(UUID id) {

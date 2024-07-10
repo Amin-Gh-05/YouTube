@@ -97,11 +97,11 @@ public class MediaPlayerController {
     }
 
     public void initBindings() {
-        mediaView.fitWidthProperty().bind(pane.widthProperty());
-        mediaView.fitHeightProperty().bind(pane.heightProperty());
+        //mediaView.fitWidthProperty().bind(pane.widthProperty());
+        //mediaView.fitHeightProperty().bind(pane.heightProperty());
 
-        borderPane.prefWidthProperty().bind(mediaView.fitWidthProperty());
-        borderPane.prefHeightProperty().bind(mediaView.fitHeightProperty());
+        //borderPane.prefWidthProperty().bind(mediaView.fitWidthProperty());
+        //borderPane.prefHeightProperty().bind(mediaView.fitHeightProperty());
 
         mediaPlayer.setOnReady(() -> {
             Duration totalDuration = media.getDuration();
@@ -112,7 +112,7 @@ public class MediaPlayerController {
 
         a = 0;
         mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
-            if (a == 4000) {
+            if (a == 80) {
                 History.updateHistory(videoID, (int)newValue.toSeconds());
                 a = 0;
             }
