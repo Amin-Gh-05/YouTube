@@ -6,11 +6,11 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
@@ -37,7 +37,6 @@ public class ProfileController {
 
     // ------------------------ LINKS ------------------------
 
-    public static Image alertSign = new Image("/org/project/youtube/Client/images/important.png");
     static User user;
 
     List<ImageView> logos = new ArrayList<>();
@@ -163,6 +162,7 @@ public class ProfileController {
             hbox.getStyleClass().add("linkHBoxes");
 
             logos.get(i).setFitHeight(30);
+            logos.get(i).setFitWidth(30);
             hbox.getChildren().add(logos.get(i));
 
             urls.get(i).getStyleClass().add("hyperlink");
@@ -173,7 +173,7 @@ public class ProfileController {
     }
 
     @FXML
-    void returnHome(ActionEvent event) throws IOException {
+    void returnHome(ActionEvent event) {
         // get current stage
         Stage profileStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         // restore the main page
@@ -195,6 +195,9 @@ public class ProfileController {
         genderField.setVisible(false);
 
         // visible editors
+        usernameEditor.setVisible(true);
+        usernameEditor.setText(usernameField.getText());
+
         nameEditor.setVisible(true);
         nameEditor.setText(nameField.getText());
 
@@ -205,7 +208,8 @@ public class ProfileController {
         emailEditor.setText(emailField.getText());
 
         datePicker.setVisible(true);
-        datePicker.setValue(LocalDate.of(Integer.valueOf(YOBField.getText()), Integer.valueOf(MOBField.getText()), Integer.valueOf(DOBField.getText())));
+        if(!YOBField.getText().equals("") || !MOBField.getText().equals("") || !DOBField.getText().equals(""))
+            datePicker.setValue(LocalDate.of(Integer.parseInt(YOBField.getText()), Integer.parseInt(MOBField.getText()), Integer.parseInt(DOBField.getText())));
 
         femaleBox.setVisible(true);
         maleBox.setVisible(true);
@@ -223,7 +227,8 @@ public class ProfileController {
     // checking for errors and setting user information
 
     @FXML
-    void makeChanges() throws IOException {
+    void CheckChanges(MouseEvent event) throws IOException {
+        usernameAlert.setVisible(false);
         nameAlert.setVisible(false);
         lastnameAlert.setVisible(false);
         emailAlert.setVisible(false);
@@ -236,6 +241,11 @@ public class ProfileController {
 
     public boolean checkErrors() {
         boolean flag = false;
+        if(usernameEditor.getText().equals("")){
+            flag = true;
+            usernameAlert.setVisible(true);
+            Notifications.create().title("Error").text("Username field can't be empty.").showError();
+        }
         if(nameEditor.getText().equals("")){
             flag = true;
             nameAlert.setVisible(true);
@@ -274,6 +284,10 @@ public class ProfileController {
     }
 
     public void setInformation() throws IOException {
+        usernameField.setText(usernameEditor.getText());
+        user.setUsername(usernameEditor.getText());
+        usernameEditor.setVisible(false);
+
         nameField.setText(nameEditor.getText());
         user.setFirstName(nameEditor.getText());
         nameEditor.setVisible(false);
@@ -305,6 +319,7 @@ public class ProfileController {
 
         makeChanges.setVisible(false);
         updateUser(user);
+        editProfileButton.setDisable(false);
 
     }
 

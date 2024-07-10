@@ -61,7 +61,7 @@
                   <Font name="System Bold" size="10.0" />
                </font>
             </Button>
-            <ImageView fx:id="makeChanges" fitHeight="35.0" fitWidth="32.0" layoutX="360.0" layoutY="164.0" onMouseClicked="#makeChanges" opacity="0.34" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="makeChanges" fitHeight="35.0" fitWidth="32.0" layoutX="360.0" layoutY="164.0" opacity="0.34" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@images/check.png" />
                </image>
@@ -280,7 +280,7 @@
                               <Insets top="1.0" />
                            </VBox.margin>
                         </Label>
-                        <VBox fx:id="linksBox" prefHeight="269.0" prefWidth="406.0" />
+                        <VBox fx:id="linksBox" onMouseClicked="#CheckChanges" prefHeight="269.0" prefWidth="406.0" />
                      </children>
                      <padding>
                         <Insets bottom="20.0" />
