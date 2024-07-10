@@ -20,6 +20,12 @@ public class History {
     }
 
     public static void addNewHistory(UUID videoId) {
+        for (History history1 : history) {
+            if (history1.videoId.toString().equals(videoId.toString())) {
+                return;
+            }
+        }
+
         History.history.add(new History(videoId, 0));
 
         System.out.println("| a new history added");
@@ -33,6 +39,15 @@ public class History {
         }
 
         System.out.println("| a history updated");
+    }
+
+    public static int getHistory(UUID id) {
+        for (History history1 : history) {
+            if (history1.videoId.toString().equals(id.toString())) {
+                return history1.time;
+            }
+        }
+        return 0;
     }
 
     public static void serializeHistory() throws IOException {
