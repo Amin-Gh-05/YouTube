@@ -1,6 +1,5 @@
 package org.project.youtube.Client.Controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -117,7 +116,7 @@ public class VideoController {
     }
 
     @FXML
-    void postNewComment(ActionEvent e) throws IOException {
+    void postNewComment() throws IOException {
         if (commentSection.getText() != null) {
             Comment comment = new Comment(UUID.randomUUID(), video.getId(), MainController.user.getYid(), commentSection.getText(), 0, String.valueOf(LocalDate.now()));
             createVideoComment(comment);
@@ -242,9 +241,5 @@ public class VideoController {
         thumbnailController.getViewsLabel().setText(String.valueOf(video.getViews()));
 
         return node;
-    }
-
-    public VBox getMainVideoBox() {
-        return mainVideoBox;
     }
 }

@@ -4,9 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import org.project.youtube.Client.Main;
 import org.project.youtube.Client.Model.History;
@@ -14,13 +12,12 @@ import org.project.youtube.Client.Model.Network.Request;
 import org.project.youtube.Client.Model.Short;
 import org.project.youtube.Client.Model.Video;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static org.project.youtube.Client.Model.Network.Request.*;
+import static org.project.youtube.Client.Model.Network.Request.getShort;
+import static org.project.youtube.Client.Model.Network.Request.getVideo;
 
 
 public class ThumbnailController {
@@ -51,7 +48,7 @@ public class ThumbnailController {
 
         if (video != null) {
             if (!(new File(Main.CASH_PATH + "/" + video.getId().toString() + ".mp4").exists())) {
-                Video video1 = getVideo(video.getId());
+                getVideo(video.getId());
             }
 
             Request.updateVideoViews(video);
@@ -75,7 +72,7 @@ public class ThumbnailController {
 
         if (aShort != null) {
             if (!(new File(Main.CASH_PATH + "/" + aShort.getId().toString() + ".mp4").exists())) {
-                Short short1 = getShort(aShort.getId());
+                getShort(aShort.getId());
             }
 
             Request.updateShortViews(aShort);

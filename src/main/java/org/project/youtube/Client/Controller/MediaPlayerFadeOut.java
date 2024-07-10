@@ -8,7 +8,7 @@ import javafx.util.Duration;
 
 public class MediaPlayerFadeOut implements Runnable {
     @FXML
-    private VBox vBox;
+    private final VBox vBox;
     public MediaPlayerFadeOut(VBox vBox){
         this.vBox = vBox;
     }
@@ -23,7 +23,8 @@ public class MediaPlayerFadeOut implements Runnable {
                 }
             }
         }
-        catch (InterruptedException e) {
+        catch (InterruptedException ignored) {
+
         }
     }
 

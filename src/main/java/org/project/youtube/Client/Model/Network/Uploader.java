@@ -42,8 +42,7 @@ public class Uploader implements Runnable {
             }
 
             fileInputStream.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }

@@ -1,14 +1,11 @@
 package org.project.youtube.Client.Controller;
 
 import javafx.animation.ScaleTransition;
-import javafx.beans.binding.Bindings;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -20,7 +17,6 @@ import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import org.project.youtube.Client.Model.History;
 import org.project.youtube.Client.Model.Network.Request;
-import org.project.youtube.Client.Model.Short;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -133,7 +129,7 @@ public class ShortPlayerController {
         scaleTransition.play();
     }
 
-    public void playBtnAction(ActionEvent actionEvent) {
+    public void playBtnAction() {
         playClickEffect(playBtn);
 
         if (media == null || mediaPlayer == null) {
@@ -156,7 +152,7 @@ public class ShortPlayerController {
         }
     }
 
-    public void playBtnMouseClicked(MouseEvent mouseEvent) {
+    public void playBtnMouseClicked() {
         playClickEffect(playBtn);
 
         if (media == null || mediaPlayer == null) {
@@ -187,7 +183,7 @@ public class ShortPlayerController {
         muteBtn.setStyle("-fx-shape: \"m 21.48,17.98 c 0,-1.77 -1.02,-3.29 -2.5,-4.03 v 2.21 l 2.45,2.45 c .03,-0.2 .05,-0.41 .05,-0.63 z m 2.5,0 c 0,.94 -0.2,1.82 -0.54,2.64 l 1.51,1.51 c .66,-1.24 1.03,-2.65 1.03,-4.15 0,-4.28 -2.99,-7.86 -7,-8.76 v 2.05 c 2.89,.86 5,3.54 5,6.71 z M 9.25,8.98 l -1.27,1.26 4.72,4.73 H 7.98 v 6 H 11.98 l 5,5 v -6.73 l 4.25,4.25 c -0.67,.52 -1.42,.93 -2.25,1.18 v 2.06 c 1.38,-0.31 2.63,-0.95 3.69,-1.81 l 2.04,2.05 1.27,-1.27 -9,-9 -7.72,-7.72 z m 7.72,.99 -2.09,2.08 2.09,2.09 V 9.98 z\"");
     }
 
-    public void muteBtnAction(ActionEvent actionEvent) {
+    public void muteBtnAction() {
         playClickEffect(muteBtn);
         if (mediaPlayer.getVolume() > 0) {
             lastVolume = mediaPlayer.getVolume();
@@ -233,20 +229,20 @@ public class ShortPlayerController {
         muteBtnHBox.getChildren().add(slider);
     }
 
-    public void muteBtnHBoxEnter(MouseEvent mouseEvent) {
+    public void muteBtnHBoxEnter() {
         createVolumeSlider();
     }
 
-    public void muteBtnHBoxExit(MouseEvent mouseEvent) {
+    public void muteBtnHBoxExit() {
         muteBtnHBox.getChildren().remove(1);
         volumeSlider = null;
     }
 
-    public void seekShort(MouseEvent mouseEvent) {
+    public void seekShort() {
         mediaPlayer.seek(Duration.seconds(shortSlider.getValue()));
     }
 
-    public void subscribeBtnAction(ActionEvent actionEvent) throws IOException {
+    public void subscribeBtnAction() throws IOException {
         Request.subscribe(Request.getChannel(handle), MainController.user);
     }
 }

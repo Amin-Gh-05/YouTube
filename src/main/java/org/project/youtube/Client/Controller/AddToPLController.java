@@ -1,7 +1,6 @@
 package org.project.youtube.Client.Controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import org.project.youtube.Client.Model.Channel;
 import org.project.youtube.Client.Model.Playlist;
@@ -18,32 +17,28 @@ public class AddToPLController {
     Short shortVideo;
 
     @FXML
-    private Button addButton;
-
-    @FXML
     private ChoiceBox<String> plChoiceBox;
 
     public void initialize() throws IOException {
-         channel = getChannel(MainController.user.getHandle());
-         for(Playlist playlist : channel.getPlaylists()){
-             plChoiceBox.getItems().add(playlist.getName());
-         }
+        channel = getChannel(MainController.user.getHandle());
+        for (Playlist playlist : channel.getPlaylists()) {
+            plChoiceBox.getItems().add(playlist.getName());
+        }
     }
 
     @FXML
-    void addToPL()  {
+    void addToPL() {
         try {
 
             String name = plChoiceBox.getValue();
-            if(name != null){
+            if (name != null) {
                 if (video != null) {
                     for (Playlist playlist : channel.getPlaylists()) {
                         if (playlist.getName().equals(name)) {
                             addVideoToPlaylist(playlist, video);
                         }
                     }
-                }
-                else if (shortVideo != null) {
+                } else if (shortVideo != null) {
                     for (Playlist playlist : channel.getPlaylists()) {
                         if (playlist.getName().equals(name)) {
                             addShortToPlaylist(playlist, shortVideo);
@@ -52,10 +47,8 @@ public class AddToPLController {
                 }
             }
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
-
 }

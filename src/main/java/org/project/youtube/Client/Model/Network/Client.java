@@ -36,6 +36,7 @@ public class Client {
     public static String getStringResponse() throws IOException {
         return in.readUTF();
     }
+
     public static boolean getBooleanResponse() throws IOException {
         return in.readBoolean();
     }

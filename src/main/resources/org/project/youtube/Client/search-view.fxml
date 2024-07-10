@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.FlowPane?>
-
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="990.0" stylesheets="@search-view.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.SearchController">
-  <tabs>
-    <Tab text="Video">
-         <content>
-            <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
-               <content>
-                  <FlowPane fx:id="videosFlowPane" />
-               </content>
-            </ScrollPane>
-         </content>
-    </Tab>
-    <Tab text="Short">
-         <content>
-            <ScrollPane fitToWidth="true">
-               <content>
-                  <FlowPane fx:id="shortsFlowPane" />
-               </content>
-            </ScrollPane>
-         </content>
-    </Tab>
-      <Tab text="Channel">
-         <content>
-            <ScrollPane fitToWidth="true">
-               <content>
-                  <FlowPane fx:id="channelsFlowPane" />
-               </content>
-            </ScrollPane>
-         </content>
-      </Tab>
-  </tabs>
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0"
+         prefWidth="990.0" stylesheets="@search-view.css" tabClosingPolicy="UNAVAILABLE"
+         xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="org.project.youtube.Client.Controller.SearchController">
+    <tabs>
+        <Tab text="Video">
+            <content>
+                <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+                    <content>
+                        <FlowPane fx:id="videosFlowPane"/>
+                    </content>
+                </ScrollPane>
+            </content>
+        </Tab>
+        <Tab text="Short">
+            <content>
+                <ScrollPane fitToWidth="true">
+                    <content>
+                        <FlowPane fx:id="shortsFlowPane"/>
+                    </content>
+                </ScrollPane>
+            </content>
+        </Tab>
+        <Tab text="Channel">
+            <content>
+                <ScrollPane fitToWidth="true">
+                    <content>
+                        <FlowPane fx:id="channelsFlowPane"/>
+                    </content>
+                </ScrollPane>
+            </content>
+        </Tab>
+    </tabs>
 </TabPane>

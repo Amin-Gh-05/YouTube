@@ -15,7 +15,6 @@ import java.lang.reflect.Type;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringJoiner;
 import java.util.UUID;
 
 public class ClientService {
@@ -261,7 +260,8 @@ public class ClientService {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        Type listType = new TypeToken<List<Channel>>() {}.getType();
+        Type listType = new TypeToken<List<Channel>>() {
+        }.getType();
 
         User user = gson.fromJson(data.getString("user"), User.class);
         List<Channel> channelList = DatabaseManager.readChannels(user);
@@ -295,7 +295,8 @@ public class ClientService {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        Type listType = new TypeToken<List<Channel>>() {}.getType();
+        Type listType = new TypeToken<List<Channel>>() {
+        }.getType();
 
         List<Channel> channels = DatabaseManager.searchChannels(title);
 
@@ -308,7 +309,8 @@ public class ClientService {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        Type listType = new TypeToken<List<Video>>() {}.getType();
+        Type listType = new TypeToken<List<Video>>() {
+        }.getType();
 
         List<Video> videos = DatabaseManager.searchVideos(title);
 
@@ -322,7 +324,8 @@ public class ClientService {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        Type listType = new TypeToken<List<Short>>() {}.getType();
+        Type listType = new TypeToken<List<Short>>() {
+        }.getType();
 
         List<Short> shorts = DatabaseManager.searchShorts(title);
 
@@ -334,7 +337,8 @@ public class ClientService {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        Type listType = new TypeToken<List<Video>>() {}.getType();
+        Type listType = new TypeToken<List<Video>>() {
+        }.getType();
 
         List<Video> videos = DatabaseManager.readLatestVideos();
 
@@ -346,7 +350,8 @@ public class ClientService {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        Type listType = new TypeToken<List<Short>>() {}.getType();
+        Type listType = new TypeToken<List<Short>>() {
+        }.getType();
 
         List<Short> shorts = DatabaseManager.readLatestShorts();
 
@@ -358,7 +363,8 @@ public class ClientService {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        Type listType = new TypeToken<List<Video>>() {}.getType();
+        Type listType = new TypeToken<List<Video>>() {
+        }.getType();
 
         List<Video> videos = DatabaseManager.randomVideos();
 
@@ -370,7 +376,8 @@ public class ClientService {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        Type listType = new TypeToken<List<Short>>() {}.getType();
+        Type listType = new TypeToken<List<Short>>() {
+        }.getType();
 
         List<Short> shorts = DatabaseManager.randomShorts();
 
@@ -381,7 +388,8 @@ public class ClientService {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        Type listType = new TypeToken<List<Video>>() {}.getType();
+        Type listType = new TypeToken<List<Video>>() {
+        }.getType();
 
         User user = gson.fromJson(data.getString("user"), User.class);
         List<Video> videoList = DatabaseManager.readHomeVideos(user);
@@ -393,7 +401,8 @@ public class ClientService {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        Type listType = new TypeToken<List<Short>>() {}.getType();
+        Type listType = new TypeToken<List<Short>>() {
+        }.getType();
 
         User user = gson.fromJson(data.getString("user"), User.class);
         List<Short> shortList = DatabaseManager.readHomeShorts(user);

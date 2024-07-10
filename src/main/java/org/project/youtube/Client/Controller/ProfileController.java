@@ -6,7 +6,6 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
@@ -16,6 +15,7 @@ import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
 import org.controlsfx.control.Notifications;
 import org.project.youtube.Client.Model.Channel;
+import org.project.youtube.Client.Model.Network.Request;
 import org.project.youtube.Client.Model.User;
 
 import java.io.ByteArrayInputStream;
@@ -29,8 +29,6 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.project.youtube.Client.Model.Network.Request.getChannel;
-import static org.project.youtube.Client.Model.Network.Request.updateUser;
 
 public class ProfileController {
     public static List<String> countries = new ArrayList<>();
@@ -61,9 +59,6 @@ public class ProfileController {
 
     @FXML
     private Circle profile;
-
-    @FXML
-    private ImageView editProfileButton;
 
     // -------------------- PERSONAL INFO ---------------------
 
@@ -108,13 +103,13 @@ public class ProfileController {
             Image img = new Image(new ByteArrayInputStream(user.getProfilePic()));
             profile.setFill(new ImagePattern(img));
         }
-        String dj = String.valueOf(user.getJoinedDate());
-        MJField.setText(dj.substring(5, 6));
-        DJField.setText(dj.substring(8, 9));
-        YJField.setText(dj.substring(0, 3));
+        LocalDate dj = user.getJoinedDate();
+        MJField.setText(dj.format(DateTimeFormatter.ofPattern("MM")));
+        DJField.setText(dj.format(DateTimeFormatter.ofPattern("dd")));
+        YJField.setText(dj.format(DateTimeFormatter.ofPattern("yyyy")));
 
         // initializing personal info
-        nameField.setText(user.getFirstName());
+
         lastnameField.setText(user.getLastName());
         emailField.setText(user.getEmail());
         LocalDate dob = user.getDateOfBirth();
@@ -145,7 +140,7 @@ public class ProfileController {
         logos.add(new ImageView(new Image("/org/project/youtube/Client/images/linkedin.png")));
         logos.add(new ImageView(new Image("/org/project/youtube/Client/images/reddit.png")));
 
-        Channel ch = getChannel(user.getHandle());
+        Channel ch = Request.getChannel(user.getHandle());
         urls.add(new Hyperlink(ch.getWebsite()));
         urls.add(new Hyperlink(ch.getFacebook()));
         urls.add(new Hyperlink(ch.getInstagram()));
@@ -212,14 +207,6 @@ public class ProfileController {
         femaleBox.setVisible(true);
         maleBox.setVisible(true);
 
-        if (genderField != null) {
-            if (genderField.getText().equals("female")) {
-                femaleBox.setSelected(true);
-            } else if (genderField.getText().equals("male")) {
-                maleBox.setSelected(true);
-            }
-        }
-
         regionBox.setVisible(true);
         regionBox.setValue(regionField.getText());
 
@@ -242,34 +229,34 @@ public class ProfileController {
 
     public boolean checkErrors() {
         boolean flag = false;
-        if(usernameEditor.getText().equals("")){
+        if (usernameEditor.getText().isEmpty()) {
             flag = true;
             usernameAlert.setVisible(true);
             Notifications.create().title("Error").text("Username field can't be empty.").showError();
         }
-        if(nameEditor.getText().equals("")){
+        if (nameEditor.getText().isEmpty()) {
             flag = true;
             nameAlert.setVisible(true);
             Notifications.create().title("Error").text("Name field can't be empty.").showError();
         }
 
-        if(lastnameEditor.getText().equals("")){
+        if (lastnameEditor.getText().isEmpty()) {
             flag = true;
             lastnameAlert.setVisible(true);
             Notifications.create().title("Error").text("Last name field can't be empty.").showError();
         }
-        if(emailEditor.getText().equals("")){
+        if (emailEditor.getText().isEmpty()) {
             flag = true;
             emailAlert.setVisible(true);
             Notifications.create().title("Error").text("Email field can't be empty.").showError();
         }
-        if((maleBox.isSelected() && femaleBox.isSelected()) || (!maleBox.isSelected() && !femaleBox.isSelected())){
+        if ((maleBox.isSelected() && femaleBox.isSelected()) || (!maleBox.isSelected() && !femaleBox.isSelected())) {
             flag = true;
             genderAlert.setVisible(true);
             Notifications.create().title("Error").text("Please select only one gender. We live in Iran.").showError();
         }
 
-        if(!checkRegex("[\\w-.]+@[\\w-.]+\\.[\\w-]{2,4}", emailEditor.getText())){
+        if (!checkRegex("[\\w-.]+@[\\w-.]+\\.[\\w-]{2,4}", emailEditor.getText())) {
             flag = true;
             emailAlert.setVisible(true);
             Notifications.create().title("Error").text("Enter a valid Email.").showError();
@@ -307,21 +294,27 @@ public class ProfileController {
             DOBField.setText(dob.format(DateTimeFormatter.ofPattern("dd")));
             YOBField.setText(dob.format(DateTimeFormatter.ofPattern("yyyy")));
         }
+        datePicker.setVisible(false);
 
-        if(maleBox.isSelected()){
+        if (maleBox.isSelected()) {
             user.setGender("male");
             genderField.setText("male");
         } else {
             user.setGender("female");
             genderField.setText("female");
         }
+        maleBox.setVisible(false);
+        femaleBox.setVisible(false);
+        genderField.setVisible(true);
+
         regionField.setText(regionBox.getValue());
         user.setRegion(regionBox.getValue());
+        regionBox.setVisible(false);
 
         makeChanges.setVisible(false);
-        updateUser(user);
-        editProfileButton.setDisable(false);
-
+        Request.updateUser(user);
+        System.out.println("| user was updated");
+        editProfile.setDisable(false);
     }
 
     private File pickFile() {
@@ -344,7 +337,7 @@ public class ProfileController {
         if (file != null) {
             user.setProfilePic(FileUtils.readFileToByteArray(file));
         }
-        updateUser(user);
+        Request.updateUser(user);
         System.out.println("| profile picture was updated");
     }
 }

@@ -3,7 +3,6 @@ package org.project.youtube.Client.Model.Network;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import javafx.geometry.VerticalDirection;
 import org.json.JSONObject;
 import org.project.youtube.Client.Controller.MainController;
 import org.project.youtube.Client.Model.Short;
@@ -444,7 +443,7 @@ public class Request {
         values.add(handle);
 
         Client.sendRequest(jsonBuilder("isSubscribed", keys, values));
-        return  Client.getBooleanResponse();
+        return Client.getBooleanResponse();
     }
 
     public static List<Channel> searchChannels(String title) throws IOException {
@@ -616,7 +615,6 @@ public class Request {
         }.getType();
         return gson.fromJson(respStr, listType);
     }
-
 
 
     // ======================= Update =======================

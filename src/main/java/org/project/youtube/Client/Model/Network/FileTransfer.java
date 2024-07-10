@@ -5,9 +5,9 @@ import java.util.UUID;
 
 public class FileTransfer {
     public static Thread sendFile(String path, UUID ID, String type) {
-         Thread thread = new Thread(new Uploader(path, ID, type));
-         thread.start();
-         return thread;
+        Thread thread = new Thread(new Uploader(path, ID, type));
+        thread.start();
+        return thread;
     }
 
     public static Thread getFile() throws IOException {

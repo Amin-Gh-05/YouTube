@@ -7,7 +7,7 @@ import java.io.IOException;
 public class Downloader implements Runnable {
     private final DataInputStream in;
 
-    public Downloader () throws IOException {
+    public Downloader() throws IOException {
         in = new DataInputStream(Client.getFileTransferSocket().getInputStream());
     }
 
@@ -26,8 +26,7 @@ public class Downloader implements Runnable {
                 size -= bytes;
             }
             fileOutputStream.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }

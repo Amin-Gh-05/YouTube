@@ -18,9 +18,9 @@ import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
-import org.project.youtube.Client.Model.Network.Request;
-import org.project.youtube.Client.Model.Short;
 import org.project.youtube.Client.Model.*;
+import org.project.youtube.Client.Model.Short;
+import org.project.youtube.Client.Model.Network.Request;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -447,7 +447,7 @@ public class MainController implements Initializable {
 
         mainPanel.getChildren().clear();
         for (Video video : channel.getVideos()) {
-            Video video1 = Request.getVideo(video.getId());
+            Request.getVideo(video.getId());
             mainPanel.getChildren().add(loadThumbnail(video));
         }
     }

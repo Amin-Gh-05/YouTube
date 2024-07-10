@@ -61,8 +61,7 @@ public class CommentController {
 
             if (canLike) {
                 dislikeBtn.setDisable(true);
-            }
-            else {
+            } else {
                 dislikeBtn.setDisable(false);
                 Request.unLikeVideoComment("L", MainController.user, comment);
             }
@@ -76,8 +75,7 @@ public class CommentController {
 
             if (canLike) {
                 dislikeBtn.setDisable(true);
-            }
-            else {
+            } else {
                 dislikeBtn.setDisable(false);
                 Request.unLikeShortComment("L", MainController.user, comment);
             }
@@ -96,8 +94,7 @@ public class CommentController {
 
             if (canDislike) {
                 likeBtn.setDisable(true);
-            }
-            else {
+            } else {
                 likeBtn.setDisable(false);
                 Request.unLikeVideoComment("D", MainController.user, comment);
             }
@@ -111,8 +108,7 @@ public class CommentController {
 
             if (canDislike) {
                 likeBtn.setDisable(true);
-            }
-            else {
+            } else {
                 likeBtn.setDisable(false);
                 Request.unLikeShortComment("D", MainController.user, comment);
             }
