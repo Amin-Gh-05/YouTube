@@ -208,8 +208,6 @@ public class ProfileController {
         emailEditor.setText(emailField.getText());
 
         datePicker.setVisible(true);
-        if(!YOBField.getText().equals("") || !MOBField.getText().equals("") || !DOBField.getText().equals(""))
-            datePicker.setValue(LocalDate.of(Integer.parseInt(YOBField.getText()), Integer.parseInt(MOBField.getText()), Integer.parseInt(DOBField.getText())));
 
         femaleBox.setVisible(true);
         maleBox.setVisible(true);
