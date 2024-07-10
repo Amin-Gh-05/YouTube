@@ -59,15 +59,31 @@ Since the components are independent, changes to one component do not affect the
 
 ### Phase 2
 On this phase, we started designing all FXML views in the project, filling them with buttons and setting alerts and notifications. 
-> mediaplayer
-> comments
+1. Mediaplayer
+<br>FIRST we used javafx mediaPlayer and expand it to the point that in video display, the slidebar on the bottom will fade automatically after a few seconds. You can also change video's rate or mute it.
+2. Connecting controllers using fxmlLoader
+<br>About half of the program is being executed on our main panel. On this panel, we load other panels such as video view, channels, profile etc.
+4. Alerts and notifications
+<br>In case to show some alerts, we used java's own notification class from controsfx library. 
 
 ### Phase 3
-About half of the program is being executed on our main panel. On this panel, we load other panels such as video view, channels, profile etc.
-<br>And besides our frontend, the connection our sockets and different part of program have is quite fascinating. The data exchange between server and client was a part where we could show our socket programming skills.
 
+And besides our frontend, the connection our sockets and different part of program have is quite fascinating. The data exchange between server and client was a part where we could show our socket programming skills.
+
+### Phase 4
+Bonus Features:
+1. server log
+<br>Every interaction that server does is being saved and written into a file so you can always access all we have done from the beginning till now.
+2. Short videos
+<br>The difference between short and video is in size and the media player that plays the clip.
+3. Comment like
+4. Some studio features
 
 ### Ideas And Chalenges🧠
+
+#### MVC design pattern
+As said before, our design pattern is in MVC format. This design is built based on connections, like UI, interface with functions, and functions with database.<br>In client package, we have a Controller package which is full of controllers connected to our fxml View files. Also, there is a Model package including all DTOs and a network folder which includes classes that connect client to server using Request class as API, Downloader as a reciever for video files, FileTransfer thread, and Uploader class which is designed to send videos to server.
+<br>Since the server doesn't have anything to do with UI in this program, there is no voice 
 
 #### Database
 <p align="center">
@@ -76,15 +92,19 @@ About half of the program is being executed on our main panel. On this panel, we
 CRUD is an acronym for CREATE, READ(SELECT), UPDATE, and DELETE statements in SQL Server. CRUD in database terms can be mentioned as Data Manipulation Language (DML) Statements as well. Data Manipulation Language is used to manage or manipulate the data present inside database Tables.
 <br>DTO stands for Data Transfer Object which is a design pattern. It is one of the EPA patterns which we call when we need to use such objects that encapsulate and aggregate data for transfer. A DTO is similar to a data structure, but like a data structure, it doesn't contain any business logic.
 
-#### Server log
-Every interaction that server does is being saved and written into a file so you can always access all we have done from the beginning till now.
-
 #### Download and send files
+We use byte arrays to exchange videos between server and client. Every file transfer needs a FileTransfer thread which will be running parallel to our main threads, this system will let us load videos and images while loading an fxml panel.
+<br>However, since the server has nothing to do with user and view, the only package we have for server is a Model package including DTOs, a network package(kind of similiar to client network package), and a database including DatabaseManager and ClientService which connects and translates json objects sent by Request class.
 
 #### API
+Our API is built based on gson library which is a library for serializing/deserializing java objects to JSON and back.
 
 #### FXML loader
 In this program, we normally don't change scenes, most of panels are being loaded on the main panel and studio panel using FXMLLoader and passing controllers. 
+
+#### History
+Each time the user logins, program builds(or if it already exists, reads) a file from program's cache. With each click on any thumbnail, updating the file using serialization.<br>Serialization in Java allows us to convert an Object to stream that we can save as file for later usage.
+<br>While a video is playing, every five second the file updates the video's last seen second.
 
 
 ## Program Made By👩🏽‍💻
