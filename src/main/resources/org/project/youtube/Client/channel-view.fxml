@@ -40,7 +40,7 @@
                 <Label fx:id="dateLabel" layoutX="470.0" layoutY="16.0" text="Date" />
                 <Label fx:id="viewLabel" layoutX="701.0" layoutY="67.0" text="Views" />
                 <Button fx:id="submitButton" layoutX="698.0" layoutY="11.0" mnemonicParsing="false" onAction="#submitChanges" styleClass="actionButton" text="Submit" visible="false" />
-            <Button fx:id="subscribeButton" layoutX="697.0" layoutY="127.0" mnemonicParsing="false" onAction="#subChannel" text="Subscribe" />
+            <Button fx:id="subscribeButton" layoutX="697.0" layoutY="127.0" mnemonicParsing="false" onAction="#subChannel" styleClass="actionButton" text="Subscribe" />
             </children>
         </AnchorPane>
         <TabPane layoutY="380.0" prefHeight="520.0" prefWidth="900.0" tabClosingPolicy="UNAVAILABLE">

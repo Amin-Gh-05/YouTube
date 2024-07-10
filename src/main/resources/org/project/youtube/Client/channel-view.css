@@ -59,3 +59,11 @@
     -fx-text-fill: #ffffff;
 }
 
+.actionButton {
+    -fx-padding: 5px;
+    -fx-background-radius: 25px;
+    -fx-background-color: #F5F3F4;
+    -fx-border-radius: 25px;
+    -fx-border-color: #E32636;
+    -fx-cursor: hand;
+}

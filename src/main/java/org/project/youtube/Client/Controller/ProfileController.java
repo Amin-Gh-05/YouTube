@@ -211,10 +211,13 @@ public class ProfileController {
 
         femaleBox.setVisible(true);
         maleBox.setVisible(true);
-        if (genderField.getText().equals("female")) {
-            femaleBox.setSelected(true);
-        } else if (genderField.getText().equals("male")) {
-            maleBox.setSelected(true);
+
+        if (genderField != null) {
+            if (genderField.getText().equals("female")) {
+                femaleBox.setSelected(true);
+            } else if (genderField.getText().equals("male")) {
+                maleBox.setSelected(true);
+            }
         }
 
         regionBox.setVisible(true);
@@ -225,7 +228,7 @@ public class ProfileController {
     // checking for errors and setting user information
 
     @FXML
-    void CheckChanges(MouseEvent event) throws IOException {
+    void CheckChanges() throws IOException {
         usernameAlert.setVisible(false);
         nameAlert.setVisible(false);
         lastnameAlert.setVisible(false);
