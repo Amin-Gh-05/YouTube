@@ -2,13 +2,14 @@
 ![Static Badge](https://img.shields.io/badge/SBU_University-b?logo=bookstack&logoColor=red&labelColor=black&color=green)
 ![powered by](https://img.shields.io/badge/Powered_By-JAVA-blue)
 ## Table of contents 🧾
-- [Introduction 💁]()
-- [Getting started 🧗]()
-    - [Dependensies 🛠️]()
-    - [Welcome 👾]()
-    - [How to run the program 🦦]()
-- [Program Made By 👩🏽‍💻]()
-- 
+- [Introduction 💁](https://github.com/Amin-Gh-05/YouTube/tree/Reports#introduction)
+- [Getting started 🧗](https://github.com/Amin-Gh-05/YouTube/tree/Reports#getting-started)
+    - [Dependensies 🛠️](https://github.com/Amin-Gh-05/YouTube/tree/Reports#dependencies%EF%B8%8F)
+    - [Welcome 👾](https://github.com/Amin-Gh-05/YouTube/tree/Reports#welcome)
+    - [How to run the program 🦦](https://github.com/Amin-Gh-05/YouTube/tree/Reports#how-to-run-the-program)
+- [Program Made By 👩🏽‍💻](https://github.com/Amin-Gh-05/YouTube/edit/Reports/Readme.md#program-made-by)
+- [Special thanks to 🙏](https://github.com/Amin-Gh-05/YouTube/edit/Reports/Readme.md#special-thanks-t)
+- [Resources 📚](https://github.com/Amin-Gh-05/YouTube/edit/Reports/Readme.md#resources)
 
 
 ## Introduction💁
