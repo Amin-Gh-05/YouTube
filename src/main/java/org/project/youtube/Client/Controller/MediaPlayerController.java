@@ -17,9 +17,12 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.util.Duration;
+import org.project.youtube.Client.Model.History;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.UUID;
 import java.util.concurrent.Callable;
 
 public class MediaPlayerController {
@@ -72,6 +75,7 @@ public class MediaPlayerController {
 
 
     private String path;
+    private UUID videoID;
     private Media media;
     private MediaPlayer mediaPlayer;
     public static Thread fadeOutThread;
@@ -79,14 +83,16 @@ public class MediaPlayerController {
     private String totalTimeStr;
     private Pane pane;
     static boolean c;
+    private int a;
 
 
     public void setPane(Pane pane) {
         this.pane = pane;
     }
 
-    public void setPath(String path) {
+    public void setPath(String path, UUID videoID) {
         this.path = path;
+        this.videoID = videoID;
         media = new Media(path);
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
@@ -105,7 +111,21 @@ public class MediaPlayerController {
             videoSlider.setMax(totalDuration.toSeconds());
         });
 
-        mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> videoSlider.setValue(newValue.toSeconds()));
+
+        a = 0;
+        mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
+            if (a == 4) {
+                History.updateHistory(videoID, (int)newValue.toSeconds());
+                try {
+                    History.serializeHistory();
+                } catch (IOException e) {
+                    System.out.println("| error in history serializing");;
+                }
+                a = 0;
+            }
+            videoSlider.setValue(newValue.toSeconds());
+            a++;
+        });
 
         timeLbl.textProperty().bind(Bindings.createStringBinding(() -> getTime(mediaPlayer.getCurrentTime()) + " / " + totalTimeStr, mediaPlayer.currentTimeProperty()));
 
@@ -217,12 +237,12 @@ public class MediaPlayerController {
         playClickEffect(playBtn);
 
         if (media == null || mediaPlayer == null) {
-            setPath(path);
+            setPath(path, videoID);
             initBindings();
         }
 
         if (!mediaPlayer.getStatus().equals(MediaPlayer.Status.READY) && !mediaPlayer.getStatus().equals(MediaPlayer.Status.STOPPED) && !mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
-            setPath(path);
+            setPath(path, videoID);
             initBindings();
         }
 

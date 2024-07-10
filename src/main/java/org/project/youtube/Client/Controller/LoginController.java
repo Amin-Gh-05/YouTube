@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.project.youtube.Client.Model.History;
 import org.project.youtube.Client.Model.Network.Request;
 
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class LoginController {
     private TextField userName;
 
     @FXML
-    void signIn(ActionEvent event) throws IOException {
+    void signIn(ActionEvent event) throws IOException, ClassNotFoundException {
         int usernameInt = checkUsername(userName.getText());
         if (usernameInt == 0) {
             return;
@@ -36,6 +37,7 @@ public class LoginController {
 
         MainController.user = Request.login(usernameInt, userName.getText(), DigestUtils.sha256Hex(passWord.getText()));
         MainController.channel = Request.getChannel(MainController.user.getHandle());
+        History.deserializeHistory();
         turnBack(event);
     }
 
