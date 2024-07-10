@@ -116,11 +116,6 @@ public class MediaPlayerController {
         mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
             if (a == 4) {
                 History.updateHistory(videoID, (int)newValue.toSeconds());
-                try {
-                    History.serializeHistory();
-                } catch (IOException e) {
-                    System.out.println("| error in history serializing");;
-                }
                 a = 0;
             }
             videoSlider.setValue(newValue.toSeconds());

@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.project.youtube.Client.Controller.MainController;
+import org.project.youtube.Client.Model.History;
 import org.project.youtube.Client.Model.Network.Client;
 import org.project.youtube.Client.Model.Network.Request;
 
@@ -54,6 +55,7 @@ public class Main extends Application {
 
     @Override
     public void stop() throws Exception {
+        History.serializeHistory();
         Request.logout();
         Client.close();
     }
