@@ -31,8 +31,16 @@ welcome to YouTube, a place to share and stream, where you can be more than a vi
 > Also hope you have fun finding our little easter eggs which are hidden in the program;)
 
 ### How to run the program🦦
-
-
+First clone the project and open cmd in the project folder. Then enter these commands:
+```
+javac ServerMain.java
+java ServerMain
+```
+Then run the main class in client package:
+```
+javac Main.java
+java Main
+```
 ## Program Made By👩🏽‍💻
 - Amin Ghoorchian
 - AmirAli Araghi
