@@ -112,7 +112,7 @@ public class MediaPlayerController {
 
         a = 0;
         mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
-            if (a == 4) {
+            if (a == 4000) {
                 History.updateHistory(videoID, (int)newValue.toSeconds());
                 a = 0;
             }
