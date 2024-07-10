@@ -4,15 +4,14 @@ import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 import org.project.youtube.Client.Main;
 import org.project.youtube.Client.Model.Comment;
@@ -22,8 +21,12 @@ import org.project.youtube.Client.Model.User;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.UUID;
+
+import static org.project.youtube.Client.Model.Network.Request.createVideoComment;
 
 public class ShortController {
     Short shortVideo;
@@ -70,8 +73,20 @@ public class ShortController {
     @FXML
     private FlowPane commentsFlowPane;
 
+    @FXML
+    private Label likeCnt, viewCnt;
+
 
     public void loadPlayer() throws IOException {
+        if(MainController.user == null) {
+            likeBtn.setDisable(true);
+            dislikeBtn.setDisable(true);
+            saveToPLBtn.setDisable(true);
+        }
+
+        likeCnt.setText(String.valueOf(shortVideo.getLikes()));
+        viewCnt.setText("view: "+ String.valueOf(shortVideo.getViews()));
+
         for (int i = 0; i < shortVideoList.size(); i++) {
             if (shortVideoList.get(i).getId().toString().equals(shortVideo.getId().toString())) {
                 shortNumber = i;
@@ -225,7 +240,38 @@ public class ShortController {
 
             commentsScrollPane.setPrefWidth(305);
 
-            // TODO new comment
+            Label cmt = new Label("Comments");
+            cmt.setFont(new Font(20));
+            commentsFlowPane.getChildren().add(cmt);
+
+            TextField commentSection = new TextField();
+            commentSection.setPromptText("Write your comment...");
+            commentSection.setAlignment(Pos.TOP_LEFT);
+            commentSection.setFont(new Font(16));
+            commentSection.setPrefHeight(70);
+            commentSection.setPrefWidth(240);
+
+            Button postComment = new Button();
+            postComment.getStyleClass().add("actionButton");
+            postComment.setText("Post");
+            postComment.setOnAction(event -> {
+                if(commentSection.getText() != null){
+                    Comment comment = new Comment(UUID.randomUUID(), shortVideo.getId(), MainController.user.getYid(), commentSection.getText(), 0, String.valueOf(LocalDate.now()));
+                    try {
+                        Request.createShortComment(comment);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+
+            HBox newCmt = new HBox(commentSection);
+            newCmt.setSpacing(10);
+            newCmt.getChildren().add(postComment);
+
+            if(MainController.user == null) {
+                newCmt.setDisable(true);
+            }
 
             List<Comment> commentList = shortVideoList.get(shortNumber).getComments();
             for (Comment comment : commentList) {

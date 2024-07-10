@@ -23,7 +23,7 @@
                 <Insets left="5.0" />
             </padding>
         </HBox>
-        <Label fx:id="textLabel" layoutX="112.66666666666666" layoutY="56.66666666666667" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="212.0" text="Text" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="55.0">
+        <Label fx:id="textLabel" layoutX="112.66666666666666" layoutY="56.66666666666667" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="212.0" text="Text" textOverrun="CLIP" wrapText="true" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="55.0">
             <contextMenu>
                 <ContextMenu fx:id="changeMenu">
                     <items>
