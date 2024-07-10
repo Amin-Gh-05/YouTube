@@ -7,13 +7,15 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import org.controlsfx.control.Notifications;
 import org.project.youtube.Client.Main;
-import org.project.youtube.Client.Model.*;
+import org.project.youtube.Client.Model.Channel;
+import org.project.youtube.Client.Model.Comment;
 import org.project.youtube.Client.Model.Network.Request;
+import org.project.youtube.Client.Model.User;
+import org.project.youtube.Client.Model.Video;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -32,19 +34,22 @@ public class VideoController {
 
     MainController controller;
 
+    @FXML
+    private ScrollPane rootPane;
+
     // ------------------------ VIDEO ------------------------
 
     @FXML
     private VBox mainVideoBox;
 
     @FXML
-    private Pane mediaPlayerPane;
+    private AnchorPane mediaPlayerPane;
 
     @FXML
     private Label likeCount, viewCount, titleLabel, dateCreatedLabel, description;
 
     @FXML
-    private Button likeImage, dislikeImage, saveButton, reportButton;
+    private Button likeImage, dislikeImage, saveButton;
 
     // ---------------------- THUMBNAILS ----------------------
 
@@ -68,7 +73,7 @@ public class VideoController {
     }
 
     @FXML
-    void saveToPlayList(ActionEvent event) throws IOException {
+    void saveToPlayList() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/addToPL-view.fxml"));
         DialogPane addToPL = loader.load();
         AddToPLController controller = loader.getController();
@@ -113,7 +118,7 @@ public class VideoController {
 
     @FXML
     void postNewComment(ActionEvent e) throws IOException {
-        if(commentSection.getText() != null){
+        if (commentSection.getText() != null) {
             Comment comment = new Comment(UUID.randomUUID(), video.getId(), MainController.user.getYid(), commentSection.getText(), 0, String.valueOf(LocalDate.now()));
             createVideoComment(comment);
         }
@@ -155,7 +160,7 @@ public class VideoController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
         dateCreatedLabel.setText(video.getCreatedDateTime().format(formatter));
         description.setText(video.getDescription());
-        if(MainController.user == null) {
+        if (MainController.user == null) {
             likeImage.setDisable(true);
             dislikeImage.setDisable(true);
             saveButton.setDisable(true);
@@ -163,13 +168,12 @@ public class VideoController {
             commentSection.setDisable(true);
         }
 
-        // loading first 10 comments
+        rootPane.prefWidthProperty().bind(controller.getMainPanel().widthProperty());
+        rootPane.prefHeightProperty().bind(controller.getMainPanel().heightProperty());
+
         commentPNT = 0;
         loadComments();
-
-        // loading 10 thumbnails
         loadThumbnails();
-
         loadPlayer();
     }
 

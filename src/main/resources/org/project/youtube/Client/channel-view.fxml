@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane prefHeight="900.0" prefWidth="900.0" stylesheets="@channel-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.ChannelController">
+<AnchorPane fx:id="rootPane" prefHeight="900.0" prefWidth="900.0" stylesheets="@channel-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.ChannelController">
     <children>
         <ImageView fx:id="bannerImage" fitHeight="150.0" fitWidth="900.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <AnchorPane fx:id="infoPanel" layoutY="150.0" prefHeight="223.0" prefWidth="900.0">
@@ -49,7 +49,7 @@
                     <content>
                         <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
                             <content>
-                                <FlowPane fx:id="videosPanel" alignment="TOP_CENTER" hgap="10.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="900.0" vgap="10.0">
+                                <FlowPane fx:id="videosPanel" hgap="10.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="900.0" vgap="10.0">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding></FlowPane>
@@ -61,7 +61,7 @@
                     <content>
                         <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
                             <content>
-                                <FlowPane fx:id="shortsPanel" alignment="TOP_CENTER" hgap="10.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="900.0" vgap="10.0">
+                                <FlowPane fx:id="shortsPanel" hgap="10.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="900.0" vgap="10.0">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding></FlowPane>

@@ -119,15 +119,4 @@ public class ThumbnailController {
     public Label getViewsLabel() {
         return viewsLabel;
     }
-
-//    public void init() throws IOException {
-//        Image thumbnail = new Image(new ByteArrayInputStream(video.getThumbnail()));
-//        thumbnailImage.setImage(thumbnail);
-//        Image logo = new Image(new ByteArrayInputStream(getChannel(video.getVideoHandle()).getLogo()));
-//        profileImage.setFill(new ImagePattern(logo));
-//        titleLabel.setText(video.getTitle());
-//        viewsLabel.setText(String.valueOf(video.getViews()));
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
-//        dateLabel.setText(video.getCreatedDateTime().format(formatter));
-//    }
 }

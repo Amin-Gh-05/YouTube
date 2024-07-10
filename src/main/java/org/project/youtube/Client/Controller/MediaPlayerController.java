@@ -9,10 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -81,12 +78,12 @@ public class MediaPlayerController {
     public static Thread fadeOutThread;
     private double lastVolume;
     private String totalTimeStr;
-    private Pane pane;
+    private AnchorPane pane;
     static boolean c;
     private int a;
 
 
-    public void setPane(Pane pane) {
+    public void setPane(AnchorPane pane) {
         this.pane = pane;
     }
 

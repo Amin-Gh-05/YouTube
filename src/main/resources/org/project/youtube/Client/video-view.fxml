@@ -6,23 +6,19 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane hbarPolicy="NEVER" prefHeight="683.0" prefWidth="1103.0" styleClass="primary-color" stylesheets="@video-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.VideoController">
+<ScrollPane fx:id="rootPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="primary-color" stylesheets="@video-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.VideoController">
    <content>
-      <HBox prefHeight="683.0" prefWidth="1103.0">
+      <HBox prefHeight="650.0" prefWidth="1103.0">
          <children>
-            <VBox fx:id="mainVideoBox" spacing="10.0">
+            <VBox fx:id="mainVideoBox" maxWidth="1.7976931348623157E308" prefHeight="662.0" prefWidth="720.0" spacing="10.0">
                <children>
-                  <Pane fx:id="mediaPlayerPane" minHeight="240.0" minWidth="320.0" prefHeight="380.0" prefWidth="680.0">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Pane>
-                  <HBox prefHeight="38.0" prefWidth="679.0">
+                  <AnchorPane fx:id="mediaPlayerPane" prefHeight="360.0" prefWidth="680.0" />
+                  <HBox alignment="CENTER_LEFT">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -80,7 +76,7 @@
                         </HBox>
                      </children>
                   </HBox>
-                  <Label fx:id="titleLabel" prefHeight="34.0" prefWidth="674.0" text="title" textOverrun="CLIP" wrapText="true">
+                  <Label fx:id="titleLabel" prefHeight="34.0" prefWidth="568.0" text="title" textOverrun="CLIP" wrapText="true">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -99,7 +95,7 @@
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <Label fx:id="description" layoutX="30.0" layoutY="485.0" lineSpacing="2.0" prefHeight="26.0" prefWidth="677.0" text="Description" textOverrun="CLIP" wrapText="true">
+                  <Label fx:id="description" layoutX="30.0" layoutY="485.0" lineSpacing="2.0" prefHeight="26.0" prefWidth="579.0" text="Description" textOverrun="CLIP" wrapText="true">
                      <padding>
                         <Insets left="5.0" right="5.0" />
                      </padding>
@@ -120,7 +116,7 @@
                   </Label>
                   <HBox prefHeight="173.0" prefWidth="680.0">
                      <children>
-                        <TextField fx:id="commentSection" alignment="TOP_LEFT" prefHeight="88.0" prefWidth="582.0" promptText="write your comment..." HBox.hgrow="NEVER">
+                        <TextField fx:id="commentSection" alignment="TOP_LEFT" prefHeight="88.0" prefWidth="582.0" promptText="write your comment...">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -149,12 +145,12 @@
                </padding>
             </VBox>
             <Separator orientation="VERTICAL" prefHeight="900.0" />
-            <VBox prefHeight="900.0" prefWidth="356.0" spacing="10.0">
+            <VBox fx:id="thumbnailBox" maxWidth="360.0" spacing="10.0">
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
                <children>
-                  <Label text="Suggested Videos">
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="325.0" text="Suggested Videos">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -162,25 +158,11 @@
                         <Insets left="10.0" top="20.0" />
                      </VBox.margin>
                   </Label>
-                  <ScrollPane hbarPolicy="NEVER" prefHeight="609.0" prefWidth="339.0">
-                     <content>
-                        <VBox fx:id="thumbnailBox" prefWidth="334.0" spacing="10.0">
-                           <children>
-                              <Button fx:id="moreVideos" mnemonicParsing="false" onAction="#loadThumbnails" styleClass="moreButton" stylesheets="@video-view.css" text="More Videos...">
-                                 <font>
-                                    <Font size="13.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </Button>
-                           </children>
-                           <padding>
-                              <Insets left="6.0" right="6.0" top="10.0" />
-                           </padding>
-                        </VBox>
-                     </content>
-                  </ScrollPane>
+                  <Button fx:id="moreVideos" mnemonicParsing="false" onAction="#loadThumbnails" styleClass="moreButton" stylesheets="@video-view.css" text="More Videos...">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
                </children>
             </VBox>
          </children>

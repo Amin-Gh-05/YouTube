@@ -1,6 +1,5 @@
 package org.project.youtube.Client.Controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -32,7 +31,7 @@ public class AddToPLController {
     }
 
     @FXML
-    void addToPL(ActionEvent event)  {
+    void addToPL()  {
         try {
 
             String name = plChoiceBox.getValue();
