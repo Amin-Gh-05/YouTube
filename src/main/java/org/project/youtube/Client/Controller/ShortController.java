@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.project.youtube.Client.Model.Network.Request.createVideoComment;
+import static org.project.youtube.Client.Model.Network.Request.unLikeShort;
 
 public class ShortController {
     Short shortVideo;
@@ -98,7 +99,7 @@ public class ShortController {
         }
 
         FXMLLoader shortPlayerLoader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/short-player.fxml"));
-        BorderPane shortPlayer = shortPlayerLoader.load();
+        AnchorPane shortPlayer = shortPlayerLoader.load();
         playerPane.getChildren().clear();
         playerPane.getChildren().add(shortPlayer);
 
@@ -110,7 +111,12 @@ public class ShortController {
         shortPlayerController.setHandle(shortVideo.getShortHandle());
         shortPlayerController.setTitle(shortVideo.getTitle());
         shortPlayerController.setProfileImage(shortVideo.getShortHandle());
-        if (Request.isSubscribed(MainController.user.getYid().toString(), shortVideo.getShortHandle())) {
+        if (MainController.user != null) {
+            if (Request.isSubscribed(MainController.user.getYid().toString(), shortVideo.getShortHandle())) {
+                shortPlayerController.disableSubscribeBtn();
+            }
+        }
+        else {
             shortPlayerController.disableSubscribeBtn();
         }
     }
