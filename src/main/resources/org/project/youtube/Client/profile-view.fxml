@@ -23,7 +23,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="571.0" prefWidth="774.0" stylesheets="@profile-view.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.project.youtube.Client.Controller.ProfileController">
    <children>
-      <AnchorPane prefHeight="228.0" prefWidth="774.0" styleClass="primary-color" stylesheets="@profile-view.css">
+      <AnchorPane prefHeight="234.0" prefWidth="774.0" styleClass="primary-color" stylesheets="@profile-view.css">
          <children>
             <Circle fx:id="profile" layoutX="124.0" layoutY="107.0" radius="92.0" stroke="BLACK" strokeType="INSIDE">
                <fill>

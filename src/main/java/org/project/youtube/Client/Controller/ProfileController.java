@@ -14,6 +14,7 @@ import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
+import org.controlsfx.control.Notifications;
 import org.project.youtube.Client.Model.Channel;
 import org.project.youtube.Client.Model.User;
 
@@ -39,11 +40,8 @@ public class ProfileController {
     public static Image alertSign = new Image("/org/project/youtube/Client/images/important.png");
     static User user;
 
-    List<HBox> linkBoxes = new ArrayList<>();
-    List<ImageView> alertSigns = new ArrayList<>();
     List<ImageView> logos = new ArrayList<>();
     List<Hyperlink> urls = new ArrayList<>();
-    List<TextField> urlEditor = new ArrayList<>();
 
     // ------------------------ HEADER ------------------------
 
@@ -164,25 +162,13 @@ public class ProfileController {
             HBox hbox = new HBox();
             hbox.getStyleClass().add("linkHBoxes");
 
-            ImageView alert = new ImageView(alertSign);
-            alert.setVisible(false);
-            alert.setFitHeight(30);
-            alertSigns.add(alert);
-            hbox.getChildren().add(alert);
-
             logos.get(i).setFitHeight(30);
             hbox.getChildren().add(logos.get(i));
 
             urls.get(i).getStyleClass().add("hyperlink");
             hbox.getChildren().add(urls.get(i));
 
-            linkBoxes.add(hbox);
-            if (urls.get(i).getText() != null)
-                linksBox.getChildren().add(hbox);
-
-            urlEditor.get(i).setFont(new Font(16));
-            urlEditor.get(i).setPrefWidth(342);
-            urlEditor.get(i).setPrefHeight(31);
+            linksBox.getChildren().add(hbox);
         }
     }
 
@@ -206,9 +192,7 @@ public class ProfileController {
         makeChanges.setVisible(true);
 
         // invisible labels
-        usernameField.setVisible(false);
         genderField.setVisible(false);
-        regionField.setVisible(false);
 
         // visible editors
         nameEditor.setVisible(true);
@@ -234,31 +218,51 @@ public class ProfileController {
         regionBox.setVisible(true);
         regionBox.setValue(regionField.getText());
 
-        // link fields
-        linksBox.getChildren().clear();
-        for (int i = 0; i < 9; i++) {
-            linkBoxes.get(i).getChildren().removeLast();
-            urlEditor.get(i).setText(urls.get(i).getText());
-            linkBoxes.get(i).getChildren().add(urlEditor.get(i));
-        }
-        linksBox.getChildren().addAll(linkBoxes);
     }
 
     // checking for errors and setting user information
 
     @FXML
-    void makeChanges() {
-        for (HBox hbox : linkBoxes) {
-            hbox.getChildren().getFirst().setVisible(false);
-        }
+    void makeChanges() throws IOException {
+        nameAlert.setVisible(false);
+        lastnameAlert.setVisible(false);
+        emailAlert.setVisible(false);
+        genderAlert.setVisible(false);
         if (!checkErrors()) {
             setInformation();
         }
+
     }
 
     public boolean checkErrors() {
         boolean flag = false;
+        if(nameEditor.getText().equals("")){
+            flag = true;
+            nameAlert.setVisible(true);
+            Notifications.create().title("Error").text("Name field can't be empty.").showError();
+        }
 
+        if(lastnameEditor.getText().equals("")){
+            flag = true;
+            lastnameAlert.setVisible(true);
+            Notifications.create().title("Error").text("Last name field can't be empty.").showError();
+        }
+        if(emailEditor.getText().equals("")){
+            flag = true;
+            emailAlert.setVisible(true);
+            Notifications.create().title("Error").text("Email field can't be empty.").showError();
+        }
+        if((maleBox.isSelected() && femaleBox.isSelected()) || (!maleBox.isSelected() && !femaleBox.isSelected())){
+            flag = true;
+            genderAlert.setVisible(true);
+            Notifications.create().title("Error").text("Please select only one gender. We live in Iran.").showError();
+        }
+
+        if(!checkRegex("[\\w-.]+@[\\w-.]+\\.[\\w-]{2,4}", emailEditor.getText())){
+            flag = true;
+            emailAlert.setVisible(true);
+            Notifications.create().title("Error").text("Enter a valid Email.").showError();
+        }
         return flag;
     }
 
@@ -269,7 +273,38 @@ public class ProfileController {
         return matcher.find();
     }
 
-    public void setInformation() {
+    public void setInformation() throws IOException {
+        nameField.setText(nameEditor.getText());
+        user.setFirstName(nameEditor.getText());
+        nameEditor.setVisible(false);
+
+        lastnameField.setText(lastnameEditor.getText());
+        user.setLastName(lastnameEditor.getText());
+        lastnameEditor.setVisible(false);
+
+        emailField.setText(emailEditor.getText());
+        user.setEmail(emailEditor.getText());
+        emailEditor.setVisible(false);
+
+        LocalDate dob = datePicker.getValue();
+        if (dob != null) {
+            MOBField.setText(dob.format(DateTimeFormatter.ofPattern("MM")));
+            DOBField.setText(dob.format(DateTimeFormatter.ofPattern("dd")));
+            YOBField.setText(dob.format(DateTimeFormatter.ofPattern("yyyy")));
+        }
+
+        if(maleBox.isSelected()){
+            user.setGender("male");
+            genderField.setText("male");
+        } else {
+            user.setGender("female");
+            genderField.setText("female");
+        }
+        regionField.setText(regionBox.getValue());
+        user.setRegion(regionBox.getValue());
+
+        makeChanges.setVisible(false);
+        updateUser(user);
 
     }
 
