@@ -76,4 +76,8 @@ public class History {
             System.out.println("| history not found");
         }
     }
+
+    public UUID getVideoId() {
+        return videoId;
+    }
 }
