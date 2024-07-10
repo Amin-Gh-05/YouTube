@@ -88,6 +88,11 @@ public class ShortController {
 
 
     public void loadPlayer() throws IOException {
+        for (int i = 0; i < shortVideoList.size(); i++) {
+            if (shortVideoList.get(i).getId().toString().equals(shortVideo.getId().toString())) {
+                shortNumber = i;
+            }
+        }
         if(MainController.user == null) {
             likeBtn.setDisable(true);
             likeBtnBorderPane.setDisable(true);
@@ -97,14 +102,9 @@ public class ShortController {
             saveToPLBtnBorderPane.setDisable(true);
         }
 
-        likeCnt.setText(String.valueOf(shortVideo.getLikes()));
-        viewCnt.setText("view: "+ String.valueOf(shortVideo.getViews()));
+        likeCnt.setText(String.valueOf(shortVideoList.get(shortNumber).getLikes()));
+        viewCnt.setText("view: "+ String.valueOf(shortVideoList.get(shortNumber).getViews()));
 
-        for (int i = 0; i < shortVideoList.size(); i++) {
-            if (shortVideoList.get(i).getId().toString().equals(shortVideo.getId().toString())) {
-                shortNumber = i;
-            }
-        }
 
         if (shortNumber == 0) {
             previousBtn.setDisable(true);
@@ -125,14 +125,14 @@ public class ShortController {
 
         ShortPlayerController shortPlayerController = shortPlayerLoader.getController();
         shortPlayerController.setPane(playerPane);
-        shortPlayerController.setPath("file:///" + Main.CASH_PATH + "/" + shortVideo.getId().toString() + ".mp4", shortVideo.getId());
+        shortPlayerController.setPath("file:///" + Main.CASH_PATH + "/" + shortVideoList.get(shortNumber).getId().toString() + ".mp4", shortVideoList.get(shortNumber).getId());
         shortPlayerController.initBindings();
 
-        shortPlayerController.setHandle(shortVideo.getShortHandle());
-        shortPlayerController.setTitle(shortVideo.getTitle());
-        shortPlayerController.setProfileImage(shortVideo.getShortHandle());
+        shortPlayerController.setHandle(shortVideoList.get(shortNumber).getShortHandle());
+        shortPlayerController.setTitle(shortVideoList.get(shortNumber).getTitle());
+        shortPlayerController.setProfileImage(shortVideoList.get(shortNumber).getShortHandle());
         if (MainController.user != null) {
-            if (Request.isSubscribed(MainController.user.getYid().toString(), shortVideo.getShortHandle())) {
+            if (Request.isSubscribed(MainController.user.getYid().toString(), shortVideoList.get(shortNumber).getShortHandle())) {
                 shortPlayerController.disableSubscribeBtn();
             }
         }
@@ -290,7 +290,7 @@ public class ShortController {
             postComment.setText("Post");
             postComment.setOnAction(event -> {
                 if(commentSection.getText() != null){
-                    Comment comment = new Comment(UUID.randomUUID(), shortVideo.getId(), MainController.user.getYid(), commentSection.getText(), 0, String.valueOf(LocalDate.now()));
+                    Comment comment = new Comment(UUID.randomUUID(), shortVideoList.get(shortNumber).getId(), MainController.user.getYid(), commentSection.getText(), 0, String.valueOf(LocalDate.now()));
                     try {
                         Request.createShortComment(comment);
                     } catch (IOException e) {
@@ -339,7 +339,7 @@ public class ShortController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/project/youtube/Client/addToPL-view.fxml"));
         DialogPane addToPL = loader.load();
         AddToPLController controller = loader.getController();
-        controller.shortVideo = this.shortVideo;
+        controller.shortVideo = this.shortVideoList.get(shortNumber);
 
         Dialog adder = new Dialog();
         adder.setDialogPane(addToPL);
